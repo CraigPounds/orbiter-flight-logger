@@ -7,7 +7,7 @@ const expect = chai.expect;
 const { app } = require('../server');
 chai.use(chaiHttp);
 
-describe('hit root URL', function() {
+describe('Hit root URL', function() {
   it('should return status code 200 and HTML', function() {
     let res;
     return chai.request(app)
