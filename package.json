@@ -1,0 +1,14 @@
+{
+  "name": "orbiter-flight-logger",
+  "version": "1.0.0",
+  "description": "flight logger for Orbiter Flight Simulator",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Craig Pounds",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
