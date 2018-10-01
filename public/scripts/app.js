@@ -55,10 +55,12 @@ function submitLogin(event) {
 
 function submitMission() {
   event.preventDefault();
+  console.log('submitMission ran');
 }
 
 function submitSearch(event) {
   event.preventDefault();
+  console.log('submitSearch ran');
 }
 
 function submitSignup(event) {
@@ -68,6 +70,7 @@ function submitSignup(event) {
 
 function submitProfile(event) {
   event.preventDefault();
+  console.log('submitProfile ran');
 }
 
 function login() {
