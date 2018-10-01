@@ -5,10 +5,15 @@ body {
 
 nav,
 header,
-h2,
-form {
+h2 {
   text-align: center;
   margin: 5px 0;
+}
+
+form {
+  max-width: 320px;
+  margin: auto;
+  text-align: right;
 }
 
 h1 {
@@ -27,4 +32,24 @@ nav li {
 
 label {
   display: inline-block;
+}
+
+img {
+  display: block;
+  width: 90%;
+  margin: auto;
+}
+
+select {
+  width: 174px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 170px;
+}
+
+input[type="submit"] {
+  display: block;
+  margin: 5px auto;
 }

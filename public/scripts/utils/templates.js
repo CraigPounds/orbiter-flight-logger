@@ -111,7 +111,7 @@ function decorateGallery() {
   <main aria-live="polite">
     <div id="page-gallery">
       <h2>Gallery</h2>
-
+      <img src="./images/challenger.jpg" alt="Challenger Shuttle">
     </div>
   </main>
   `;
