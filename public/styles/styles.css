@@ -1,0 +1,9 @@
+nav,
+header,
+main {
+  text-align: center;
+}
+
+nav li {
+  display: inline;
+}
