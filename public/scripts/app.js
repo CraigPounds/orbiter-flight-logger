@@ -1,48 +1,48 @@
 'use strict';
 
-import {  decorateLogin, decorateHome, decorateSearch, decorateGallery, decorateSignup, decorateProfile } from './utils/templates.js';
+import { decorateLogin, decorateHome, decorateSearch, decorateGallery, decorateSignup, decorateProfile } from './utils/templates.js';
+import { DATA } from './data/mock-data.js';
 
 function attachListeners() {
   console.log('attachListeners ran');
-  $('#nav-login').on('click', pageLogin);
-  $('#nav-home').on('click', pageHome);
-  $('#nav-search').on('click', pageSearch);
-  $('#nav-gallery').on('click', pageGallery);
-  $('#nav-signup').on('click',pageSignUp);
-  $('#nav-profile').on('click', pageProfile);
-  $('#nav-logout').on('click', logOut);
-  $('main').on('click', '#btn-new', newMission);  
+  $('#page').on('click', '#nav-login', pageLogin);
+  $('#page').on('click', '#nav-home', pageHome);
+  $('#page').on('click', '#nav-search', pageSearch);
+  $('#page').on('click', '#nav-gallery', pageGallery);
+  $('#page').on('click', '#nav-signup', pageSignUp);
+  $('#page').on('click', '#nav-profile', pageProfile);
+  $('#page').on('click', '#nav-logout',  logOut);
+  $('#page').on('click', '#btn-new', newMission);  
 }
 
 function pageLogin() {
-  $('main').html(decorateLogin);
+  $('#page').html(decorateLogin);
 }
 
 function pageHome() {
-  $('main').html(decorateHome);
+  $('#page').html(decorateHome);
 }
 
 function pageSearch() {
-  $('main').html(decorateSearch);
+  $('#page').html(decorateSearch);
 }
 
 function pageGallery() {
-  $('main').html(decorateGallery);
+  $('#page').html(decorateGallery);
 }
 
 function pageSignUp() {
-  $('main').html(decorateSignup);
+  $('#page').html(decorateSignup);
 }
 
 function pageProfile() {
-  $('main').html(decorateProfile);
+  $('#page').html(decorateProfile);
 }
 
 function logOut() {
-  console.log('logOut ran');  
-  $('.user').hide();
-  $('.guest').show();
-  $('main').html(decorateGallery);
+  console.log('logOut ran');
+  DATA.loggedIn = false;
+  $('#page').html(decorateGallery);
 }
 
 function newMission() {
@@ -50,21 +50,7 @@ function newMission() {
 }
 
 function setUp() {
-  $('.guest').hide();
-  $('main').html(decorateHome);
-}
-
-function renderMenu() {
-
-}
-
-function renderPage() {
-
-}
-
-function renderHtml() {
-  renderMenu();
-  renderPage();
+  $('#page').html(decorateHome);
 }
 
 export { attachListeners, setUp };
