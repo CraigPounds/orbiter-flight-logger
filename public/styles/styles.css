@@ -10,9 +10,17 @@ h2 {
   margin: 5px 0;
 }
 
-form {
+form,
+.mission {
   max-width: 320px;
-  margin: auto;
+  margin: auto;  
+}
+
+.mission {
+  /* background: red; */
+}
+
+form {
   text-align: right;
 }
 

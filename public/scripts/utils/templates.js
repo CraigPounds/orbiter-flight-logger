@@ -57,13 +57,28 @@ function decorateHome() {
     <div id="page-home">
       <h2>Home</h2>
       <form action="#" class="form-home">
-
         <input type="submit" id="btn-new-mission" value="NEW MISSION">
       </form>
-      <ul id="logs">       
-      </ul>
+      <div id="open-mission" class="mission">
+        ${decorateOpenMission()}
+      </div>
+      <div id="other-missions" class="mission">
+        ${decorateOtherMissions()}
+      </div>
     </div>
   </main>
+  `;
+}
+
+function decorateOpenMission() {
+  return `
+    
+  `;
+}
+
+function decorateOtherMissions() {
+  return `
+  
   `;
 }
 
@@ -100,8 +115,26 @@ function decorateSearch() {
           <input type="submit" id="btn-search" value="SEARCH">
         </fieldset>
       </form>
+      <div id="open-result" class="mission">
+        ${decorateOpenResult()}
+      </div>
+      <div id="other-results" class="mission">
+        ${decorateOtherResults()}
+      </div>
     </div>
   </main>
+  `;
+}
+
+function decorateOpenResult() {
+  return `
+  
+  `;
+}
+
+function decorateOtherResults() {
+  return `
+    
   `;
 }
 

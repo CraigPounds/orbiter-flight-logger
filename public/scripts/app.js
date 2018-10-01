@@ -43,11 +43,6 @@ function pageProfile() {
   $('#page').html(decorateProfile);
 }
 
-function logout() {
-  DATA.loggedIn = false;
-  $('#page').html(decorateGallery);
-}
-
 function submitLogin(event) {
   event.preventDefault();
   login();
@@ -60,7 +55,8 @@ function submitMission() {
 
 function submitSearch(event) {
   event.preventDefault();
-  console.log('submitSearch ran');
+  // console.log('submitSearch ran');
+  getAndDisplaySearchMissions();
 }
 
 function submitSignup(event) {
@@ -73,13 +69,40 @@ function submitProfile(event) {
   console.log('submitProfile ran');
 }
 
+function logout() {
+  DATA.loggedIn = false;
+  pageGallery();
+}
+
 function login() {
   DATA.loggedIn = true;
   pageHome();
 }
 
 function setUp() {
-  $('#page').html(decorateHome);
+  login();
+  // logout();
+}
+
+
+
+function getUpdates(callbackFn) {
+  // using `setTimeout` to make this asynchronous like AJAX
+  setTimeout(function(){ callbackFn(DATA);}, 1);
+}
+
+function displayUpdates(data) {
+  data.mockMissions.forEach(mission => {
+    for (var key in mission) {
+      if (mission.hasOwnProperty(key)) {
+        $('#other-results').append(`<p>${mission[key]}</p>`);
+      }
+    };
+  });
+}
+
+function getAndDisplaySearchMissions() {
+  getUpdates(displayUpdates);
 }
 
 export { attachListeners, setUp };
