@@ -4,7 +4,6 @@ import { decorateLogin, decorateHome, decorateSearch, decorateGallery, decorateS
 import { DATA } from './data/mock-data.js';
 
 function attachListeners() {
-  console.log('attachListeners ran');
   $('#page').on('click', '#nav-login', pageLogin);
   $('#page').on('click', '#nav-home', pageHome);
   $('#page').on('click', '#nav-search', pageSearch);
@@ -45,35 +44,29 @@ function pageProfile() {
 }
 
 function logout() {
-  console.log('logout ran');
   DATA.loggedIn = false;
   $('#page').html(decorateGallery);
 }
 
 function submitLogin(event) {
-  console.log('submitLogin ran');
   event.preventDefault();
   login();
 }
 
 function submitMission() {
-  console.log('submitMission ran');
   event.preventDefault();
 }
 
 function submitSearch(event) {
-  console.log('submitSearch ran');
   event.preventDefault();
 }
 
 function submitSignup(event) {
-  console.log('submitSignup ran');
   event.preventDefault();
   login();
 }
 
 function submitProfile(event) {
-  console.log('submitProfile ran');
   event.preventDefault();
 }
 
