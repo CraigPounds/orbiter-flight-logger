@@ -1,6 +1,6 @@
 'use strict';
 
-import { decorateLogin, decorateHome, decorateSearch, decorateGallery, decorateSignup, decorateProfile } from './utils/templates.js';
+import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage, decorateResults } from './utils/templates.js';
 import { DATA } from './data/mock-data.js';
 
 function attachListeners() {
@@ -20,27 +20,27 @@ function attachListeners() {
 }
 
 function pageLogin() {
-  $('#page').html(decorateLogin);
+  $('#page').html(decorateLoginPage);
 }
 
 function pageHome() {
-  $('#page').html(decorateHome);
+  $('#page').html(decorateHomePage);
 }
 
 function pageSearch() {
-  $('#page').html(decorateSearch);
+  $('#page').html(decorateSearchPage);  
 }
 
 function pageGallery() {
-  $('#page').html(decorateGallery);
+  $('#page').html(decorateGalleryPage);
 }
 
 function pageSignup() {
-  $('#page').html(decorateSignup);
+  $('#page').html(decorateSignupPage);
 }
 
 function pageProfile() {
-  $('#page').html(decorateProfile);
+  $('#page').html(decorateProfilePage);
 }
 
 function submitLogin(event) {
@@ -55,8 +55,7 @@ function submitMission() {
 
 function submitSearch(event) {
   event.preventDefault();
-  // console.log('submitSearch ran');
-  getAndDisplaySearchMissions();
+  getMissions(renderSearchResults);  ;
 }
 
 function submitSignup(event) {
@@ -80,29 +79,17 @@ function login() {
 }
 
 function setUp() {
-  login();
-  // logout();
+  // login();
+  logout();
 }
 
-
-
-function getUpdates(callbackFn) {
-  // using `setTimeout` to make this asynchronous like AJAX
-  setTimeout(function(){ callbackFn(DATA);}, 1);
+function getMissions(callbackFn) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callbackFn(DATA); }, 1);
 }
 
-function displayUpdates(data) {
-  data.mockMissions.forEach(mission => {
-    for (var key in mission) {
-      if (mission.hasOwnProperty(key)) {
-        $('#other-results').append(`<p>${mission[key]}</p>`);
-      }
-    };
-  });
-}
-
-function getAndDisplaySearchMissions() {
-  getUpdates(displayUpdates);
+function renderSearchResults(data) {
+  $('#search-results').html(decorateResults(data));
 }
 
 export { attachListeners, setUp };

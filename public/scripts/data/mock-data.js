@@ -9,9 +9,7 @@ const DATA = {
       'lastName': 'Doe',
       'userName': 'jd',
       'password': 'password1',
-      'email': 'jd@gmail.com',
-      'os': 'Windows 7',
-      'orbiterVersion': '2010'
+      'email': 'jd@gmail.com'
     },
     {
       '_id': '222222222',
@@ -19,9 +17,7 @@ const DATA = {
       'lastName': 'Doe',
       'userName': 'jan',
       'password': 'password2',
-      'email': 'jd@gmail.com',
-      'os': 'Windows 10',
-      'orbiterVersion': '2016'
+      'email': 'jd@gmail.com'
     },
     {
       '_id': '333333333',
@@ -29,15 +25,15 @@ const DATA = {
       'lastName': 'Weaver',
       'userName': 'napes',
       'password': 'password3',
-      'email': 'nweaver@gmail.com',
-      'os': 'Windows XP',
-      'orbiterVersion': '2016'
+      'email': 'nweaver@gmail.com'
     }
   ],
   mockMissions: [
     {
       '_id': 'aaaaaaaaa',
       'user': '333333333',
+      'os': 'Windows 10',
+      'orbiterVersion': 'Orbiter 2016',
       'title': 'Mission to Mars',
       'logs': [
         {
@@ -66,6 +62,8 @@ const DATA = {
     {
       '_id': 'bbbbbbbbb',
       'user': '333333333',
+      'os': 'Windows XP',
+      'orbiterVersion': 'Orbiter 2006',
       'title': 'Moon Mission',
       'logs': [
         {
@@ -102,6 +100,8 @@ const DATA = {
       '_id': 'ccccccccc',
       'user': '111111111',
       'title': 'Venus Flyby',
+      'os': 'Windows 7',
+      'orbiterVersion': 'Orbiter 2010',
       'logs': [
         {
           'id': '1',

@@ -5,9 +5,9 @@ import { DATA } from '../data/mock-data.js';
 const GUEST_NAVIGATION = `  
   <nav role="navigation">      
     <ul>
-      <li id="nav-login">Log In</li>
-      <li id="nav-gallery">Gallery</li>
-      <li id="nav-signup">Sign Up</li>
+      <li id="nav-login"><a href="#">Log In</a></li>
+      <li id="nav-gallery"><a href="#">Gallery</a></li>
+      <li id="nav-signup"><a href="#">Sign Up</a></li>
     </ul>
   </nav>
   `;
@@ -15,11 +15,11 @@ const GUEST_NAVIGATION = `
 const USER_NAVIGATION = `
   <nav role="navigation">      
     <ul>
-      <li id="nav-home">Home</li>
-      <li id="nav-search">Search</li>
-      <li id="nav-gallery">Gallery</li>
-      <li id="nav-profile">Profile</li>
-      <li id="nav-logout">Log Out</li>
+      <li id="nav-home"><a href="#">Home</a></li>
+      <li id="nav-search"><a href="#">Search</a></li>
+      <li id="nav-gallery"><a href="#">Gallery</a></li>
+      <li id="nav-profile"><a href="#">Profile</a></li>
+      <li id="nav-logout"><a href="#">Log Out</a></li>
     </ul>
   </nav>
   `;
@@ -28,14 +28,13 @@ function decorateNavigation() {
   return DATA.loggedIn ? USER_NAVIGATION : GUEST_NAVIGATION;
 }
 
-function decorateLogin() {
-  
+function decorateLoginPage() {  
   return `
   ${decorateNavigation()}
-  <main aria-live="polite">
+  <main>
     <div id="page-login">
       <h2>User Log In</h2>
-      <form action="#" class='form-login'>
+      <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
             <input type="text" id="user-name" required placeholder="username">
@@ -50,64 +49,48 @@ function decorateLogin() {
   `;
 }
 
-function decorateHome() {
+function decorateHomePage() {
   return `
   ${decorateNavigation()}
-  <main aria-live="polite">
+  <main>
     <div id="page-home">
       <h2>Home</h2>
       <form action="#" class="form-home">
         <input type="submit" id="btn-new-mission" value="NEW MISSION">
       </form>
-      <div id="open-mission" class="mission">
-        ${decorateOpenMission()}
-      </div>
-      <div id="other-missions" class="mission">
-        ${decorateOtherMissions()}
+      <div id="missions" class="results">        
       </div>
     </div>
   </main>
   `;
 }
 
-function decorateOpenMission() {
-  return `
-    
-  `;
-}
-
-function decorateOtherMissions() {
-  return `
-  
-  `;
-}
-
-function decorateSearch() {
+function decorateSearchPage() {
   return `
   ${decorateNavigation()}
-  <main aria-live="polite">
+  <main>
     <div id="page-search">
       <h2>Search Flight Logs</h2>
-      <form action="#" class='form-search'>
+      <form action="#" class="form-search">
         <fieldset role="group">
           <label for="select-os">Operating System:</label>
           <select id="select-os">
-              <option value="">--Windows Version--</option>
-              <option value="win-10">Windows 10</option>
-              <option value="win-8">Windows 8.1</option>
-              <option value="win-7">Windows 7</option>
-              <option value="win-vista">Windows Vista</option>
-              <option value="win-xp">Windows XP</option>
-              <option value="win-2k">Windows 2000</option>
-              <option value="other">other</option>
+            <option value="">--Choose Version--</option>
+            <option value="win-10">Windows 10</option>
+            <option value="win-8">Windows 8.1</option>
+            <option value="win-7">Windows 7</option>
+            <option value="win-vista">Windows Vista</option>
+            <option value="win-xp">Windows XP</option>
+            <option value="win-2k">Windows 2000</option>
+            <option value="other">other</option>
           </select>
           <label for="select-version">Orbiter Version:</label>
           <select id="select-version">
-              <option value="">--Orbiter Version--</option>
-              <option value="orbiter-2016">Orbiter 2016</option>
-              <option value="orbiter-2010">Orbiter 2010</option>
-              <option value="orbiter-2006">Orbiter 2006</option>
-              <option value="orbiter-2005">Orbiter 2005</option>
+            <option value="">--Choose Version--</option>
+            <option value="orbiter-2016">Orbiter 2016</option>
+            <option value="orbiter-2010">Orbiter 2010</option>
+            <option value="orbiter-2006">Orbiter 2006</option>
+            <option value="orbiter-2005">Orbiter 2005</option>
           </select>
           <label for="#search-text">User or Keyword
             <input type="text" id="search-text" placeholder="launch">
@@ -115,33 +98,44 @@ function decorateSearch() {
           <input type="submit" id="btn-search" value="SEARCH">
         </fieldset>
       </form>
-      <div id="open-result" class="mission">
-        ${decorateOpenResult()}
-      </div>
-      <div id="other-results" class="mission">
-        ${decorateOtherResults()}
+      <div id="search-results" class="results">
       </div>
     </div>
   </main>
   `;
 }
 
-function decorateOpenResult() {
-  return `
-  
-  `;
+function decorateResults(data) {
+  return data.mockMissions.map((mission, index) => {
+    // console.log(mission, index);
+    const LOGS = mission.logs.map((log, index) => {
+      return `
+      <div class=logs>
+        <h4>${index + 1}) ${log.title}</h4>
+        <p>${log.vessel}</p>
+        <p>${log.date}</p>
+        <p>${log.log}</p>
+      </div>
+      `;
+    }).join('');
+    return `
+    <div class="result">
+      <h3>${mission.title}</h3>
+      <p>${mission.user}</p>
+      <p>${mission.orbiterVersion}</p>
+      <p>${mission.os}</p>
+      <div>
+        ${LOGS}
+      </div>
+    </div>
+    `;
+  }).join('');
 }
 
-function decorateOtherResults() {
-  return `
-    
-  `;
-}
-
-function decorateGallery() {
+function decorateGalleryPage() {
   return `
   ${decorateNavigation()}
-  <main aria-live="polite">
+  <main>
     <div id="page-gallery">
       <h2>Gallery</h2>
       <img src="./images/challenger.jpg" alt="Challenger Shuttle">
@@ -150,13 +144,13 @@ function decorateGallery() {
   `;
 }
 
-function decorateSignup() {
+function decorateSignupPage() {
   return `
   ${decorateNavigation()}
-  <main aria-live="polite">
+  <main>
     <div id="page-signup">
       <h2>Create Account</h2>
-      <form action="#" class='form-signup'>
+      <form action="#" class="form-signup">
         <fieldset role="group">
           <label for="#first-name">First Name
             <input type="text" id="first-name" required placeholder="First Name">
@@ -184,13 +178,13 @@ function decorateSignup() {
   `;
 }
 
-function decorateProfile() {
+function decorateProfilePage() {
   return `
   ${decorateNavigation()}
-  <main aria-live="polite">
+  <main>
     <div id="page-profile">
       <h2>Edit Profile</h2>
-      <form action="#" class='form-profile'>
+      <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name
             <input type="text" id="first-name" required placeholder="First Name">
@@ -218,4 +212,4 @@ function decorateProfile() {
   `;
 }
 
-export { decorateLogin, decorateHome, decorateSearch, decorateGallery, decorateSignup, decorateProfile };
+export { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage, decorateResults };
