@@ -8,7 +8,7 @@ const DATA = {
       'firstName': 'Jon',
       'lastName': 'Doe',
       'userName': 'jd',
-      'password': 'password1',
+      'password': 'password111',
       'email': 'jd@gmail.com'
     },
     {
@@ -16,7 +16,7 @@ const DATA = {
       'firstName': 'Jane',
       'lastName': 'Doe',
       'userName': 'jan',
-      'password': 'password2',
+      'password': 'password222',
       'email': 'jd@gmail.com'
     },
     {
@@ -24,7 +24,7 @@ const DATA = {
       'firstName': 'Napes',
       'lastName': 'Weaver',
       'userName': 'napes',
-      'password': 'password3',
+      'password': 'password333',
       'email': 'nweaver@gmail.com'
     }
   ],

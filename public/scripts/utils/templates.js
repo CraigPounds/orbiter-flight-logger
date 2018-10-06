@@ -106,7 +106,7 @@ function decorateSearchPage() {
 }
 
 function decorateResults(data) {
-  return data.mockMissions.map((mission, index) => {
+  return data.map((mission, index) => {
     // console.log(mission, index);
     const LOGS = mission.logs.map((log, index) => {
       return `

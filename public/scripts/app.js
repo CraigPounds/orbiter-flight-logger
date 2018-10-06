@@ -68,28 +68,42 @@ function submitProfile(event) {
   console.log('submitProfile ran');
 }
 
+function getMissions(callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+}
+
+function renderSearchResults(data) {
+  $('#search-results').html(decorateResults(data));
+}
+
+function authenticateCredentials(data) { 
+  // find user
+  const USER = data.find((user) => user.userName === $('#user-name').val().trim());
+  // authenticate
+  if (USER !== undefined && USER.password === $('#password').val().trim()) {    
+    DATA.loggedIn = true;
+    pageHome();    
+  }  
+}
+
+function getUsers(callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+}
+
+function login() {  
+  getUsers(authenticateCredentials);
+}
+
 function logout() {
   DATA.loggedIn = false;
   pageGallery();
 }
 
-function login() {
-  DATA.loggedIn = true;
-  pageHome();
-}
-
 function setUp() {
   // login();
   logout();
-}
-
-function getMissions(callbackFn) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callbackFn(DATA); }, 1);
-}
-
-function renderSearchResults(data) {
-  $('#search-results').html(decorateResults(data));
 }
 
 export { attachListeners, setUp };
