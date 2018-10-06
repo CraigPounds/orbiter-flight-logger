@@ -72,15 +72,15 @@ function submitSignup(event) {
 function submitProfile(event) {
   event.preventDefault();
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
-    // putUser();
-    pageHome();
+    putUser(DATA.userId, cbEditUserProfile);
+    // pageHome();
   }
 }
 
 function btnDelete() {
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
-    deleteUser(DATA.userId, cbRemoveUserProfile);
+    deleteUser(DATA.userId, cbDeleteUserProfile);
     logout();
   }
 }
@@ -100,12 +100,12 @@ function postUser(callback) {
 
 function putUser(id, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600);  
+  setTimeout(function() { callback(id, DATA.mockUsers); }, 600);  
 }
 
 function deleteUser(id, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(id,DATA.mockUsers); }, 600);
+  setTimeout(function() { callback(id, DATA.mockUsers); }, 600);
 }
 
 function getMissions(query, callback) {
@@ -128,15 +128,13 @@ function deleteMission(id, callback) {
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
-function cbAddUser(data) {
+function cbAddUser(data) {  
+  let password = $('#password').val().trim();
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
   let userName = $('#user-name').val().trim();
-  let password = $('#password').val().trim();
-  let retypedPassword = $('#retype-password').val().trim();
-  let _id = userName + '0001';
-  
+  let _id = userName + '0001';    
   let newUser = {
     _id,
     firstName,
@@ -146,32 +144,19 @@ function cbAddUser(data) {
     password
   };
   data.push(newUser);  
-  DATA.userId = newUser._id;
+  DATA.userId = newUser._id;  
 }
 
 function cbAuthenticateUser(data) { 
-  // find user
   let user = data.find((user) => user.userName === $('#user-name').val().trim());
-  // authenticate
+
   if (user !== undefined && user.password === $('#password').val().trim()) {    
     DATA.userId = user._id;
-    login();   
+    login();
   }
 }
 
-function cbEditUserIndo(data) {
-
-}
-
-function cbRenderHomePage(data) {
-  $('#page').html(decorateHomePage(data.find((user => user._id === DATA.userId)))); 
-}
-
-function cbRenderProfilePage(data) {
-  $('#page').html(decorateProfilePage(data.find((user => user._id === DATA.userId))));
-}
-
-function cbRemoveUserProfile(id, data) {
+function cbDeleteUserProfile(id, data) {
   let index = 0;
   for (let i = 0; i < data.length; i++) {
     if (data[i]._id === id) {
@@ -180,6 +165,31 @@ function cbRemoveUserProfile(id, data) {
     }
   }
   data.splice(index, 1);
+}
+
+function cbEditUserProfile(id, data) {
+  for (let i = 0; i < data.length; i++) {
+    if (data[i]._id === id) {
+      let firstName = $('#first-name').val().trim();
+      let lastName = $('#last-name').val().trim();
+      // let email = $('#email').val().trim();
+      let userName = $('#user-name').val().trim();
+      let password = $('#password').val().trim();
+      data[i].firstName = firstName;
+      data[i].lastName = lastName;
+      data[i].userName = userName;
+      // data[i].email = email;
+      data[i].password = password;
+    }
+  }
+}
+
+function cbRenderHomePage(data) {
+  $('#page').html(decorateHomePage(data.find((user => user._id === DATA.userId)))); 
+}
+
+function cbRenderProfilePage(data) {
+  $('#page').html(decorateProfilePage(data.find((user => user._id === DATA.userId))));
 }
 
 function cbRenderSearchResults(data) {
