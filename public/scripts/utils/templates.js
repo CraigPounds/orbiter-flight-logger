@@ -49,16 +49,55 @@ function decorateLoginPage() {
   `;
 }
 
-function decorateHomePage(user) {
+function decorateHomePage(missions) {  
   return `
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>${user.userName}</h2>
+      <h2>${DATA.userName}</h2>
       <form action="#" class="form-home">
         <input type="submit" id="btn-new-mission" value="NEW MISSION">
       </form>
-      <div id="missions" class="results">        
+      <div>
+        <form action="#" class="form-logging">
+          <fieldset role="group">
+            <label for="select-version">Orbiter Version:</label>
+            <select id="select-version">
+              <option value="">--Choose Version--</option>
+              <option value="orbiter-2016">Orbiter 2016</option>
+              <option value="orbiter-2010">Orbiter 2010</option>
+              <option value="orbiter-2006">Orbiter 2006</option>
+              <option value="orbiter-2005">Orbiter 2005</option>
+            </select>
+            <label for="select-os">Operating System:</label>
+            <select id="select-os">
+              <option value="">--Choose Version--</option>
+              <option value="win-10">Windows 10</option>
+              <option value="win-8">Windows 8.1</option>
+              <option value="win-7">Windows 7</option>
+              <option value="win-vista">Windows Vista</option>
+              <option value="win-xp">Windows XP</option>
+              <option value="win-2k">Windows 2000</option>
+              <option value="other">other</option>
+            </select>
+            <label for="#email">Email
+              <input type="text" id="email" required value=${'hi'}>
+            </label>
+            <label for="#user-name">User Name
+              <input type="text" id="user-name" required value=${'hi'}>
+            </label>
+            <label for="#password">Password
+              <input type="password" id="password" required value=${'hi'}>
+            </label>
+            <label for="#retype-password">Retype Password
+              <input type="password" id="retype-password" required placeholder="">
+            </label>
+            <input type="submit" id="btn-profile" value="SUBMIT">
+          </fieldset>
+        </form>
+      </div>
+      <div id="missions" class="results">
+        ${decorateResults(missions)}
       </div>
     </div>
   </main>
@@ -73,6 +112,14 @@ function decorateSearchPage() {
       <h2>Search Flight Logs</h2>
       <form action="#" class="form-search">
         <fieldset role="group">
+          <label for="select-version">Orbiter Version:</label>
+          <select id="select-version">
+            <option value="">--Choose Version--</option>
+            <option value="orbiter-2016">Orbiter 2016</option>
+            <option value="orbiter-2010">Orbiter 2010</option>
+            <option value="orbiter-2006">Orbiter 2006</option>
+            <option value="orbiter-2005">Orbiter 2005</option>
+          </select>
           <label for="select-os">Operating System:</label>
           <select id="select-os">
             <option value="">--Choose Version--</option>
@@ -83,14 +130,6 @@ function decorateSearchPage() {
             <option value="win-xp">Windows XP</option>
             <option value="win-2k">Windows 2000</option>
             <option value="other">other</option>
-          </select>
-          <label for="select-version">Orbiter Version:</label>
-          <select id="select-version">
-            <option value="">--Choose Version--</option>
-            <option value="orbiter-2016">Orbiter 2016</option>
-            <option value="orbiter-2010">Orbiter 2010</option>
-            <option value="orbiter-2006">Orbiter 2006</option>
-            <option value="orbiter-2005">Orbiter 2005</option>
           </select>
           <label for="#search-text">User or Keyword
             <input type="text" id="search-text" placeholder="launch">

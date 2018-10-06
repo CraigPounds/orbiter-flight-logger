@@ -26,8 +26,8 @@ function pageLogin() {
 }
 
 function pageHome() {
-  // $('#page').html(decorateHomePage);
-  getUsers(cbRenderHomePage);
+  let query = buildQuery();
+  getMissions(query, cbRenderHomePage);
 }
 
 function pageSearch() {
@@ -54,12 +54,12 @@ function submitLogin(event) {
 function submitMission() {
   event.preventDefault();
   console.log('submitMission ran');
+
 }
 
 function submitSearch(event) {
   event.preventDefault();
   let query = buildQuery();
-
   getMissions(query, cbRenderSearchResults);
 }
 
@@ -145,6 +145,7 @@ function cbAddUser(data) {
   };
   data.push(newUser);  
   DATA.userId = newUser._id;  
+  DATA.userId = newUser.userName;
 }
 
 function cbAuthenticateUser(data) { 
@@ -152,6 +153,7 @@ function cbAuthenticateUser(data) {
 
   if (user !== undefined && user.password === $('#password').val().trim()) {    
     DATA.userId = user._id;
+    DATA.userName = user.userName;
     login();
   }
 }
@@ -160,11 +162,12 @@ function cbDeleteUserProfile(id, data) {
   let index = 0;
   for (let i = 0; i < data.length; i++) {
     if (data[i]._id === id) {
-      index = i;
-      i = data.length;
+      // index = i;
+      // i = data.length;
+      delete data[i];
     }
   }
-  data.splice(index, 1);
+  // data.splice(index, 1);
 }
 
 function cbEditUserProfile(id, data) {
@@ -185,7 +188,8 @@ function cbEditUserProfile(id, data) {
 }
 
 function cbRenderHomePage(data) {
-  $('#page').html(decorateHomePage(data.find((user => user._id === DATA.userId)))); 
+  // console.log('data', data);
+  $('#page').html(decorateHomePage(data)); 
 }
 
 function cbRenderProfilePage(data) {
@@ -203,6 +207,8 @@ function login() {
 
 function logout() {
   DATA.loggedIn = false;
+  DATA.userId = '';
+  DATA.userName = '';
   pageGallery();
 }
 

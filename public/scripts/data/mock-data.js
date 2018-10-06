@@ -2,6 +2,7 @@
 
 const DATA = {
   userId: undefined,
+  userName: undefined,
   loggedIn: false,
   mockUsers: [
     {
