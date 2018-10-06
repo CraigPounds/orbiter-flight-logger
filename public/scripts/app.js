@@ -45,7 +45,7 @@ function pageProfile() {
 
 function submitLogin(event) {
   event.preventDefault();
-  login();
+  getUsers(authenticateCredentials);
 }
 
 function submitMission() {
@@ -82,8 +82,7 @@ function authenticateCredentials(data) {
   const USER = data.find((user) => user.userName === $('#user-name').val().trim());
   // authenticate
   if (USER !== undefined && USER.password === $('#password').val().trim()) {    
-    DATA.loggedIn = true;
-    pageHome();    
+    login();   
   }  
 }
 
@@ -93,7 +92,8 @@ function getUsers(callback) {
 }
 
 function login() {  
-  getUsers(authenticateCredentials);
+  DATA.loggedIn = true;
+  pageHome(); 
 }
 
 function logout() {
