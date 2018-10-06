@@ -54,7 +54,7 @@ function decorateHomePage() {
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>Home</h2>
+      <h2>${DATA.userId}</h2>
       <form action="#" class="form-home">
         <input type="submit" id="btn-new-mission" value="NEW MISSION">
       </form>
@@ -178,7 +178,7 @@ function decorateSignupPage() {
   `;
 }
 
-function decorateProfilePage() {
+function decorateProfilePage(user) {
   return `
   ${decorateNavigation()}
   <main>
@@ -187,22 +187,22 @@ function decorateProfilePage() {
       <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name
-            <input type="text" id="first-name" required placeholder="First Name">
+            <input type="text" id="first-name" required value=${user.firstName}>
           </label>
           <label for="#last-name">Last Name
-            <input type="text" id="last-name" required placeholder="Last Name">
+            <input type="text" id="last-name" required value=${user.lastName}>
           </label>
           <label for="#email">Email
-            <input type="text" id="email" required placeholder="you@email.com">
+            <input type="text" id="email" required value=${user.email}>
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required placeholder="user name">
+            <input type="text" id="user-name" required value=${user.userName}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required placeholder="password">
+            <input type="password" id="password" required value=${user.password}>
           </label>
           <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" required placeholder="password">
+            <input type="password" id="retype-password" required placeholder="">
           </label>
           <input type="submit" id="btn-profile" value="SUBMIT">
         </fieldset>        

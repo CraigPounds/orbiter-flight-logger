@@ -40,7 +40,11 @@ function pageSignup() {
 }
 
 function pageProfile() {
-  $('#page').html(decorateProfilePage);
+  getUsers(getUserProfile);
+}
+
+function getUserProfile(data) {
+  $('#page').html(decorateProfilePage(data.find((user => user._id === DATA.userId))));
 }
 
 function submitLogin(event) {
@@ -55,24 +59,39 @@ function submitMission() {
 
 function submitSearch(event) {
   event.preventDefault();
-  getMissions(renderSearchResults);  ;
+  let query = buildQuery();
+
+  getMissions(query, renderSearchResults);
+}
+
+function buildQuery() {
+
 }
 
 function submitSignup(event) {
   event.preventDefault();
-  addUser();
+  postUser();
 }
 
 function submitProfile(event) {
   event.preventDefault();
-  console.log('submitProfile ran');
+  putUser();
 }
 
-function addUser() {
+function getUsers(callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+}
+
+function postUser(callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let userName = $('#user-name').val().trim();
   let password = $('#password').val().trim();
+  let retypedPassword = $('#retype-password').val().trim();
   let _id = userName + '0001';
   
   let newUser = {
@@ -83,31 +102,52 @@ function addUser() {
     password
   };
 
-  DATA.mockUsers.push(newUser);
+  DATA.mockUsers.push(newUser);  
+  DATA.userId = newUser._id;
   login();
 }
 
-function getMissions(callback) {
+function putUser(id, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  if($('#password').val.trim() === $('#retype-password').val().trim()) {
+    setTimeout(function() { callback(DATA.mockUsers); }, 600);
+  }
+  pageHome();
+}
+
+function deleteUser(callback) {
+
+}
+
+function getMissions(query, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
-function renderSearchResults(data) {
-  $('#search-results').html(decorateResults(data));
+function postMission(callback) {
+
+}
+
+function putMission(id, callback) {
+
+}
+
+function deleteMission(id, callback) {
+  
 }
 
 function authenticateCredentials(data) { 
   // find user
-  const USER = data.find((user) => user.userName === $('#user-name').val().trim());
+  let user = data.find((user) => user.userName === $('#user-name').val().trim());
   // authenticate
-  if (USER !== undefined && USER.password === $('#password').val().trim()) {    
+  if (user !== undefined && user.password === $('#password').val().trim()) {    
+    DATA.userId = user._id;
     login();   
-  }  
+  }
 }
 
-function getUsers(callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+function renderSearchResults(data) {
+  $('#search-results').html(decorateResults(data));
 }
 
 function login() {  
@@ -116,7 +156,6 @@ function login() {
 }
 
 function logout() {
-  DATA.loggedIn = false;
   pageGallery();
 }
 

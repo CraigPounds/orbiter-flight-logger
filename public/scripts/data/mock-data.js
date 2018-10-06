@@ -1,6 +1,7 @@
 'use strict';
 
 const DATA = {
+  userId: undefined,
   loggedIn: false,
   mockUsers: [
     {
