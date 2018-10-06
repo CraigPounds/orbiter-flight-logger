@@ -37,7 +37,7 @@ function decorateLoginPage() {
       <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required placeholder="username">
+            <input type="text" id="user-name" required placeholder="user name">
           </label>
           <label for="#password">Password
             <input type="password" id="password" required placeholder="password1">
@@ -162,7 +162,7 @@ function decorateSignupPage() {
             <input type="text" id="email" required placeholder="you@email.com">
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="username" required placeholder="username">
+            <input type="text" id="user-name" required placeholder="user name">
           </label>
           <label for="#password">Password
             <input type="password" id="password" required placeholder="password">
@@ -196,7 +196,7 @@ function decorateProfilePage() {
             <input type="text" id="email" required placeholder="you@email.com">
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="username" required placeholder="username">
+            <input type="text" id="user-name" required placeholder="user name">
           </label>
           <label for="#password">Password
             <input type="password" id="password" required placeholder="password">

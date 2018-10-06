@@ -60,12 +60,31 @@ function submitSearch(event) {
 
 function submitSignup(event) {
   event.preventDefault();
-  login();
+  addUser();
 }
 
 function submitProfile(event) {
   event.preventDefault();
   console.log('submitProfile ran');
+}
+
+function addUser() {
+  let firstName = $('#first-name').val().trim();
+  let lastName = $('#last-name').val().trim();
+  let userName = $('#user-name').val().trim();
+  let password = $('#password').val().trim();
+  let _id = userName + '0001';
+  
+  let newUser = {
+    _id,
+    firstName,
+    lastName,
+    userName,
+    password
+  };
+
+  DATA.mockUsers.push(newUser);
+  login();
 }
 
 function getMissions(callback) {
