@@ -116,7 +116,8 @@ function putUser(id, callback) {
 }
 
 function deleteUser(callback) {
-
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);
 }
 
 function getMissions(query, callback) {
@@ -125,15 +126,18 @@ function getMissions(query, callback) {
 }
 
 function postMission(callback) {
-
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
 function putMission(id, callback) {
-
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
 function deleteMission(id, callback) {
-  
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
 function authenticateCredentials(data) { 
