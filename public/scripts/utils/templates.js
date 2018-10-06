@@ -49,12 +49,12 @@ function decorateLoginPage() {
   `;
 }
 
-function decorateHomePage() {
+function decorateHomePage(user) {
   return `
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>${DATA.userId}</h2>
+      <h2>${user.userName}</h2>
       <form action="#" class="form-home">
         <input type="submit" id="btn-new-mission" value="NEW MISSION">
       </form>
@@ -184,6 +184,7 @@ function decorateProfilePage(user) {
   <main>
     <div id="page-profile">
       <h2>Edit Profile</h2>
+      <button id="delete-profile">DELETE PROFILE</button>
       <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name

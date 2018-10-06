@@ -17,6 +17,8 @@ function attachListeners() {
   $('#page').on('submit', '.form-search', submitSearch);
   $('#page').on('submit', '.form-signup', submitSignup);
   $('#page').on('submit', '.form-profile', submitProfile);
+
+  $('#page').on('click', '#delete-profile', btnDelete);
 }
 
 function pageLogin() {
@@ -24,7 +26,8 @@ function pageLogin() {
 }
 
 function pageHome() {
-  $('#page').html(decorateHomePage);
+  // $('#page').html(decorateHomePage);
+  getUsers(cbRenderHomePage);
 }
 
 function pageSearch() {
@@ -40,16 +43,12 @@ function pageSignup() {
 }
 
 function pageProfile() {
-  getUsers(getUserProfile);
-}
-
-function getUserProfile(data) {
-  $('#page').html(decorateProfilePage(data.find((user => user._id === DATA.userId))));
+  getUsers(cbRenderProfilePage);
 }
 
 function submitLogin(event) {
   event.preventDefault();
-  getUsers(authenticateCredentials);
+  getUsers(cbAuthenticateUser);
 }
 
 function submitMission() {
@@ -61,21 +60,32 @@ function submitSearch(event) {
   event.preventDefault();
   let query = buildQuery();
 
-  getMissions(query, renderSearchResults);
-}
-
-function buildQuery() {
-
+  getMissions(query, cbRenderSearchResults);
 }
 
 function submitSignup(event) {
   event.preventDefault();
-  postUser();
+  postUser(cbAddUser);
+  login();
 }
 
 function submitProfile(event) {
   event.preventDefault();
-  putUser();
+  if($('#password').val().trim() === $('#retype-password').val().trim()) {
+    // putUser();
+    pageHome();
+  }
+}
+
+function btnDelete() {
+  const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
+  if(deleteProfile === 'yes') {
+    deleteUser(DATA.userId, cbRemoveUserProfile);
+    logout();
+  }
+}
+
+function buildQuery() {
 }
 
 function getUsers(callback) {
@@ -85,39 +95,17 @@ function getUsers(callback) {
 
 function postUser(callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600);
-
-  let firstName = $('#first-name').val().trim();
-  let lastName = $('#last-name').val().trim();
-  let userName = $('#user-name').val().trim();
-  let password = $('#password').val().trim();
-  let retypedPassword = $('#retype-password').val().trim();
-  let _id = userName + '0001';
-  
-  let newUser = {
-    _id,
-    firstName,
-    lastName,
-    userName,
-    password
-  };
-
-  DATA.mockUsers.push(newUser);  
-  DATA.userId = newUser._id;
-  login();
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);  
 }
 
 function putUser(id, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  if($('#password').val.trim() === $('#retype-password').val().trim()) {
-    setTimeout(function() { callback(DATA.mockUsers); }, 600);
-  }
-  pageHome();
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);  
 }
 
-function deleteUser(callback) {
+function deleteUser(id, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+  setTimeout(function() { callback(id,DATA.mockUsers); }, 600);
 }
 
 function getMissions(query, callback) {
@@ -140,7 +128,28 @@ function deleteMission(id, callback) {
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
-function authenticateCredentials(data) { 
+function cbAddUser(data) {
+  let firstName = $('#first-name').val().trim();
+  let lastName = $('#last-name').val().trim();
+  let email = $('#email').val().trim();
+  let userName = $('#user-name').val().trim();
+  let password = $('#password').val().trim();
+  let retypedPassword = $('#retype-password').val().trim();
+  let _id = userName + '0001';
+  
+  let newUser = {
+    _id,
+    firstName,
+    lastName,
+    email,
+    userName,
+    password
+  };
+  data.push(newUser);  
+  DATA.userId = newUser._id;
+}
+
+function cbAuthenticateUser(data) { 
   // find user
   let user = data.find((user) => user.userName === $('#user-name').val().trim());
   // authenticate
@@ -150,7 +159,30 @@ function authenticateCredentials(data) {
   }
 }
 
-function renderSearchResults(data) {
+function cbEditUserIndo(data) {
+
+}
+
+function cbRenderHomePage(data) {
+  $('#page').html(decorateHomePage(data.find((user => user._id === DATA.userId)))); 
+}
+
+function cbRenderProfilePage(data) {
+  $('#page').html(decorateProfilePage(data.find((user => user._id === DATA.userId))));
+}
+
+function cbRemoveUserProfile(id, data) {
+  let index = 0;
+  for (let i = 0; i < data.length; i++) {
+    if (data[i]._id === id) {
+      index = i;
+      i = data.length;
+    }
+  }
+  data.splice(index, 1);
+}
+
+function cbRenderSearchResults(data) {
   $('#search-results').html(decorateResults(data));
 }
 
@@ -160,6 +192,7 @@ function login() {
 }
 
 function logout() {
+  DATA.loggedIn = false;
   pageGallery();
 }
 
