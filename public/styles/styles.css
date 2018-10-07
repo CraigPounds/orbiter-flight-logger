@@ -1,14 +1,39 @@
+body,
+.log {
+  background: #c0c0c0;
+}
+
+nav,
+.mission {
+  background: #e8e8e8;
+}
+
 body {
-  box-sizing: border-box;
+  max-width: 320px;
+  margin: auto;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.8em; 
-} 
+  font-size: 0.8em;  
+}
 
 nav,
 header,
 h2 {
   text-align: center;
-  margin: 5px 0;
+  margin: 3px 0;
+}
+
+nav {
+  padding: 3px 0;
+}
+
+nav li {
+  display: inline;
+  padding: 0 3px;
+  border: 1px solid black;
+}
+
+nav a {
+  text-decoration: none;
 }
 
 h1,
@@ -17,12 +42,6 @@ h3,
 h4,
 p {
   line-height: 1.2em;
-}
-
-form,
-.results {
-  max-width: 320px;
-  margin: auto;  
 }
 
 form {
@@ -45,16 +64,6 @@ h4 {
   font-size: 1.3em;
 }
 
-nav li {
-  display: inline;
-  padding: 0 5px;
-  border: 1px solid black;
-}
-
-nav a {
-  text-decoration: none;
-}
-
 label {
   display: inline-block;
 }
@@ -74,8 +83,46 @@ input[type="password"] {
   width: 170px;
 }
 
+select,
+input[type="text"],
+input[type="password"] {
+  margin: 1px 3px 1px 0;
+}
+
+.log {
+  text-align: left;
+  margin: 3px 3px;
+}
+
+.txt-log-entry {
+  width: 309px;
+  height: 150px;
+  border: none;
+}
+
+#log-title,
+#date {
+  margin-right: 0;
+}
+
+label[for="#log-title"] {
+  margin-left: 3px;
+}
+
+input[type="#date"] {
+  width: 50px;
+}
+
+label[for="#date"] {
+  margin-left: 50px;
+}
+
+#log-title {  
+  width: 274px; 
+}
+
 input[type="submit"],
 button {
   display: block;
-  margin: 5px auto;
+  margin: 3px auto;
 }

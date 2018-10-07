@@ -50,18 +50,19 @@ function decorateLoginPage() {
 }
 
 function decorateHomePage(missions) {
+  const BTN_NEW_MISSION = missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
+  const MISSIONS = missions.length > 1 ? decorateResults(missions) : '';
   let openMission = missions[0];
   return `
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>${DATA.userName}</h2>
-      <div>
-        ${decorateOpenMission(openMission)}
-      </div>
-        <button id="btn-new-mission">NEW MISSION</button>
+      <h2>${DATA.userName}</h2>      
+      ${decorateOpenMission(openMission)}      
+      ${BTN_NEW_MISSION}
       <div class="results">
         ${decorateResults(missions)}
+        ${MISSIONS}
       </div>
     </div>
   </main>
@@ -69,50 +70,55 @@ function decorateHomePage(missions) {
 }
 
 function decorateOpenMission(mission) {
-  let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
-  let versionValue = mission.orbiterVersion ? version : '';
-  let os = mission.os ? mission.os : '--Choose Version--';
-  let osValue = mission.os ? os : '';
-  let title = mission.title ? mission.title : 'Captain\'s Log';
-  let vessel = mission.vessel ? mission.vessel : '';
-  let date = mission.date ? mission.date : Date.now();
+  // console.log('mission', mission);
+  let version = mission ? mission.orbiterVersion : '--Choose Version--';
+  let versionValue = mission ? version : '';
+  let os = mission ? mission.os : '--Choose Version--';
+  let osValue = mission ? os : '';
+  let title = mission ? mission.title : 'Captain\'s Log';
+  let date = mission ? mission.date : Date.now();
   return `
   <form action="#" class="form-logger">
-    <fieldset role="group">            
-      <label for="select-version">Orbiter Version:</label>
-      <select id="select-version">
-        <option value="${versionValue}">${version}</option>
-        <option value="orbiter-2016">Orbiter 2016</option>
-        <option value="orbiter-2010">Orbiter 2010</option>
-        <option value="orbiter-2006">Orbiter 2006</option>
-        <option value="orbiter-2005">Orbiter 2005</option>
-      </select>
-      <label for="select-os">Operating System:</label>
-      <select id="select-os">
-        <option value="${osValue}">${os}</option>
-        <option value="win-10">Windows 10</option>
-        <option value="win-8">Windows 8.1</option>
-        <option value="win-7">Windows 7</option>
-        <option value="win-vista">Windows Vista</option>
-        <option value="win-xp">Windows XP</option>
-        <option value="win-2k">Windows 2000</option>
-        <option value="other">other</option>
-      </select>
-      <label for="#title">Title
-        <input type="text" id="#title" value="${title}">
-      </label>
-      <label for="#vessel">Vessel
-        <input type="text" id="vessel" value="${vessel}">
-      </label>
-      <label for="#datel">Date
-        <input type="text" id="date" required value="${date}">
-      </label>
-      <div id="flight-logs">
-        <div 
-      </div>
-      <button id="btn-new-log">NEW LOG</button>
-      <input type="submit" id="btn-mission" value="SAVE">
-    </fieldset>
+    <div class="mission">
+      <fieldset role="group">            
+        <label for="select-version">Orbiter Version</label>
+        <select id="select-version">
+          <option value="${versionValue}">${version}</option>
+          <option value="orbiter-2016">Orbiter 2016</option>
+          <option value="orbiter-2010">Orbiter 2010</option>
+          <option value="orbiter-2006">Orbiter 2006</option>
+          <option value="orbiter-2005">Orbiter 2005</option>
+        </select>
+        <label for="select-os">Operating System</label>
+        <select id="select-os">
+          <option value="${osValue}">${os}</option>
+          <option value="win-10">Windows 10</option>
+          <option value="win-8">Windows 8.1</option>
+          <option value="win-7">Windows 7</option>
+          <option value="win-vista">Windows Vista</option>
+          <option value="win-xp">Windows XP</option>
+          <option value="win-2k">Windows 2000</option>
+          <option value="other">other</option>
+        </select>
+        <label for="#title">Title
+          <input type="text" id="#title" value="${title}">
+        </label>      
+        <div id="flight-logs">
+          <div class="log">
+            <label for="#log-title">Title
+              <input type="text" id="log-title" required value="">
+            </label>
+            <label for="#date">Date
+              <input type="text" id="date" required value="${date}">
+            </label>
+            <textarea class="txt-log-entry" placeholder="Log entry..."></textarea>
+            <button id="btn-new-log">NEW LOG</button>
+            <button id="btn-delete-log">DELETE LOG</button>
+          </div>
+        </div>
+        <input type="submit" id="btn-mission" value="SAVE MISSION">
+      </fieldset>
+    </div>
   </form>
   `;
 }
@@ -126,7 +132,7 @@ function decorateSearchPage(data) {
       <h2>Search Flight Logs</h2>
       <form action="#" class="form-search">
         <fieldset role="group">
-          <label for="select-version">Orbiter Version:</label>
+          <label for="select-version">Orbiter Version</label>
           <select id="select-version">
             <option value="">--Choose Version--</option>
             <option value="orbiter-2016">Orbiter 2016</option>
@@ -134,7 +140,7 @@ function decorateSearchPage(data) {
             <option value="orbiter-2006">Orbiter 2006</option>
             <option value="orbiter-2005">Orbiter 2005</option>
           </select>
-          <label for="select-os">Operating System:</label>
+          <label for="select-os">Operating System</label>
           <select id="select-os">
             <option value="">--Choose Version--</option>
             <option value="win-10">Windows 10</option>

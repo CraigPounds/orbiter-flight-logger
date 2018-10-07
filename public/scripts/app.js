@@ -18,8 +18,9 @@ function attachListeners() {
   $('#page').on('submit', '.form-signup', submitSignup);
   $('#page').on('submit', '.form-profile', submitProfile);
 
-  $('#page').on('click', '#btn-new-log', btnNewLog);
   $('#page').on('click', '#btn-new-mission', btnNewMission);
+  $('#page').on('click', '#btn-new-log', btnNewLog);
+  $('#page').on('click', '#btn-delete-log', btnDeleteLog);
   $('#page').on('click', '#btn-delete-profile', btnDelete);
 }
 
@@ -85,6 +86,11 @@ function btnNewLog(event) {
 function btnNewMission(event) {
   event.preventDefault();
   console.log('btnNewMission ran');
+}
+
+function btnDeleteLog(event) {
+  event.preventDefault();
+  console.log('btnDeleteLog ran');
 }
 
 function btnDelete(event) {
@@ -158,6 +164,7 @@ function cbAddUser(data) {
   DATA.userId = newUser._id;  
   DATA.userName = newUser.userName;
   login();
+  // console.log('DATA', data);
 }
 
 function cbAuthenticateNewUser(data) {  
@@ -238,8 +245,10 @@ function logout() {
 }
 
 function setUp() {
-  // login();
-  logout();
+  DATA.userId = 'napes1538941370742';
+  DATA.userName = 'napes';
+  login();
+  // logout();
 }
 
 export { attachListeners, setUp };
