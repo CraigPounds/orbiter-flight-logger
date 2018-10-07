@@ -13,7 +13,8 @@ function attachListeners() {
   $('#page').on('click', '#nav-logout',  logout);
 
   $('#page').on('submit', '.form-login', submitLogin);
-  $('#page').on('submit', '.form-home', submitMission);
+  $('#page').on('submit', '.form-home', submitNewMission);
+  $('#page').on('submit', '.form-logger', submitMission);
   $('#page').on('submit', '.form-search', submitSearch);
   $('#page').on('submit', '.form-signup', submitSignup);
   $('#page').on('submit', '.form-profile', submitProfile);
@@ -51,10 +52,14 @@ function submitLogin(event) {
   getUsers(cbAuthenticateUser);
 }
 
+function submitNewMission() {
+  event.preventDefault();
+  console.log('submitNewMission ran');
+}
+
 function submitMission() {
   event.preventDefault();
   console.log('submitMission ran');
-
 }
 
 function submitSearch(event) {
@@ -73,7 +78,7 @@ function submitProfile(event) {
   event.preventDefault();
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
     putUser(DATA.userId, cbEditUserProfile);
-    // pageHome();
+    pageHome();
   }
 }
 
@@ -134,7 +139,7 @@ function cbAddUser(data) {
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
   let userName = $('#user-name').val().trim();
-  let _id = userName + '0001';    
+  let _id = `${userName}${Date.now()}`;    
   let newUser = {
     _id,
     firstName,
@@ -146,6 +151,7 @@ function cbAddUser(data) {
   data.push(newUser);  
   DATA.userId = newUser._id;  
   DATA.userId = newUser.userName;
+  console.log(data);
 }
 
 function cbAuthenticateUser(data) { 
@@ -183,6 +189,7 @@ function cbEditUserProfile(id, data) {
       data[i].userName = userName;
       // data[i].email = email;
       data[i].password = password;
+      DATA.userName = userName;
     }
   }
 }

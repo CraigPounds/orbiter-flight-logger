@@ -49,7 +49,8 @@ function decorateLoginPage() {
   `;
 }
 
-function decorateHomePage(missions) {  
+function decorateHomePage(missions) {
+  let openMission = missions[0];
   return `
   ${decorateNavigation()}
   <main>
@@ -59,48 +60,62 @@ function decorateHomePage(missions) {
         <input type="submit" id="btn-new-mission" value="NEW MISSION">
       </form>
       <div>
-        <form action="#" class="form-logging">
-          <fieldset role="group">
-            <label for="select-version">Orbiter Version:</label>
-            <select id="select-version">
-              <option value="">--Choose Version--</option>
-              <option value="orbiter-2016">Orbiter 2016</option>
-              <option value="orbiter-2010">Orbiter 2010</option>
-              <option value="orbiter-2006">Orbiter 2006</option>
-              <option value="orbiter-2005">Orbiter 2005</option>
-            </select>
-            <label for="select-os">Operating System:</label>
-            <select id="select-os">
-              <option value="">--Choose Version--</option>
-              <option value="win-10">Windows 10</option>
-              <option value="win-8">Windows 8.1</option>
-              <option value="win-7">Windows 7</option>
-              <option value="win-vista">Windows Vista</option>
-              <option value="win-xp">Windows XP</option>
-              <option value="win-2k">Windows 2000</option>
-              <option value="other">other</option>
-            </select>
-            <label for="#email">Email
-              <input type="text" id="email" required value=${'hi'}>
-            </label>
-            <label for="#user-name">User Name
-              <input type="text" id="user-name" required value=${'hi'}>
-            </label>
-            <label for="#password">Password
-              <input type="password" id="password" required value=${'hi'}>
-            </label>
-            <label for="#retype-password">Retype Password
-              <input type="password" id="retype-password" required placeholder="">
-            </label>
-            <input type="submit" id="btn-profile" value="SUBMIT">
-          </fieldset>
-        </form>
+        ${decorateOpenMission(openMission)}
       </div>
       <div id="missions" class="results">
         ${decorateResults(missions)}
       </div>
     </div>
   </main>
+  `;
+}
+
+function decorateOpenMission(mission) {
+  console.log(mission);
+  let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
+  let versionValue = mission.orbiterVersion ? version : '';
+  let os = mission.os ? mission.os : '--Choose Version--';
+  let osValue = mission.os ? os : '';
+  let title = mission.title ? mission.title : 'Captain\'s Log';
+  let vessel = mission.vessel ? mission.vessel : '';
+  let date = mission.date ? mission.date : Date.now();
+  return `
+  <form action="#" class="form-logger">
+    <fieldset role="group">            
+      <label for="select-version">Orbiter Version:</label>
+      <select id="select-version">
+        <option value="${versionValue}">${version}</option>
+        <option value="orbiter-2016">Orbiter 2016</option>
+        <option value="orbiter-2010">Orbiter 2010</option>
+        <option value="orbiter-2006">Orbiter 2006</option>
+        <option value="orbiter-2005">Orbiter 2005</option>
+      </select>
+      <label for="select-os">Operating System:</label>
+      <select id="select-os">
+        <option value="${osValue}">${os}</option>
+        <option value="win-10">Windows 10</option>
+        <option value="win-8">Windows 8.1</option>
+        <option value="win-7">Windows 7</option>
+        <option value="win-vista">Windows Vista</option>
+        <option value="win-xp">Windows XP</option>
+        <option value="win-2k">Windows 2000</option>
+        <option value="other">other</option>
+      </select>
+      <label for="#title">Title
+        <input type="text" id="#title" value="${title}">
+      </label>
+      <label for="#vessel">Vessel
+        <input type="text" id="vessel" value="${vessel}">
+      </label>
+      <label for="#datel">Date
+        <input type="text" id="date" required value="${date}">
+      </label>
+      
+
+
+      <input type="submit" id="btn-mission" value="SUBMIT">
+    </fieldset>
+  </form>
   `;
 }
 
@@ -198,7 +213,7 @@ function decorateSignupPage() {
             <input type="text" id="last-name" required placeholder="Last Name">
           </label>
           <label for="#email">Email
-            <input type="text" id="email" required placeholder="you@email.com">
+            <input type="email" id="email" required placeholder="you@email.com">
           </label>
           <label for="#user-name">User Name
             <input type="text" id="user-name" required placeholder="user name">

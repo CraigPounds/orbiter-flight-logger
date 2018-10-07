@@ -26,7 +26,7 @@ const DATA = {
       'firstName': 'Napes',
       'lastName': 'Weaver',
       'userName': 'napes',
-      'password': 'password333',
+      'password': '333',
       'email': 'nweaver@gmail.com'
     }
   ],
