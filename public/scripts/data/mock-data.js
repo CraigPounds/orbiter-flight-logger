@@ -9,7 +9,7 @@ const DATA = {
       '_id': '111111111',
       'firstName': 'Jon',
       'lastName': 'Doe',
-      'userName': 'jd',
+      'userName': 'jon',
       'password': 'password111',
       'email': 'jd@gmail.com'
     },

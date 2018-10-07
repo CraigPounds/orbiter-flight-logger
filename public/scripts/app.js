@@ -13,14 +13,13 @@ function attachListeners() {
   $('#page').on('click', '#nav-logout',  logout);
 
   $('#page').on('submit', '.form-login', submitLogin);
-  // $('#page').on('submit', '.form-home', submitNewMission);
   $('#page').on('submit', '.form-logger', submitSaveMission);
   $('#page').on('submit', '.form-search', submitSearch);
   $('#page').on('submit', '.form-signup', submitSignup);
   $('#page').on('submit', '.form-profile', submitProfile);
 
   $('#page').on('click', '#btn-new-log', btnNewLog);
-  $('#page').on('click', '#btn-new-mission', btnNewMission)
+  $('#page').on('click', '#btn-new-mission', btnNewMission);
   $('#page').on('click', '#btn-delete-profile', btnDelete);
 }
 
@@ -51,13 +50,8 @@ function pageProfile() {
 
 function submitLogin(event) {
   event.preventDefault();
-  getUsers(cbAuthenticateUser);
+  getUsers(cbAuthenticateLogin);
 }
-
-// function submitNewMission(event) {
-//   event.preventDefault();
-//   console.log('submitNewMission ran');
-// }
 
 function submitSaveMission(event) {
   event.preventDefault();
@@ -72,8 +66,7 @@ function submitSearch(event) {
 
 function submitSignup(event) {
   event.preventDefault();
-  postUser(cbAddUser);
-  login();
+  getUsers(cbAuthenticateNewUser);  
 }
 
 function submitProfile(event) {
@@ -146,12 +139,12 @@ function deleteMission(id, callback) {
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
-function cbAddUser(data) {  
-  let password = $('#password').val().trim();
+function cbAddUser(data) {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
   let userName = $('#user-name').val().trim();
+  let password = $('#password').val().trim();
   let _id = `${userName}${Date.now()}`;    
   let newUser = {
     _id,
@@ -161,12 +154,27 @@ function cbAddUser(data) {
     userName,
     password
   };
-  data.push(newUser);  
+  data.push(newUser);
   DATA.userId = newUser._id;  
   DATA.userName = newUser.userName;
+  login();
 }
 
-function cbAuthenticateUser(data) { 
+function cbAuthenticateNewUser(data) {  
+  let notTaken = true;
+  let userName = $('#user-name').val().trim();
+  
+  for (let d in data) {
+    if (data[d].userName === userName) {
+      notTaken = false;
+    }       
+  }
+  if (notTaken) {
+    postUser(cbAddUser);
+  }
+}
+
+function cbAuthenticateLogin(data) { 
   let user = data.find((user) => user.userName === $('#user-name').val().trim());
 
   if (user !== undefined && user.password === $('#password').val().trim()) {    
