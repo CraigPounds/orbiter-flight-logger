@@ -56,13 +56,13 @@ function decorateHomePage(missions) {
   <main>
     <div id="page-home">
       <h2>${DATA.userName}</h2>
-      <form action="#" class="form-home">
-        <input type="submit" id="btn-new-mission" value="NEW MISSION">
-      </form>
       <div>
         ${decorateOpenMission(openMission)}
       </div>
-      <div id="missions" class="results">
+      <form action="#" class="form-home">
+        <input type="submit" id="btn-new-mission" value="NEW MISSION">
+      </form>
+      <div class="results">
         ${decorateResults(missions)}
       </div>
     </div>
@@ -71,7 +71,6 @@ function decorateHomePage(missions) {
 }
 
 function decorateOpenMission(mission) {
-  console.log(mission);
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let versionValue = mission.orbiterVersion ? version : '';
   let os = mission.os ? mission.os : '--Choose Version--';
@@ -110,16 +109,18 @@ function decorateOpenMission(mission) {
       <label for="#datel">Date
         <input type="text" id="date" required value="${date}">
       </label>
-      
-
-
-      <input type="submit" id="btn-mission" value="SUBMIT">
+      <div id="flight-logs">
+        <div 
+      </div>
+      <button id="btn-new-log">NEW LOG</button>
+      <input type="submit" id="btn-mission" value="SAVE MISSION">
     </fieldset>
   </form>
   `;
 }
 
-function decorateSearchPage() {
+function decorateSearchPage(data) {
+  let searchResults = data ? decorateResults(data) : '';
   return `
   ${decorateNavigation()}
   <main>
@@ -152,7 +153,8 @@ function decorateSearchPage() {
           <input type="submit" id="btn-search" value="SEARCH">
         </fieldset>
       </form>
-      <div id="search-results" class="results">
+      <div class="results">
+        ${searchResults}
       </div>
     </div>
   </main>
@@ -161,7 +163,6 @@ function decorateSearchPage() {
 
 function decorateResults(data) {
   return data.map((mission, index) => {
-    // console.log(mission, index);
     const LOGS = mission.logs.map((log, index) => {
       return `
       <div class=logs>
@@ -238,7 +239,7 @@ function decorateProfilePage(user) {
   <main>
     <div id="page-profile">
       <h2>Edit Profile</h2>
-      <button id="delete-profile">DELETE PROFILE</button>
+      <button id="btn-delete-profile">DELETE PROFILE</button>
       <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name
@@ -267,4 +268,4 @@ function decorateProfilePage(user) {
   `;
 }
 
-export { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage, decorateResults };
+export { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };

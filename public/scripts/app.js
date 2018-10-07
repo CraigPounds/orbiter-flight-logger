@@ -1,6 +1,6 @@
 'use strict';
 
-import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage, decorateResults } from './utils/templates.js';
+import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/mock-data.js';
 
 function attachListeners() {
@@ -14,12 +14,13 @@ function attachListeners() {
 
   $('#page').on('submit', '.form-login', submitLogin);
   $('#page').on('submit', '.form-home', submitNewMission);
-  $('#page').on('submit', '.form-logger', submitMission);
+  $('#page').on('submit', '.form-logger', submitSaveMission);
   $('#page').on('submit', '.form-search', submitSearch);
   $('#page').on('submit', '.form-signup', submitSignup);
   $('#page').on('submit', '.form-profile', submitProfile);
 
-  $('#page').on('click', '#delete-profile', btnDelete);
+  $('#page').on('click', '#btn-new-log', btnNewLog);
+  $('#page').on('click', '#btn-delete-profile', btnDelete);
 }
 
 function pageLogin() {
@@ -52,14 +53,14 @@ function submitLogin(event) {
   getUsers(cbAuthenticateUser);
 }
 
-function submitNewMission() {
+function submitNewMission(event) {
   event.preventDefault();
   console.log('submitNewMission ran');
 }
 
-function submitMission() {
+function submitSaveMission(event) {
   event.preventDefault();
-  console.log('submitMission ran');
+  console.log('submitSaveMission ran');
 }
 
 function submitSearch(event) {
@@ -82,7 +83,13 @@ function submitProfile(event) {
   }
 }
 
-function btnDelete() {
+function btnNewLog(event) {
+  event.preventDefault();
+  console.log('btnNewLog ran');
+}
+
+function btnDelete(event) {
+  event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
     deleteUser(DATA.userId, cbDeleteUserProfile);
@@ -150,8 +157,7 @@ function cbAddUser(data) {
   };
   data.push(newUser);  
   DATA.userId = newUser._id;  
-  DATA.userId = newUser.userName;
-  console.log(data);
+  DATA.userName = newUser.userName;
 }
 
 function cbAuthenticateUser(data) { 
@@ -168,12 +174,11 @@ function cbDeleteUserProfile(id, data) {
   let index = 0;
   for (let i = 0; i < data.length; i++) {
     if (data[i]._id === id) {
-      // index = i;
-      // i = data.length;
-      delete data[i];
+      index = i;
+      i = data.length;
     }
   }
-  // data.splice(index, 1);
+  data.splice(index, 1);
 }
 
 function cbEditUserProfile(id, data) {
@@ -195,7 +200,6 @@ function cbEditUserProfile(id, data) {
 }
 
 function cbRenderHomePage(data) {
-  // console.log('data', data);
   $('#page').html(decorateHomePage(data)); 
 }
 
@@ -204,7 +208,7 @@ function cbRenderProfilePage(data) {
 }
 
 function cbRenderSearchResults(data) {
-  $('#search-results').html(decorateResults(data));
+  $('#page').html(decorateSearchPage(data));
 }
 
 function login() {  

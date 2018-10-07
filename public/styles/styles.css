@@ -75,7 +75,7 @@ input[type="password"] {
 }
 
 input[type="submit"],
-#delete-profile {
+button {
   display: block;
   margin: 5px auto;
 }
