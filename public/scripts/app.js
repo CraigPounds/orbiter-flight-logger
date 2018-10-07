@@ -19,9 +19,10 @@ function attachListeners() {
   $('#page').on('submit', '.form-profile', submitProfile);
 
   $('#page').on('click', '#btn-new-mission', btnNewMission);
+  $('#page').on('click', '#btn-delete-mission', btnDeleteMission);
   $('#page').on('click', '#btn-new-log', btnNewLog);
   $('#page').on('click', '#btn-delete-log', btnDeleteLog);
-  $('#page').on('click', '#btn-delete-profile', btnDelete);
+  $('#page').on('click', '#btn-delete-profile', btnDeleteProfile);
 }
 
 function pageLogin() {
@@ -78,22 +79,28 @@ function submitProfile(event) {
   }
 }
 
+function btnNewMission(event) {
+  event.preventDefault();
+  console.log('btnNewMission ran');
+}
+
+function btnDeleteMission(event) {
+  event.preventDefault();
+  console.log('btnDeleteMission ran');
+}
+
 function btnNewLog(event) {
   event.preventDefault();
   console.log('btnNewLog ran');
 }
 
-function btnNewMission(event) {
-  event.preventDefault();
-  console.log('btnNewMission ran');
-}
 
 function btnDeleteLog(event) {
   event.preventDefault();
   console.log('btnDeleteLog ran');
 }
 
-function btnDelete(event) {
+function btnDeleteProfile(event) {
   event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {

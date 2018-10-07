@@ -112,11 +112,16 @@ function decorateOpenMission(mission) {
               <input type="text" id="date" required value="${date}">
             </label>
             <textarea class="txt-log-entry" placeholder="Log entry..."></textarea>
-            <button id="btn-new-log">NEW LOG</button>
-            <button id="btn-delete-log">DELETE LOG</button>
+            <div class="buttons-log">
+              <button id="btn-new-log">NEW LOG</button>
+              <button id="btn-delete-log">DELETE LOG</button>
+            </div>
           </div>
         </div>
-        <input type="submit" id="btn-mission" value="SAVE MISSION">
+        <div class="buttons-mission">
+          <input type="submit" id="btn-mission" value="SAVE MISSION">
+          <button id="btn-delete-mission">DELETE MISSION</button>
+        </div>
       </fieldset>
     </div>
   </form>

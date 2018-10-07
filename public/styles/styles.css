@@ -121,8 +121,7 @@ label[for="#date"] {
   width: 274px; 
 }
 
-input[type="submit"],
-button {
-  display: block;
-  margin: 3px auto;
+.buttons-mission,
+.buttons-log {
+  text-align: center; 
 }
