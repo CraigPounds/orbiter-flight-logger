@@ -13,13 +13,14 @@ function attachListeners() {
   $('#page').on('click', '#nav-logout',  logout);
 
   $('#page').on('submit', '.form-login', submitLogin);
-  $('#page').on('submit', '.form-home', submitNewMission);
+  // $('#page').on('submit', '.form-home', submitNewMission);
   $('#page').on('submit', '.form-logger', submitSaveMission);
   $('#page').on('submit', '.form-search', submitSearch);
   $('#page').on('submit', '.form-signup', submitSignup);
   $('#page').on('submit', '.form-profile', submitProfile);
 
   $('#page').on('click', '#btn-new-log', btnNewLog);
+  $('#page').on('click', '#btn-new-mission', btnNewMission)
   $('#page').on('click', '#btn-delete-profile', btnDelete);
 }
 
@@ -53,10 +54,10 @@ function submitLogin(event) {
   getUsers(cbAuthenticateUser);
 }
 
-function submitNewMission(event) {
-  event.preventDefault();
-  console.log('submitNewMission ran');
-}
+// function submitNewMission(event) {
+//   event.preventDefault();
+//   console.log('submitNewMission ran');
+// }
 
 function submitSaveMission(event) {
   event.preventDefault();
@@ -86,6 +87,11 @@ function submitProfile(event) {
 function btnNewLog(event) {
   event.preventDefault();
   console.log('btnNewLog ran');
+}
+
+function btnNewMission(event) {
+  event.preventDefault();
+  console.log('btnNewMission ran');
 }
 
 function btnDelete(event) {

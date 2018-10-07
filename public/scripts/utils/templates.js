@@ -59,9 +59,7 @@ function decorateHomePage(missions) {
       <div>
         ${decorateOpenMission(openMission)}
       </div>
-      <form action="#" class="form-home">
-        <input type="submit" id="btn-new-mission" value="NEW MISSION">
-      </form>
+        <button id="btn-new-mission">NEW MISSION</button>
       <div class="results">
         ${decorateResults(missions)}
       </div>
@@ -113,7 +111,7 @@ function decorateOpenMission(mission) {
         <div 
       </div>
       <button id="btn-new-log">NEW LOG</button>
-      <input type="submit" id="btn-mission" value="SAVE MISSION">
+      <input type="submit" id="btn-mission" value="SAVE">
     </fieldset>
   </form>
   `;
