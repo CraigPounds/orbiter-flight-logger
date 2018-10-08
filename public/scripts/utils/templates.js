@@ -70,7 +70,7 @@ function decorateHomePage(missions) {
 }
 
 function decorateOpenMission(mission) {
-  // console.log('mission', mission);
+  console.log('mission', mission);
   let version = mission ? mission.orbiterVersion : '--Choose Version--';
   let versionValue = mission ? version : '';
   let os = mission ? mission.os : '--Choose Version--';
@@ -102,16 +102,19 @@ function decorateOpenMission(mission) {
         </select>
         <label for="#title">Title
           <input type="text" id="#title" value="${title}">
-        </label>      
+        </label>   
         <div id="flight-logs">
           <div class="log">
             <label for="#log-title">Title
-              <input type="text" id="log-title" required value="">
+              <input type="text" id="log-title" required value="${mission.logs[0].title}">
             </label>
+            <label for="#vessel">Vessel
+              <input type="text" id="#vessel" required value="${mission.logs[0].vessel}">
+            </label> 
             <label for="#date">Date
-              <input type="text" id="date" required value="${date}">
+              <input type="text" id="date" required value="${mission.logs[0].date}">
             </label>
-            <textarea class="txt-log-entry" placeholder="Log entry..."></textarea>
+            <textarea class="txt-log-entry" placeholder="Log entry...">${mission.logs[0].log}</textarea>
             <div class="buttons-log">
               <button id="btn-new-log">NEW LOG</button>
               <button id="btn-delete-log">DELETE LOG</button>

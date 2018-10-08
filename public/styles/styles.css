@@ -9,10 +9,16 @@ nav,
 }
 
 body {
-  max-width: 320px;
+  /* max-width: 320px; */
   margin: auto;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.8em;  
+}
+
+form,
+.results {
+  max-width: 320px;
+  margin: auto;
 }
 
 nav,
@@ -101,10 +107,14 @@ input[type="password"] {
 }
 
 #log-title,
+#vessel,
 #date {
   margin-right: 0;
+  margin-left: 0;
 }
 
+/* label[for="#date"], */
+label[for="#vessel"],
 label[for="#log-title"] {
   margin-left: 3px;
 }
@@ -117,11 +127,17 @@ label[for="#date"] {
   margin-left: 50px;
 }
 
-#log-title {  
+#log-title,
+vessel {  
   width: 274px; 
 }
 
 .buttons-mission,
 .buttons-log {
   text-align: center; 
+}
+
+#btn-new-mission {
+  display: block;
+  margin: auto;
 }
