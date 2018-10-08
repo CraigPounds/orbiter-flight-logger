@@ -109,7 +109,7 @@ function decorateOpenMission(mission) {
               <input type="text" id="log-title" required value="${mission.logs[0].title}">
             </label>
             <label for="#vessel">Vessel
-              <input type="text" id="#vessel" required value="${mission.logs[0].vessel}">
+              <input type="text" id="vessel" required value="${mission.logs[0].vessel}">
             </label> 
             <label for="#date">Date
               <input type="text" id="date" required value="${mission.logs[0].date}">

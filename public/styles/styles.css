@@ -113,7 +113,7 @@ input[type="password"] {
   margin-left: 0;
 }
 
-/* label[for="#date"], */
+label[for="#date"],
 label[for="#vessel"],
 label[for="#log-title"] {
   margin-left: 3px;
@@ -123,13 +123,20 @@ input[type="#date"] {
   width: 50px;
 }
 
-label[for="#date"] {
+/* label[for="#date"] {
   margin-left: 50px;
+} */
+
+#log-title {  
+  width: 274px; 
 }
 
-#log-title,
-vessel {  
-  width: 274px; 
+#vessel {
+  width: 260px;
+}
+
+#date {
+  width: 271px;
 }
 
 .buttons-mission,
