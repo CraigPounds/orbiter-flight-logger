@@ -137,7 +137,8 @@ vessel {
   text-align: center; 
 }
 
-#btn-new-mission {
+#btn-new-mission,
+#btn-delete-profile {
   display: block;
   margin: auto;
 }
