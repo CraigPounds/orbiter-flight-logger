@@ -17,7 +17,9 @@ const { PORT, DATABASE_URL } = require('./config');
 const app = express();
 
 app.use(morgan('common'));
+
 app.use(express.static('public'));
+
 app.use(express.json());
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -46,8 +48,6 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });
-
-app.use(express.static('public'));
 
 let server;
 
