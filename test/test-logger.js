@@ -18,4 +18,4 @@ describe('Hit root URL', function() {
         expect(res).to.be.html;
       });
   });
-}); 
+});
