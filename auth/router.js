@@ -17,7 +17,7 @@ const createAuthToken = function(user) {
 };
 
 // We set session to false to stop Passport from adding session cookies
-const localAuth = passport.authenticate('local', {session: false});// returns a middleware function
+const localAuth = passport.authenticate('local', { session: false });// returns a middleware function
 router.use(bodyParser.json());
 // The user provides a user name and password to login
 router.post('/login', localAuth, (req, res) => {
