@@ -4,10 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { User } = require('./models');
-const passport = require('passport');
+// const passport = require('passport');
 const router = express.Router();
-
-// ???
 // const jwtAut = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
