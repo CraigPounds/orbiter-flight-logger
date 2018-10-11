@@ -8,11 +8,11 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const router = express.Router();
 
-const createAuthToken = function(user) {
+const createAuthToken = function(user) {  ;
   return jwt.sign({user}, config.JWT_SECRET, {
     subject: user.userName,
     expiresIn: config.JWT_EXPIRY,
-    algorithm: 'HS256'
+    algorithm: 'HS256'    
   });
 };
 
@@ -29,7 +29,7 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 // The user exchanges a valid JWT for a new one with a later expiration
 router.post('/refresh', jwtAuth, (req, res) => {
-  const authToken = createAuthToken(req.user);
+  const authToken = createAuthToken(req.user);  
   res.json({authToken});
 });
 
