@@ -1,6 +1,6 @@
 'use strict';
 
-import { DATA } from '../data/mock-data.js';
+import { DATA } from '../data/data.js';
 
 const GUEST_NAVIGATION = `  
   <nav role="navigation">      
@@ -37,10 +37,10 @@ function decorateLoginPage() {
       <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required placeholder="user name">
+            <input type="text" id="user-name" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required placeholder="password1">
+            <input type="password" id="password" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>

@@ -91,7 +91,8 @@ input[type="password"] {
 
 select,
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
   margin: 1px 3px 1px 0;
 }
 
@@ -119,10 +120,6 @@ label[for="#log-title"] {
   margin-left: 3px;
 }
 
-input[type="#date"] {
-  width: 50px;
-}
-
 /* label[for="#date"] {
   margin-left: 50px;
 } */
@@ -136,7 +133,7 @@ input[type="#date"] {
 }
 
 #date {
-  width: 271px;
+  width: 270px;
 }
 
 .buttons-mission,
@@ -144,6 +141,7 @@ input[type="#date"] {
   text-align: center; 
 }
 
+#btn-login,
 #btn-new-mission,
 #btn-delete-profile {
   display: block;

@@ -3,9 +3,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {User} = require('./models');
-
+const { User } = require('./models');
+const passport = require('passport');
 const router = express.Router();
+
+// ???
+const jwtAut = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
@@ -145,4 +148,4 @@ router.get('/', (req, res) => {
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-module.exports = {router};
+module.exports = { router };

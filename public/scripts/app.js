@@ -1,7 +1,7 @@
 'use strict';
 
 import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
-import { DATA } from './data/mock-data.js';
+import { DATA } from './data/data.js';
 
 function attachListeners() {
   $('#page').on('click', '#nav-login', pageLogin);
@@ -114,7 +114,20 @@ function buildQuery() {
 
 function getUsers(callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+  // setTimeout(function() { callback(DATA.mockUsers); }, 600);
+
+  const settings = {
+    url: '/users',
+    // data: {
+    //   q: searchTerm,
+    //   part: 'snippet',
+    //   key: DATA.API_KEY,
+    // },
+    dataType: 'json',
+    type: 'GET',
+    success: callback,
+  };
+  $.ajax(settings);
 }
 
 function postUser(callback) {
@@ -252,10 +265,12 @@ function logout() {
 }
 
 function setUp() {
-  DATA.userId = 'napes1538941370742';
-  DATA.userName = 'napes';
-  login();
+  // DATA.userId = '5af50c84c082f1e92f83420d';
+  // DATA.userName = 'napes';
+  // login();
   // logout();
+  pageGallery();
+  console.log(DATA);
 }
 
 export { attachListeners, setUp };
