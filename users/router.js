@@ -8,7 +8,7 @@ const passport = require('passport');
 const router = express.Router();
 
 // ???
-const jwtAut = passport.authenticate('jwt', { session: false });
+// const jwtAut = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
