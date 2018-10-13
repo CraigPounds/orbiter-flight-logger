@@ -40,10 +40,14 @@ app.use('/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
-    data: 'rosebud'
-  });
+// app.get('/', jwtAuth, (req, res) => {
+//   return res.json({
+//     data: 'rosebud'
+//   });
+// });
+
+app.get('/', (req, res) => {
+  return res.sendFile(__dirname + '/public/index.html');
 });
 
 app.use('*', (req, res) => {
@@ -52,10 +56,29 @@ app.use('*', (req, res) => {
 
 let server;
 
+// function runServer(databaseUrl, port = PORT) {
+
+//   return new Promise((resolve, reject) => {
+//     mongoose.connect(databaseUrl, { useCreateIndex: true , useNewUrlParser: true }, err => {
+//       if (err) {
+//         return reject(err);
+//       }
+//       server = app.listen(port, () => {
+//         console.log(`Your app is listening on port ${port}`);
+//         resolve();
+//       })
+//         .on('error', err => {
+//           mongoose.disconnect();
+//           reject(err);
+//         });
+//     });
+//   });
+// }
+
 function runServer(databaseUrl, port = PORT) {
 
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, { useCreateIndex: true , useNewUrlParser: true }, err => {
+    mongoose.connect(databaseUrl, err => {
       if (err) {
         return reject(err);
       }
