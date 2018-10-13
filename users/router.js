@@ -4,9 +4,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const { User } = require('./models');
-// const passport = require('passport');
+const passport = require('passport');
 const router = express.Router();
-// const jwtAut = passport.authenticate('jwt', { session: false });
+const jwtAut = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
@@ -140,7 +140,7 @@ router.post('/', jsonParser, (req, res) => {
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also
 // verify this in the Mongo shell.
-router.get('/', (req, res) => {
+router.get('/',jwtAut, (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
