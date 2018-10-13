@@ -41,8 +41,7 @@ const localStrategy = new LocalStrategy((userName, password, callback) => {
     });
 });
 
-const jwtStrategy = new JwtStrategy(
-  
+const jwtStrategy = new JwtStrategy(  
   {
     secretOrKey: JWT_SECRET,
     // Look for the JWT as a Bearer auth header
@@ -54,5 +53,5 @@ const jwtStrategy = new JwtStrategy(
     done(null, payload.user);
   }
 );
-console.log(JWT_SECRET);
+
 module.exports = { localStrategy, jwtStrategy };
