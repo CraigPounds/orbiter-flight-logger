@@ -1,4 +1,5 @@
 'use strict';
+
 const { Strategy: LocalStrategy } = require('passport-local');
 
 // Assigns the Strategy export to the name JwtStrategy using object destructuring
@@ -8,9 +9,9 @@ const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const { User } = require('../users/models');
 const { JWT_SECRET } = require('../config');
 
-const localStrategy = new LocalStrategy((username, password, callback) => {
+const localStrategy = new LocalStrategy((userName, password, callback) => {
   let user;
-  User.findOne({ username: username })
+  User.findOne({ userName: userName })
     .then(_user => {
       user = _user;
       if (!user) {
@@ -18,7 +19,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
         // Any errors like this will be handled in the catch block.
         return Promise.reject({
           reason: 'LoginError',
-          message: 'Incorrect username or password'
+          message: 'Incorrect user name or password'
         });
       }
       return user.validatePassword(password);
@@ -27,7 +28,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
       if (!isValid) {
         return Promise.reject({
           reason: 'LoginError',
-          message: 'Incorrect username or password'
+          message: 'Incorrect user name or password'
         });
       }
       return callback(null, user);

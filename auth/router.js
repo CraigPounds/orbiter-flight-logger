@@ -1,4 +1,5 @@
 'use strict';
+
 const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
@@ -7,29 +8,29 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 const router = express.Router();
 
-const createAuthToken = function(user) {
+const createAuthToken = function(user) {  ;
   return jwt.sign({user}, config.JWT_SECRET, {
-    subject: user.username,
+    subject: user.userName,
     expiresIn: config.JWT_EXPIRY,
-    algorithm: 'HS256'
+    algorithm: 'HS256'    
   });
 };
 
 // We set session to false to stop Passport from adding session cookies
-const localAuth = passport.authenticate('local', {session: false});// returns a middleware function
+const localAuth = passport.authenticate('local', { session: false });// returns a middleware function
 router.use(bodyParser.json());
-// The user provides a username and password to login
+// The user provides a user name and password to login
 router.post('/login', localAuth, (req, res) => {
   const authToken = createAuthToken(req.user.serialize());
-  res.json({authToken});
+  res.json({ authToken });
 });
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 // The user exchanges a valid JWT for a new one with a later expiration
 router.post('/refresh', jwtAuth, (req, res) => {
-  const authToken = createAuthToken(req.user);
+  const authToken = createAuthToken(req.user);  
   res.json({authToken});
 });
 
-module.exports = {router};
+module.exports = { router };
