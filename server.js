@@ -42,7 +42,7 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 
 app.get('/', jwtAuth, (req, res) => {
   return res.json({
-    data: 'rosebud'
+    data: 'hello'
   });
 });
 
