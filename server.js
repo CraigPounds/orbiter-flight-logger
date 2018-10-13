@@ -40,15 +40,15 @@ app.use('/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
-// app.get('/', jwtAuth, (req, res) => {
-//   return res.json({
-//     data: 'rosebud'
-//   });
-// });
-
-app.get('/', (req, res) => {
-  return res.sendFile(__dirname + '/public/index.html');
+app.get('/', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'rosebud'
+  });
 });
+
+// app.get('/', (req, res) => {
+//   return res.sendFile(__dirname + '/public/index.html');
+// });
 
 app.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
