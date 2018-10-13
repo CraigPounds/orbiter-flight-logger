@@ -1,18 +1,16 @@
 'use strict';
-
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { User } = require('./models');
-const passport = require('passport');
+const {User} = require('./models');
+
 const router = express.Router();
-const jwtAut = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['firstName', 'lastName', 'email', 'userName', 'password'];
+  const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -24,7 +22,7 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  const stringFields = ['firstName', 'lastName', 'email', 'userName', 'password'];
+  const stringFields = ['username', 'password', 'firstName', 'lastName'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
@@ -38,14 +36,14 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  // If the userName and password aren't trimmed we give an error.  Users might
+  // If the username and password aren't trimmed we give an error.  Users might
   // expect that these will work without trimming (i.e. they want the password
   // "foobar ", including the space at the end).  We need to reject such values
   // explicitly so the users know what's happening, rather than silently
   // trimming them and expecting the user to understand.
   // We'll silently trim the other fields, because they aren't credentials used
   // to log in, so it's less of a problem.
-  const explicityTrimmedFields = ['userName', 'password'];
+  const explicityTrimmedFields = ['username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
@@ -60,7 +58,7 @@ router.post('/', jsonParser, (req, res) => {
   }
 
   const sizedFields = {
-    userName: {
+    username: {
       min: 1
     },
     password: {
@@ -94,22 +92,22 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  let {userName, password, firstName = '', lastName = ''} = req.body;
-  // userName and password come in pre-trimmed, otherwise we throw an error
+  let {username, password, firstName = '', lastName = ''} = req.body;
+  // Username and password come in pre-trimmed, otherwise we throw an error
   // before this
   firstName = firstName.trim();
   lastName = lastName.trim();
 
-  return User.find({userName})
+  return User.find({username})
     .count()
     .then(count => {
       if (count > 0) {
-        // There is an existing user with the same userName
+        // There is an existing user with the same username
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
-          message: 'User name already taken',
-          location: 'userName'
+          message: 'Username already taken',
+          location: 'username'
         });
       }
       // If there is no existing user, hash the password
@@ -117,7 +115,7 @@ router.post('/', jsonParser, (req, res) => {
     })
     .then(hash => {
       return User.create({
-        userName,
+        username,
         password: hash,
         firstName,
         lastName
@@ -140,10 +138,10 @@ router.post('/', jsonParser, (req, res) => {
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also
 // verify this in the Mongo shell.
-router.get('/',jwtAut, (req, res) => {
+router.get('/', (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-module.exports = { router };
+module.exports = {router};
