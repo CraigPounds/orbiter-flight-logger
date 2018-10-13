@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const { User } = require('./models');
 const passport = require('passport');
 const router = express.Router();
-const jwtAut = passport.authenticate('jwt', { session: false });
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
@@ -94,11 +94,12 @@ router.post('/', jsonParser, (req, res) => {
     });
   }
 
-  let {userName, password, firstName = '', lastName = ''} = req.body;
+  let { firstName = '', lastName = '', email = '', userName, password } = req.body;
   // userName and password come in pre-trimmed, otherwise we throw an error
   // before this
   firstName = firstName.trim();
   lastName = lastName.trim();
+  email = email.trim();
 
   return User.find({userName})
     .count()
@@ -116,11 +117,12 @@ router.post('/', jsonParser, (req, res) => {
       return User.hashPassword(password);
     })
     .then(hash => {
-      return User.create({
+      return User.create({        
+        firstName,
+        lastName,
+        email,
         userName,
         password: hash,
-        firstName,
-        lastName
       });
     })
     .then(user => {
@@ -140,7 +142,13 @@ router.post('/', jsonParser, (req, res) => {
 // we're just doing this so we have a quick way to see
 // if we're creating users. keep in mind, you can also
 // verify this in the Mongo shell.
-router.get('/',jwtAut, (req, res) => {
+// router.get('/',jwtAut, (req, res) => {
+//   return User.find()
+//     .then(users => res.json(users.map(user => user.serialize())))
+//     .catch(err => res.status(500).json({message: 'Internal server error'}));
+// });
+
+router.get('/', jwtAuth, (req, res) => {
   return User.find()
     .then(users => res.json(users.map(user => user.serialize())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
