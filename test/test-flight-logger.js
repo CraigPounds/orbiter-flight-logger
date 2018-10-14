@@ -146,3 +146,5 @@ describe('API resource', function() {
     });
   });
 });
+
+module.exports = { seedUserData, seedMissionData, tearDownDb, gernerateUserName, generateUserPassword };
