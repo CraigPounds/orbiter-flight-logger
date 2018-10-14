@@ -1,14 +1,12 @@
 'use strict';
 
 const express = require('express');
-const bodyParser = require('body-parser');
-
-const { Mission } = require('./models');
-// const passport = require('passport');
 const router = express.Router();
-// const jwtAuth = passport.authenticate('jwt', { session: false });
-
+const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+// const passport = require('passport');
+// const jwtAuth = passport.authenticate('jwt', { session: false });
+const { Mission } = require('./models');
 
 router.get('/', (req, res) => {
   Mission

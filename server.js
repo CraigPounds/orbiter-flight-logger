@@ -42,6 +42,10 @@ app.use('/users/', usersRouter);
 app.use('/missions/', missionsRouter);
 app.use('/auth/', authRouter);
 
+// app.get('/', (req, res) => {
+//   return res.sendFile(__dirname + '/public/index.html');
+// });
+
 let server;
 
 function runServer(databaseUrl, port = PORT) {
