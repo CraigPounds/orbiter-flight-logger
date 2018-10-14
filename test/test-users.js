@@ -12,11 +12,11 @@ const { TEST_DATABASE_URL } = require('../config');
 
 chai.use(chaiHttp);
 
-const firstName = faker.name.firstName();
-const lastName = faker.name.lastName();
-const email = faker.internet.email();
-const userName = gernerateUserName();
-const password = generateUserPassword();
+// const firstName = faker.name.firstName();
+// const lastName = faker.name.lastName();
+// const email = faker.internet.email();
+// const userName = gernerateUserName();
+// const password = generateUserPassword();
 
 function seedUserData() {
   console.info('seeding user data');
@@ -180,6 +180,12 @@ describe('API resource', function() {
   // });
 
   describe('POST users enpoint', function () {
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const email = faker.internet.email();
+    const userName = gernerateUserName();
+    const password = generateUserPassword();
+
     it('Should reject users with missing userName', function () {
       return chai
         .request(app)
@@ -190,14 +196,13 @@ describe('API resource', function() {
           email,
           password
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
           }
-
           const res = err.response;
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -214,14 +219,13 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
           }
-
           const res = err.response;
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -239,9 +243,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -266,9 +270,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -293,9 +297,9 @@ describe('API resource', function() {
           firstName: 1234,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -320,9 +324,9 @@ describe('API resource', function() {
           firstName,
           lastName: 1234
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -347,9 +351,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -374,9 +378,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -401,9 +405,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -428,9 +432,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -455,9 +459,9 @@ describe('API resource', function() {
           firstName,
           lastName
         })
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -478,7 +482,8 @@ describe('API resource', function() {
         userName,
         password,
         firstName,
-        lastName
+        lastName,
+        email
       })
         .then(() =>
           // Try to create a second user with the same userName
@@ -486,12 +491,13 @@ describe('API resource', function() {
             userName,
             password,
             firstName,
-            lastName
+            lastName,
+            email
           })
         )
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
+        // .then(() =>
+        //   expect.fail(null, null, 'Request should not succeed')
+        // )
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;
@@ -511,18 +517,21 @@ describe('API resource', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
-          password,
           firstName,
-          lastName
+          lastName,
+          email,
+          userName,
+          password
         })
         .then(res => {
           expect(res).to.have.status(201);
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.keys(
-            'userName',
+            '_id',
             'firstName',
-            'lastName'
+            'lastName',
+            'email',
+            'userName'
           );
           expect(res.body.userName).to.equal(userName);
           expect(res.body.firstName).to.equal(firstName);
@@ -546,18 +555,21 @@ describe('API resource', function() {
         .request(app)
         .post('/users')
         .send({
+          firstName: ` ${firstName} `,
+          lastName: ` ${lastName} `,
+          email,
           userName,
           password,
-          firstName: ` ${firstName} `,
-          lastName: ` ${lastName} `
         })
         .then(res => {
           expect(res).to.have.status(201);
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.keys(
-            'userName',
+            '_id',
             'firstName',
-            'lastName'
+            'lastName',
+            'email',
+            'userName'
           );
           expect(res.body.userName).to.equal(userName);
           expect(res.body.firstName).to.equal(firstName);

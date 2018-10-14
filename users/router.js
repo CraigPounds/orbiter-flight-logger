@@ -8,7 +8,7 @@ const passport = require('passport');
 const jwtAuth = passport.authenticate('jwt', { session: false });
 const { User } = require('./models');
 
-router.post('/', jsonParser, (req, res) => {
+router.post('/', (req, res) => {
   const requiredFields = ['email', 'userName', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
