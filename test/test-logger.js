@@ -66,9 +66,15 @@ function generateOrbiterVersion() {
 }
 
 function generateOperatingSystem() {
-  const OS = ['10', '8.1', '7', 'XP', '2000', 'other'];
-  const I = Math.floor(Math.random() * 5);
-  return `Windows ${OS[I]}`;
+  const OPERATING_SYSTEMS = ['10', '8.1', '7', 'XP', '2000', 'other'];
+  let i = Math.floor(Math.random() * OPERATING_SYSTEMS.length);
+  return `Windows ${OPERATING_SYSTEMS[i]}`;
+}
+
+function generateVessel() {
+  const VESSELS = [ `USS ${faker.name.firstName()}`, 'Apollo 18', 'Atlantis', 'DG-III', 'DG-IV', 'XR-1', 'XR-2', 'XR-5', 'Millennium Falcon'];
+  let i = Math.floor(Math.random() * VESSELS.length);
+  return VESSELS[i];
 }
 
 function generateDate() {
@@ -84,7 +90,7 @@ function generatelogs() {
   for (let i = 0; i < I; i++) {
     let newLogData = {
       title: faker.lorem.sentence(),
-      vessel: faker.lorem.word(),
+      vessel: generateVessel(),
       date: generateDate(),
       log: faker.lorem.paragraph()
     };
