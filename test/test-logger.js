@@ -138,8 +138,6 @@ describe('API resource', function() {
         });
     });
   });
-
-
 });
 
 // describe('/api/user', function () {

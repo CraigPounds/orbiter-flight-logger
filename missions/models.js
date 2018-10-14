@@ -16,7 +16,7 @@ const LogSchema = mongoose.Schema({
   log: 'string'
 });
 
-LogSchema.serialize = function() {
+LogSchema.methods.serialize = function() {
   return {
     _id: this._id,
     title: this.title,
@@ -39,7 +39,7 @@ const MissionSchema = mongoose.Schema({
   logs: [LogSchema]
 });
 
-MissionSchema.serialize = function() {
+MissionSchema.methods.serialize = function() {
   return {
     _id: this._id,
     title: this.title,
