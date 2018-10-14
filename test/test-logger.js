@@ -35,7 +35,7 @@ function seedMissionData() {
         // console.log('newMissionData', newMissionData);
         MISSION_DATA.push(newMissionData);
       });
-      // console.log(Mission);
+      // console.log('MISSION_DATA', MISSION_DATA);
       return Mission.insertMany(MISSION_DATA);
     });
 }
@@ -78,19 +78,20 @@ function generateDate() {
 }
 
 function generatelogs() {
-  let seedLogs = [];
-  const I = Math.floor(Math.random() * 5);
+  const LOG_DATA = [];
+  const I = Math.floor(Math.random() * 5) + 1;
   
   for (let i = 0; i < I; i++) {
-    let newLog = {
+    let newLogData = {
       title: faker.lorem.sentence(),
       vessel: faker.lorem.word(),
       date: generateDate(),
       log: faker.lorem.paragraph()
     };
-    seedLogs.push(newLog);
+    LOG_DATA.push(newLogData);
   }
-  return seedLogs;
+  // console.log('LOG_DATA', LOG_DATA);
+  return LOG_DATA;
 }
 
 function generateMissionData(id) {
