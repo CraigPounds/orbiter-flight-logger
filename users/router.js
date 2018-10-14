@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const { User } = require('./models');
 const passport = require('passport');
 const router = express.Router();
-// const jwtAuth = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
@@ -158,17 +157,8 @@ router.get('/', (req, res) => {
     });
 });
 
-// router.get('/',jwtAuth, (req, res) => {
-//   return User.find()
-//     .then(users => res.json(users.map(user => user.serialize())))
-//     .catch(err => res.status(500).json({message: 'Internal server error'}));
-// });
-
-
-// router.get('/:id', jwtAuth, (req, res) => {
-//   return User.findById(req.params.id)
-//     .then(user => res.json(user.serialize()))
-//     .catch(err => res.status(500).json({message: 'Internal server error'}));
-// });
+router.use('*', (req, res) => {
+  return res.status(404).json({ message: 'Not Found' });
+});
 
 module.exports = { router };

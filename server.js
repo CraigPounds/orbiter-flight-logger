@@ -42,22 +42,6 @@ app.use('/users/', usersRouter);
 app.use('/missions/', missionsRouter);
 app.use('/auth/', authRouter);
 
-const jwtAuth = passport.authenticate('jwt', { session: false });
-
-// app.get('/', (req, res) => {
-//   return res.sendFile(__dirname + '/public/index.html');
-// });
-
-// app.get('/api/protected', jwtAuth, (req, res) => {
-//   return res.json({
-//     data: 'hello'
-//   });
-// });
-
-app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
-});
-
 let server;
 
 function runServer(databaseUrl, port = PORT) {
