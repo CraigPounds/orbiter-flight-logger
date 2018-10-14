@@ -10,7 +10,6 @@ const router = express.Router();
 
 const jsonParser = bodyParser.json();
 
-// Post to register a new user
 router.post('/', jsonParser, (req, res) => {
   console.log(req.body);
   const requiredFields = ['email', 'userName', 'password'];
@@ -139,11 +138,32 @@ router.post('/', jsonParser, (req, res) => {
     });
 });
 
+// router.get('/', (req, res) => {
+//   return User.find()
+//     .then(users => res.json(users.map(user => user.serialize())))
+//     .catch(err => res.status(500).json({message: 'Internal server error'}));
+// });
+
+router.get('/', (req, res) => {
+  User
+    .find()
+    .then(users => {
+      res.json({
+        users: users.map(user => user.serialize())
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error'});
+    });
+});
+
 // router.get('/',jwtAuth, (req, res) => {
 //   return User.find()
 //     .then(users => res.json(users.map(user => user.serialize())))
 //     .catch(err => res.status(500).json({message: 'Internal server error'}));
 // });
+
 
 // router.get('/:id', jwtAuth, (req, res) => {
 //   return User.findById(req.params.id)

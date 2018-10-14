@@ -5,7 +5,8 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const faker = require('faker');
 const mongoose = require('mongoose');
-const { User, Mission } = require('../users');
+const { User } = require('../users');
+const { Mission } = require('../missions');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 
@@ -17,6 +18,7 @@ function seedUserData() {
   for (let i = 1; i <= 10; i++) {
     USER_DATA.push(generateUserData());
   }
+  // console.log('USER_DATA', USER_DATA);
   return User.insertMany(USER_DATA);
 }
 
@@ -25,21 +27,26 @@ function seedMissionData() {
   const MISSION_DATA = [];
   return chai.request(app)
     .get('/users')
-    .then(function(res) {
-      res.body.authors.forEach(user => {
+    .then(function(
+      res) {
+      // console.log('res.body', res.body);
+      res.body.users.forEach(user => {
         let newMissionData = generateMissionData(user._id);
+        // console.log('newMissionData', newMissionData);
         MISSION_DATA.push(newMissionData);
       });
+      // console.log(Mission);
       return Mission.insertMany(MISSION_DATA);
     });
 }
 
 function gernerateUserName() {
-  return `${faker.name.firstName()} ${faker.name.lastName()}`;
+  return `${faker.name.firstName().toLowerCase()}${Math.floor(Math.random() * 1000)}`;
 }
 
 function generateUserPassword() {
-  return Date.now();
+  let password = Date.now().toString() + faker.lorem.word();
+  return password;
 }
 
 function generateUserData() {
@@ -76,7 +83,6 @@ function generatelogs() {
   
   for (let i = 0; i < I; i++) {
     let newLog = {
-      _id: i,
       title: faker.lorem.sentence(),
       vessel: faker.lorem.word(),
       date: generateDate(),
@@ -88,6 +94,7 @@ function generatelogs() {
 }
 
 function generateMissionData(id) {
+  // console.log('id', id);
   return {
     user: id,
     title: faker.lorem.sentence(),
