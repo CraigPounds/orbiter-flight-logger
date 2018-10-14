@@ -44,14 +44,14 @@ app.use('/auth/', authRouter);
 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
+// app.get('/', (req, res) => {
+//   return res.sendFile(__dirname + '/public/index.html');
+// });
+
 // app.get('/api/protected', jwtAuth, (req, res) => {
 //   return res.json({
 //     data: 'hello'
 //   });
-// });
-
-// app.get('/', (req, res) => {
-//   return res.sendFile(__dirname + '/public/index.html');
 // });
 
 app.use('*', (req, res) => {
