@@ -5,17 +5,17 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const app = express();
+
 const passport = require('passport');
 
 const { router: usersRouter } = require('./users');
 const { router: missionsRouter } = require('./missions');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
-mongoose.Promise = global.Promise;
-
 const { PORT, DATABASE_URL } = require('./config');
 
-const app = express();
+mongoose.Promise = global.Promise;
 
 // Logging
 app.use(morgan('common'));
@@ -45,9 +45,9 @@ app.use('/auth/', authRouter);
 let server;
 
 function runServer(databaseUrl, port = PORT) {
-
   return new Promise((resolve, reject) => {
-    mongoose.connect(databaseUrl, { useCreateIndex: true , useNewUrlParser: true }, err => {
+    // mongoose.connect(databaseUrl, { useCreateIndex: true , useNewUrlParser: true }, err => {
+    mongoose.connect(databaseUrl, err => {
       if (err) {
         return reject(err);
       }
