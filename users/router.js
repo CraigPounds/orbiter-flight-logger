@@ -6,13 +6,14 @@ const bodyParser = require('body-parser');
 const { User } = require('./models');
 const passport = require('passport');
 const router = express.Router();
-const jwtAuth = passport.authenticate('jwt', { session: false });
+// const jwtAuth = passport.authenticate('jwt', { session: false });
 
 const jsonParser = bodyParser.json();
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['firstName', 'lastName', 'email', 'userName', 'password'];
+  console.log(req.body);
+  const requiredFields = ['email', 'userName', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -122,7 +123,7 @@ router.post('/', jsonParser, (req, res) => {
         lastName,
         email,
         userName,
-        password: hash,
+        password: hash
       });
     })
     .then(user => {
@@ -138,20 +139,16 @@ router.post('/', jsonParser, (req, res) => {
     });
 });
 
-// Never expose all your users like below in a prod application
-// we're just doing this so we have a quick way to see
-// if we're creating users. keep in mind, you can also
-// verify this in the Mongo shell.
-// router.get('/',jwtAut, (req, res) => {
+// router.get('/',jwtAuth, (req, res) => {
 //   return User.find()
 //     .then(users => res.json(users.map(user => user.serialize())))
 //     .catch(err => res.status(500).json({message: 'Internal server error'}));
 // });
 
-router.get('/', jwtAuth, (req, res) => {
-  return User.find()
-    .then(users => res.json(users.map(user => user.serialize())))
-    .catch(err => res.status(500).json({message: 'Internal server error'}));
-});
+// router.get('/:id', jwtAuth, (req, res) => {
+//   return User.findById(req.params.id)
+//     .then(user => res.json(user.serialize()))
+//     .catch(err => res.status(500).json({message: 'Internal server error'}));
+// });
 
 module.exports = { router };

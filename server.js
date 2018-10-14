@@ -16,12 +16,14 @@ const { PORT, DATABASE_URL } = require('./config');
 
 const app = express();
 
+// Logging
 app.use(morgan('common'));
 
 app.use(express.static('public'));
 
 app.use(express.json());
 
+// CORS
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
@@ -35,24 +37,24 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
-app.use('/users/', usersRouter);
-app.use('/auth/', authRouter);
+app.use('/api/users/', usersRouter);
+app.use('/api/auth/', authRouter);
 
-// const jwtAuth = passport.authenticate('jwt', { session: false });
+const jwtAuth = passport.authenticate('jwt', { session: false });
 
-// app.get('/', jwtAuth, (req, res) => {
-//   return res.json({
-//     data: 'hello'
-//   });
-// });
+app.get('/api/protected', jwtAuth, (req, res) => {
+  return res.json({
+    data: 'hello'
+  });
+});
 
 // app.get('/', (req, res) => {
 //   return res.sendFile(__dirname + '/public/index.html');
 // });
 
-// app.use('*', (req, res) => {
-//   return res.status(404).json({ message: 'Not Found' });
-// });
+app.use('*', (req, res) => {
+  return res.status(404).json({ message: 'Not Found' });
+});
 
 let server;
 
