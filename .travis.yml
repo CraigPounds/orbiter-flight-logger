@@ -1,9 +1,3 @@
 language: node_js
 node_js: node
-deploy:
-  provider: heroku
-  api_key:
-    secure: o9kcd0nOn+nwpnjz21hfi9nDmNTtdrvhNsCYeMyUXCq3qr2p+C0LNFH6olUrcj4qdfM6P6KG5kQ1Xl62xuF8k2nmduyjtmvh2KsDPKpXxwbGy1EqYgz2m03+/2/PM9+ipHbnphX4bMBhVEibCA3HqMk9jc+f2QnF2aQSw5kxqxQFP1OSWUrr9aBW60ZOMyiMaErRM9MfpR3+ZE3GpaCX469uaSExENgHKCIq6UW3SENZTqxNsolElyYyPpr0ZQTituIpNgZ4VQrAwrIzxzx17RGt/xjriSWqFghkNOt5dZKj3vMJn1ck3TshaxcrtXR6kUx82FayV2WCYCcRBEPYTFRjRnj5x9OGXke5VAd374tKSEcjk/LN6hGfBfhcEj+B0r8S6moKu/7N04Xmgws3/UxuBcqL1vwWYuw/wv0eLJ/MRjgdcWcTVpx7o9mf+IcyJ0OVhEQfENLm438D1eXmT96E5mHGuVNjEof+amk9iIMHI+ZEEJHznxg+320bUaZi3/1Vww5ToiyDh0zR1riUob4f4icxeBJ110eT/wmLQCZ1vVwWbVs3tRTNSsaAVxRqjatizGA194wIR/eyzPylgGD2tohtlPNJtw+NHFMdh3zNfgU3zCE7JHMHs/IC0E96/F5cwbJyl0WDl1U4NJDmtVv5vFMKi2CG/KfdulCpfM4=
-  app: orbiter-flight-logger
-  on:
-    repo: CraigPounds/orbiter-flight-logger
+services: - mongodb
