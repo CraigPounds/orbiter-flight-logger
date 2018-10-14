@@ -45,7 +45,7 @@ function gernerateUserName() {
 }
 
 function generateUserPassword() {
-  let password = Date.now().toString() + faker.lorem.word();
+  let password = faker.lorem.word() + Math.floor(Math.random() * 1000) + faker.lorem.word() + faker.lorem.word();
   return password;
 }
 
@@ -61,14 +61,14 @@ function generateUserData() {
 
 function generateOrbiterVersion() {
   const VERSION = ['2005', '2006', '2010', '2016'];
-  const I = Math.floor(Math.random() * 3);
-  return `Orbiter ${VERSION[I]}`;
+  let i = Math.floor(Math.random() * VERSION.length);
+  return `Orbiter ${VERSION[i]}`;
 }
 
 function generateOperatingSystem() {
-  const OPERATING_SYSTEMS = ['10', '8.1', '7', 'XP', '2000', 'other'];
+  const OPERATING_SYSTEMS = ['Windows 10', 'Windows 8.1', 'Windows 7', 'Windows XP', 'Windows 2000', 'other'];
   let i = Math.floor(Math.random() * OPERATING_SYSTEMS.length);
-  return `Windows ${OPERATING_SYSTEMS[i]}`;
+  return OPERATING_SYSTEMS[i];
 }
 
 function generateVessel() {
@@ -78,16 +78,16 @@ function generateVessel() {
 }
 
 function generateDate() {
-  const I = Math.floor(Math.random() * 100) + 1;
-  let newDate = faker.date.past(I).toString();
+  let i = Math.floor(Math.random() * 100) + 1;
+  let newDate = faker.date.past(i).toString();
   return newDate.slice(3, 15);
 }
 
 function generatelogs() {
   const LOG_DATA = [];
-  const I = Math.floor(Math.random() * 5) + 1;
+  let index = Math.floor(Math.random() * 5) + 1;
   
-  for (let i = 0; i < I; i++) {
+  for (let i = 0; i < index; i++) {
     let newLogData = {
       title: faker.lorem.sentence(),
       vessel: generateVessel(),
