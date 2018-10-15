@@ -2,13 +2,13 @@
 
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-
+const { User } = require('../users/models');
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 
 const MissionSchema = mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   title: 'string',
   orbiterVersion: 'string',
   os: 'string'
@@ -17,6 +17,7 @@ const MissionSchema = mongoose.Schema({
 MissionSchema.methods.serialize = function() {
   return {
     _id: this._id,
+    user_id: this.user_id,
     title: this.title,
     orbiterVersion: this.orbiterVersion,
     os: this.os

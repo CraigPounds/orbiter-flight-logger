@@ -13,7 +13,7 @@ const { seedUserData, seedMissionData, tearDownDb, gernerateUserName, generateUs
 
 chai.use(chaiHttp);
 
-describe('Auth enpoints', function() {
+describe('Logs endpoints', function() {
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });

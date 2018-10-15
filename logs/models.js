@@ -8,7 +8,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 
 const LogSchema = mongoose.Schema({ 
-  mission: { type: mongoose.Schema.Types.ObjectId, ref: 'Mission' },
+  mission_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Mission' },
   title: 'string',
   vessel: 'string',
   date: 'string',
@@ -18,6 +18,7 @@ const LogSchema = mongoose.Schema({
 LogSchema.methods.serialize = function() {
   return {
     _id: this._id,
+    mission_id: this.mission_id,
     title: this.title,
     vessel: this.vessel,
     date: this.date,

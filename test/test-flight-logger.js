@@ -103,7 +103,7 @@ function generatelogs() {
 function generateMissionData(id) {
   // console.log('id', id);
   return {
-    user: id,
+    user_id: id,
     title: faker.lorem.sentence(),
     orbiterVersion: generateOrbiterVersion(),
     os: generateOperatingSystem(),
