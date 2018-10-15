@@ -28,7 +28,49 @@ describe('Missions endpoints', function() {
   });
   after(function() {
     return closeServer();
-  }); 
+  });
+
+  describe('GET missions endpoint', function() {
+    it('should return all missions', function() {
+      let res;
+      return chai.request(app)
+        .get('/missions')
+        .then(function(_res) {
+          res = _res;
+          expect(res).to.have.status(200);
+          expect(res.body.missions).to.have.lengthOf.at.least(1);
+          return Mission.count();
+        })
+        .then(function(count) {
+          expect(res.body.missions).to.have.lengthOf(count);
+        });
+    });
+    it('should return missions with correct fields', function() {
+      let resMission;
+      return chai.request(app)
+        .get('/missions')
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body.missions).to.be.a('array');
+          expect(res.body.missions).to.have.lengthOf.at.least(1);
+
+          res.body.missions.forEach(function(mission) {
+            expect(mission).to.be.a('object');
+            expect(mission).to.include.keys('_id', 'user_id', 'title', 'orbiterVersion', 'os');
+          });
+          resMission = res.body.missions[0];
+          return Mission.findById(resMission._id);
+        })
+        .then(function(mission) {
+          expect(resMission._id).to.equal(mission._id.toString());
+          expect(resMission.user_id).to.equal(mission.user_id.toString());
+          expect(resMission.title).to.equal(mission.title);
+          expect(resMission.orbiterVersion).to.equal(mission.orbiterVersion);
+          expect(resMission.os).to.equal(mission.os);
+        });
+    });
+  });
 
   describe('POST missions endpoint', function() {
     it('should add a mission by user', function() {
