@@ -30,46 +30,46 @@ describe('Users endpoints', function() {
     return closeServer();
   }); 
 
-  // describe('GET users endpoint', function() {
-  //   it('should return all users', function() {
-  //     let res;
-  //     return chai.request(app)
-  //       .get('/users')
-  //       .then(function(_res) {
-  //         res = _res;
-  //         expect(res).to.have.status(200);
-  //         expect(res.body.users).to.have.lengthOf.at.least(1);
-  //         return User.countDocuments();
-  //       })
-  //       .then(function(count) {
-  //         expect(res.body.users).to.have.lengthOf(count);
-  //       });
-  //   });
-  //   it('should return users with correct fields', function() {
-  //     let resUser;
-  //     return chai.request(app)
-  //       .get('/users')
-  //       .then(function(res) {
-  //         expect(res).to.have.status(200);
-  //         expect(res).to.be.json;
-  //         expect(res.body.users).to.be.a('array');
-  //         expect(res.body.users).to.have.lengthOf.at.least(1);
+  describe('GET users endpoint', function() {
+    it('should return all users', function() {
+      let res;
+      return chai.request(app)
+        .get('/users')
+        .then(function(_res) {
+          res = _res;
+          expect(res).to.have.status(200);
+          expect(res.body.users).to.have.lengthOf.at.least(1);
+          return User.countDocuments();
+        })
+        .then(function(count) {
+          expect(res.body.users).to.have.lengthOf(count);
+        });
+    });
+    it('should return users with correct fields', function() {
+      let resUser;
+      return chai.request(app)
+        .get('/users')
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body.users).to.be.a('array');
+          expect(res.body.users).to.have.lengthOf.at.least(1);
 
-  //         res.body.users.forEach(function(user) {
-  //           expect(user).to.be.a('object');
-  //           expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
-  //         });
-  //         resUser = res.body.users[0];
-  //         return User.findById(resUser._id);
-  //       })
-  //       .then(function(user) {
-  //         expect(resUser.firstName).to.be.equal(user.firstName);
-  //         expect(resUser.lastName).to.be.equal(user.lastName);
-  //         expect(resUser.userName).to.equal(user.userName);
-  //         expect(resUser.email).to.be.equal(user.email);
-  //       });
-  //   });
-  // });
+          res.body.users.forEach(function(user) {
+            expect(user).to.be.a('object');
+            expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
+          });
+          resUser = res.body.users[0];
+          return User.findById(resUser._id);
+        })
+        .then(function(user) {
+          expect(resUser.firstName).to.be.equal(user.firstName);
+          expect(resUser.lastName).to.be.equal(user.lastName);
+          expect(resUser.userName).to.equal(user.userName);
+          expect(resUser.email).to.be.equal(user.email);
+        });
+    });
+  });
 
   describe('POST users enpoint', function () {
     const firstName = faker.name.firstName();
