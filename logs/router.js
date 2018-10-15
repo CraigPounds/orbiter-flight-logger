@@ -4,9 +4,11 @@ const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-// const passport = require('passport');
-// const jwtAuth = passport.authenticate('jwt', { session: false });
+const passport = require('passport');
+const jwtAuth = passport.authenticate('jwt', { session: false });
 const { Log } = require('./models');
+
+
 
 router.get('/', (req, res) => {
   Log

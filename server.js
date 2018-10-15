@@ -11,6 +11,7 @@ const passport = require('passport');
 
 const { router: usersRouter } = require('./users');
 const { router: missionsRouter } = require('./missions');
+const { router: logsRouter } = require('./logs');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 
 const { PORT, DATABASE_URL } = require('./config');
@@ -40,6 +41,7 @@ passport.use(jwtStrategy);
 
 app.use('/users/', usersRouter);
 app.use('/missions/', missionsRouter);
+app.use('/logs/', logsRouter);
 app.use('/auth/', authRouter);
 
 // app.get('/', (req, res) => {
