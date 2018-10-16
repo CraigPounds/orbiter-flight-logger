@@ -7,6 +7,7 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 const { User } = require('../users');
 const { Mission } = require('../missions');
+const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 const { seedUserData, seedMissionData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
@@ -22,6 +23,9 @@ describe('Auth endpoints', function() {
   });
   beforeEach(function() {
     return seedMissionData();
+  });
+  beforeEach(function() {
+    return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();

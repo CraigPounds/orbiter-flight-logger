@@ -4,9 +4,9 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const faker = require('faker');
-const mongoose = require('mongoose');
 const { User } = require('../users');
 const { Mission } = require('../missions');
+const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
@@ -21,10 +21,10 @@ describe('Users endpoints', function() {
     return seedUserData();
   });
   beforeEach(function() {
-    return seedMissionData();
+    // return seedMissionData();
   });
   beforeEach(function() {
-    return seedLogData();
+    // return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -32,48 +32,6 @@ describe('Users endpoints', function() {
   after(function() {
     return closeServer();
   }); 
-
-  describe('GET users endpoint', function() {
-    it('should return all users', function() {
-      let res;
-      return chai.request(app)
-        .get('/users')
-        .then(function(_res) {
-          res = _res;
-          expect(res).to.have.status(200);
-          expect(res.body.users).to.have.lengthOf.at.least(1);
-          return User.countDocuments();
-        })
-        .then(function(count) {
-          expect(res.body.users).to.have.lengthOf(count);
-        });
-    });
-    it('should return users with correct fields', function() {
-      let resUser;
-      return chai.request(app)
-        .get('/users')
-        .then(function(res) {
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body.users).to.be.a('array');
-          expect(res.body.users).to.have.lengthOf.at.least(1);
-
-          res.body.users.forEach(function(user) {
-            expect(user).to.be.a('object');
-            expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
-          });
-          resUser = res.body.users[0];
-          return User.findById(resUser._id);
-        })
-        .then(function(user) {
-          expect(resUser._id).to.be.equal(user._id.toString());
-          expect(resUser.firstName).to.be.equal(user.firstName);
-          expect(resUser.lastName).to.be.equal(user.lastName);
-          expect(resUser.userName).to.equal(user.userName);
-          expect(resUser.email).to.be.equal(user.email);
-        });
-    });
-  });
 
   describe('POST users enpoint', function () {
     const firstName = faker.name.firstName();
@@ -478,6 +436,48 @@ describe('Users endpoints', function() {
           expect(user).to.not.be.null;
           expect(user.firstName).to.equal(firstName);
           expect(user.lastName).to.equal(lastName);
+        });
+    });
+  });
+
+  describe('GET users endpoint', function() {
+    it('should return all users', function() {
+      let res;
+      return chai.request(app)
+        .get('/users')
+        .then(function(_res) {
+          res = _res;
+          expect(res).to.have.status(200);
+          expect(res.body.users).to.have.lengthOf.at.least(1);
+          return User.countDocuments();
+        })
+        .then(function(count) {
+          expect(res.body.users).to.have.lengthOf(count);
+        });
+    });
+    it('should return users with correct fields', function() {
+      let resUser;
+      return chai.request(app)
+        .get('/users')
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body.users).to.be.a('array');
+          expect(res.body.users).to.have.lengthOf.at.least(1);
+
+          res.body.users.forEach(function(user) {
+            expect(user).to.be.a('object');
+            expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
+          });
+          resUser = res.body.users[0];
+          return User.findById(resUser._id);
+        })
+        .then(function(user) {
+          expect(resUser._id).to.be.equal(user._id.toString());
+          expect(resUser.firstName).to.be.equal(user.firstName);
+          expect(resUser.lastName).to.be.equal(user.lastName);
+          expect(resUser.userName).to.equal(user.userName);
+          expect(resUser.email).to.be.equal(user.email);
         });
     });
   });
