@@ -3,6 +3,7 @@
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const { User } = require('../users/models');
+
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
@@ -36,4 +37,4 @@ MissionSchema.pre('findOne', function(next) {
 
 const Mission = mongoose.model('Mission', MissionSchema);
 
-module.exports = { Mission, MissionSchema };
+module.exports = { Mission };

@@ -7,15 +7,16 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 const { User } = require('../users');
 const { Mission } = require('../missions');
+const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
 
 chai.use(chaiHttp);
 
 function seedUserData() {
-  console.info('seeding user data');
+  console.info('Seeding user data');
   const USER_DATA = [];
-  for (let i = 1; i <= 10; i++) {
+  for (let i = 0; i < 9; i++) {
     USER_DATA.push(generateUserData());
   }
   // console.log('USER_DATA', USER_DATA);
@@ -23,20 +24,38 @@ function seedUserData() {
 }
 
 function seedMissionData() {
-  console.info('seeding mission data');
+  console.info('Seeding mission data');
   const MISSION_DATA = [];
   return chai.request(app)
     .get('/users')
-    .then(function(
-      res) {
+    .then(function(res) {
       // console.log('res.body', res.body);
       res.body.users.forEach(user => {
-        let newMissionData = generateMissionData(user._id);
-        // console.log('newMissionData', newMissionData);
-        MISSION_DATA.push(newMissionData);
+        for (let i = 0; i < 9; i++) {
+          let newMissionData = generateMissionData(user._id);
+          // console.log('newMissionData', newMissionData);
+          MISSION_DATA.push(newMissionData);
+        }
       });
       // console.log('MISSION_DATA', MISSION_DATA);
       return Mission.insertMany(MISSION_DATA);
+    });
+}
+
+function seedLogData() {
+  console.info('Seeding log data');
+  const LOG_DATA = [];
+  return chai.request(app)
+    .get('/missions')
+    .then(function(res) {
+      res.body.missions.forEach(mission => {
+        // console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmission', mission);
+        for (let i = 0; i < 9; i++) {
+          let newLogData = generateLogData(mission._id);
+          LOG_DATA.push(newLogData);
+        }
+      });
+      return Log.insertMany(LOG_DATA);
     });
 }
 
@@ -71,6 +90,16 @@ function generateOperatingSystem() {
   return OPERATING_SYSTEMS[i];
 }
 
+function generateMissionData(id) {
+  // console.log('id', id);
+  return {
+    user_id: id,
+    title: faker.lorem.sentence(),
+    orbiterVersion: generateOrbiterVersion(),
+    os: generateOperatingSystem(),
+  };
+}
+
 function generateVessel() {
   const VESSELS = [ `USS ${faker.name.firstName()}`, 'Apollo 18', 'Atlantis', 'DG-III', 'DG-IV', 'XR-1', 'XR-2', 'XR-5', 'Millennium Falcon'];
   let i = Math.floor(Math.random() * VESSELS.length);
@@ -83,31 +112,13 @@ function generateDate() {
   return newDate.slice(3, 15);
 }
 
-function generatelogs() {
-  const LOG_DATA = [];
-  let index = Math.floor(Math.random() * 5) + 1;
-  
-  for (let i = 0; i < index; i++) {
-    let newLogData = {
-      title: faker.lorem.sentence(),
-      vessel: generateVessel(),
-      date: generateDate(),
-      log: faker.lorem.paragraph()
-    };
-    LOG_DATA.push(newLogData);
-  }
-  // console.log('LOG_DATA', LOG_DATA);
-  return LOG_DATA;
-}
-
-function generateMissionData(id) {
-  // console.log('id', id);
+function generateLogData(id) {
   return {
-    user_id: id,
+    mission_id: id,
     title: faker.lorem.sentence(),
-    orbiterVersion: generateOrbiterVersion(),
-    os: generateOperatingSystem(),
-    logs: generatelogs()
+    vessel: generateVessel(),
+    date: generateDate(),
+    log: faker.lorem.paragraph()
   };
 }
 
@@ -125,6 +136,9 @@ describe('API resource', function() {
   });
   beforeEach(function() {
     return seedMissionData();
+  });
+  beforeEach(function() {
+    return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -147,4 +161,4 @@ describe('API resource', function() {
   });
 });
 
-module.exports = { seedUserData, seedMissionData, tearDownDb, gernerateUserName, generateUserPassword };
+module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword };

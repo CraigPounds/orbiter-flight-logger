@@ -9,7 +9,7 @@ const { User } = require('../users');
 const { Mission } = require('../missions');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -22,6 +22,9 @@ describe('Users endpoints', function() {
   });
   beforeEach(function() {
     return seedMissionData();
+  });
+  beforeEach(function() {
+    return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -63,6 +66,7 @@ describe('Users endpoints', function() {
           return User.findById(resUser._id);
         })
         .then(function(user) {
+          expect(resUser._id).to.be.equal(user._id.toString());
           expect(resUser.firstName).to.be.equal(user.firstName);
           expect(resUser.lastName).to.be.equal(user.lastName);
           expect(resUser.userName).to.equal(user.userName);

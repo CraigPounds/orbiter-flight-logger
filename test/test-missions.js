@@ -9,7 +9,7 @@ const { User } = require('../users');
 const { Mission } = require('../missions');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -22,6 +22,9 @@ describe('Missions endpoints', function() {
   });
   beforeEach(function() {
     return seedMissionData();
+  });
+  beforeEach(function() {
+    return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -96,9 +99,7 @@ describe('Missions endpoints', function() {
               return Mission.findById(res.body._id);
             })
             .then(function(mission) {
-              let missionUserId = mission.user_id.toString();
-              let newMissionUserId = newMission.user_id.toString();
-              expect(missionUserId).to.equal(newMissionUserId);
+              expect(mission.user_id.toString()).to.equal(newMission.user_id.toString());
               expect(mission.title).to.equal(newMission.title);
               expect(mission.orbiterVersion).to.equal(newMission.orbiterVersion);
               expect(mission.os).to.equal(newMission.os);
