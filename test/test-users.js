@@ -482,4 +482,62 @@ describe('Users endpoints', function() {
     });
   });
 
+  describe('GET user by ID endpoint', function() {
+    it('should GET a user by user id', function() {
+      let testUser = {};
+      return User
+        .findOne()
+        .then(function(user) {
+          testUser = user;
+          return chai.request(app)
+            .get(`/users/${user._id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          return User.findById(testUser._id);
+        })
+        .then(function(user) {
+          expect(user._id.toString()).to.equal(testUser._id.toString());
+          expect(user.firstName).to.equal(testUser.firstName);
+          expect(user.lastName).to.equal(testUser.lastName);
+          expect(user.email).to.equal(testUser.email);
+          expect(user.userName).to.equal(testUser.userName);
+          expect(user.password).to.equal(testUser.password);
+        });
+    });
+  });
+
+  describe('PUT users endpoint', function() {
+    it('should update valid fields for an user by user id', function() {
+      const updateData = {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        userName: gernerateUserName(),
+        email: faker.internet.email(),
+        password: generateUserPassword()
+      };
+      return User
+        .findOne()
+        .then(function(user) {
+          updateData.id = user._id;
+          return chai.request(app)
+            .put(`/users/${user._id}`)
+            .send(updateData);
+        })
+        .then(function(res) {          
+          expect(res).to.have.status(200);
+          return User.findById(updateData.id);
+        })
+        .then(function(user) {
+          expect(user.firstName).to.equal(updateData.firstName);
+          expect(user.lastName).to.equal(updateData.lastName);
+          expect(user.userName).to.equal(updateData.userName);
+          expect(user.email).to.equal(updateData.email);
+          expect(user.password).to.equal(updateData.password);
+        });
+    });  
+  });
+
+
+
 });
