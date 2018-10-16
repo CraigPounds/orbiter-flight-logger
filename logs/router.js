@@ -69,6 +69,19 @@ router.get('/', (req, res) => {
     });
 });
 
+
+
+router.delete('/:id', (req, res) => {
+  Log.findByIdAndDelete(req.params.id)
+    .then((log) => {
+      res.status(204).end();       
+    })
+    .catch(err => { 
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error'});
+    });
+});
+
 router.use('*', (req, res) => {
   return res.status(404).json({ message: 'Not Found' });
 });

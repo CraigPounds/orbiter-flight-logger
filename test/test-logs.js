@@ -112,5 +112,26 @@ describe('Logs endpoints', function() {
         });
     });
   });
+
+
+  
+  describe('DELETE logs endpoint', function() {
+    it('should delete a single log by blog id', function() {
+      let log;
+      return Log
+        .findOne()
+        .then(function(_log) {
+          log = _log;
+          return chai.request(app).delete(`/logs/${log._id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(204);
+          return Log.findById(log._id);
+        })
+        .then(function(_log) {
+          expect(_log).to.be.null;
+        });
+    });
+  });
   
 });
