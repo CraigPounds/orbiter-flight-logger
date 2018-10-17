@@ -87,24 +87,28 @@ function deleteLog(id, callback) {
 
 function pageSignup() {
   $('#page').html(decorateSignupPage);
+  console.log('decorateSignupPage ran');
 }
 
 function pageLogin() {
   $('#page').html(decorateLoginPage);
+  console.log('decorateLoginPage ran');
 }
 
 function pageSearch() {
   $('#page').html(decorateSearchPage);  
+  console.log('decorateSearchPage ran');
 }
 
 function pageProfile() {
   getUsers(cbRenderProfilePage);
+  console.log('cbRenderProfilePage ran');
 }
 
 function pageHome() {
-  console.log('pageHome ran');
   let query = 'someQuery';
   getMissions(query, cbRenderHomePage);
+  console.log('cbRenderHomePage ran');
 }
 
 function pageGallery() {
@@ -114,19 +118,21 @@ function pageGallery() {
 
 
 function handleSubmitPostUser(event) {
-  console.log('handleSubmitPostUser ran');
   event.preventDefault();
+  console.log('handleSubmitPostUser ran');
   let data = returnFormData();
   postUser(data, pageHome);
 }
 
 function handleSubmitLogin(event) {
   event.preventDefault();
+  console.log('handleSubmitLogin ran');
   getUsers(cbAuthenticateLogin);
 }
 
 function handleSubmitPutUser(event) {
   event.preventDefault();
+  console.log('handleSubmitPutUser ran');
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
     putUser(DATA.userId, cbEditUserProfile);
     pageHome();
@@ -135,6 +141,7 @@ function handleSubmitPutUser(event) {
 
 function handleBtnDeleteProfile(event) {
   event.preventDefault();
+  console.log('handleBtnDeleteProfile ran');
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
     deleteUser(DATA.userId, cbDeleteUserProfile);
@@ -155,6 +162,7 @@ function handleSubmitPostMission(event) {
 
 function handleSubmitGetMission(event) {
   event.preventDefault();
+  console.log('handleSubmitGetMission ran');
   let query = 'someQuery';
   getMissions(query, cbRenderSearchResults);
 }
@@ -192,9 +200,7 @@ function returnFormData() {
   let email = $('#email').val().trim();
   let userName = $('#user-name').val().trim();
   let password = $('#password').val().trim();
-  let _id = `${userName}${Date.now()}`;    
   let user = {
-    _id,
     firstName,
     lastName,
     email,
@@ -202,6 +208,15 @@ function returnFormData() {
     password
   };
   return user;
+}
+
+function setLocalUserData(data) {
+  DATA.user = data;
+  DATA.user.userId = data._id;
+  DATA.user.firstName = data.firstName;
+  DATA.user.lastName = data.lastName;
+  DATA.user.email = data.email;
+  DATA.user.userName = data.userName;
 }
 
 function cbDeleteUserProfile(id, data) {
@@ -216,7 +231,7 @@ function cbDeleteUserProfile(id, data) {
 }
 
 function cbRenderProfilePage(data) {
-  $('#page').html(decorateProfilePage(data.find((user => user._id === DATA.userId))));
+  $('#page').html(decorateProfilePage(DATA.user));
 }
 
 function cbRenderHomePage(data) {
@@ -249,17 +264,18 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
 }
 
-function login(data) {
-  DATA.userId = data._id;
-  DATA.userName = data.userName;
-  DATA.loggedIn = true;
-}
-
 function logout() {
   DATA.loggedIn = false;
   DATA.userId = '';
   DATA.userName = '';
   pageGallery();
+}
+
+function login(data) {
+  data.password = '';
+  setLocalUserData(data);
+  DATA.user = data;
+  DATA.loggedIn = true;
 }
 
 function setUp() {

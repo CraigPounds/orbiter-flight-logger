@@ -109,7 +109,7 @@ function decorateHomePage(missions) {
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>${DATA.userName}</h2>      
+      <h2>${DATA.user.userName}</h2>      
          
       <button id="btn-new-mission">NEW MISSION</button>
       <div class="results">
@@ -285,7 +285,7 @@ function decorateProfilePage(user) {
             <input type="text" id="user-name" required value=${user.userName}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required value=${user.password}>
+            <input type="password" id="password" required placeholder="">
           </label>
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" required placeholder="">

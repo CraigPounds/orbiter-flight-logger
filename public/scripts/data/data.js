@@ -1,9 +1,8 @@
 'use strict';
 
 const DATA = {
-  userId: undefined,
-  userName: undefined,
-  jwt: undefined,
+  user: {},
+  jwt: '',
   loggedIn: false,
   // mockUsers: [
   //   {
