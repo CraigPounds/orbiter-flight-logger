@@ -4,8 +4,7 @@ import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGaller
 import { DATA } from './data/data.js';
 
 function postUser(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  // setTimeout(function() { callback(DATA.mockUsers); }, 600);  
+   
   const settings = {
     url: '/users/',
     type: 'POST',
@@ -15,11 +14,10 @@ function postUser(data, callback) {
     success: callback
   };
   $.ajax(settings).fail(function(data) {
-    let location = data.responseJSON.location;
-    let message = data.responseJSON.message;
-    $('.js-error').html(`<h2>Check ${location}. ${message}.</h2>`);
-    $('.js-error').show();
-  });
+    console.error('location', data.responseJSON.location);
+    console.error('message', data.responseJSON.message);    
+  });  
+  login(data);
 }
 
 function getUsers(callback) {
@@ -49,7 +47,7 @@ function postMission(callback) {
 
 function getMissions(query, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(DATA); }, 600);
 }
 
 function getMissionById(query, callback) {
@@ -105,20 +103,21 @@ function pageProfile() {
 
 function pageHome() {
   console.log('pageHome ran');
-  // let query = 'someQuery';
-  // getMissions(query, cbRenderHomePage);
+  let query = 'someQuery';
+  getMissions(query, cbRenderHomePage);
 }
 
 function pageGallery() {
+  console.log('decorateGalleryPage ran');
   $('#page').html(decorateGalleryPage);
 }
 
 
 function handleSubmitPostUser(event) {
-  event.preventDefault();
-  let data = cbAddUser();
-  postUser(data, pageGallery);
   console.log('handleSubmitPostUser ran');
+  event.preventDefault();
+  let data = returnFormData();
+  postUser(data, pageHome);
 }
 
 function handleSubmitLogin(event) {
@@ -187,39 +186,14 @@ function handleBtnDeleteLog(event) {
   console.log('handleBtnDeleteLog ran');
 }
 
-
-function cbAuthenticateNewUser(data) {  
-  let notTaken = true;
-  let userName = $('#user-name').val().trim();
-  
-  for (let d in data) {
-    if (data[d].userName === userName) {
-      notTaken = false;
-    }       
-  }
-  if (notTaken) {
-    postUser(cbAddUser);
-  }
-}
-
-function cbAuthenticateLogin(data) { 
-  let user = data.find((user) => user.userName === $('#user-name').val().trim());
-
-  if (user !== undefined && user.password === $('#password').val().trim()) {    
-    DATA.userId = user._id;
-    DATA.userName = user.userName;
-    login();
-  }
-}
-
-function cbAddUser() {
+function returnFormData() {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
   let userName = $('#user-name').val().trim();
   let password = $('#password').val().trim();
   let _id = `${userName}${Date.now()}`;    
-  let newUser = {
+  let user = {
     _id,
     firstName,
     lastName,
@@ -227,7 +201,7 @@ function cbAddUser() {
     userName,
     password
   };
-  return newUser;
+  return user;
 }
 
 function cbDeleteUserProfile(id, data) {
@@ -239,24 +213,6 @@ function cbDeleteUserProfile(id, data) {
     }
   }
   data.splice(index, 1);
-}
-
-function cbEditUserProfile(id, data) {
-  for (let i = 0; i < data.length; i++) {
-    if (data[i]._id === id) {
-      let firstName = $('#first-name').val().trim();
-      let lastName = $('#last-name').val().trim();
-      // let email = $('#email').val().trim();
-      let userName = $('#user-name').val().trim();
-      let password = $('#password').val().trim();
-      data[i].firstName = firstName;
-      data[i].lastName = lastName;
-      data[i].userName = userName;
-      // data[i].email = email;
-      data[i].password = password;
-      DATA.userName = userName;
-    }
-  }
 }
 
 function cbRenderProfilePage(data) {
@@ -293,12 +249,16 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
 }
 
-function login() {
-  
-  pageHome(); 
+function login(data) {
+  DATA.userId = data._id;
+  DATA.userName = data.userName;
+  DATA.loggedIn = true;
 }
 
 function logout() {
+  DATA.loggedIn = false;
+  DATA.userId = '';
+  DATA.userName = '';
   pageGallery();
 }
 

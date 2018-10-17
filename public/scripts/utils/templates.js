@@ -83,20 +83,38 @@ function decorateLoginPage() {
   `;
 }
 
+// function decorateHomePage(missions) {
+//   const BTN_NEW_MISSION = missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
+//   const MISSIONS = missions.length > 1 ? decorateResults(missions) : '';
+//   let openMission = missions[0];
+//   return `
+//   ${decorateNavigation()}
+//   <main>
+//     <div id="page-home">
+//       <h2>${DATA.userName}</h2>      
+//       ${decorateOpenMission(openMission)}      
+//       ${BTN_NEW_MISSION}
+//       <div class="results">
+//         ${decorateResults(missions)}
+//         ${MISSIONS}
+//       </div>
+//     </div>
+//   </main>
+//   `;
+// }
+
 function decorateHomePage(missions) {
-  const BTN_NEW_MISSION = missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
-  const MISSIONS = missions.length > 1 ? decorateResults(missions) : '';
-  let openMission = missions[0];
+  
   return `
   ${decorateNavigation()}
   <main>
     <div id="page-home">
       <h2>${DATA.userName}</h2>      
-      ${decorateOpenMission(openMission)}      
-      ${BTN_NEW_MISSION}
+         
+      <button id="btn-new-mission">NEW MISSION</button>
       <div class="results">
-        ${decorateResults(missions)}
-        ${MISSIONS}
+      
+
       </div>
     </div>
   </main>
