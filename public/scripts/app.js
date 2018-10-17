@@ -6,7 +6,7 @@ import { DATA } from './data/data.js';
 function postUser(data, callback) {
    
   const settings = {
-    url: '/users/',
+    url: '/users',
     type: 'POST',
     data: JSON.stringify(data),
     dataType: 'json',
@@ -14,75 +14,89 @@ function postUser(data, callback) {
     success: callback
   };
   $.ajax(settings).fail(function(data) {
-    console.error('location', data.responseJSON.location);
-    console.error('message', data.responseJSON.message);    
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);    
   });  
-  login(data);
+  // login(data);
 }
 
-function getUsers(callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600); 
+function postUserLogin(data, callback) {
+  const settings = {
+    url: '/auth/login',
+    type: 'POST',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback,	
+  };
+  $.ajax(settings).fail(function() {
+    console.error('Incorrect username or password');
+  });
 }
 
-function getUserById(id, callback) {
+function getApiUsers(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(id, DATA.mockUsers); }, 600);  
+  setTimeout(function() { callback(data, DATA.mockUsers); }, 600); 
 }
 
-function putUser(id, callback) {
+function getApiUserById(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(id, DATA.mockUsers); }, 600);  
+  setTimeout(function() { callback(data, DATA.mockUsers); }, 600);  
 }
 
-function deleteUser(id, callback) {
+function putApiUser(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(id, DATA.mockUsers); }, 600);
+  setTimeout(function() { callback(data, DATA.mockUsers); }, 600);  
 }
 
-function postMission(callback) {
+function deleteApiUser(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockUsers); }, 600);
 }
 
-function getMissions(query, callback) {
+function postApiMissiion(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function getMissionById(query, callback) {
+function getApiMissions(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function putMission(id, callback) {
+function getApiMissionById(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function deleteMission(id, callback) {
+function putApiMission(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function getLogs(query, callback) {
+function deleteApiMission(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function getLogById(query, callback) {
+function getApiLogs(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function putLog(id, callback) {
+function getApiLogById(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function deleteLog(id, callback) {
+function putApiLog(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
+}
+
+function deleteApiLog(data, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
 function pageSignup() {
@@ -100,14 +114,16 @@ function pageSearch() {
   console.log('decorateSearchPage ran');
 }
 
-function pageProfile() {
-  getUsers(cbRenderProfilePage);
+function pageProfile(data) {
+  // console.log('pppppppppppppppppppppppppppppppppppppppageProfile ddata', data);
+  getApiUsers(data, cbRenderProfilePage);
   console.log('cbRenderProfilePage ran');
 }
 
-function pageHome() {
-  let query = 'someQuery';
-  getMissions(query, cbRenderHomePage);
+function pageHome(data) {
+  // console.log('pppppppppppppppppppppppppppppppppageHome data', data);
+  // console.log('pppppppppppppppppppppppppppppppppageHome DATA.user', DATA.user);
+  getApiMissions(data, cbRenderHomePage);
   console.log('cbRenderHomePage ran');
 }
 
@@ -116,25 +132,32 @@ function pageGallery() {
   $('#page').html(decorateGalleryPage);
 }
 
-
 function handleSubmitPostUser(event) {
   event.preventDefault();
   console.log('handleSubmitPostUser ran');
-  let data = returnFormData();
-  postUser(data, pageHome);
+  // DATA.authToken = data.authToken;
+  // DATA.user_id = data.user.id;
+  // DATA.admin = data.user.admin;
+  DATA.user = returnFormData();
+  DATA.loggedIn = true;
+  postUser(DATA.user, pageHome);
 }
 
 function handleSubmitLogin(event) {
   event.preventDefault();
   console.log('handleSubmitLogin ran');
-  getUsers(cbAuthenticateLogin);
+  let data = {
+    userName: $('#user-name').val().trim(),
+    password: $('#password').val().trim()
+  };
+  postUserLogin(data, pageHome);
 }
 
-function handleSubmitPutUser(event) {
+function handleSubmitPutApiUser(event) {
   event.preventDefault();
-  console.log('handleSubmitPutUser ran');
+  console.log('handleSubmitPutApiUser ran');
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
-    putUser(DATA.userId, cbEditUserProfile);
+    putApiUser(DATA.userId, cbEditUserProfile);
     pageHome();
   }
 }
@@ -144,7 +167,6 @@ function handleBtnDeleteProfile(event) {
   console.log('handleBtnDeleteProfile ran');
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
-    deleteUser(DATA.userId, cbDeleteUserProfile);
     logout();
   }
 }
@@ -155,21 +177,21 @@ function handleBtnNewMission(event) {
   console.log('handleBtnNewMission ran');
 }
 
-function handleSubmitPostMission(event) {
+function handleSubmitpostApiMissiion(event) {
   event.preventDefault();
-  console.log('handleSubmitPostMission ran');
+  console.log('handleSubmitpostApiMissiion ran');
 }
 
 function handleSubmitGetMission(event) {
   event.preventDefault();
   console.log('handleSubmitGetMission ran');
   let query = 'someQuery';
-  getMissions(query, cbRenderSearchResults);
+  getApiMissions(query, cbRenderSearchResults);
 }
 
-function handleBtnDeleteMission(event) {
+function handleBtndeleteApiMission(event) {
   event.preventDefault();
-  console.log('handleBtnDeleteMission ran');
+  console.log('handleBtndeleteApiMission ran');
 }
 
 
@@ -210,28 +232,8 @@ function returnFormData() {
   return user;
 }
 
-function setLocalUserData(data) {
-  DATA.user = data;
-  DATA.user.userId = data._id;
-  DATA.user.firstName = data.firstName;
-  DATA.user.lastName = data.lastName;
-  DATA.user.email = data.email;
-  DATA.user.userName = data.userName;
-}
-
-function cbDeleteUserProfile(id, data) {
-  let index = 0;
-  for (let i = 0; i < data.length; i++) {
-    if (data[i]._id === id) {
-      index = i;
-      i = data.length;
-    }
-  }
-  data.splice(index, 1);
-}
-
 function cbRenderProfilePage(data) {
-  $('#page').html(decorateProfilePage(DATA.user));
+  $('#page').html(decorateProfilePage(data));
 }
 
 function cbRenderHomePage(data) {
@@ -253,12 +255,12 @@ function attachListeners() {
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
-  $('#page').on('submit', '.form-logger', handleSubmitPostMission);
+  $('#page').on('submit', '.form-logger', handleSubmitpostApiMissiion);
   $('#page').on('submit', '.form-search', handleSubmitGetMission);
-  $('#page').on('submit', '.form-profile', handleSubmitPutUser);
+  $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
 
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
-  $('#page').on('click', '#btn-delete-mission', handleBtnDeleteMission);
+  $('#page').on('click', '#btn-delete-mission', handleBtndeleteApiMission);
   $('#page').on('click', '#btn-new-log', handleBtnNewLog);
   $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
@@ -266,20 +268,15 @@ function attachListeners() {
 
 function logout() {
   DATA.loggedIn = false;
-  DATA.userId = '';
-  DATA.userName = '';
+  DATA.user_id = '';
+  DATA.admin = '';
+  DATA.authToken = '';
+  DATA.user = {};
   pageGallery();
-}
-
-function login(data) {
-  data.password = '';
-  setLocalUserData(data);
-  DATA.user = data;
-  DATA.loggedIn = true;
 }
 
 function setUp() {
-  pageGallery();
+  logout();
 }
 
 export { attachListeners, setUp };

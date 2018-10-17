@@ -2,8 +2,10 @@
 
 const DATA = {
   user: {},
-  jwt: '',
   loggedIn: false,
+  authToken: '',
+  admin: undefined,
+  user_id: undefined
   // mockUsers: [
   //   {
   //     '_id': 'jon1538941370740',

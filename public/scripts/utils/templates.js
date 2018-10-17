@@ -103,7 +103,7 @@ function decorateLoginPage() {
 //   `;
 // }
 
-function decorateHomePage(missions) {
+function decorateHomePage(data) {
   
   return `
   ${decorateNavigation()}
@@ -263,7 +263,7 @@ function decorateGalleryPage() {
   `;
 }
 
-function decorateProfilePage(user) {
+function decorateProfilePage(data) {
   return `
   ${decorateNavigation()}
   <main>
@@ -273,22 +273,22 @@ function decorateProfilePage(user) {
       <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name
-            <input type="text" id="first-name" required value=${user.firstName}>
+            <input type="text" id="first-name" required value=${DATA.user.firstName}>
           </label>
           <label for="#last-name">Last Name
-            <input type="text" id="last-name" required value=${user.lastName}>
+            <input type="text" id="last-name" required value=${DATA.user.lastName}>
           </label>
           <label for="#email">Email
-            <input type="text" id="email" required value=${user.email}>
+            <input type="text" id="email" required value=${DATA.user.email}>
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required value=${user.userName}>
+            <input type="text" id="user-name" required value=${DATA.user.userName}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required placeholder="">
+            <input type="password" id="password" required value=${DATA.user.password} placeholder="password">
           </label>
           <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" required placeholder="">
+            <input type="password" id="retype-password" required placeholder="password">
           </label>
           <input type="submit" id="btn-profile" value="SUBMIT">
         </fieldset>        
