@@ -28,6 +28,40 @@ function decorateNavigation() {
   return DATA.loggedIn ? USER_NAVIGATION : GUEST_NAVIGATION;
 }
 
+function decorateSignupPage() {
+  return `
+  ${decorateNavigation()}
+  <main>
+    <div id="page-signup">
+      <h2>Create Account</h2>
+      <form action="#" class="form-signup">
+        <fieldset role="group">
+          <label for="#first-name">First Name
+            <input type="text" id="first-name" required placeholder="First Name">
+          </label>
+          <label for="#last-name">Last Name
+            <input type="text" id="last-name" required placeholder="Last Name">
+          </label>
+          <label for="#email">Email
+            <input type="email" id="email" required placeholder="you@email.com">
+          </label>
+          <label for="#user-name">User Name
+            <input type="text" id="user-name" required placeholder="user name">
+          </label>
+          <label for="#password">Password
+            <input type="password" id="password" required placeholder="password">
+          </label>
+          <label for="#retype-password">Retype Password
+            <input type="password" id="retype-password" required placeholder="password">
+          </label>
+          <input type="submit" id="btn-signup" value="SIGN UP">
+        </fieldset>
+      </form>
+    </div>
+  </main>
+  `;
+}
+
 function decorateLoginPage() {  
   return `
   ${decorateNavigation()}
@@ -206,40 +240,6 @@ function decorateGalleryPage() {
     <div id="page-gallery">
       <h2>Gallery</h2>
       <img src="./images/challenger.jpg" alt="Challenger Shuttle">
-    </div>
-  </main>
-  `;
-}
-
-function decorateSignupPage() {
-  return `
-  ${decorateNavigation()}
-  <main>
-    <div id="page-signup">
-      <h2>Create Account</h2>
-      <form action="#" class="form-signup">
-        <fieldset role="group">
-          <label for="#first-name">First Name
-            <input type="text" id="first-name" required placeholder="First Name">
-          </label>
-          <label for="#last-name">Last Name
-            <input type="text" id="last-name" required placeholder="Last Name">
-          </label>
-          <label for="#email">Email
-            <input type="email" id="email" required placeholder="you@email.com">
-          </label>
-          <label for="#user-name">User Name
-            <input type="text" id="user-name" required placeholder="user name">
-          </label>
-          <label for="#password">Password
-            <input type="password" id="password" required placeholder="password">
-          </label>
-          <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" required placeholder="password">
-          </label>
-          <input type="submit" id="btn-signup" value="SIGN UP">
-        </fieldset>
-      </form>
     </div>
   </main>
   `;

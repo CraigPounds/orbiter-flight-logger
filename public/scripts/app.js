@@ -12,17 +12,17 @@ function attachListeners() {
   $('#page').on('click', '#nav-profile', pageProfile);
   $('#page').on('click', '#nav-logout',  logout);
 
-  $('#page').on('submit', '.form-login', submitLogin);
-  $('#page').on('submit', '.form-logger', submitSaveMission);
-  $('#page').on('submit', '.form-search', submitSearch);
-  $('#page').on('submit', '.form-signup', submitSignup);
-  $('#page').on('submit', '.form-profile', submitProfile);
+  $('#page').on('submit', '.form-signup', handleSubmitSignUp);
+  $('#page').on('submit', '.form-login', handleSubmitLogin);
+  $('#page').on('submit', '.form-logger', handleSubmitSaveMission);
+  $('#page').on('submit', '.form-search', handleSubmitSearch);
+  $('#page').on('submit', '.form-profile', handleSubmitProfile);
 
-  $('#page').on('click', '#btn-new-mission', btnNewMission);
-  $('#page').on('click', '#btn-delete-mission', btnDeleteMission);
-  $('#page').on('click', '#btn-new-log', btnNewLog);
-  $('#page').on('click', '#btn-delete-log', btnDeleteLog);
-  $('#page').on('click', '#btn-delete-profile', btnDeleteProfile);
+  $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
+  $('#page').on('click', '#btn-delete-mission', handleBtnDeleteMission);
+  $('#page').on('click', '#btn-new-log', handleBtnNewLog);
+  $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
+  $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
 }
 
 function pageLogin() {
@@ -50,28 +50,28 @@ function pageProfile() {
   getUsers(cbRenderProfilePage);
 }
 
-function submitLogin(event) {
+function handleSubmitLogin(event) {
   event.preventDefault();
   getUsers(cbAuthenticateLogin);
 }
 
-function submitSaveMission(event) {
+function handleSubmitSaveMission(event) {
   event.preventDefault();
-  console.log('submitSaveMission ran');
+  console.log('handleSubmitSaveMission ran');
 }
 
-function submitSearch(event) {
+function handleSubmitSearch(event) {
   event.preventDefault();
   let query = buildQuery();
   getMissions(query, cbRenderSearchResults);
 }
 
-function submitSignup(event) {
+function handleSubmitSignUp(event) {
   event.preventDefault();
-  getUsers(cbAuthenticateNewUser);  
+  // getUsers(cbAuthenticateNewUser);  
 }
 
-function submitProfile(event) {
+function handleSubmitProfile(event) {
   event.preventDefault();
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
     putUser(DATA.userId, cbEditUserProfile);
@@ -79,28 +79,28 @@ function submitProfile(event) {
   }
 }
 
-function btnNewMission(event) {
+function handleBtnNewMission(event) {
   event.preventDefault();
-  console.log('btnNewMission ran');
+  console.log('handleBtnNewMission ran');
 }
 
-function btnDeleteMission(event) {
+function handleBtnDeleteMission(event) {
   event.preventDefault();
-  console.log('btnDeleteMission ran');
+  console.log('handleBtnDeleteMission ran');
 }
 
-function btnNewLog(event) {
+function handleBtnNewLog(event) {
   event.preventDefault();
-  console.log('btnNewLog ran');
+  console.log('handleBtnNewLog ran');
 }
 
 
-function btnDeleteLog(event) {
+function handleBtnDeleteLog(event) {
   event.preventDefault();
-  console.log('btnDeleteLog ran');
+  console.log('handleBtnDeleteLog ran');
 }
 
-function btnDeleteProfile(event) {
+function handleBtnDeleteProfile(event) {
   event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
@@ -112,27 +112,31 @@ function btnDeleteProfile(event) {
 function buildQuery() {
 }
 
-function getUsers(callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  // setTimeout(function() { callback(DATA.mockUsers); }, 600);
-
-  const settings = {
-    url: '/users',
-    // data: {
-    //   q: searchTerm,
-    //   part: 'snippet',
-    //   key: DATA.API_KEY,
-    // },
-    dataType: 'json',
-    type: 'GET',
-    success: callback,
-  };
-  $.ajax(settings);
-}
-
 function postUser(callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
   setTimeout(function() { callback(DATA.mockUsers); }, 600);  
+}
+
+function getUsers(callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockUsers); }, 600);
+  // const settings = {
+  //   url: '/users',
+  //   // data: {
+  //   //   q: searchTerm,
+  //   //   part: 'snippet',
+  //   //   key: DATA.API_KEY,
+  //   // },
+  //   dataType: 'json',
+  //   type: 'GET',
+  //   success: callback,
+  // };
+  // $.ajax(settings);
+}
+
+function getUserById(id, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(id, DATA.mockUsers); }, 600);  
 }
 
 function putUser(id, callback) {
@@ -145,12 +149,17 @@ function deleteUser(id, callback) {
   setTimeout(function() { callback(id, DATA.mockUsers); }, 600);
 }
 
+function postMission(callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+}
+
 function getMissions(query, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
-function postMission(callback) {
+function getMissionById(query, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
@@ -161,6 +170,26 @@ function putMission(id, callback) {
 }
 
 function deleteMission(id, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+}
+
+function getLogs(query, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+}
+
+function getLogById(query, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+}
+
+function putLog(id, callback) {
+  // using `setTimeout` to simulate asynchronous like AJAX
+  setTimeout(function() { callback(DATA.mockMissions); }, 600);
+}
+
+function deleteLog(id, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }

@@ -3,6 +3,7 @@
 const DATA = {
   userId: undefined,
   userName: undefined,
+  token: undefined,
   loggedIn: false,
   // mockUsers: [
   //   {
