@@ -79,7 +79,28 @@ router.get('/:id', (req, res) => {
     });
 });
 
-
+router.put('/:id', (req, res) => {
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    res.status(400).json({
+      error: 'Request path id and request body id values must match'
+    });
+  }
+  const updated = {};
+  const updateableFields = ['title', 'orbiterVersion', 'os'];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+  Mission
+    .findByIdAndUpdate(req.params.id, { $set: updated }, { new: true })
+    .then(updatedMission => {
+      res.status(200).json(
+        updatedMission.serialize()
+      );
+    })
+    .catch(err => res.status(500).json({ message: err }));
+});
 
 router.delete('/:id', (req, res) => {
   Log

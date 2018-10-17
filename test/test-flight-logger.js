@@ -161,4 +161,4 @@ describe('API resource', function() {
   });
 });
 
-module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, gernerateUserName, generateUserPassword };
+module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, generateMissionData, gernerateUserName, generateUserPassword };

@@ -6,10 +6,9 @@ const expect = chai.expect;
 const faker = require('faker');
 const { User } = require('../users');
 const { Mission } = require('../missions');
-const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateMissionData } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -131,7 +130,28 @@ describe('Missions endpoints', function() {
     });
   });
 
-
+  describe('PUT missions endpoint', function() {
+    it('should update valid fields for a mission by mission id', function() {
+      const updateData = generateMissionData();
+      return Mission
+        .findOne()
+        .then(function(mission) {
+          updateData.id = mission._id;
+          return chai.request(app)
+            .put(`/missions/${mission._id}`)
+            .send(updateData);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          return Mission.findById(updateData.id);
+        })
+        .then(function(mission) {
+          expect(mission.title).to.equal(updateData.title);
+          expect(mission.orbiterVersion).to.equal(updateData.orbiterVersion);
+          expect(mission.os).to.equal(updateData.os);
+        });
+    });
+  });
 
   describe('DELETE missions endpoint', function() {
     it('should delete mission and all associated logs by log id', function() {
