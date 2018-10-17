@@ -79,6 +79,8 @@ router.get('/:id', (req, res) => {
     });
 });
 
+
+
 router.delete('/:id', (req, res) => {
   Log
     .deleteMany({ mission_id: req.params.id })

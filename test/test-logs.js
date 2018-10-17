@@ -107,6 +107,30 @@ describe('Logs endpoints', function() {
     });
   });
 
+  describe('GET log by ID endpoint', function() {
+    it('should GET a log by log id', function() {
+      let testLog = {};
+      return Log
+        .findOne()
+        .then(function(log) {
+          testLog = log;
+          return chai.request(app)
+            .get(`/logs/${log._id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          return Log.findById(testLog._id);
+        })
+        .then(function(log) {
+          expect(log._id.toString()).to.equal(testLog._id.toString());
+          expect(log.title).to.equal(testLog.title);
+          expect(log.vessel).to.equal(testLog.vessel);
+          expect(log.date).to.equal(testLog.date);
+          expect(log.log).to.equal(testLog.log);
+        });
+    });
+  });
+
 
   
   describe('DELETE logs endpoint', function() {

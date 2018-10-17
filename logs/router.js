@@ -70,6 +70,16 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:id', (req, res) => {
+  Log
+    .findById(req.params.id)
+    .then(log => res.json(log.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+    });
+});
+
 
 
 router.delete('/:id', (req, res) => {
