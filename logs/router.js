@@ -74,7 +74,7 @@ router.get('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   Log.findByIdAndDelete(req.params.id)
-    .then((log) => {
+    .then(() => {
       res.status(204).end();       
     })
     .catch(err => { 

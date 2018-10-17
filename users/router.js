@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const passport = require('passport');
 const jwtAuth = passport.authenticate('jwt', { session: false });
+const { Log } = require('../logs/models');
+const { Mission } = require('../missions/models');
 const { User } = require('./models');
 
 router.post('/', (req, res) => {
@@ -173,6 +175,21 @@ router.put('/:id', (req, res) => {
           })
           .catch(err => res.status(500).json({ message: err }));
       }
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  Mission
+    .deleteMany({ user_id: req.params.id })
+    .then(() => {
+      User.findByIdAndDelete(req.params.id)
+        .then(() => {
+          res.status(204).end();       
+        });        
+    })
+    .catch(err => { 
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error'});
     });
 });
 

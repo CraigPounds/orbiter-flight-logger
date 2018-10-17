@@ -73,7 +73,7 @@ router.get('/', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   Log
-    .deleteMany({ mission: req.params.id })
+    .deleteMany({ mission_id: req.params.id })
     .then(() => {
       Mission.findByIdAndDelete(req.params.id)
         .then(() => {
