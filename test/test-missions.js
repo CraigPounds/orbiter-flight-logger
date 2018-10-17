@@ -108,6 +108,29 @@ describe('Missions endpoints', function() {
     });
   });
   
+  describe('GET mission by ID endpoint', function() {
+    it('should GET a mission by mission id', function() {
+      let testMission = {};
+      return Mission
+        .findOne()
+        .then(function(mission) {
+          testMission = mission;
+          return chai.request(app)
+            .get(`/missions/${mission._id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          return Mission.findById(testMission._id);
+        })
+        .then(function(mission) {
+          expect(mission._id.toString()).to.equal(testMission._id.toString());
+          expect(mission.title).to.equal(testMission.title);
+          expect(mission.orbiterVersion).to.equal(testMission.orbiterVersion);
+          expect(mission.os).to.equal(testMission.os);
+        });
+    });
+  });
+
 
 
   describe('DELETE missions endpoint', function() {
