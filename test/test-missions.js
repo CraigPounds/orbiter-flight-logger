@@ -132,7 +132,7 @@ describe('Missions endpoints', function() {
 
   describe('PUT missions endpoint', function() {
     it('should update valid fields for a mission by mission id', function() {
-      const updateData = generateMissionData();
+      let updateData = generateMissionData();
       return Mission
         .findOne()
         .then(function(mission) {

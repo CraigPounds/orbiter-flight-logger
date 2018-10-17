@@ -19,7 +19,6 @@ function seedUserData() {
   for (let i = 0; i < 9; i++) {
     USER_DATA.push(generateUserData());
   }
-  // console.log('USER_DATA', USER_DATA);
   return User.insertMany(USER_DATA);
 }
 
@@ -29,15 +28,12 @@ function seedMissionData() {
   return chai.request(app)
     .get('/users')
     .then(function(res) {
-      // console.log('res.body', res.body);
       res.body.users.forEach(user => {
         for (let i = 0; i < 9; i++) {
           let newMissionData = generateMissionData(user._id);
-          // console.log('newMissionData', newMissionData);
           MISSION_DATA.push(newMissionData);
         }
       });
-      // console.log('MISSION_DATA', MISSION_DATA);
       return Mission.insertMany(MISSION_DATA);
     });
 }
@@ -49,7 +45,6 @@ function seedLogData() {
     .get('/missions')
     .then(function(res) {
       res.body.missions.forEach(mission => {
-        // console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmission', mission);
         for (let i = 0; i < 9; i++) {
           let newLogData = generateLogData(mission._id);
           LOG_DATA.push(newLogData);
@@ -91,7 +86,6 @@ function generateOperatingSystem() {
 }
 
 function generateMissionData(id) {
-  // console.log('id', id);
   return {
     user_id: id,
     title: faker.lorem.sentence(),
@@ -161,4 +155,4 @@ describe('API resource', function() {
   });
 });
 
-module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, generateMissionData, gernerateUserName, generateUserPassword };
+module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, generateMissionData, generateUserData, gernerateUserName, generateUserPassword };

@@ -3,13 +3,11 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const expect = chai.expect;
-const faker = require('faker');
-const { User } = require('../users');
 const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -131,7 +129,29 @@ describe('Logs endpoints', function() {
     });
   });
 
-
+  describe('PUT logs endpoint', function() {
+    it('should update valid fields for a log by log id', function() {
+      let updateData = generateLogData();
+      return Log
+        .findOne()
+        .then(function(log) {      
+          updateData.id = log._id;
+          return chai.request(app)
+            .put(`/logs/${log._id}`)
+            .send(updateData);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          return Log.findById(updateData.id);
+        })
+        .then(function(log) {
+          expect(log.title).to.equal(updateData.title);
+          expect(log.vessel).to.equal(updateData.vessel);
+          expect(log.date).to.equal(updateData.date);
+          expect(log.log).to.equal(updateData.log);
+        });
+    });
+  });
   
   describe('DELETE logs endpoint', function() {
     it('should delete a single log by blog id', function() {

@@ -9,7 +9,7 @@ const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateUserData, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -509,13 +509,7 @@ describe('Users endpoints', function() {
 
   describe('PUT users endpoint', function() {
     it('should update valid fields for an user by user id', function() {
-      const updateData = {
-        firstName: faker.name.firstName(),
-        lastName: faker.name.lastName(),
-        userName: gernerateUserName(),
-        email: faker.internet.email(),
-        password: generateUserPassword()
-      };
+      const updateData = generateUserData();
       return User
         .findOne()
         .then(function(user) {
@@ -538,6 +532,23 @@ describe('Users endpoints', function() {
     });  
   });
 
-
+  // describe('DELETE users endpoint', function() {
+  //   it('should delete user and all associated missions and logs by user id', function() {
+  //     let user;
+  //     return User
+  //       .findOne()
+  //       .then(function(_user) {
+  //         user = _user;
+  //         return chai.request(app).delete(`/users/${user._id}`);
+  //       })
+  //       .then(function(res) {
+  //         expect(res).to.have.status(204);
+  //         return User.findById(user._id);
+  //       })
+  //       .then(function(_user) {
+  //         expect(_user).to.be.null;
+  //       });
+  //   });
+  // });
 
 });
