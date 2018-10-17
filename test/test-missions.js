@@ -24,7 +24,7 @@ describe('Missions endpoints', function() {
     return seedMissionData();
   });
   beforeEach(function() {
-    // return seedLogData();
+    return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -108,4 +108,24 @@ describe('Missions endpoints', function() {
     });
   });
   
+
+
+  describe('DELETE missions endpoint', function() {
+    it('should delete mission and all associated logs by log id', function() {
+      let mission;
+      return Mission
+        .findOne()
+        .then(function(_mission) {
+          mission = _mission;
+          return chai.request(app).delete(`/missions/${mission._id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(204);
+          return Mission.findById(mission._id);
+        })
+        .then(function(_mission) {
+          expect(_mission).to.be.null;
+        });
+    });
+  });
 });

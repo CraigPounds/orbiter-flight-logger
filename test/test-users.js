@@ -21,10 +21,10 @@ describe('Users endpoints', function() {
     return seedUserData();
   });
   beforeEach(function() {
-    // return seedMissionData();
+    return seedMissionData();
   });
   beforeEach(function() {
-    // return seedLogData();
+    return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();

@@ -2,7 +2,6 @@
 
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const { Mission } = require('../users/models');
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
@@ -28,13 +27,11 @@ LogSchema.methods.serialize = function() {
 };
 
 LogSchema.pre('find', function(next) {
-  // Mission.populate('user');
   this.populate('mission');
   next();
 });
 
 LogSchema.pre('findOne', function(next) {
-  // Mission.populate('user');
   this.populate('mission');
   next();
 });

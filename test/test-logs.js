@@ -9,7 +9,7 @@ const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -34,18 +34,12 @@ describe('Logs endpoints', function() {
   });
 
   describe('POST logs endpoint', function() {
-    it('should add a log by mission', function() {
+    it('should add a log by mission id', function() {
       let newLog;
       return Mission
         .findOne()
         .then(function(mission) {          
-          newLog = {
-            mission_id: mission._id,
-            title: faker.lorem.sentence(),
-            vessel: faker.lorem.word(),
-            date: faker.lorem.word(),
-            log: faker.lorem.paragraph()
-          };
+          newLog = generateLogData(mission._id);
           return chai.request(app)
             .post('/logs')
             .send(newLog)
@@ -132,6 +126,5 @@ describe('Logs endpoints', function() {
           expect(_log).to.be.null;
         });
     });
-  });
-  
+  });  
 });

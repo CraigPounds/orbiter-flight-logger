@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const passport = require('passport');
 const jwtAuth = passport.authenticate('jwt', { session: false });
+const { User } = require('../users/models');
+const { Mission } = require('../missions/models');
 const { Log } = require('./models');
-const { Mission } = require('../missions');
 
 router.post('/', (req, res) => {
   const requiredFields = ['mission_id', 'title'];

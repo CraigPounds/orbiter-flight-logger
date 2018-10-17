@@ -6,8 +6,9 @@ const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const passport = require('passport');
 const jwtAuth = passport.authenticate('jwt', { session: false });
+const { User } = require('../users/models');
+const { Log } = require('../logs/models');
 const { Mission } = require('./models');
-const { User } = require('../users');
 
 
 router.post('/', (req, res) => {
@@ -32,7 +33,6 @@ router.post('/', (req, res) => {
           })
           .then(missionPost => res.status(201).json({            
             _id: missionPost.id,
-            // user_id: `${user.firstName} ${user.lastName}`,
             user_id: missionPost.user_id,
             title: missionPost.title,
             orbiterVersion: missionPost.orbiterVersion,
@@ -64,6 +64,23 @@ router.get('/', (req, res) => {
       });
     })
     .catch(err => {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error'});
+    });
+});
+
+
+
+router.delete('/:id', (req, res) => {
+  Log
+    .deleteMany({ mission: req.params.id })
+    .then(() => {
+      Mission.findByIdAndDelete(req.params.id)
+        .then(() => {
+          res.status(204).end();       
+        });        
+    })
+    .catch(err => { 
       console.error(err);
       res.status(500).json({ message: 'Internal server error'});
     });
