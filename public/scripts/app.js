@@ -3,9 +3,23 @@
 import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
-function postUser(callback) {
+function postUser(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(DATA.mockUsers); }, 600);  
+  // setTimeout(function() { callback(DATA.mockUsers); }, 600);  
+  const settings = {
+    url: '/users/',
+    type: 'POST',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback
+  };
+  $.ajax(settings).fail(function(data) {
+    let location = data.responseJSON.location;
+    let message = data.responseJSON.message;
+    $('.js-error').html(`<h2>Check ${location}. ${message}.</h2>`);
+    $('.js-error').show();
+  });
 }
 
 function getUsers(callback) {
@@ -73,57 +87,38 @@ function deleteLog(id, callback) {
   setTimeout(function() { callback(DATA.mockMissions); }, 600);
 }
 
-function attachListeners() {
-  $('#page').on('click', '#nav-login', pageLogin);
-  $('#page').on('click', '#nav-home', pageHome);
-  $('#page').on('click', '#nav-search', pageSearch);
-  $('#page').on('click', '#nav-gallery', pageGallery);
-  $('#page').on('click', '#nav-signup', pageSignup);
-  $('#page').on('click', '#nav-profile', pageProfile);
-  $('#page').on('click', '#nav-logout',  logout);
-
-  $('#page').on('submit', '.form-signup', handleSubmitSignUp);
-  $('#page').on('submit', '.form-login', handleSubmitLogin);
-  $('#page').on('submit', '.form-logger', handleSubmitSaveMission);
-  $('#page').on('submit', '.form-search', handleSubmitSearch);
-  $('#page').on('submit', '.form-profile', handleSubmitProfile);
-
-  $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
-  $('#page').on('click', '#btn-delete-mission', handleBtnDeleteMission);
-  $('#page').on('click', '#btn-new-log', handleBtnNewLog);
-  $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
-  $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
+function pageSignup() {
+  $('#page').html(decorateSignupPage);
 }
 
 function pageLogin() {
   $('#page').html(decorateLoginPage);
 }
 
-function pageHome() {
-  let query = 'someQuery';
-  getMissions(query, cbRenderHomePage);
-}
-
 function pageSearch() {
   $('#page').html(decorateSearchPage);  
-}
-
-function pageGallery() {
-  $('#page').html(decorateGalleryPage);
-}
-
-function pageSignup() {
-  $('#page').html(decorateSignupPage);
 }
 
 function pageProfile() {
   getUsers(cbRenderProfilePage);
 }
 
+function pageHome() {
+  console.log('pageHome ran');
+  // let query = 'someQuery';
+  // getMissions(query, cbRenderHomePage);
+}
 
-function handleSubmitSignUp(event) {
+function pageGallery() {
+  $('#page').html(decorateGalleryPage);
+}
+
+
+function handleSubmitPostUser(event) {
   event.preventDefault();
-  getUsers(cbAuthenticateNewUser);  
+  let data = cbAddUser();
+  postUser(data, pageGallery);
+  console.log('handleSubmitPostUser ran');
 }
 
 function handleSubmitLogin(event) {
@@ -131,7 +126,7 @@ function handleSubmitLogin(event) {
   getUsers(cbAuthenticateLogin);
 }
 
-function handleSubmitProfile(event) {
+function handleSubmitPutUser(event) {
   event.preventDefault();
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
     putUser(DATA.userId, cbEditUserProfile);
@@ -154,9 +149,15 @@ function handleBtnNewMission(event) {
   console.log('handleBtnNewMission ran');
 }
 
-function handleSubmitSaveMission(event) {
+function handleSubmitPostMission(event) {
   event.preventDefault();
-  console.log('handleSubmitSaveMission ran');
+  console.log('handleSubmitPostMission ran');
+}
+
+function handleSubmitGetMission(event) {
+  event.preventDefault();
+  let query = 'someQuery';
+  getMissions(query, cbRenderSearchResults);
 }
 
 function handleBtnDeleteMission(event) {
@@ -164,14 +165,19 @@ function handleBtnDeleteMission(event) {
   console.log('handleBtnDeleteMission ran');
 }
 
-function handleSubmitSearch(event) {
-  event.preventDefault();
-  let query = 'someQuery';
-  getMissions(query, cbRenderSearchResults);
-}
 
 
 function handleBtnNewLog(event) {
+  event.preventDefault();
+  console.log('handleBtnNewLog ran');
+}
+
+function handlePostLog(event) {
+  event.preventDefault();
+  console.log('handleBtnNewLog ran');
+}
+
+function handlePutLog(event) {
   event.preventDefault();
   console.log('handleBtnNewLog ran');
 }
@@ -206,7 +212,7 @@ function cbAuthenticateLogin(data) {
   }
 }
 
-function cbAddUser(data) {
+function cbAddUser() {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
@@ -221,11 +227,7 @@ function cbAddUser(data) {
     userName,
     password
   };
-  data.push(newUser);
-  DATA.userId = newUser._id;  
-  DATA.userName = newUser.userName;
-  login();
-  // console.log('DATA', data);
+  return newUser;
 }
 
 function cbDeleteUserProfile(id, data) {
@@ -269,7 +271,30 @@ function cbRenderSearchResults(data) {
   $('#page').html(decorateSearchPage(data));
 }
 
+function attachListeners() {
+  $('#page').on('click', '#nav-signup', pageSignup);
+  $('#page').on('click', '#nav-login', pageLogin);
+  $('#page').on('click', '#nav-search', pageSearch);
+  $('#page').on('click', '#nav-profile', pageProfile);
+  $('#page').on('click', '#nav-home', pageHome);
+  $('#page').on('click', '#nav-gallery', pageGallery);
+  $('#page').on('click', '#nav-logout',  logout);
+
+  $('#page').on('submit', '.form-signup', handleSubmitPostUser);
+  $('#page').on('submit', '.form-login', handleSubmitLogin);
+  $('#page').on('submit', '.form-logger', handleSubmitPostMission);
+  $('#page').on('submit', '.form-search', handleSubmitGetMission);
+  $('#page').on('submit', '.form-profile', handleSubmitPutUser);
+
+  $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
+  $('#page').on('click', '#btn-delete-mission', handleBtnDeleteMission);
+  $('#page').on('click', '#btn-new-log', handleBtnNewLog);
+  $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
+  $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
+}
+
 function login() {
+  
   pageHome(); 
 }
 
