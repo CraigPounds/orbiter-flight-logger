@@ -4,8 +4,8 @@ const DATA = {
   user: {},
   loggedIn: false,
   authToken: '',
-  admin: undefined,
-  user_id: undefined
+  admin: '',
+  user_id: ''
   // mockUsers: [
   //   {
   //     '_id': 'jon1538941370740',

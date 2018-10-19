@@ -62,7 +62,8 @@ function decorateSignupPage() {
   `;
 }
 
-function decorateLoginPage() {  
+function decorateLoginPage() {
+  const userName = DATA.user.userName ? DATA.user.userName : '';
   return `
   ${decorateNavigation()}
   <main>
@@ -71,7 +72,7 @@ function decorateLoginPage() {
       <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required placeholder="username">
+            <input type="text" id="user-name" value="${userName}" required placeholder="username">
           </label>
           <label for="#password">Password
             <input type="password" id="password" required placeholder="password">

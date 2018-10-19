@@ -3,8 +3,7 @@
 import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
-function postUser(data, callback) {
-   
+function postNewUser(data, callback) {   
   const settings = {
     url: '/users',
     type: 'POST',
@@ -20,18 +19,58 @@ function postUser(data, callback) {
   // login(data);
 }
 
+// function postUserLogin(data, callback) {
+//   const settings = {
+//     url: '/auth/login',
+//     headers: {
+//       'content-type': 'application/json'
+//     },
+//     data: JSON.stringify(data),
+//     method: 'POST',
+//     success: ((token) => {
+//       DATA.authToken = token.authToken;
+//       DATA.user_id = token.id;
+//       // window.location = '/feed';
+//       callback;
+//     })	
+//   };
+//   $.ajax(settings).fail(function() {
+//     console.error('Incorrect username or password');
+//   });
+// }
+
 function postUserLogin(data, callback) {
-  const settings = {
+  // const settings = {
+  //   url: '/auth/login',
+  //   type: 'POST',
+  //   data: JSON.stringify(data),
+  //   dataType: 'json',
+  //   contentType: 'application/json',
+  //   success: callback,	
+  // };
+  // $.ajax(settings).fail(function() {
+  //   console.error('Incorrect username or password');
+  // });
+  console.log('ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddata', JSON.stringify(data));
+  $.ajax({
+    method: 'POST',
     url: '/auth/login',
-    type: 'POST',
-    data: JSON.stringify(data),
     dataType: 'json',
-    contentType: 'application/json',
-    success: callback,	
-  };
-  $.ajax(settings).fail(function() {
-    console.error('Incorrect username or password');
-  });
+    data: JSON.stringify(data),
+    contentType: 'application/json'
+  })
+    .done(token => {
+      // localStorage.setItem('authToken', token.authToken);
+      // localStorage.setItem('user', JSON.stringify(token.user));
+      console.log('ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttoken', token);
+      
+    })
+    .fail((err) => {
+      console.log(err);
+      if (err.status === 401) {
+        console.error('Incorrect username or password');
+      }
+    });
 }
 
 function getApiUsers(data, callback) {
@@ -105,7 +144,7 @@ function pageSignup() {
 }
 
 function pageLogin() {
-  $('#page').html(decorateLoginPage);
+  $('#page').html(decorateLoginPage());
   console.log('decorateLoginPage ran');
 }
 
@@ -115,14 +154,14 @@ function pageSearch() {
 }
 
 function pageProfile(data) {
-  // console.log('pppppppppppppppppppppppppppppppppppppppageProfile ddata', data);
+  // console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPProfile ddata', data);
   getApiUsers(data, cbRenderProfilePage);
   console.log('cbRenderProfilePage ran');
 }
 
 function pageHome(data) {
-  // console.log('pppppppppppppppppppppppppppppppppageHome data', data);
-  // console.log('pppppppppppppppppppppppppppppppppageHome DATA.user', DATA.user);
+  // console.log('ddddddddddddddddddddddddddddddddddddddddddddddata', data);
+  // console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDATA.user', DATA.user);
   getApiMissions(data, cbRenderHomePage);
   console.log('cbRenderHomePage ran');
 }
@@ -135,29 +174,35 @@ function pageGallery() {
 function handleSubmitPostUser(event) {
   event.preventDefault();
   console.log('handleSubmitPostUser ran');
-  // DATA.authToken = data.authToken;
-  // DATA.user_id = data.user.id;
-  // DATA.admin = data.user.admin;
   DATA.user = returnFormData();
-  DATA.loggedIn = true;
-  postUser(DATA.user, pageHome);
+  postNewUser(DATA.user, pageLogin);
 }
 
 function handleSubmitLogin(event) {
   event.preventDefault();
   console.log('handleSubmitLogin ran');
   let data = {
-    userName: $('#user-name').val().trim(),
+    username: $('#user-name').val().trim(),
     password: $('#password').val().trim()
   };
-  postUserLogin(data, pageHome);
+  postUserLogin(data, loginUser);  
+}
+
+function loginUser(data) {
+  DATA.authToken = data.authToken;
+  DATA.user_id = data.user.id;
+  DATA.admin = data.user.admin;
+  // console.log('ddddddddddddddddddddddddddddddddddddddddddddddata', data);
+  // console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDATA.user', DATA);
+  
+  DATA.loggedIn = true;
+  pageHome();
 }
 
 function handleSubmitPutApiUser(event) {
   event.preventDefault();
   console.log('handleSubmitPutApiUser ran');
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
-    putApiUser(DATA.userId, cbEditUserProfile);
     pageHome();
   }
 }
@@ -177,9 +222,9 @@ function handleBtnNewMission(event) {
   console.log('handleBtnNewMission ran');
 }
 
-function handleSubmitpostApiMissiion(event) {
+function handleSubmitPostApiMissiion(event) {
   event.preventDefault();
-  console.log('handleSubmitpostApiMissiion ran');
+  console.log('handleSubmitPostApiMissiion ran');
 }
 
 function handleSubmitGetMission(event) {
@@ -255,7 +300,7 @@ function attachListeners() {
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
-  $('#page').on('submit', '.form-logger', handleSubmitpostApiMissiion);
+  $('#page').on('submit', '.form-logger', handleSubmitPostApiMissiion);
   $('#page').on('submit', '.form-search', handleSubmitGetMission);
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
 

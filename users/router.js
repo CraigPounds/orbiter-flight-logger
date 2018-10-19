@@ -119,8 +119,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.get('/', jwtAuth, (req, res) => {
-router.get('/', (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   User
     .find()
     .then(users => {
@@ -134,7 +133,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', jwtAuth, (req, res) => {
   User
     .findById(req.params.id)
     .then(user => res.json(user.serialize()))
@@ -144,7 +143,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id',  jwtAuth, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -178,7 +177,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
   Mission
     .deleteMany({ user_id: req.params.id })
     .then(() => {
