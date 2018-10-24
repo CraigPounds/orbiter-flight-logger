@@ -123,22 +123,18 @@ function deleteApiLog(data, callback) {
 
 function pageSignup() {
   $('#page').html(decorateSignupPage);
-  console.log('decorateSignupPage ran');
 }
 
 function pageLogin() {
   $('#page').html(decorateLoginPage());
-  console.log('decorateLoginPage ran');
 }
 
 function pageSearch() {
-  $('#page').html(decorateSearchPage);  
-  console.log('decorateSearchPage ran');
+  $('#page').html(decorateSearchPage);
 }
 
 function pageProfile(data) {
   getApiUsers(data, cbRenderProfilePage);
-  console.log('cbRenderProfilePage ran');
 }
 
 function pageHome() {
@@ -146,20 +142,17 @@ function pageHome() {
 }
 
 function pageGallery() {
-  console.log('decorateGalleryPage ran');
   $('#page').html(decorateGalleryPage);
 }
 
 function handleSubmitPostUser(event) {
   event.preventDefault();
-  console.log('handleSubmitPostUser ran');
   DATA.user = returnFormData();
   postNewUser(DATA.user, pageLogin);
 }
 
 function handleSubmitLogin(event) {
   event.preventDefault();
-  console.log('handleSubmitLogin ran');
   let data = {
     username: $('#user-name').val().trim(),
     password: $('#password').val().trim()
@@ -208,9 +201,9 @@ function handleSubmitGetMission(event) {
   getApiMissions(cbRenderSearchResults);
 }
 
-function handleBtndeleteApiMission(event) {
+function handleBtnDeleteApiMission(event) {
   event.preventDefault();
-  console.log('handleBtndeleteApiMission ran');
+  console.log('handleBtnDeleteApiMission ran');
 }
 
 
@@ -222,12 +215,12 @@ function handleBtnNewLog(event) {
 
 function handlePostLog(event) {
   event.preventDefault();
-  console.log('handleBtnNewLog ran');
+  console.log('handlePostLog ran');
 }
 
 function handlePutLog(event) {
   event.preventDefault();
-  console.log('handleBtnNewLog ran');
+  console.log('handlePutLog ran');
 }
 
 function handleBtnDeleteLog(event) {
@@ -279,7 +272,7 @@ function attachListeners() {
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
 
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
-  $('#page').on('click', '#btn-delete-mission', handleBtndeleteApiMission);
+  $('#page').on('click', '#btn-delete-mission', handleBtnDeleteApiMission);
   $('#page').on('click', '#btn-new-log', handleBtnNewLog);
   $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
