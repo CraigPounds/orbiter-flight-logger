@@ -10,7 +10,6 @@ const { User } = require('../users/models');
 const { Log } = require('../logs/models');
 const { Mission } = require('./models');
 
-
 router.post('/', (req, res) => {
   const requiredFields = ['user_id', 'title'];
   requiredFields.forEach(field => {
@@ -57,7 +56,7 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
   Mission
-    .find()
+    .find({ user_id: req.headers.data })
     .then(missions => {
       res.json({
         missions: missions.map(mission => mission.serialize())
@@ -69,13 +68,13 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', jwtAuth, (req, res) => {
   Mission
     .findById(req.params.id)
     .then(mission => res.json(mission.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({message: 'Internal server error'});
     });
 });
 

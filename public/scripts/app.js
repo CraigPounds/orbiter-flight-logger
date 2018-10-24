@@ -15,62 +15,21 @@ function postNewUser(data, callback) {
   $.ajax(settings).fail(function(data) {
     console.error('Location:', data.responseJSON.location);
     console.error('Message:', data.responseJSON.message);    
-  });  
-  // login(data);
+  });
 }
 
-// function postUserLogin(data, callback) {
-//   const settings = {
-//     url: '/auth/login',
-//     headers: {
-//       'content-type': 'application/json'
-//     },
-//     data: JSON.stringify(data),
-//     method: 'POST',
-//     success: ((token) => {
-//       DATA.authToken = token.authToken;
-//       DATA.user_id = token.id;
-//       // window.location = '/feed';
-//       callback;
-//     })	
-//   };
-//   $.ajax(settings).fail(function() {
-//     console.error('Incorrect username or password');
-//   });
-// }
-
 function postUserLogin(data, callback) {
-  // const settings = {
-  //   url: '/auth/login',
-  //   type: 'POST',
-  //   data: JSON.stringify(data),
-  //   dataType: 'json',
-  //   contentType: 'application/json',
-  //   success: callback,	
-  // };
-  // $.ajax(settings).fail(function() {
-  //   console.error('Incorrect username or password');
-  // });
-  console.log('ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddata', JSON.stringify(data));
-  $.ajax({
-    method: 'POST',
+  const settings = {
     url: '/auth/login',
-    dataType: 'json',
+    type: 'POST',
     data: JSON.stringify(data),
-    contentType: 'application/json'
-  })
-    .done(token => {
-      // localStorage.setItem('authToken', token.authToken);
-      // localStorage.setItem('user', JSON.stringify(token.user));
-      console.log('ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttoken', token);
-      
-    })
-    .fail((err) => {
-      console.log(err);
-      if (err.status === 401) {
-        console.error('Incorrect username or password');
-      }
-    });
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback,	
+  };
+  $.ajax(settings).fail(function() {
+    console.error('Incorrect username or password');
+  });
 }
 
 function getApiUsers(data, callback) {
@@ -93,19 +52,43 @@ function deleteApiUser(data, callback) {
   setTimeout(function() { callback(data, DATA.mockUsers); }, 600);
 }
 
-function postApiMissiion(data, callback) {
+function postApiMission(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
   setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
 function getApiMissions(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`,
+      data: data
+    },
+    url: '/missions/',
+    type: 'GET',
+    dataType: 'json',
+    data: {
+      testing: 'testingtestingtesting'
+    },
+    success: callback
+  };
+  $.ajax(settings);
 }
 
 function getApiMissionById(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
+  console.log('getApiMissionById ran');
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`,
+    },
+    url: `/missions/${data._id}`,
+    type: 'GET',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings).fail(function(data) {
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);
+  });
 }
 
 function putApiMission(data, callback) {
@@ -154,16 +137,12 @@ function pageSearch() {
 }
 
 function pageProfile(data) {
-  // console.log('PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPProfile ddata', data);
   getApiUsers(data, cbRenderProfilePage);
   console.log('cbRenderProfilePage ran');
 }
 
-function pageHome(data) {
-  // console.log('ddddddddddddddddddddddddddddddddddddddddddddddata', data);
-  // console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDATA.user', DATA.user);
-  getApiMissions(data, cbRenderHomePage);
-  console.log('cbRenderHomePage ran');
+function pageHome() {
+  getApiMissions(DATA.user._id, cbRenderHomePage);  
 }
 
 function pageGallery() {
@@ -190,11 +169,7 @@ function handleSubmitLogin(event) {
 
 function loginUser(data) {
   DATA.authToken = data.authToken;
-  DATA.user_id = data.user.id;
-  DATA.admin = data.user.admin;
-  // console.log('ddddddddddddddddddddddddddddddddddddddddddddddata', data);
-  // console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDATA.user', DATA);
-  
+  DATA.user = data.user;
   DATA.loggedIn = true;
   pageHome();
 }
@@ -222,16 +197,15 @@ function handleBtnNewMission(event) {
   console.log('handleBtnNewMission ran');
 }
 
-function handleSubmitPostApiMissiion(event) {
+function handleSubmitpostApiMission(event) {
   event.preventDefault();
-  console.log('handleSubmitPostApiMissiion ran');
+  console.log('handleSubmitpostApiMission ran');
 }
 
 function handleSubmitGetMission(event) {
   event.preventDefault();
   console.log('handleSubmitGetMission ran');
-  let query = 'someQuery';
-  getApiMissions(query, cbRenderSearchResults);
+  getApiMissions(cbRenderSearchResults);
 }
 
 function handleBtndeleteApiMission(event) {
@@ -300,7 +274,7 @@ function attachListeners() {
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
-  $('#page').on('submit', '.form-logger', handleSubmitPostApiMissiion);
+  $('#page').on('submit', '.form-logger', handleSubmitpostApiMission);
   $('#page').on('submit', '.form-search', handleSubmitGetMission);
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
 
@@ -313,8 +287,6 @@ function attachListeners() {
 
 function logout() {
   DATA.loggedIn = false;
-  DATA.user_id = '';
-  DATA.admin = '';
   DATA.authToken = '';
   DATA.user = {};
   pageGallery();
