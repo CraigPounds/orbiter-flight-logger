@@ -1,6 +1,6 @@
 'use strict';
 
-import { decorateLoginPage, decorateHomePage, decorateOpenMissionPage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
+import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
 function postNewUser(data, callback) {   
@@ -138,10 +138,6 @@ function pageHome() {
   getApiMissions(DATA.user._id, cbRenderHomePage);  
 }
 
-function pageOpenMission() {
-  getApiMissions(DATA.user._id, cbRenderOpenMissionPage);
-}
-
 function pageGallery() {
   $('#page').html(decorateGalleryPage);
 }
@@ -230,7 +226,7 @@ function handleOpenMission(event) {
   event.preventDefault();
   console.log('handleOpenMission');
   DATA.missionIndex = getSearchItemIndex(event.currentTarget) - 1;
-  pageOpenMission();
+  pageHome();
 }
 
 function cbRenderProfilePage(data) {
@@ -239,10 +235,6 @@ function cbRenderProfilePage(data) {
 
 function cbRenderHomePage(data) {
   $('#page').html(decorateHomePage(data)); 
-}
-
-function cbRenderOpenMissionPage(data) {
-  $('#page').html(decorateOpenMissionPage(data));
 }
 
 function cbRenderSearchResults(data) {
@@ -266,10 +258,10 @@ function getUserData() {
 }
 
 function getSearchItemIndex(item) {
-  const ITEM_INDEX = $(item)
+  let itemIndex = $(item)
     .closest('.result')
     .attr('data-index');
-  return parseInt(ITEM_INDEX, 10);
+  return parseInt(itemIndex, 10);
 }
 
 function logout() {

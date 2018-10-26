@@ -85,35 +85,88 @@ function decorateLoginPage() {
 }
 
 function decorateHomePage(data) {
+  console.log(data);
+  console.log(DATA.missionIndex);
+  
+  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
+  const OPEN_MISSION = data.missions[DATA.missionIndex];
+  const MISSIONS = data.missions.length > 1 ? decorateResults(data.missions) : '';  
   return `
   ${decorateNavigation()}
   <main>
     <div id="page-home">
       <h2>${DATA.user.userName}</h2>      
-      <button id="btn-new-mission">NEW MISSION</button>
-      <div class="results">
-        ${decorateResults(data.missions)}
+      ${BTN_NEW_MISSION}
+      <div class="results">     
+        ${MISSIONS}
       </div>
     </div>
   </main>
   `;
 }
 
-function decorateOpenMissionPage(data) {
-  console.log(data);
-  console.log(DATA.missionIndex);
-  return `
-  ${decorateNavigation()}
-  <main>
-    <div id="page-home">
-      <h2>${DATA.user.userName}</h2>      
-      <button id="btn-new-mission">NEW MISSION</button>
-      <div class="results">
-        ${decorateResults(data.missions)}
-      </div>
+function decorateResults(data) {
+  return data.map((mission, index) => {
+    let version = mission ? mission.orbiterVersion : '--Choose Version--';
+    let versionValue = mission ? version : '';
+    let os = mission ? mission.os : '--Choose Version--';
+    let osValue = mission ? os : '';
+    let title = mission ? mission.title : 'Captain\'s Log';
+    return `
+    <div class="result" data-index="${index + 1}">
+      <form action="#" class="form-logger">
+        <div class="mission">
+          <fieldset role="group">            
+            <label for="select-version">Orbiter Version</label>
+            <select id="select-version">
+              <option value="${versionValue}">${version}</option>
+              <option value="orbiter-2016">Orbiter 2016</option>
+              <option value="orbiter-2010">Orbiter 2010</option>
+              <option value="orbiter-2006">Orbiter 2006</option>
+              <option value="orbiter-2005">Orbiter 2005</option>
+            </select>
+            <label for="select-os">Operating System</label>
+            <select id="select-os">
+              <option value="${osValue}">${os}</option>
+              <option value="win-10">Windows 10</option>
+              <option value="win-8">Windows 8.1</option>
+              <option value="win-7">Windows 7</option>
+              <option value="win-vista">Windows Vista</option>
+              <option value="win-xp">Windows XP</option>
+              <option value="win-2k">Windows 2000</option>
+              <option value="other">other</option>
+            </select>
+            <label for="#title">Title
+              <input type="text" id="#title" value="${title}">
+            </label>   
+            <div id="flight-logs">
+              <div class="log">
+                <label for="#log-title">Title
+                  <input type="text" id="log-title" required value="">
+                </label>
+                <label for="#vessel">Vessel
+                  <input type="text" id="vessel" required value="">
+                </label> 
+                <label for="#date">Date
+                  <input type="text" id="date" required value="">
+                </label>
+                <textarea class="txt-log-entry" placeholder="Log entry..."></textarea>
+                <div class="buttons-log">
+                  <button id="btn-new-log">NEW LOG</button>
+                  <button id="btn-delete-log">DELETE LOG</button>
+                </div>
+              </div>
+            </div>
+            <div class="buttons-mission">
+              <input type="submit" id="btn-mission" value="SAVE MISSION">
+              <button id="btn-delete-mission">DELETE MISSION</button>
+            </div>
+          </fieldset>
+        </div>
+      </form>
     </div>
-  </main>
-  `;
+    `;
+  }).join('');
 }
 
 // function decorateOpenMission(mission) {
@@ -177,66 +230,6 @@ function decorateOpenMissionPage(data) {
 //   `;
 // }
 
-function decorateOpenMission(mission) {
-  let version = mission ? mission.orbiterVersion : '--Choose Version--';
-  let versionValue = mission ? version : '';
-  let os = mission ? mission.os : '--Choose Version--';
-  let osValue = mission ? os : '';
-  let title = mission ? mission.title : 'Captain\'s Log';
-  return `
-  <form action="#" class="form-logger">
-    <div class="mission">
-      <fieldset role="group">            
-        <label for="select-version">Orbiter Version</label>
-        <select id="select-version">
-          <option value="${versionValue}">${version}</option>
-          <option value="orbiter-2016">Orbiter 2016</option>
-          <option value="orbiter-2010">Orbiter 2010</option>
-          <option value="orbiter-2006">Orbiter 2006</option>
-          <option value="orbiter-2005">Orbiter 2005</option>
-        </select>
-        <label for="select-os">Operating System</label>
-        <select id="select-os">
-          <option value="${osValue}">${os}</option>
-          <option value="win-10">Windows 10</option>
-          <option value="win-8">Windows 8.1</option>
-          <option value="win-7">Windows 7</option>
-          <option value="win-vista">Windows Vista</option>
-          <option value="win-xp">Windows XP</option>
-          <option value="win-2k">Windows 2000</option>
-          <option value="other">other</option>
-        </select>
-        <label for="#title">Title
-          <input type="text" id="#title" value="${title}">
-        </label>   
-        <div id="flight-logs">
-          <div class="log">
-            <label for="#log-title">Title
-              <input type="text" id="log-title" required value="">
-            </label>
-            <label for="#vessel">Vessel
-              <input type="text" id="vessel" required value="">
-            </label> 
-            <label for="#date">Date
-              <input type="text" id="date" required value="">
-            </label>
-            <textarea class="txt-log-entry" placeholder="Log entry..."></textarea>
-            <div class="buttons-log">
-              <button id="btn-new-log">NEW LOG</button>
-              <button id="btn-delete-log">DELETE LOG</button>
-            </div>
-          </div>
-        </div>
-        <div class="buttons-mission">
-          <input type="submit" id="btn-mission" value="SAVE MISSION">
-          <button id="btn-delete-mission">DELETE MISSION</button>
-        </div>
-      </fieldset>
-    </div>
-  </form>
-  `;
-}
-
 function decorateSearchPage(data) {
   let searchResults = data ? decorateResults(data) : '';
   return `
@@ -277,20 +270,6 @@ function decorateSearchPage(data) {
     </div>
   </main>
   `;
-}
-
-function decorateResults(data) {
-  return data.map((mission, index) => {    
-    return `
-    <div class="result" data-index="${index + 1}">
-      <h3>${mission.title}</h3>
-      <p>User Id: ${mission.user_id}</p>
-      <p>Mission Id: ${mission._id}</p>
-      <p>${mission.orbiterVersion}</p>
-      <p>${mission.os}</p>
-    </div>
-    `;
-  }).join('');
 }
 
 function decorateGalleryPage() {
@@ -340,4 +319,4 @@ function decorateProfilePage(data) {
   `;
 }
 
-export { decorateLoginPage, decorateHomePage, decorateOpenMissionPage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };
+export { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };
