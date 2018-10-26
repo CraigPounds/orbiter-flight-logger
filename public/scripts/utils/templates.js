@@ -265,8 +265,7 @@ function decorateSearchPage(data) {
 }
 
 function decorateResults(data) {
-  return data.map((mission, index) => {
-    
+  return data.map((mission, index) => {    
     return `
     <div class="result" data-index="${index + 1}">
       <h3>${mission.title}</h3>
