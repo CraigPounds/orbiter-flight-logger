@@ -85,18 +85,16 @@ function decorateLoginPage() {
 }
 
 function decorateHomePage(data) {
-  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
-  const MISSIONS = data.missions.length > 1 ? decorateResults(data.missions.slice(1)) : '';
-  let openMission = data.missions[0];
+  console.log(data);
+  console.log(DATA.missionIndex);
   return `
   ${decorateNavigation()}
   <main>
     <div id="page-home">
       <h2>${DATA.user.userName}</h2>      
-      ${decorateOpenMission(openMission)}      
-      ${BTN_NEW_MISSION}
+      <button id="btn-new-mission">NEW MISSION</button>
       <div class="results">
-        ${MISSIONS}
+        ${decorateResults(data.missions)}
       </div>
     </div>
   </main>
@@ -270,9 +268,10 @@ function decorateResults(data) {
   return data.map((mission, index) => {
     
     return `
-    <div class="result">
+    <div class="result" data-index="${index + 1}">
       <h3>${mission.title}</h3>
-      <p>${mission.user_id}</p>
+      <p>User Id: ${mission.user_id}</p>
+      <p>Mission Id: ${mission._id}</p>
       <p>${mission.orbiterVersion}</p>
       <p>${mission.os}</p>
     </div>

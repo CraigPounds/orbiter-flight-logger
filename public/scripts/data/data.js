@@ -3,7 +3,8 @@
 const DATA = {
   user: {},
   loggedIn: false,
-  authToken: ''
+  authToken: '',
+  missionIndex: 0
 };
 
 export { DATA };

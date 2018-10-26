@@ -66,30 +66,27 @@ function getApiMissions(data, callback) {
     url: '/missions/',
     type: 'GET',
     dataType: 'json',
-    data: {
-      testing: 'testingtestingtesting'
-    },
     success: callback
   };
   $.ajax(settings);
 }
 
-function getApiMissionById(data, callback) {
-  console.log('getApiMissionById ran');
-  const settings = {
-    headers: {
-      authorization: `Bearer ${DATA.authToken}`,
-    },
-    url: `/missions/${data._id}`,
-    type: 'GET',
-    dataType: 'json',
-    success: callback
-  };
-  $.ajax(settings).fail(function(data) {
-    console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);
-  });
-}
+// function getApiMissionById(data, callback) {
+//   console.log('getApiMissionById');
+//   const settings = {
+//     headers: {
+//       authorization: `Bearer ${DATA.authToken}`,
+//     },
+//     url: `/missions/${data._id}`,
+//     type: 'GET',
+//     dataType: 'json',
+//     success: callback
+//   };
+//   $.ajax(settings).fail(function(data) {
+//     console.error('Location:', data.responseJSON.location);
+//     console.error('Message:', data.responseJSON.message);
+//   });
+// }
 
 function putApiMission(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
@@ -141,13 +138,17 @@ function pageHome() {
   getApiMissions(DATA.user._id, cbRenderHomePage);  
 }
 
+function pageHomeOpenMission() {
+  getApiMissions(DATA.user._id, cbRenderHomePage);
+}
+
 function pageGallery() {
   $('#page').html(decorateGalleryPage);
 }
 
 function handleSubmitPostUser(event) {
   event.preventDefault();
-  DATA.user = returnFormData();
+  DATA.user = getUserData();
   postNewUser(DATA.user, pageLogin);
 }
 
@@ -169,7 +170,7 @@ function loginUser(data) {
 
 function handleSubmitPutApiUser(event) {
   event.preventDefault();
-  console.log('handleSubmitPutApiUser ran');
+  console.log('handleSubmitPutApiUser');
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
     pageHome();
   }
@@ -177,58 +178,74 @@ function handleSubmitPutApiUser(event) {
 
 function handleBtnDeleteProfile(event) {
   event.preventDefault();
-  console.log('handleBtnDeleteProfile ran');
+  console.log('handleBtnDeleteProfile');
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
     logout();
   }
 }
 
-
 function handleBtnNewMission(event) {
   event.preventDefault();
-  console.log('handleBtnNewMission ran');
+  console.log('handleBtnNewMission');
 }
 
 function handleSubmitpostApiMission(event) {
   event.preventDefault();
-  console.log('handleSubmitpostApiMission ran');
+  console.log('handleSubmitpostApiMission');
 }
 
 function handleSubmitGetMission(event) {
   event.preventDefault();
-  console.log('handleSubmitGetMission ran');
-  getApiMissions(cbRenderSearchResults);
+  console.log('handleSubmitGetMission');
+  // getApiMissions(cbRenderSearchResults);
 }
 
 function handleBtnDeleteApiMission(event) {
   event.preventDefault();
-  console.log('handleBtnDeleteApiMission ran');
+  console.log('handleBtnDeleteApiMission');
 }
-
-
 
 function handleBtnNewLog(event) {
   event.preventDefault();
-  console.log('handleBtnNewLog ran');
+  console.log('handleBtnNewLog');
 }
 
 function handlePostLog(event) {
   event.preventDefault();
-  console.log('handlePostLog ran');
+  console.log('handlePostLog');
 }
 
 function handlePutLog(event) {
   event.preventDefault();
-  console.log('handlePutLog ran');
+  console.log('handlePutLog');
 }
 
 function handleBtnDeleteLog(event) {
   event.preventDefault();
-  console.log('handleBtnDeleteLog ran');
+  console.log('handleBtnDeleteLog');
 }
 
-function returnFormData() {
+function handleOpenMission(event) {
+  event.preventDefault();
+  console.log('handleOpenMission');
+  DATA.missionIndex = getSearchItemIndex(event.currentTarget) - 1;
+  pageHomeOpenMission();
+}
+
+function cbRenderProfilePage(data) {
+  $('#page').html(decorateProfilePage(data));
+}
+
+function cbRenderHomePage(data) {
+  $('#page').html(decorateHomePage(data)); 
+}
+
+function cbRenderSearchResults(data) {
+  $('#page').html(decorateSearchPage(data));
+}
+
+function getUserData() {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
@@ -244,16 +261,19 @@ function returnFormData() {
   return user;
 }
 
-function cbRenderProfilePage(data) {
-  $('#page').html(decorateProfilePage(data));
+function getSearchItemIndex(item) {
+  const ITEM_INDEX = $(item)
+    .closest('.result')
+    .attr('data-index');
+  return parseInt(ITEM_INDEX, 10);
 }
 
-function cbRenderHomePage(data) {
-  $('#page').html(decorateHomePage(data)); 
-}
-
-function cbRenderSearchResults(data) {
-  $('#page').html(decorateSearchPage(data));
+function logout() {
+  DATA.loggedIn = false;
+  DATA.authToken = '';
+  DATA.user = {};
+  DATA.missionIndex = 0;
+  pageGallery();
 }
 
 function attachListeners() {
@@ -276,13 +296,10 @@ function attachListeners() {
   $('#page').on('click', '#btn-new-log', handleBtnNewLog);
   $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
-}
 
-function logout() {
-  DATA.loggedIn = false;
-  DATA.authToken = '';
-  DATA.user = {};
-  pageGallery();
+  $('#page').on('click', '.result', function(event) {
+    handleOpenMission(event);
+  });
 }
 
 function setUp() {

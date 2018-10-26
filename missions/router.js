@@ -10,7 +10,7 @@ const { User } = require('../users/models');
 const { Log } = require('../logs/models');
 const { Mission } = require('./models');
 
-router.post('/', (req, res) => {
+router.post('/', jwtAuth, (req, res) => {
   const requiredFields = ['user_id', 'title'];
   requiredFields.forEach(field => {
     if (!(field in req.body)) {
@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   Mission
     .find({ user_id: req.headers.data })
     .then(missions => {
@@ -78,7 +78,7 @@ router.get('/:id', jwtAuth, (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', jwtAuth, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -101,7 +101,7 @@ router.put('/:id', (req, res) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', jwtAuth, (req, res) => {
   Log
     .deleteMany({ mission_id: req.params.id })
     .then(() => {
