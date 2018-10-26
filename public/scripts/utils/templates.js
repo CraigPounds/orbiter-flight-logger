@@ -85,6 +85,21 @@ function decorateLoginPage() {
 }
 
 function decorateHomePage(data) {
+  return `
+  ${decorateNavigation()}
+  <main>
+    <div id="page-home">
+      <h2>${DATA.user.userName}</h2>      
+      <button id="btn-new-mission">NEW MISSION</button>
+      <div class="results">
+        ${decorateResults(data.missions)}
+      </div>
+    </div>
+  </main>
+  `;
+}
+
+function decorateOpenMissionPage(data) {
   console.log(data);
   console.log(DATA.missionIndex);
   return `
@@ -325,4 +340,4 @@ function decorateProfilePage(data) {
   `;
 }
 
-export { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };
+export { decorateLoginPage, decorateHomePage, decorateOpenMissionPage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };

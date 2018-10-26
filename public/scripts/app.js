@@ -1,6 +1,6 @@
 'use strict';
 
-import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
+import { decorateLoginPage, decorateHomePage, decorateOpenMissionPage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
 function postNewUser(data, callback) {   
@@ -138,8 +138,8 @@ function pageHome() {
   getApiMissions(DATA.user._id, cbRenderHomePage);  
 }
 
-function pageHomeOpenMission() {
-  getApiMissions(DATA.user._id, cbRenderHomePage);
+function pageOpenMission() {
+  getApiMissions(DATA.user._id, cbRenderOpenMissionPage);
 }
 
 function pageGallery() {
@@ -230,7 +230,7 @@ function handleOpenMission(event) {
   event.preventDefault();
   console.log('handleOpenMission');
   DATA.missionIndex = getSearchItemIndex(event.currentTarget) - 1;
-  pageHomeOpenMission();
+  pageOpenMission();
 }
 
 function cbRenderProfilePage(data) {
@@ -239,6 +239,10 @@ function cbRenderProfilePage(data) {
 
 function cbRenderHomePage(data) {
   $('#page').html(decorateHomePage(data)); 
+}
+
+function cbRenderOpenMissionPage(data) {
+  $('#page').html(decorateOpenMissionPage(data));
 }
 
 function cbRenderSearchResults(data) {
@@ -269,10 +273,11 @@ function getSearchItemIndex(item) {
 }
 
 function logout() {
+  DATA.user = {};
   DATA.loggedIn = false;
   DATA.authToken = '';
-  DATA.user = {};
   DATA.missionIndex = 0;
+  DATA.mission = {};
   pageGallery();
 }
 
