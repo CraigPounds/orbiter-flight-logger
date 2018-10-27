@@ -75,7 +75,7 @@ function decorateLoginPage() {
             <input type="text" id="user-name" value="${userName}" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required placeholder="password">
+            <input type="password" id="password" value="passwordnapes" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>
@@ -113,7 +113,8 @@ function decorateResults(data) {
     let osValue = mission ? os : '';
     let title = mission ? mission.title : 'Captain\'s Log';
     return `
-    <div class="result" data-index="${index + 1}">
+    <h3 class="log-title">${title}</h3>
+    <div class="result hidden" data-index="${index + 1}">
       <form action="#" class="form-logger">
         <div class="mission">
           <fieldset role="group">            

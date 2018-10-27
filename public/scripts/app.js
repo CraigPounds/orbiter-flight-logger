@@ -165,16 +165,16 @@ function loginUser(data) {
 }
 
 function handleSubmitPutApiUser(event) {
-  event.preventDefault();
   console.log('handleSubmitPutApiUser');
+  event.preventDefault();
   if($('#password').val().trim() === $('#retype-password').val().trim()) {
     pageHome();
   }
 }
 
 function handleBtnDeleteProfile(event) {
-  event.preventDefault();
   console.log('handleBtnDeleteProfile');
+  event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
     logout();
@@ -182,51 +182,52 @@ function handleBtnDeleteProfile(event) {
 }
 
 function handleBtnNewMission(event) {
-  event.preventDefault();
   console.log('handleBtnNewMission');
+  event.preventDefault();
 }
 
 function handleSubmitpostApiMission(event) {
-  event.preventDefault();
   console.log('handleSubmitpostApiMission');
+  event.preventDefault();
 }
 
 function handleSubmitGetMission(event) {
-  event.preventDefault();
   console.log('handleSubmitGetMission');
+  event.preventDefault();
   // getApiMissions(cbRenderSearchResults);
 }
 
 function handleBtnDeleteApiMission(event) {
-  event.preventDefault();
   console.log('handleBtnDeleteApiMission');
+  event.preventDefault();
 }
 
 function handleBtnNewLog(event) {
-  event.preventDefault();
   console.log('handleBtnNewLog');
+  event.preventDefault();
+
 }
 
 function handlePostLog(event) {
-  event.preventDefault();
   console.log('handlePostLog');
+  event.preventDefault();
 }
 
 function handlePutLog(event) {
-  event.preventDefault();
   console.log('handlePutLog');
+  event.preventDefault();
 }
 
 function handleBtnDeleteLog(event) {
-  event.preventDefault();
   console.log('handleBtnDeleteLog');
+  event.preventDefault();
 }
 
 function handleOpenMission(event) {
   event.preventDefault();
-  console.log('handleOpenMission');
+  event.stopPropagation();
   DATA.missionIndex = getSearchItemIndex(event.currentTarget) - 1;
-  pageHome();
+  $(event.target).next().slideToggle();
 }
 
 function cbRenderProfilePage(data) {
@@ -294,7 +295,7 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
 
-  $('#page').on('click', '.result', function(event) {
+  $('#page').on('click', '.log-title', function(event) {
     handleOpenMission(event);
   });
 }
