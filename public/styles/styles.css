@@ -81,21 +81,21 @@ img {
   margin: auto;
 }
 
-select {
+/* select {
   width: 174px;
-}
+} */
 
 input[type="text"],
 input[type="password"] {
   width: 170px;
 }
 
-select,
+/* select,
 input[type="text"],
 input[type="password"],
 input[type="email"] {
   margin: 1px 3px 1px 0;
-}
+} */
 
 .log {
   text-align: left;
@@ -145,6 +145,8 @@ label[for=".log-title"] {
 
 #btn-login,
 #btn-new-mission,
+#btn-search,
+#btn-profile,
 #btn-delete-profile {
   display: block;
   margin: auto;

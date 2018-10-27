@@ -54,26 +54,18 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
-// router.get('/', jwtAuth, (req, res) => {
-//   Mission
-//     .find({ user_id: req.headers.data })    
-//     .then(missions => {
-//       res.json({
-//         missions: missions.map(mission => mission.serialize())
-//       });
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({ message: 'Internal server error'});
-//     });
-// });
+function buildQuery(data) {
+  let query = {};
+  if(data.user_id) query.user_id = data.user_id;
+  if(data.version) query.orbiterVersion = data.version;
+  if(data.os) query.os = data.os;
+  return query;
+}
 
 router.get('/', jwtAuth, (req, res) => {
-  console.log('req.headers.data' , req.headers.data);
-  let filter = {};
-  filter = { user_id: req.headers.data };
+  let data = buildQuery(req.headers);
   Mission
-    .find({ user_id: req.headers.data })    
+    .find(data)    
     .then(missions => {
       res.json({
         missions: missions.map(mission => mission.serialize())

@@ -57,12 +57,17 @@ function postApiMission(data, callback) {
   setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
+function buildHeaders(data) {
+  let headers = { authorization: `Bearer ${DATA.authToken}` };
+  if(data.user_id) headers.user_id = data.user_id;
+  if(data.orbiterVersion) headers.version = data.orbiterVersion;
+  if(data.os) headers.os = data.os;
+  return headers;
+}
+
 function getApiMissions(data, callback) {
   const settings = {
-    headers: {
-      authorization: `Bearer ${DATA.authToken}`,
-      data: data
-    },
+    headers: buildHeaders(data),
     url: '/missions/',
     type: 'GET',
     dataType: 'json',
@@ -135,7 +140,8 @@ function pageProfile(data) {
 }
 
 function pageHome() {
-  getApiMissions(DATA.user._id, cbRenderHomePage);  
+  let data = { user_id: DATA.user._id };
+  getApiMissions(data, cbRenderHomePage);
 }
 
 function pageGallery() {
@@ -173,7 +179,6 @@ function handleSubmitPutApiUser(event) {
 }
 
 function handleBtnDeleteProfile(event) {
-  console.log('handleBtnDeleteProfile');
   event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
@@ -192,10 +197,8 @@ function handleSubmitPostApiMission(event) {
 }
 
 function handleSubmitSearchMission(event) {
-  console.log('handleSubmitSearchMission');
   event.preventDefault();
   let data = getSearchData();
-  console.log(data);
   getApiMissions(data, cbRenderSearchResults);
 }
 
@@ -229,7 +232,7 @@ function handleOpenMission(event) {
   event.stopPropagation();
   DATA.missionIndex = getSearchItemIndex($(event.target).next()) - 1;
   $(event.target).next().slideToggle();
-  console.log(DATA.missionIndex);
+  // console.log(DATA.missionIndex);
 }
 
 function cbRenderProfilePage(data) {
@@ -260,11 +263,11 @@ function getUserData() {
 }
 
 function getSearchData() {
-  let version = $('#select-version').val().trim();
+  let orbiterVersion = $('#select-version').val().trim();
   let os = $('#select-os').val().trim();
   let searchText = $('#search-text').val().trim();
   return {
-    version,
+    orbiterVersion,
     os,
     searchText
   };

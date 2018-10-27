@@ -279,8 +279,8 @@ function decorateSearchPage(data) {
             <option value="Windows 2000">Windows 2000</option>
             <option value="other">Other</option>
           </select>
-          <label for="#search-text">User or Keyword
-            <input type="text" id="search-text" placeholder="launch">
+          <label for="#search-text">Vessel
+            <input type="text" id="search-text" placeholder="Apollo 18">
           </label>
           <input type="submit" id="btn-search" value="SEARCH">
         </fieldset>
