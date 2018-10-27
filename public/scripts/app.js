@@ -195,7 +195,8 @@ function handleSubmitSearchMission(event) {
   console.log('handleSubmitSearchMission');
   event.preventDefault();
   let data = getSearchData();
-  getApiMissions({}, cbRenderSearchResults);
+  console.log(data);
+  getApiMissions(data, cbRenderSearchResults);
 }
 
 function handleBtnDeleteApiMission(event) {
@@ -259,15 +260,14 @@ function getUserData() {
 }
 
 function getSearchData() {
-  // let version = $('#select-version').val().trim();
-  // let os = $('#select-os').val().trim();
-  // let searchText = $('#serach-text').val().trim();
-  // return {
-  //   version,
-  //   os,
-  //   searchText
-  // };
-  return {};
+  let version = $('#select-version').val().trim();
+  let os = $('#select-os').val().trim();
+  let searchText = $('#search-text').val().trim();
+  return {
+    version,
+    os,
+    searchText
+  };
 }
 
 function getSearchItemIndex(item) {

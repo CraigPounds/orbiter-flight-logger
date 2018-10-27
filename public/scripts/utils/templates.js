@@ -153,8 +153,7 @@ function decorateMissions(missions) {
         date: 'April 23, 2012',
         log:'Onward to Mars'
       }
-    ];
-    
+    ];    
     return `
     <h3 class="log-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
@@ -236,7 +235,6 @@ function decorateSearchMissions(missions) {
         log:'Onward to Mars'
       }
     ];
-
     return `
     <h3 class="log-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
@@ -265,21 +263,21 @@ function decorateSearchPage(data) {
           <label for="select-version">Orbiter Version</label>
           <select id="select-version">
             <option value="">--Choose Version--</option>
-            <option value="orbiter-2016">Orbiter 2016</option>
-            <option value="orbiter-2010">Orbiter 2010</option>
-            <option value="orbiter-2006">Orbiter 2006</option>
-            <option value="orbiter-2005">Orbiter 2005</option>
+            <option value="Orbiter 2016">Orbiter 2016</option>
+            <option value="Orbiter 2010">Orbiter 2010</option>
+            <option value="Orbiter 2006">Orbiter 2006</option>
+            <option value="Orbiter 2005">Orbiter 2005</option>
           </select>
           <label for="select-os">Operating System</label>
           <select id="select-os">
             <option value="">--Choose Version--</option>
-            <option value="win-10">Windows 10</option>
-            <option value="win-8">Windows 8.1</option>
-            <option value="win-7">Windows 7</option>
-            <option value="win-vista">Windows Vista</option>
-            <option value="win-xp">Windows XP</option>
-            <option value="win-2k">Windows 2000</option>
-            <option value="other">other</option>
+            <option value="Windows 10">Windows 10</option>
+            <option value="Windows 8.1">Windows 8.1</option>
+            <option value="Windows 7">Windows 7</option>
+            <option value="Windows Vista">Windows Vista</option>
+            <option value="Windows XP">Windows XP</option>
+            <option value="Windows 2000">Windows 2000</option>
+            <option value="other">Other</option>
           </select>
           <label for="#search-text">User or Keyword
             <input type="text" id="search-text" placeholder="launch">
