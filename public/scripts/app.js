@@ -71,22 +71,22 @@ function getApiMissions(data, callback) {
   $.ajax(settings);
 }
 
-// function getApiMissionById(data, callback) {
-//   console.log('getApiMissionById');
-//   const settings = {
-//     headers: {
-//       authorization: `Bearer ${DATA.authToken}`,
-//     },
-//     url: `/missions/${data._id}`,
-//     type: 'GET',
-//     dataType: 'json',
-//     success: callback
-//   };
-//   $.ajax(settings).fail(function(data) {
-//     console.error('Location:', data.responseJSON.location);
-//     console.error('Message:', data.responseJSON.message);
-//   });
-// }
+function getApiMissionById(data, callback) {
+  console.log('getApiMissionById');
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`,
+    },
+    url: `/missions/${data._id}`,
+    type: 'GET',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings).fail(function(data) {
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);
+  });
+}
 
 function putApiMission(data, callback) {
   // using `setTimeout` to simulate asynchronous like AJAX
@@ -226,8 +226,9 @@ function handleBtnDeleteLog(event) {
 function handleOpenMission(event) {
   event.preventDefault();
   event.stopPropagation();
-  DATA.missionIndex = getSearchItemIndex(event.currentTarget) - 1;
+  DATA.missionIndex = getSearchItemIndex($(event.target).next()) - 1;
   $(event.target).next().slideToggle();
+  console.log(DATA.missionIndex);
 }
 
 function cbRenderProfilePage(data) {

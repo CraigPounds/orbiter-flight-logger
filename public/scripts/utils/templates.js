@@ -88,8 +88,7 @@ function decorateHomePage(data) {
   console.log(data);
   console.log(DATA.missionIndex);
   
-  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
-  const OPEN_MISSION = data.missions[DATA.missionIndex];
+  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';  
   const MISSIONS = data.missions.length > 1 ? decorateMissions(data.missions) : '';  
   return `
   ${decorateNavigation()}
@@ -178,67 +177,6 @@ function decorateMissions(missions) {
     `;
   }).join('');
 }
-
-// function decorateOpenMission(mission) {
-//   let version = mission ? mission.orbiterVersion : '--Choose Version--';
-//   let versionValue = mission ? version : '';
-//   let os = mission ? mission.os : '--Choose Version--';
-//   let osValue = mission ? os : '';
-//   let title = mission ? mission.title : 'Captain\'s Log';
-//   let date = mission ? mission.date : Date.now();
-//   return `
-//   <form action="#" class="form-logger">
-//     <div class="mission">
-//       <fieldset role="group">            
-//         <label for="select-version">Orbiter Version</label>
-//         <select id="select-version">
-//           <option value="${versionValue}">${version}</option>
-//           <option value="orbiter-2016">Orbiter 2016</option>
-//           <option value="orbiter-2010">Orbiter 2010</option>
-//           <option value="orbiter-2006">Orbiter 2006</option>
-//           <option value="orbiter-2005">Orbiter 2005</option>
-//         </select>
-//         <label for="select-os">Operating System</label>
-//         <select id="select-os">
-//           <option value="${osValue}">${os}</option>
-//           <option value="win-10">Windows 10</option>
-//           <option value="win-8">Windows 8.1</option>
-//           <option value="win-7">Windows 7</option>
-//           <option value="win-vista">Windows Vista</option>
-//           <option value="win-xp">Windows XP</option>
-//           <option value="win-2k">Windows 2000</option>
-//           <option value="other">other</option>
-//         </select>
-//         <label for="#title">Title
-//           <input type="text" id="#title" value="${title}">
-//         </label>   
-//         <div id="flight-logs">
-//           <div class="log">
-//             <label for="#log-title">Title
-//               <input type="text" id="log-title" required value="${mission.logs[0].title}">
-//             </label>
-//             <label for="#vessel">Vessel
-//               <input type="text" id="vessel" required value="${mission.logs[0].vessel}">
-//             </label> 
-//             <label for="#date">Date
-//               <input type="text" id="date" required value="${mission.logs[0].date}">
-//             </label>
-//             <textarea class="txt-log-entry" placeholder="Log entry...">${mission.logs[0].log}</textarea>
-//             <div class="buttons-log">
-//               <button id="btn-new-log">NEW LOG</button>
-//               <button id="btn-delete-log">DELETE LOG</button>
-//             </div>
-//           </div>
-//         </div>
-//         <div class="buttons-mission">
-//           <input type="submit" id="btn-mission" value="SAVE MISSION">
-//           <button id="btn-delete-mission">DELETE MISSION</button>
-//         </div>
-//       </fieldset>
-//     </div>
-//   </form>
-//   `;
-// }
 
 function decorateSearchPage(data) {
   let searchResults = data ? decorateMissions(data) : '';
