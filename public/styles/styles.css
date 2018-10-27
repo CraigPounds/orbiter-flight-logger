@@ -103,36 +103,37 @@ input[type="email"] {
 
 .txt-log-entry {
   width: 309px;
-  height: 150px;
+  height: 90px;
+  font-family: Arial, Helvetica, sans-serif;
   border: none;
 }
 
-#log-title,
-#vessel,
-#date {
+.log-title,
+.vessel,
+.date {
   margin-right: 0;
   margin-left: 0;
 }
 
-label[for="#date"],
-label[for="#vessel"],
-label[for="#log-title"] {
+label[for=".date"],
+label[for=".vessel"],
+label[for=".log-title"] {
   margin-left: 3px;
 }
 
-/* label[for="#date"] {
+/* label[for=".date"] {
   margin-left: 50px;
 } */
 
-#log-title {  
+.log-title {  
   width: 274px; 
 }
 
-#vessel {
+.vessel {
   width: 260px;
 }
 
-#date {
+.date {
   width: 270px;
 }
 

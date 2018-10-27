@@ -290,11 +290,19 @@ function attachListeners() {
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
 
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
-  $('#page').on('click', '#btn-delete-mission', handleBtnDeleteApiMission);
-  $('#page').on('click', '#btn-new-log', handleBtnNewLog);
-  $('#page').on('click', '#btn-delete-log', handleBtnDeleteLog);
-  $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
 
+  $('#page').on('click', '.btn-delete-mission', function(event) {
+    handleBtnDeleteApiMission(event);
+  });
+  $('#page').on('click', '.btn-new-log', function(event) {
+    handleBtnNewLog(event);
+  });
+  $('#page').on('click', '.btn-delete-log', function(event) {
+    handleBtnDeleteLog(event);
+  });
+  $('#page').on('click', '.btn-delete-profile', function(event) {
+    handleBtnDeleteProfile(event);
+  });
   $('#page').on('click', '.log-title', function(event) {
     handleOpenMission(event);
   });

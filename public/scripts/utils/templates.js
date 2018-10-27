@@ -90,7 +90,7 @@ function decorateHomePage(data) {
   
   const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';
   const OPEN_MISSION = data.missions[DATA.missionIndex];
-  const MISSIONS = data.missions.length > 1 ? decorateResults(data.missions) : '';  
+  const MISSIONS = data.missions.length > 1 ? decorateMissions(data.missions) : '';  
   return `
   ${decorateNavigation()}
   <main>
@@ -105,29 +105,53 @@ function decorateHomePage(data) {
   `;
 }
 
-function decorateResults(data) {
-  return data.map((mission, index) => {
+function decorateLogs(logs) {
+  return logs.map((log, index) => {
+    return `
+    <div class="log" log-index=${index + 1}>
+      <label for=".log-title">Title
+        <input type="text" class="log-title" required value="">
+      </label>
+      <label for=".vessel">Vessel
+        <input type="text" class="vessel" required value="">
+      </label> 
+      <label for=".date">Date
+        <input type="text" class="date" required value="">
+      </label>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${log}</textarea>
+      <div class="buttons-log">
+        <button class="btn-new-log">NEW LOG</button>
+        <button class="btn-delete-log">DELETE LOG</button>
+      </div>
+    </div>
+    `;
+  }).join();
+}
+
+function decorateMissions(missions) {
+  return missions.map((mission, index) => {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
     let versionValue = mission ? version : '';
     let os = mission ? mission.os : '--Choose Version--';
     let osValue = mission ? os : '';
     let title = mission ? mission.title : 'Captain\'s Log';
+    let logs = ['Blast off!', 'Orbit!', 'Rentry!'];
     return `
     <h3 class="log-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
       <form action="#" class="form-logger">
         <div class="mission">
           <fieldset role="group">            
-            <label for="select-version">Orbiter Version</label>
-            <select id="select-version">
+            <label for=".select-version">Orbiter Version</label>
+            <select class="select-version">
               <option value="${versionValue}">${version}</option>
               <option value="orbiter-2016">Orbiter 2016</option>
               <option value="orbiter-2010">Orbiter 2010</option>
               <option value="orbiter-2006">Orbiter 2006</option>
               <option value="orbiter-2005">Orbiter 2005</option>
             </select>
-            <label for="select-os">Operating System</label>
-            <select id="select-os">
+            <label for=".select-os">Operating System</label>
+            <select class="select-os">
               <option value="${osValue}">${os}</option>
               <option value="win-10">Windows 10</option>
               <option value="win-8">Windows 8.1</option>
@@ -137,30 +161,15 @@ function decorateResults(data) {
               <option value="win-2k">Windows 2000</option>
               <option value="other">other</option>
             </select>
-            <label for="#title">Title
-              <input type="text" id="#title" value="${title}">
+            <label for=".title">Title
+              <input type="text" class="title" value="${title}">
             </label>   
-            <div id="flight-logs">
-              <div class="log">
-                <label for="#log-title">Title
-                  <input type="text" id="log-title" required value="">
-                </label>
-                <label for="#vessel">Vessel
-                  <input type="text" id="vessel" required value="">
-                </label> 
-                <label for="#date">Date
-                  <input type="text" id="date" required value="">
-                </label>
-                <textarea class="txt-log-entry" placeholder="Log entry..."></textarea>
-                <div class="buttons-log">
-                  <button id="btn-new-log">NEW LOG</button>
-                  <button id="btn-delete-log">DELETE LOG</button>
-                </div>
-              </div>
+            <div class="flight-logs">
+              ${decorateLogs(logs)}
             </div>
             <div class="buttons-mission">
-              <input type="submit" id="btn-mission" value="SAVE MISSION">
-              <button id="btn-delete-mission">DELETE MISSION</button>
+              <input type="submit" class="btn-mission" value="SAVE MISSION">
+              <button class="btn-delete-mission">DELETE MISSION</button>
             </div>
           </fieldset>
         </div>
@@ -232,7 +241,7 @@ function decorateResults(data) {
 // }
 
 function decorateSearchPage(data) {
-  let searchResults = data ? decorateResults(data) : '';
+  let searchResults = data ? decorateMissions(data) : '';
   return `
   ${decorateNavigation()}
   <main>
