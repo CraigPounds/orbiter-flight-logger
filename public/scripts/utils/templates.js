@@ -178,8 +178,72 @@ function decorateMissions(missions) {
   }).join('');
 }
 
+function decorateSearchLogs(logs) {
+  return logs.map((log, index) => {
+    return `
+    <div class="log" log-index=${index + 1}>
+      <label for=".log-title">Title
+        <input type="text" class="log-title" required value="">
+      </label>
+      <label for=".vessel">Vessel
+        <input type="text" class="vessel" required value="">
+      </label> 
+      <label for=".date">Date
+        <input type="text" class="date" required value="">
+      </label>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${log}</textarea>
+      <div class="buttons-log">
+      </div>
+    </div>
+    `;
+  }).join();
+}
+
+function decorateSearchMissions(missions) {
+  return missions.map((mission, index) => {
+    let version = mission ? mission.orbiterVersion : '--Choose Version--';
+    let versionValue = mission ? version : '';
+    let os = mission ? mission.os : '--Choose Version--';
+    let osValue = mission ? os : '';
+    let title = mission ? mission.title : 'Captain\'s Log';
+    let logs = ['Blast off!', 'Orbit!', 'Rentry!'];
+    return `
+    <h3 class="log-title">${title}</h3>
+    <div class="result hidden" data-index="${index + 1}">
+        <div class="mission">           
+            <label for=".select-version">Orbiter Version</label>
+            <select class="select-version">
+              <option value="${versionValue}">${version}</option>
+              <option value="orbiter-2016">Orbiter 2016</option>
+              <option value="orbiter-2010">Orbiter 2010</option>
+              <option value="orbiter-2006">Orbiter 2006</option>
+              <option value="orbiter-2005">Orbiter 2005</option>
+            </select>
+            <label for=".select-os">Operating System</label>
+            <select class="select-os">
+              <option value="${osValue}">${os}</option>
+              <option value="win-10">Windows 10</option>
+              <option value="win-8">Windows 8.1</option>
+              <option value="win-7">Windows 7</option>
+              <option value="win-vista">Windows Vista</option>
+              <option value="win-xp">Windows XP</option>
+              <option value="win-2k">Windows 2000</option>
+              <option value="other">other</option>
+            </select>
+            <label for=".title">Title
+              <input type="text" class="title" value="${title}">
+            </label>   
+            <div class="flight-logs">
+              ${decorateSearchLogs(logs)}
+            </div>            
+        </div>
+    </div>
+    `;
+  }).join('');
+}
+
 function decorateSearchPage(data) {
-  let searchResults = data ? decorateMissions(data) : '';
+  const SEARCH_RESULTS = data ? decorateSearchMissions(data.missions) : '';
   return `
   ${decorateNavigation()}
   <main>
@@ -213,7 +277,7 @@ function decorateSearchPage(data) {
         </fieldset>
       </form>
       <div class="results">
-        ${searchResults}
+        ${SEARCH_RESULTS}
       </div>
     </div>
   </main>

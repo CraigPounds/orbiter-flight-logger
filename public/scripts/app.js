@@ -186,15 +186,16 @@ function handleBtnNewMission(event) {
   event.preventDefault();
 }
 
-function handleSubmitpostApiMission(event) {
-  console.log('handleSubmitpostApiMission');
+function handleSubmitPostApiMission(event) {
+  console.log('handleSubmitPostApiMission');
   event.preventDefault();
 }
 
-function handleSubmitGetMission(event) {
-  console.log('handleSubmitGetMission');
+function handleSubmitSearchMission(event) {
+  console.log('handleSubmitSearchMission');
   event.preventDefault();
-  // getApiMissions(cbRenderSearchResults);
+  let data = getSearchData();
+  getApiMissions({}, cbRenderSearchResults);
 }
 
 function handleBtnDeleteApiMission(event) {
@@ -205,7 +206,6 @@ function handleBtnDeleteApiMission(event) {
 function handleBtnNewLog(event) {
   console.log('handleBtnNewLog');
   event.preventDefault();
-
 }
 
 function handlePostLog(event) {
@@ -249,14 +249,25 @@ function getUserData() {
   let email = $('#email').val().trim();
   let userName = $('#user-name').val().trim();
   let password = $('#password').val().trim();
-  let user = {
+  return {
     firstName,
     lastName,
     email,
     userName,
     password
   };
-  return user;
+}
+
+function getSearchData() {
+  // let version = $('#select-version').val().trim();
+  // let os = $('#select-os').val().trim();
+  // let searchText = $('#serach-text').val().trim();
+  // return {
+  //   version,
+  //   os,
+  //   searchText
+  // };
+  return {};
 }
 
 function getSearchItemIndex(item) {
@@ -286,8 +297,8 @@ function attachListeners() {
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
-  $('#page').on('submit', '.form-logger', handleSubmitpostApiMission);
-  $('#page').on('submit', '.form-search', handleSubmitGetMission);
+  $('#page').on('submit', '.form-logger', handleSubmitPostApiMission);
+  $('#page').on('submit', '.form-search', handleSubmitSearchMission);
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
 
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
