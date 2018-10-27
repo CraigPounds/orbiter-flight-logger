@@ -107,24 +107,24 @@ function decorateHomePage(data) {
 function decorateLogs(logs) {
   return logs.map((log, index) => {
     return `
-    <div class="log" log-index=${index + 1}>
+    <div class="log" log-index="${index + 1}">
       <label for=".log-title">Title
-        <input type="text" class="log-title" required value="">
+        <input type="text" class="log-title" required value="${log.title}">
       </label>
       <label for=".vessel">Vessel
-        <input type="text" class="vessel" required value="">
+        <input type="text" class="vessel" required value="${log.vessel}">
       </label> 
       <label for=".date">Date
-        <input type="text" class="date" required value="">
+        <input type="text" class="date" required value="${log.date}">
       </label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${log}</textarea>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${log.log}</textarea>
       <div class="buttons-log">
         <button class="btn-new-log">NEW LOG</button>
         <button class="btn-delete-log">DELETE LOG</button>
       </div>
     </div>
     `;
-  }).join();
+  }).join('');
 }
 
 function decorateMissions(missions) {
@@ -134,7 +134,27 @@ function decorateMissions(missions) {
     let os = mission ? mission.os : '--Choose Version--';
     let osValue = mission ? os : '';
     let title = mission ? mission.title : 'Captain\'s Log';
-    let logs = ['Blast off!', 'Orbit!', 'Rentry!'];
+    let logs = [
+      {
+        title:'Launch',
+        vessel: 'XR-1',
+        date: 'April 21, 2012',
+        log: 'Blast off!'
+      },      
+      {
+        title: 'Docking',
+        vessel: 'XR-1',
+        date: 'April 22, 2012',
+        log:'Docked to ISS'
+      },      
+      {
+        title: 'Earth Escape',
+        vessel: 'AR-18',
+        date: 'April 23, 2012',
+        log:'Onward to Mars'
+      }
+    ];
+    
     return `
     <h3 class="log-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
@@ -180,63 +200,54 @@ function decorateMissions(missions) {
 
 function decorateSearchLogs(logs) {
   return logs.map((log, index) => {
-    return `
-    <div class="log" log-index=${index + 1}>
-      <label for=".log-title">Title
-        <input type="text" class="log-title" required value="">
-      </label>
-      <label for=".vessel">Vessel
-        <input type="text" class="vessel" required value="">
-      </label> 
-      <label for=".date">Date
-        <input type="text" class="date" required value="">
-      </label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${log}</textarea>
-      <div class="buttons-log">
-      </div>
+    return `    
+    <div class="log" log-index="${index + 1}">
+      <p>Title: ${log.title}</p>
+      <p>Vessel: ${log.vessel}</p>
+      <p>Data: ${log.date}</p>
+      <p>Log: ${log.log}</p>
     </div>
     `;
-  }).join();
+  }).join('');
 }
 
 function decorateSearchMissions(missions) {
   return missions.map((mission, index) => {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
-    let versionValue = mission ? version : '';
     let os = mission ? mission.os : '--Choose Version--';
-    let osValue = mission ? os : '';
     let title = mission ? mission.title : 'Captain\'s Log';
-    let logs = ['Blast off!', 'Orbit!', 'Rentry!'];
+    let logs = [
+      {
+        title:'Launch',
+        vessel: 'XR-1',
+        date: 'April 21, 2012',
+        log: 'Blast off!'
+      },      
+      {
+        title: 'Docking',
+        vessel: 'XR-1',
+        date: 'April 22, 2012',
+        log:'Docked to ISS'
+      },      
+      {
+        title: 'Earth Escape',
+        vessel: 'AR-18',
+        date: 'April 23, 2012',
+        log:'Onward to Mars'
+      }
+    ];
+
     return `
     <h3 class="log-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
-        <div class="mission">           
-            <label for=".select-version">Orbiter Version</label>
-            <select class="select-version">
-              <option value="${versionValue}">${version}</option>
-              <option value="orbiter-2016">Orbiter 2016</option>
-              <option value="orbiter-2010">Orbiter 2010</option>
-              <option value="orbiter-2006">Orbiter 2006</option>
-              <option value="orbiter-2005">Orbiter 2005</option>
-            </select>
-            <label for=".select-os">Operating System</label>
-            <select class="select-os">
-              <option value="${osValue}">${os}</option>
-              <option value="win-10">Windows 10</option>
-              <option value="win-8">Windows 8.1</option>
-              <option value="win-7">Windows 7</option>
-              <option value="win-vista">Windows Vista</option>
-              <option value="win-xp">Windows XP</option>
-              <option value="win-2k">Windows 2000</option>
-              <option value="other">other</option>
-            </select>
-            <label for=".title">Title
-              <input type="text" class="title" value="${title}">
-            </label>   
-            <div class="flight-logs">
-              ${decorateSearchLogs(logs)}
-            </div>            
-        </div>
+      <div class="mission">        
+        <p>${version}</p>
+        <p>${os}</p>
+        <p>${title}</p>
+        <div class="flight-logs">
+          ${decorateSearchLogs(logs)}
+        </div>            
+      </div>
     </div>
     `;
   }).join('');

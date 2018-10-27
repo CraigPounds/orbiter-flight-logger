@@ -71,7 +71,7 @@ router.post('/', jwtAuth, (req, res) => {
 router.get('/', jwtAuth, (req, res) => {
   console.log('req.headers.data' , req.headers.data);
   let filter = {};
-  filter = { user_id: req.headers.data };
+  // filter = { user_id: req.headers.data };
   Mission
     .find(filter)    
     .then(missions => {
