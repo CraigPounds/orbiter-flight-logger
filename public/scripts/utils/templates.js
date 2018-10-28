@@ -38,10 +38,10 @@ function decorateLoginPage() {
       <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
-            <input type="text" id="user-name" value="${userName}" required placeholder="username">
+            <input type="text" id="user-name" class="user-input" value="${userName}" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" value="passwordnapes" required placeholder="password">
+            <input type="password" id="password" class="user-input" value="passwordnapes" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>
@@ -59,22 +59,22 @@ function decorateSignupPage() {
       <form action="#" class="form-signup">
         <fieldset role="group">
           <label for="#first-name">First Name
-            <input type="text" id="first-name" required placeholder="First Name">
+            <input type="text" id="first-name" class="user-input" required placeholder="First Name">
           </label>
           <label for="#last-name">Last Name
-            <input type="text" id="last-name" required placeholder="Last Name">
+            <input type="text" id="last-name" class="user-input" required placeholder="Last Name">
           </label>
           <label for="#email">Email
-            <input type="email" id="email" required placeholder="you@email.com">
+            <input type="email" id="email" class="user-input" required placeholder="you@email.com">
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required placeholder="user name">
+            <input type="text" id="user-name" class="user-input" required placeholder="user name">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required placeholder="password">
+            <input type="password" id="password" class="user-input" required placeholder="password">
           </label>
           <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" required placeholder="password">
+            <input type="password" id="retype-password" class="user-input" required placeholder="password">
           </label>
           <input type="submit" id="btn-signup" value="SIGN UP">
         </fieldset>
@@ -94,22 +94,22 @@ function decorateProfilePage(data) {
       <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name
-            <input type="text" id="first-name" required value=${DATA.user.firstName}>
+            <input type="text" id="first-name" class="user-input" required value=${DATA.user.firstName}>
           </label>
           <label for="#last-name">Last Name
-            <input type="text" id="last-name" required value=${DATA.user.lastName}>
+            <input type="text" id="last-name" class="user-input" required value=${DATA.user.lastName}>
           </label>
           <label for="#email">Email
-            <input type="text" id="email" required value=${DATA.user.email}>
+            <input type="text" id="email" class="user-input" required value=${DATA.user.email}>
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" required value=${DATA.user.userName}>
+            <input type="text" id="user-name" class="user-input" required value=${DATA.user.userName}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" required value=${DATA.user.password} placeholder="password">
+            <input type="password" id="password" class="user-input" required value=${DATA.user.password} placeholder="password">
           </label>
           <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" required placeholder="password">
+            <input type="password" id="retype-password" class="user-input" required placeholder="password">
           </label>
           <input type="submit" id="btn-profile" value="SUBMIT">
         </fieldset>        
@@ -124,13 +124,13 @@ function decorateLogs(logs) {
     return `
     <div class="log" log-index="${index + 1}">
       <label for=".log-title">Title
-        <input type="text" class="log-title" required value="${log.title}">
+        <input type="text" class="log-title user-input" required value="${log.title}">
       </label>
       <label for=".vessel">Vessel
-        <input type="text" class="vessel" required value="${log.vessel}">
+        <input type="text" class="vessel user-input" required value="${log.vessel}">
       </label> 
       <label for=".date">Date
-        <input type="text" class="date" required value="${log.date}">
+        <input type="text" class="date user-input" required value="${log.date}">
       </label>
       <textarea class="txt-log-entry" placeholder="Log entry...">${log.log}</textarea>
       <div class="buttons-log">
@@ -176,7 +176,7 @@ function decorateMissions(missions) {
         <div class="mission">
           <fieldset role="group">            
             <label for=".select-version">Orbiter Version</label>
-            <select class="select-version">
+            <select class="select-version user-input">
               <option value="${versionValue}">${version}</option>
               <option value="orbiter-2016">Orbiter 2016</option>
               <option value="orbiter-2010">Orbiter 2010</option>
@@ -184,7 +184,7 @@ function decorateMissions(missions) {
               <option value="orbiter-2005">Orbiter 2005</option>
             </select>
             <label for=".select-os">Operating System</label>
-            <select class="select-os">
+            <select class="select-os user-input">
               <option value="${osValue}">${os}</option>
               <option value="win-10">Windows 10</option>
               <option value="win-8">Windows 8.1</option>
@@ -195,7 +195,7 @@ function decorateMissions(missions) {
               <option value="other">other</option>
             </select>
             <label for=".title">Title
-              <input type="text" class="title" value="${title}">
+              <input type="text" class="title user-input" value="Mission ${title}">
             </label>   
             <div class="flight-logs">
               ${decorateLogs(logs)}

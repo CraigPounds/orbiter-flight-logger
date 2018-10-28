@@ -95,17 +95,21 @@ label[for=".select-os"] {
   margin-left: 30px;
 }
 
-select,
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+.select-version,
+.select-os,
+.user-input {
+  width: 170px;
   margin: 1px 3px;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 170px;
+.title {
+  width: 166px;
+}
+
+.select-version,
+.select-os,
+.title {
+  margin-right: 6px;
 }
 
 #search-text {
@@ -117,21 +121,6 @@ input[type="password"] {
   height: 90px;
   font-family: Arial, Helvetica, sans-serif;
   border: none;
-}
-
-.log-title,
-.vessel,
-.date {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-.vessel {
-  width: 260px;
-}
-
-.date {
-  width: 270px;
 }
 
 .buttons-mission,
