@@ -142,60 +142,59 @@ function decorateLogs(logs) {
   }).join('');
 }
 
-function decorateMissions(missions) {
-  return missions.map((mission, index) => {
-    let version = mission ? mission.orbiterVersion : '--Choose Version--';
-    let versionValue = mission ? version : '';
-    let os = mission ? mission.os : '--Choose Version--';
-    let osValue = mission ? os : '';
-    let title = mission ? mission.title : 'Captain\'s Log';
-    let logs = [
-      {
-        title:'Launch',
-        vessel: 'XR-1',
-        date: 'April 21, 2012',
-        log: 'Blast off!'
-      },      
-      {
-        title: 'Docking',
-        vessel: 'XR-1',
-        date: 'April 22, 2012',
-        log:'Docked to ISS'
-      },      
-      {
-        title: 'Earth Escape',
-        vessel: 'AR-18',
-        date: 'April 23, 2012',
-        log:'Onward to Mars'
-      }
-    ];    
-    return `
+function decorateMission(mission, index) {
+  // console.log('index', index);
+  // console.log('DATA.missionIndex', DATA.missionIndex);
+  let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
+  let os = mission.os ? mission.os : '--Choose Version--';
+  let title = mission.title ? mission.title : 'Captain\'s Log';
+  let logs = [
+    {
+      title:'Launch',
+      vessel: 'XR-1',
+      date: 'April 21, 2012',
+      log: 'Blast off!'
+    },      
+    {
+      title: 'Docking',
+      vessel: 'XR-1',
+      date: 'April 22, 2012',
+      log:'Docked to ISS'
+    },      
+    {
+      title: 'Earth Escape',
+      vessel: 'AR-18',
+      date: 'April 23, 2012',
+      log:'Onward to Mars'
+    }
+  ];
+  return `
     <h3 class="mission-title">${title}</h3>
-    <div class="result hidden" data-index="${index + 1}">
+    <div class="result hidden" data-index="${index}">
       <form action="#" class="form-logger">
         <div class="mission">
           <fieldset role="group">            
             <label for=".select-version">Orbiter Version</label>
             <select class="select-version user-input">
-              <option value="${versionValue}">${version}</option>
-              <option value="orbiter-2016">Orbiter 2016</option>
-              <option value="orbiter-2010">Orbiter 2010</option>
-              <option value="orbiter-2006">Orbiter 2006</option>
-              <option value="orbiter-2005">Orbiter 2005</option>
+              <option value="${version}">${version}</option>
+              <option value="Orbiter 2016">Orbiter 2016</option>
+              <option value="Orbiter 2010">Orbiter 2010</option>
+              <option value="Orbiter 2006">Orbiter 2006</option>
+              <option value="Orbiter 2005">Orbiter 2005</option>
             </select>
             <label for=".select-os">Operating System</label>
             <select class="select-os user-input">
-              <option value="${osValue}">${os}</option>
-              <option value="win-10">Windows 10</option>
-              <option value="win-8">Windows 8.1</option>
-              <option value="win-7">Windows 7</option>
-              <option value="win-vista">Windows Vista</option>
-              <option value="win-xp">Windows XP</option>
-              <option value="win-2k">Windows 2000</option>
-              <option value="other">other</option>
+              <option value="${os}">${os}</option>
+              <option value="Windows 10">Windows 10</option>
+              <option value="Windows 8.1">Windows 8.1</option>
+              <option value="Windows 7">Windows 7</option>
+              <option value="Windows Vista">Windows Vista</option>
+              <option value="Windows XP">Windows XP</option>
+              <option value="Windows 2000">Windows 2000</option>
+              <option value="Other">Other</option>
             </select>
-            <label for=".title">Title
-              <input type="text" class="title user-input" value="Mission ${title}">
+            <label for=".title">Flight
+              <input type="text" class="title user-input" value="${title}">
             </label>   
             <div class="flight-logs">
               ${decorateLogs(logs)}
@@ -209,14 +208,19 @@ function decorateMissions(missions) {
       </form>
     </div>
     `;
+}
+
+function decorateMissions(missions) {
+  return missions.map((mission, index) => {        
+    return decorateMission(mission, index);
   }).join('');
 }
 
 function decorateHomePage(data) {
   // console.log(data);
   // console.log(DATA.missionIndex);  
-  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';  
-  const MISSIONS = data.missions.length > 1 ? decorateMissions(data.missions) : '';  
+  const BTN_NEW_MISSION = '<button id="btn-new-mission">NEW MISSION</button>';
+  const MISSIONS = data.missions.length > 0 ? decorateMissions(data.missions) : '';
   return `
   ${decorateNavigation()}
   <main>
@@ -339,4 +343,4 @@ function decorateGalleryPage() {
   `;
 }
 
-export { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };
+export { decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };

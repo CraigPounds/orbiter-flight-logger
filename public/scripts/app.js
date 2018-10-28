@@ -1,6 +1,6 @@
 'use strict';
 
-import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
+import { decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
 function postApiNewUser(data, callback) {   
@@ -43,7 +43,6 @@ function getApiUserById(data, callback) {
 }
 
 function putApiUser(data, callback) {
-  // console.log('putApiUser data', data);
   const settings = {    
     headers: {
       authorization: `Bearer ${DATA.authToken}`
@@ -142,15 +141,6 @@ function deleteApiLog(data, callback) {
   setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function pageProfile(data) {
-  renderProfilePage(data);
-}
-
-function pageHome() {
-  let data = { user_id: DATA.user._id };
-  getApiMissions(data, renderHomePage);
-}
-
 function handleSubmitPostUser(event) {
   event.preventDefault();
   DATA.user = getUserFormData();
@@ -185,7 +175,6 @@ function handleSubmitPutApiUser(event) {
 }
 
 function handleBtnDeleteProfile(event) {
-  console.log('ran');
   event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
@@ -194,13 +183,18 @@ function handleBtnDeleteProfile(event) {
 }
 
 function handleBtnNewMission(event) {
-  console.log('handleBtnNewMission');
   event.preventDefault();
+  DATA.missionIndex = $('.mission-title' ).length;
+  $('.result').hide();
+  $('.results').append(decorateMission({}, DATA.missionIndex));
+  // $(`[data-index="${DATA.missionIndex}]`).focus();
 }
 
 function handleSubmitPostApiMission(event) {
   console.log('handleSubmitPostApiMission');
   event.preventDefault();
+  let data = '5bd534f4fa8afb074872251f';
+  postApiMission(data, renderHomePage);
 }
 
 function handleSubmitSearchMission(event) {
@@ -269,6 +263,10 @@ function renderPageGallery() {
   $('#page').html(decorateGalleryPage);
 }
 
+function pageHome() {
+  getApiMissions({ user_id: DATA.user._id }, renderHomePage);
+}
+
 function getUserFormData() {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
@@ -315,9 +313,9 @@ function attachListeners() {
   $('#page').on('click', '#nav-signup', renderPageSignUp);
   $('#page').on('click', '#nav-login', renderPageLogin);
   $('#page').on('click', '#nav-search', renderPageSearch);
-  $('#page').on('click', '#nav-profile', pageProfile);
-  $('#page').on('click', '#nav-home', pageHome);
+  $('#page').on('click', '#nav-profile', renderProfilePage);
   $('#page').on('click', '#nav-gallery', renderPageGallery);
+  $('#page').on('click', '#nav-home', pageHome);
   $('#page').on('click', '#nav-logout',  logout);
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
