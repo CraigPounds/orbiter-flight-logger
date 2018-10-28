@@ -1,5 +1,5 @@
 body {
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   min-width: 320px;
   margin: auto;
   font-family: Arial, Helvetica, sans-serif;
@@ -19,7 +19,7 @@ li,
 form,
 .results {
   max-width: 320px;
-  margin: 3px auto;
+  margin: 0 auto;
 }
 
 nav,
@@ -51,10 +51,6 @@ p {
   line-height: 1.2em;
 }
 
-form {
-  text-align: right;
-}
-
 h1 {
   font-size: 1.8em;
 }
@@ -67,10 +63,6 @@ h3 {
   font-size: 1.4em;
 }
 
-h4 {
-  font-size: 1.3em;
-}
-
 label {
   display: inline-block;
 }
@@ -81,25 +73,23 @@ img {
   margin: auto;
 }
 
-/* select {
-  width: 174px;
-} */
-
 input[type="text"],
+input[type="email"],
 input[type="password"] {
   width: 170px;
 }
 
-/* select,
-input[type="text"],
-input[type="password"],
-input[type="email"] {
-  margin: 1px 3px 1px 0;
-} */
+form,
+.log {
+  text-align: right;
+}
 
 .log {
-  text-align: left;
   margin: 3px 3px;
+}
+
+#search-text {
+  width: 132px;
 }
 
 .txt-log-entry {
@@ -107,27 +97,6 @@ input[type="email"] {
   height: 90px;
   font-family: Arial, Helvetica, sans-serif;
   border: none;
-}
-
-.log-title,
-.vessel,
-.date {
-  margin-right: 0;
-  margin-left: 0;
-}
-
-label[for=".date"],
-label[for=".vessel"],
-label[for=".log-title"] {
-  margin-left: 3px;
-}
-
-/* label[for=".date"] {
-  margin-left: 50px;
-} */
-
-.log-title {  
-  width: 274px; 
 }
 
 .vessel {
@@ -150,7 +119,7 @@ label[for=".log-title"] {
 #btn-profile,
 #btn-delete-profile {
   display: block;
-  margin: auto;
+  margin: 3px auto;
 }
 
 .mission,

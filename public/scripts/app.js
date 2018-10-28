@@ -338,7 +338,7 @@ function attachListeners() {
   $('#page').on('click', '.btn-delete-log', function(event) {
     handleBtnDeleteLog(event);
   });
-  $('#page').on('click', '.log-title', function(event) {
+  $('#page').on('click', '.mission-title', function(event) {
     handleOpenMission(event);
   });
 }

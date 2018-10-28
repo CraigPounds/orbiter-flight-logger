@@ -170,7 +170,7 @@ function decorateMissions(missions) {
       }
     ];    
     return `
-    <h3 class="log-title">${title}</h3>
+    <h3 class="mission-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
       <form action="#" class="form-logger">
         <div class="mission">
@@ -270,7 +270,7 @@ function decorateSearchMissions(missions) {
       }
     ];
     return `
-    <h3 class="log-title">${title}</h3>
+    <h3 class="mission-title">${title}</h3>
     <div class="result hidden" data-index="${index + 1}">
       <div class="mission">        
         <p>${version}</p>
