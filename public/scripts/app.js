@@ -59,8 +59,16 @@ function putApiUser(data, callback) {
 }
 
 function deleteApiUser(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockUsers); }, 600);
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url: `/users/${data}`,
+    type: 'DELETE',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings);
 }
 
 function postApiMission(data, callback) {
@@ -177,10 +185,11 @@ function handleSubmitPutApiUser(event) {
 }
 
 function handleBtnDeleteProfile(event) {
+  console.log('ran');
   event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
-    logout();
+    deleteApiUser(DATA.user._id, logout);
   }
 }
 
@@ -313,10 +322,11 @@ function attachListeners() {
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
-  $('#page').on('submit', '.form-logger', handleSubmitPostApiMission);
   $('#page').on('submit', '.form-search', handleSubmitSearchMission);
+  $('#page').on('submit', '.form-logger', handleSubmitPostApiMission);
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
-
+  
+  $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
 
   $('#page').on('click', '.btn-delete-mission', function(event) {
@@ -327,9 +337,6 @@ function attachListeners() {
   });
   $('#page').on('click', '.btn-delete-log', function(event) {
     handleBtnDeleteLog(event);
-  });
-  $('#page').on('click', '.btn-delete-profile', function(event) {
-    handleBtnDeleteProfile(event);
   });
   $('#page').on('click', '.log-title', function(event) {
     handleOpenMission(event);
