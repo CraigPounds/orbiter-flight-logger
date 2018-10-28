@@ -43,12 +43,12 @@ function getApiUserById(data, callback) {
 }
 
 function putApiUser(data, callback) {
-  console.log('putApiUser data', data);
+  // console.log('putApiUser data', data);
   const settings = {    
     headers: {
       authorization: `Bearer ${DATA.authToken}`
     },
-    url: `/users/${data._id}`,
+    url: `/users/${data.id}`,
     type: 'PUT',
     data: JSON.stringify(data),
     dataType: 'json',
@@ -93,7 +93,7 @@ function getApiMissionById(data, callback) {
     headers: {
       authorization: `Bearer ${DATA.authToken}`,
     },
-    url: `/missions/${data._id}`,
+    url: `/missions/${data.id}`,
     type: 'GET',
     dataType: 'json',
     success: callback
@@ -167,12 +167,12 @@ function loginUser(data) {
 
 function handleSubmitPutApiUser(event) {
   event.preventDefault();
-  // if($('#password').val().trim() === $('#retype-password').val().trim()) {
-  if(true) {
+  if($('#password').val().trim() === $('#retype-password').val().trim()) {
     let data = getUserFormData();
-    data._id = DATA.user._id;
+    data.id = DATA.user._id;
     DATA.user = data;
-    putApiUser(data, renderProfilePage);
+    // putApiUser(data, renderProfilePage);
+    putApiUser(data, logout);
   }
 }
 
