@@ -174,16 +174,16 @@ function decorateMission(mission, index) {
       <form action="#" class="form-logger">
         <div class="mission">
           <fieldset role="group">            
-            <label for=".select-version">Orbiter Version</label>
-            <select class="select-version user-input">
+            <label for="#select-version">Orbiter Version</label>
+            <select id="select-version" class="user-input">
               <option value="${version}">${version}</option>
               <option value="Orbiter 2016">Orbiter 2016</option>
               <option value="Orbiter 2010">Orbiter 2010</option>
               <option value="Orbiter 2006">Orbiter 2006</option>
               <option value="Orbiter 2005">Orbiter 2005</option>
             </select>
-            <label for=".select-os">Operating System</label>
-            <select class="select-os user-input">
+            <label for="#select-os">Operating System</label>
+            <select id="select-os" class="user-input">
               <option value="${os}">${os}</option>
               <option value="Windows 10">Windows 10</option>
               <option value="Windows 8.1">Windows 8.1</option>
@@ -193,15 +193,15 @@ function decorateMission(mission, index) {
               <option value="Windows 2000">Windows 2000</option>
               <option value="Other">Other</option>
             </select>
-            <label for=".title">Flight
-              <input type="text" class="title user-input" value="${title}">
+            <label for="#title">Flight
+              <input type="text" id="title" class="user-input" value="${title}">
             </label>   
             <div class="flight-logs">
               ${decorateLogs(logs)}
             </div>
             <div class="buttons-mission">
-              <input type="submit" class="btn-mission" value="SAVE MISSION">
-              <button class="btn-delete-mission">DELETE MISSION</button>
+              <input type="submit" id="btn-mission" value="SAVE MISSION">
+              <button id="btn-delete-mission">DELETE MISSION</button>
             </div>
           </fieldset>
         </div>
@@ -298,7 +298,7 @@ function decorateSearchPage(data) {
       <h2>Search Flight Logs</h2>
       <form action="#" class="form-search">
         <fieldset role="group">
-          <label for="select-version">Orbiter Version</label>
+          <label for="#select-version">Orbiter Version</label>
           <select id="select-version">
             <option value="">--Choose Version--</option>
             <option value="Orbiter 2016">Orbiter 2016</option>
@@ -306,7 +306,7 @@ function decorateSearchPage(data) {
             <option value="Orbiter 2006">Orbiter 2006</option>
             <option value="Orbiter 2005">Orbiter 2005</option>
           </select>
-          <label for="select-os">Operating System</label>
+          <label for="#select-os">Operating System</label>
           <select id="select-os">
             <option value="">--Choose Version--</option>
             <option value="Windows 10">Windows 10</option>

@@ -71,8 +71,7 @@ function deleteApiUser(data, callback) {
 }
 
 function postApiMission(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
+  console.log('postApiMission data', data);
 }
 
 function buildHeaders(data) {
@@ -169,7 +168,6 @@ function handleSubmitPutApiUser(event) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
-    // putApiUser(data, renderProfilePage);
     putApiUser(data, logout);
   }
 }
@@ -187,13 +185,12 @@ function handleBtnNewMission(event) {
   DATA.missionIndex = $('.mission-title' ).length;
   $('.result').hide();
   $('.results').append(decorateMission({}, DATA.missionIndex));
-  // $(`[data-index="${DATA.missionIndex}]`).focus();
 }
 
 function handleSubmitPostApiMission(event) {
   console.log('handleSubmitPostApiMission');
   event.preventDefault();
-  let data = '5bd534f4fa8afb074872251f';
+  let data = getMissionFormData();
   postApiMission(data, renderHomePage);
 }
 
@@ -231,6 +228,10 @@ function handleBtnDeleteLog(event) {
 function handleOpenMission(event) {
   event.preventDefault();
   event.stopPropagation();
+  let index = getSearchItemIndex($(event.target).next()) - 1;
+  if(index !== DATA.missionIndex) {
+    $('.result').hide();
+  }
   DATA.missionIndex = getSearchItemIndex($(event.target).next()) - 1;
   $(event.target).next().slideToggle();
   // console.log(DATA.missionIndex);
@@ -282,6 +283,23 @@ function getUserFormData() {
   };
 }
 
+function getMissionFormData() {
+  let os = $('#select-os').val().trim;
+  let orbiterVersion = $('#select-version').val().trim;
+  let title = $('#title').val().trim;
+  let log = {
+    title: 'Earth Escape',
+    vessel: 'Apollo-18',
+    date: 'Oct 28, 2018'
+  };
+  return {
+    os,
+    orbiterVersion,
+    title,
+    log
+  };
+}
+
 function getSearchData() {
   let orbiterVersion = $('#select-version').val().trim();
   let os = $('#select-os').val().trim();
@@ -327,13 +345,13 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
 
-  $('#page').on('click', '.btn-delete-mission', function(event) {
+  $('#page').on('click', '#btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);
   });
   $('#page').on('click', '.btn-new-log', function(event) {
     handleBtnNewLog(event);
   });
-  $('#page').on('click', '.btn-delete-log', function(event) {
+  $('#page').on('click', '#btn-delete-log', function(event) {
     handleBtnDeleteLog(event);
   });
   $('#page').on('click', '.mission-title', function(event) {
