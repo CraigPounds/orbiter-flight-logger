@@ -143,14 +143,15 @@ router.get('/:id', jwtAuth, (req, res) => {
     });
 });
 
-router.put('/:id',  jwtAuth, (req, res) => {
+router.put('/:id',  (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
     });
   }
   const updated = {};
-  const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'password'];
+  // const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'password'];
+  const updateableFields = ['firstName', 'lastName', 'userName'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];

@@ -28,6 +28,28 @@ function decorateNavigation() {
   return DATA.loggedIn ? USER_NAVIGATION : GUEST_NAVIGATION;
 }
 
+function decorateLoginPage() {
+  const userName = DATA.user.userName ? DATA.user.userName : '';
+  return `
+  ${decorateNavigation()}
+  <main>
+    <div id="page-login">
+      <h2>User Log In</h2>
+      <form action="#" class="form-login">
+        <fieldset role="group">
+          <label for="#user-name">User Name
+            <input type="text" id="user-name" value="${userName}" required placeholder="username">
+          </label>
+          <label for="#password">Password
+            <input type="password" id="password" value="passwordnapes" required placeholder="password">
+          <input type="submit" id="btn-login" value="LOG IN">
+        </fieldset>
+      </form>
+    </div>
+  </main>
+  `;
+}
+
 function decorateSignupPage() {
   return `
   ${decorateNavigation()}
@@ -62,43 +84,36 @@ function decorateSignupPage() {
   `;
 }
 
-function decorateLoginPage() {
-  const userName = DATA.user.userName ? DATA.user.userName : '';
+function decorateProfilePage(data) {
   return `
   ${decorateNavigation()}
   <main>
-    <div id="page-login">
-      <h2>User Log In</h2>
-      <form action="#" class="form-login">
+    <div id="page-profile">
+      <h2>Edit Profile</h2>
+      <button id="btn-delete-profile">DELETE PROFILE</button>
+      <form action="#" class="form-profile">
         <fieldset role="group">
+          <label for="#first-name">First Name
+            <input type="text" id="first-name" required value=${DATA.user.firstName}>
+          </label>
+          <label for="#last-name">Last Name
+            <input type="text" id="last-name" required value=${DATA.user.lastName}>
+          </label>
+          <label for="#email">Email
+            <input type="text" id="email" required value=${DATA.user.email}>
+          </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" value="${userName}" required placeholder="username">
+            <input type="text" id="user-name" required value=${DATA.user.userName}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" value="" required placeholder="password">
-          <input type="submit" id="btn-login" value="LOG IN">
-        </fieldset>
+            <input type="password" id="password" required value=${DATA.user.password} placeholder="password">
+          </label>
+          <label for="#retype-password">Retype Password
+            <input type="password" id="retype-password" required placeholder="password">
+          </label>
+          <input type="submit" id="btn-profile" value="SUBMIT">
+        </fieldset>        
       </form>
-    </div>
-  </main>
-  `;
-}
-
-function decorateHomePage(data) {
-  console.log(data);
-  console.log(DATA.missionIndex);
-  
-  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';  
-  const MISSIONS = data.missions.length > 1 ? decorateMissions(data.missions) : '';  
-  return `
-  ${decorateNavigation()}
-  <main>
-    <div id="page-home">
-      <h2>${DATA.user.userName}</h2>      
-      ${BTN_NEW_MISSION}
-      <div class="results">     
-        ${MISSIONS}
-      </div>
     </div>
   </main>
   `;
@@ -195,6 +210,25 @@ function decorateMissions(missions) {
     </div>
     `;
   }).join('');
+}
+
+function decorateHomePage(data) {
+  // console.log(data);
+  // console.log(DATA.missionIndex);  
+  const BTN_NEW_MISSION = data.missions.length > 0 ? '<button id="btn-new-mission">NEW MISSION</button>' : '';  
+  const MISSIONS = data.missions.length > 1 ? decorateMissions(data.missions) : '';  
+  return `
+  ${decorateNavigation()}
+  <main>
+    <div id="page-home">
+      <h2>${DATA.user.userName}</h2>      
+      ${BTN_NEW_MISSION}
+      <div class="results">     
+        ${MISSIONS}
+      </div>
+    </div>
+  </main>
+  `;
 }
 
 function decorateSearchLogs(logs) {
@@ -300,41 +334,6 @@ function decorateGalleryPage() {
     <div id="page-gallery">
       <h2>Gallery</h2>
       <img src="./images/challenger.jpg" alt="Challenger Shuttle">
-    </div>
-  </main>
-  `;
-}
-
-function decorateProfilePage(data) {
-  return `
-  ${decorateNavigation()}
-  <main>
-    <div id="page-profile">
-      <h2>Edit Profile</h2>
-      <button id="btn-delete-profile">DELETE PROFILE</button>
-      <form action="#" class="form-profile">
-        <fieldset role="group">
-          <label for="#first-name">First Name
-            <input type="text" id="first-name" required value=${DATA.user.firstName}>
-          </label>
-          <label for="#last-name">Last Name
-            <input type="text" id="last-name" required value=${DATA.user.lastName}>
-          </label>
-          <label for="#email">Email
-            <input type="text" id="email" required value=${DATA.user.email}>
-          </label>
-          <label for="#user-name">User Name
-            <input type="text" id="user-name" required value=${DATA.user.userName}>
-          </label>
-          <label for="#password">Password
-            <input type="password" id="password" required value=${DATA.user.password} placeholder="password">
-          </label>
-          <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" required placeholder="password">
-          </label>
-          <input type="submit" id="btn-profile" value="SUBMIT">
-        </fieldset>        
-      </form>
     </div>
   </main>
   `;

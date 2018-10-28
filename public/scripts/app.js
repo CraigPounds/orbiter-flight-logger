@@ -3,7 +3,7 @@
 import { decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
-function postNewUser(data, callback) {   
+function postApiNewUser(data, callback) {   
   const settings = {
     url: '/users',
     type: 'POST',
@@ -18,7 +18,7 @@ function postNewUser(data, callback) {
   });
 }
 
-function postUserLogin(data, callback) {
+function postApiUserLogin(data, callback) {
   const settings = {
     url: '/auth/login',
     type: 'POST',
@@ -43,8 +43,19 @@ function getApiUserById(data, callback) {
 }
 
 function putApiUser(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockUsers); }, 600);  
+  console.log('putApiUser data', data);
+  const settings = {    
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url: `/users/${data._id}`,
+    type: 'PUT',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback
+  };
+  $.ajax(settings);
 }
 
 function deleteApiUser(data, callback) {
@@ -68,7 +79,7 @@ function buildHeaders(data) {
 function getApiMissions(data, callback) {
   const settings = {
     headers: buildHeaders(data),
-    url: '/missions/',
+    url: '/missions',
     type: 'GET',
     dataType: 'json',
     success: callback
@@ -123,35 +134,19 @@ function deleteApiLog(data, callback) {
   setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function pageSignup() {
-  $('#page').html(decorateSignupPage);
-}
-
-function pageLogin() {
-  $('#page').html(decorateLoginPage());
-}
-
-function pageSearch() {
-  $('#page').html(decorateSearchPage);
-}
-
 function pageProfile(data) {
-  getApiUsers(data, cbRenderProfilePage);
+  renderProfilePage(data);
 }
 
 function pageHome() {
   let data = { user_id: DATA.user._id };
-  getApiMissions(data, cbRenderHomePage);
-}
-
-function pageGallery() {
-  $('#page').html(decorateGalleryPage);
+  getApiMissions(data, renderHomePage);
 }
 
 function handleSubmitPostUser(event) {
   event.preventDefault();
-  DATA.user = getUserData();
-  postNewUser(DATA.user, pageLogin);
+  DATA.user = getUserFormData();
+  postApiNewUser(DATA.user, renderPageLogin);
 }
 
 function handleSubmitLogin(event) {
@@ -160,7 +155,7 @@ function handleSubmitLogin(event) {
     username: $('#user-name').val().trim(),
     password: $('#password').val().trim()
   };
-  postUserLogin(data, loginUser);  
+  postApiUserLogin(data, loginUser);  
 }
 
 function loginUser(data) {
@@ -171,10 +166,13 @@ function loginUser(data) {
 }
 
 function handleSubmitPutApiUser(event) {
-  console.log('handleSubmitPutApiUser');
   event.preventDefault();
-  if($('#password').val().trim() === $('#retype-password').val().trim()) {
-    pageHome();
+  // if($('#password').val().trim() === $('#retype-password').val().trim()) {
+  if(true) {
+    let data = getUserFormData();
+    data._id = DATA.user._id;
+    DATA.user = data;
+    putApiUser(data, renderProfilePage);
   }
 }
 
@@ -199,7 +197,7 @@ function handleSubmitPostApiMission(event) {
 function handleSubmitSearchMission(event) {
   event.preventDefault();
   let data = getSearchData();
-  getApiMissions(data, cbRenderSearchResults);
+  getApiMissions(data, renderSearchResults);
 }
 
 function handleBtnDeleteApiMission(event) {
@@ -235,19 +233,34 @@ function handleOpenMission(event) {
   // console.log(DATA.missionIndex);
 }
 
-function cbRenderProfilePage(data) {
-  $('#page').html(decorateProfilePage(data));
+function renderPageLogin() {
+  $('#page').html(decorateLoginPage());
 }
 
-function cbRenderHomePage(data) {
+function renderPageSignUp() {
+  $('#page').html(decorateSignupPage);
+}
+
+function renderProfilePage(data) {
+  $('#page').html(decorateProfilePage(data));
+}
+function renderHomePage(data) {
   $('#page').html(decorateHomePage(data)); 
 }
 
-function cbRenderSearchResults(data) {
+function renderPageSearch() {
+  $('#page').html(decorateSearchPage);
+}
+
+function renderSearchResults(data) {
   $('#page').html(decorateSearchPage(data));
 }
 
-function getUserData() {
+function renderPageGallery() {
+  $('#page').html(decorateGalleryPage);
+}
+
+function getUserFormData() {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
@@ -286,16 +299,16 @@ function logout() {
   DATA.authToken = '';
   DATA.missionIndex = 0;
   DATA.mission = {};
-  pageGallery();
+  renderPageGallery();
 }
 
 function attachListeners() {
-  $('#page').on('click', '#nav-signup', pageSignup);
-  $('#page').on('click', '#nav-login', pageLogin);
-  $('#page').on('click', '#nav-search', pageSearch);
+  $('#page').on('click', '#nav-signup', renderPageSignUp);
+  $('#page').on('click', '#nav-login', renderPageLogin);
+  $('#page').on('click', '#nav-search', renderPageSearch);
   $('#page').on('click', '#nav-profile', pageProfile);
   $('#page').on('click', '#nav-home', pageHome);
-  $('#page').on('click', '#nav-gallery', pageGallery);
+  $('#page').on('click', '#nav-gallery', renderPageGallery);
   $('#page').on('click', '#nav-logout',  logout);
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
