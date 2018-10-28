@@ -7,7 +7,8 @@ body {
 }
 
 body,
-.log {
+.log,
+.search-log {
   background: #c0c0c0;
 }
 
@@ -73,19 +74,38 @@ img {
   margin: auto;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-  width: 170px;
-}
-
 form,
 .log {
   text-align: right;
 }
 
-.log {
+.log,
+.search-log {
   margin: 3px 3px;
+}
+
+.mission,
+.log,
+.search-log {
+  padding-bottom: 1px;
+}
+
+label[for=".select-version"],
+label[for=".select-os"] {
+  margin-left: 30px;
+}
+
+select,
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  margin: 1px 3px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 170px;
 }
 
 #search-text {
@@ -97,6 +117,13 @@ form,
   height: 90px;
   font-family: Arial, Helvetica, sans-serif;
   border: none;
+}
+
+.log-title,
+.vessel,
+.date {
+  margin-right: 0;
+  margin-left: 0;
 }
 
 .vessel {
@@ -120,11 +147,6 @@ form,
 #btn-delete-profile {
   display: block;
   margin: 3px auto;
-}
-
-.mission,
-.log {
-  padding-bottom: 1px;
 }
 
 .hidden {

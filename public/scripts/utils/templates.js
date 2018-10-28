@@ -234,7 +234,7 @@ function decorateHomePage(data) {
 function decorateSearchLogs(logs) {
   return logs.map((log, index) => {
     return `    
-    <div class="log" log-index="${index + 1}">
+    <div class="search-log" log-index="${index + 1}">
       <p>Title: ${log.title}</p>
       <p>Vessel: ${log.vessel}</p>
       <p>Data: ${log.date}</p>
