@@ -124,10 +124,10 @@ function decorateLogs(logs) {
     return `
     <div class="log" log-index="${index + 1}">
       <label for=".log-title">Title
-        <input type="text" class="log-title user-input" required value="${log.title}">
+        <input type="text" class="log-title user-input" placeholder="Log Title" required value="${log.title}">
       </label>
       <label for=".vessel">Vessel
-        <input type="text" class="vessel user-input" required value="${log.vessel}">
+        <input type="text" class="vessel user-input" placeholder="Vessel Name" required value="${log.vessel}">
       </label> 
       <label for=".date">Date
         <input type="text" class="date user-input" required value="${log.date}">
@@ -147,27 +147,9 @@ function decorateMission(mission, index) {
   // console.log('DATA.missionIndex', DATA.missionIndex);
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
-  let title = mission.title ? mission.title : 'Captain\'s Log';
-  let logs = [
-    {
-      title:'Launch',
-      vessel: 'XR-1',
-      date: 'April 21, 2012',
-      log: 'Blast off!'
-    },      
-    {
-      title: 'Docking',
-      vessel: 'XR-1',
-      date: 'April 22, 2012',
-      log:'Docked to ISS'
-    },      
-    {
-      title: 'Earth Escape',
-      vessel: 'AR-18',
-      date: 'April 23, 2012',
-      log:'Onward to Mars'
-    }
-  ];
+  let title = mission.title ? mission.title : 'New Mission';
+  let logs = decorateLogs(mission.logs);
+  
   return `
     <h3 class="mission-title">${title}</h3>
     <div class="result hidden" data-index="${index}">
@@ -194,10 +176,10 @@ function decorateMission(mission, index) {
               <option value="Other">Other</option>
             </select>
             <label for=".title">Flight
-              <input type="text" class="title user-input" value="${title}">
+              <input type="text" class="title user-input" value="${title}" placeholder="Untitled Mission" required>
             </label>   
             <div class="flight-logs">
-              ${decorateLogs(logs)}
+              ${logs}
             </div>
             <div class="buttons-mission">
               <input type="submit" id="btn-mission" value="SAVE MISSION">
@@ -211,7 +193,27 @@ function decorateMission(mission, index) {
 }
 
 function decorateMissions(missions) {
-  return missions.map((mission, index) => {        
+  return missions.map((mission, index) => { 
+    mission.logs = [
+      {
+        title:'Launch',
+        vessel: 'XR-1',
+        date: 'April 21, 2012',
+        log: 'Blast off!'
+      },      
+      {
+        title: 'Docking',
+        vessel: 'XR-1',
+        date: 'April 22, 2012',
+        log:'Docked to ISS'
+      },      
+      {
+        title: 'Earth Escape',
+        vessel: 'AR-18',
+        date: 'April 23, 2012',
+        log:'Onward to Mars'
+      }
+    ];       
     return decorateMission(mission, index);
   }).join('');
 }
@@ -252,7 +254,7 @@ function decorateSearchMissions(missions) {
   return missions.map((mission, index) => {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
     let os = mission ? mission.os : '--Choose Version--';
-    let title = mission ? mission.title : 'Captain\'s Log';
+    let title = mission ? mission.title : 'Untitled Mission';
     let logs = [
       {
         title:'Launch',

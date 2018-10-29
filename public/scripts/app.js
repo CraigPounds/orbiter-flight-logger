@@ -184,7 +184,14 @@ function handleBtnNewMission(event) {
   event.preventDefault();
   DATA.missionIndex = $('.mission-title' ).length;
   $('.result').hide();
-  $('.results').append(decorateMission({}, DATA.missionIndex));
+  $('.results').append(decorateMission({
+    logs: [{
+      title: '',
+      vessel: '',
+      date: Date.now(),
+      log: ''
+    }]
+  }, DATA.missionIndex));
 }
 
 function handleSubmitPostApiMission(event) {
