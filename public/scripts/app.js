@@ -1,6 +1,6 @@
 'use strict';
 
-import { decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
+import { decorateLog, decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
 function postApiNewUser(data, callback) {   
@@ -194,6 +194,12 @@ function handleBtnNewMission(event) {
   }, DATA.missionIndex));
 }
 
+function handleBtnNewLog(event) {
+  event.preventDefault();
+  $(event.currentTarget).parent().siblings('.flight-logs')
+    .append(decorateLog({}, 1));
+}
+
 function handleSubmitPostApiMission(event) {
   event.preventDefault();
   let data = getMissionFormData(event);
@@ -208,11 +214,6 @@ function handleSubmitSearchMission(event) {
 
 function handleBtnDeleteApiMission(event) {
   console.log('handleBtnDeleteApiMission');
-  event.preventDefault();
-}
-
-function handleBtnNewLog(event) {
-  console.log('handleBtnNewLog');
   event.preventDefault();
 }
 
@@ -367,7 +368,7 @@ function attachListeners() {
   $('#page').on('click', '.btn-new-log', function(event) {
     handleBtnNewLog(event);
   });
-  $('#page').on('click', '#btn-delete-log', function(event) {
+  $('#page').on('click', '.btn-delete-log', function(event) {
     handleBtnDeleteLog(event);
   });
   $('#page').on('click', '.mission-title', function(event) {

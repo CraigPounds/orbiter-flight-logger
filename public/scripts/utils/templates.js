@@ -119,10 +119,9 @@ function decorateProfilePage(data) {
   `;
 }
 
-function decorateLogs(logs) {
-  return logs.map((log, index) => {
-    return `
-    <div class="log" log-index="${index + 1}">
+function decorateLog(log, index) {
+  return `
+    <div class="log" log-index="${index}">
       <label for=".log-title">Title
         <input type="text" class="log-title user-input" placeholder="Log Title" required value="${log.title}">
       </label>
@@ -133,12 +132,16 @@ function decorateLogs(logs) {
         <input type="text" class="date user-input" required value="${log.date}">
       </label>
       <textarea class="txt-log-entry" placeholder="Log entry...">${log.log}</textarea>
-      <div class="buttons-log">
-        <button class="btn-new-log">NEW LOG</button>
+      <div class="buttons-log">        
         <button class="btn-delete-log">DELETE LOG</button>
       </div>
     </div>
     `;
+}
+
+function decorateLogs(logs) {
+  return logs.map((log, index) => {
+    return decorateLog(log, index);
   }).join('');
 }
 
@@ -182,6 +185,7 @@ function decorateMission(mission, index) {
               ${logs}
             </div>
             <div class="buttons-mission">
+              <button class="btn-new-log">NEW LOG</button>
               <input type="submit" id="btn-mission" value="SAVE MISSION">
               <button id="btn-delete-mission">DELETE MISSION</button>
             </div>
@@ -227,11 +231,11 @@ function decorateHomePage(data) {
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>${DATA.user.userName}</h2>      
-      ${BTN_NEW_MISSION}
+      <h2>${DATA.user.userName}</h2>
       <div class="results">     
         ${MISSIONS}
       </div>
+      ${BTN_NEW_MISSION}
     </div>
   </main>
   `;
@@ -345,4 +349,4 @@ function decorateGalleryPage() {
   `;
 }
 
-export { decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };
+export { decorateLog, decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage };
