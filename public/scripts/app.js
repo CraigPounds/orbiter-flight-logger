@@ -71,7 +71,21 @@ function deleteApiUser(data, callback) {
 }
 
 function postApiMission(data, callback) {
-  console.log('postApiMission data', data);
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url: '/missions',
+    type: 'POST',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback,
+  };
+  $.ajax(settings).fail(function() {
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);
+  });
 }
 
 function buildHeaders(data) {
@@ -188,7 +202,7 @@ function handleBtnNewMission(event) {
     logs: [{
       title: '',
       vessel: '',
-      date: Date.now(),
+      date: getDate(),
       log: ''
     }]
   }, DATA.missionIndex));
@@ -203,7 +217,8 @@ function handleBtnNewLog(event) {
 function handleSubmitPostApiMission(event) {
   event.preventDefault();
   let data = getMissionFormData(event);
-  postApiMission(data, renderHomePage);
+  data.user_id = DATA.user._id;
+  postApiMission(data, pageHome);
 }
 
 function handleSubmitSearchMission(event) {
@@ -326,6 +341,21 @@ function getSearchData() {
   };
 }
 
+function getDate() {
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;  
+  let year = date.getFullYear();
+
+  if(day < 10) {
+    day = '0' + day;
+  } 
+  if(month < 10) {
+    month ='0'+ month;
+  } 
+  return `${month}/${day}/${year}`;
+}
+
 function getSearchItemIndex(item) {
   let itemIndex = $(item)
     .closest('.result')
@@ -380,4 +410,4 @@ function setUp() {
   logout();
 }
 
-export { attachListeners, setUp };
+export { attachListeners, setUp, getDate };

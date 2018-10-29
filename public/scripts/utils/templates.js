@@ -1,6 +1,7 @@
 'use strict';
 
 import { DATA } from '../data/data.js';
+import { getDate } from '../app.js';
 
 const GUEST_NAVIGATION = `  
   <nav role="navigation">      
@@ -122,7 +123,7 @@ function decorateProfilePage(data) {
 function decorateLog(log, index) {
   let title = log.title ? log.title : '';
   let vessel = log.vessel ? log.vessl : '';
-  let date = log.date ? log.date : Date.now();
+  let date = log.date ? log.date : getDate();
   let logEntry = log.log ? log.log : '';
   return `
     <div class="log" log-index="${index}">
