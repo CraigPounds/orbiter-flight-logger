@@ -120,18 +120,22 @@ function decorateProfilePage(data) {
 }
 
 function decorateLog(log, index) {
+  let title = log.title ? log.title : '';
+  let vessel = log.vessel ? log.vessl : '';
+  let date = log.date ? log.date : Date.now();
+  let logEntry = log.log ? log.log : '';
   return `
     <div class="log" log-index="${index}">
       <label for=".log-title">Title
-        <input type="text" class="log-title user-input" placeholder="Log Title" required value="${log.title}">
+        <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
       </label>
       <label for=".vessel">Vessel
-        <input type="text" class="vessel user-input" placeholder="Vessel Name" required value="${log.vessel}">
+        <input type="text" class="vessel user-input" placeholder="Vessel Name" required value="${vessel}">
       </label> 
       <label for=".date">Date
-        <input type="text" class="date user-input" required value="${log.date}">
+        <input type="text" class="date user-input" required value="${date}">
       </label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${log.log}</textarea>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
       <div class="buttons-log">        
         <button class="btn-delete-log">DELETE LOG</button>
       </div>
