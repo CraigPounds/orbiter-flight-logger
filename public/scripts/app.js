@@ -188,9 +188,8 @@ function handleBtnNewMission(event) {
 }
 
 function handleSubmitPostApiMission(event) {
-  console.log('handleSubmitPostApiMission');
   event.preventDefault();
-  let data = getMissionFormData();
+  let data = getMissionFormData(event);
   postApiMission(data, renderHomePage);
 }
 
@@ -234,7 +233,6 @@ function handleOpenMission(event) {
   }
   DATA.missionIndex = getSearchItemIndex($(event.target).next()) - 1;
   $(event.target).next().slideToggle();
-  // console.log(DATA.missionIndex);
 }
 
 function renderPageLogin() {
@@ -283,18 +281,18 @@ function getUserFormData() {
   };
 }
 
-function getMissionFormData() {
-  let os = $('#select-os').val().trim;
-  let orbiterVersion = $('#select-version').val().trim;
-  let title = $('#title').val().trim;
+function getMissionFormData(event) {  
+  let orbiterVersion = $(event.currentTarget).find('.select-version').val();
+  let os = $(event.currentTarget).find('.select-os').val();
+  let title = $(event.currentTarget).find('.title').val().trim();
   let log = {
-    title: 'Earth Escape',
-    vessel: 'Apollo-18',
+    title: 'test title',
+    vessel: 'test Apollo',
     date: 'Oct 28, 2018'
   };
   return {
-    os,
     orbiterVersion,
+    os,
     title,
     log
   };
@@ -339,12 +337,14 @@ function attachListeners() {
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
   $('#page').on('submit', '.form-search', handleSubmitSearchMission);
-  $('#page').on('submit', '.form-logger', handleSubmitPostApiMission);
   $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
   
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
-
+  
+  $('#page').on('submit', '.form-logger', function(event) {
+    handleSubmitPostApiMission(event);
+  });
   $('#page').on('click', '#btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);
   });

@@ -90,8 +90,8 @@ form,
   padding-bottom: 1px;
 }
 
-label[for="#select-version"],
-label[for="#select-os"] {
+label[for=".select-version"],
+label[for=".select-os"] {
   margin-left: 30px;
 }
 
@@ -100,13 +100,13 @@ label[for="#select-os"] {
   margin: 1px 3px;
 }
 
-#title {
+.title {
   width: 166px;
 }
 
-#select-version,
-#select-os,
-#title {
+.select-version,
+.select-os,
+.title {
   margin-right: 6px;
 }
 

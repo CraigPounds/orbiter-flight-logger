@@ -174,16 +174,16 @@ function decorateMission(mission, index) {
       <form action="#" class="form-logger">
         <div class="mission">
           <fieldset role="group">            
-            <label for="#select-version">Orbiter Version</label>
-            <select id="select-version" class="user-input">
+            <label for=".select-version">Orbiter Version</label>
+            <select class="select-version user-input">
               <option value="${version}">${version}</option>
               <option value="Orbiter 2016">Orbiter 2016</option>
               <option value="Orbiter 2010">Orbiter 2010</option>
               <option value="Orbiter 2006">Orbiter 2006</option>
               <option value="Orbiter 2005">Orbiter 2005</option>
             </select>
-            <label for="#select-os">Operating System</label>
-            <select id="select-os" class="user-input">
+            <label for=".select-os">Operating System</label>
+            <select class="select-os user-input">
               <option value="${os}">${os}</option>
               <option value="Windows 10">Windows 10</option>
               <option value="Windows 8.1">Windows 8.1</option>
@@ -193,8 +193,8 @@ function decorateMission(mission, index) {
               <option value="Windows 2000">Windows 2000</option>
               <option value="Other">Other</option>
             </select>
-            <label for="#title">Flight
-              <input type="text" id="title" class="user-input" value="${title}">
+            <label for=".title">Flight
+              <input type="text" class="title user-input" value="${title}">
             </label>   
             <div class="flight-logs">
               ${decorateLogs(logs)}
