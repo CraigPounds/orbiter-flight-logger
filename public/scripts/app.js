@@ -292,16 +292,25 @@ function getMissionFormData(event) {
   let orbiterVersion = $(event.currentTarget).find('.select-version').val();
   let os = $(event.currentTarget).find('.select-os').val();
   let title = $(event.currentTarget).find('.title').val().trim();
-  let log = {
-    title: 'test title',
-    vessel: 'test Apollo',
-    date: 'Oct 28, 2018'
-  };
+  let logs = $(event.currentTarget).find('.log')
+    .map(function() { 
+      let title = $(this).find('.log-title').val();
+      let vessel = $(this).find('.vessel').val();
+      let date = $(this).find('.date').val();
+      let log = $(this).find('.txt-log-entry').val();
+      return {
+        title,
+        vessel,
+        date,
+        log
+      };
+    }).get();
+
   return {
     orbiterVersion,
     os,
     title,
-    log
+    logs
   };
 }
 
