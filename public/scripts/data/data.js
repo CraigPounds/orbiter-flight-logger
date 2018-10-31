@@ -2,7 +2,7 @@
 
 const DATA = {
   loggedIn: false,
-  dataSaved: true,
+  dataSaved: false,
   authToken: '',
   user: {},
   missionIndex: 0,

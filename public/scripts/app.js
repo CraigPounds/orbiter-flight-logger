@@ -204,6 +204,7 @@ function handleBtnNewMission(event) {
   event.preventDefault();
   $('.result').hide();
   $('#btn-new-mission').hide();
+  DATA.dataSaved = false;
   $('.results').append(decorateMission({
     logs: [{
       title: '',
@@ -217,6 +218,7 @@ function handleBtnNewMission(event) {
 function handleBtnNewLog(event) {
   event.preventDefault();
   $(event.currentTarget).hide();
+  DATA.dataSaved = false;
   $(event.currentTarget).parent().siblings('.flight-logs')
     .append(decorateLog({}, 1));  
 }
@@ -310,6 +312,7 @@ function renderPageGallery() {
 }
 
 function pageHome() {
+  DATA.dataSaved = true;
   getApiMissions({ user_id: DATA.user._id }, renderHomePage);
 }
 
