@@ -152,16 +152,26 @@ function decorateLogs(logs) {
 }
 
 function decorateMission(mission) {
+  // console.log(mission._id);
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
   let title = mission.title ? mission.title : 'New Mission';
   let logs = decorateLogs(mission.logs);
+  // let saveButton = mission.id ? '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">' : '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
   let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
-  
+  let formClass = '';
+  let saveButton = '';
+  if (mission._id) {
+    formClass = 'form-put-mission';
+    saveButton = '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">';
+  } else {
+    formClass = 'form-post-mission';
+    saveButton = '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
+  }
   return `
     <h3 class="mission-title">${title}</h3>
     <div class="result hidden" data-index="${index}">
-      <form action="#" class="form-logger">
+      <form action="#" class="${formClass}">
         <div class="mission">
           <fieldset role="group">            
             <label for=".select-version">Orbiter Version</label>
@@ -191,7 +201,7 @@ function decorateMission(mission) {
             </div>
             <div class="buttons-mission">
               <button class="btn-new-log">NEW LOG</button>
-              <input type="submit" id="btn-mission" value="SAVE MISSION">
+              ${saveButton}
               <button id="btn-delete-mission">DELETE MISSION</button>
             </div>
           </fieldset>
@@ -217,13 +227,6 @@ function decorateMissions(missions) {
         vessel: 'XR-1',
         date: 'April 22, 2012',
         log:'Docked to ISS'
-      },      
-      {
-        _id: 'lorem-0834ujwlefjew2',
-        title: 'Earth Escape',
-        vessel: 'AR-18',
-        date: 'April 23, 2012',
-        log:'Onward to Mars'
       }
     ];       
     return decorateMission(mission);

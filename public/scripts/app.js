@@ -33,13 +33,9 @@ function postApiUserLogin(data, callback) {
 }
 
 function getApiUsers(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockUsers); }, 600); 
 }
 
 function getApiUserById(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockUsers); }, 600);  
 }
 
 function putApiUser(data, callback) {
@@ -125,12 +121,21 @@ function getApiMissionById(data, callback) {
 }
 
 function putApiMission(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url:`/missions/${data.id}`,
+    type: 'PUT',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback
+  };
+  $.ajax(settings);
 }
 
-function deleteApiMission(data, callback) {  
-  console.log('deleteApiMission data', data);
+function deleteApiMission(data, callback) {
   const settings = {
     headers: {
       authorization: `Bearer ${DATA.authToken}`
@@ -144,23 +149,15 @@ function deleteApiMission(data, callback) {
 }
 
 function getApiLogs(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
 function getApiLogById(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
 function putApiLog(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
 function deleteApiLog(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
 function handleSubmitPostUser(event) {
@@ -229,6 +226,13 @@ function handleSubmitPostApiMission(event) {
   postApiMission(data, pageHome);
 }
 
+function handleSubmitPutApiMission(event) {
+  event.preventDefault();
+  let data = getMissionFormData(event);
+  data.id = DATA.missionIndex;  
+  putApiMission(data, pageHome);
+}
+
 function handleSubmitSearchMission(event) {
   event.preventDefault();
   let data = getSearchData();
@@ -236,10 +240,11 @@ function handleSubmitSearchMission(event) {
 }
 
 function handleBtnDeleteApiMission(event) {
-  console.log('handleBtnDeleteApiMission');
   event.preventDefault();
-  console.log('missionIndex', DATA.missionIndex);
-  deleteApiMission(DATA.missionIndex, pageHome);
+  const deleteMission = prompt('Are you sure you want to delete this mission?', 'yes');
+  if(deleteMission === 'yes') {
+    deleteApiMission(DATA.missionIndex, pageHome);
+  }  
 }
 
 function handlePostLog(event) {
@@ -398,7 +403,11 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
   
-  $('#page').on('submit', '.form-logger', function(event) {
+  $('#page').on('submit', '.form-put-mission', function(event) {
+    handleSubmitPutApiMission(event);
+  });
+
+  $('#page').on('submit', '.form-post-mission', function(event) {
     handleSubmitPostApiMission(event);
   });
   $('#page').on('click', '#btn-delete-mission', function(event) {
