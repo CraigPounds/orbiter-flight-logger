@@ -152,15 +152,14 @@ function decorateLogs(logs) {
 }
 
 function decorateMission(mission) {
-  // console.log(mission._id);
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
   let title = mission.title ? mission.title : 'New Mission';
   let logs = decorateLogs(mission.logs);
-  // let saveButton = mission.id ? '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">' : '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
   let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
   let formClass = '';
   let saveButton = '';
+
   if (mission._id) {
     formClass = 'form-put-mission';
     saveButton = '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">';
@@ -200,7 +199,7 @@ function decorateMission(mission) {
               ${logs}
             </div>
             <div class="buttons-mission">
-              <button class="btn-new-log">NEW LOG</button>
+              <button id="btn-new-log">NEW LOG</button>
               ${saveButton}
               <button id="btn-delete-mission">DELETE MISSION</button>
             </div>
@@ -234,7 +233,6 @@ function decorateMissions(missions) {
 }
 
 function decorateHomePage(data) {
-  const BTN_NEW_MISSION = '<button id="btn-new-mission">NEW MISSION</button>';
   const MISSIONS = data.missions.length > 0 ? decorateMissions(data.missions) : '';
   return `
   ${decorateNavigation()}
@@ -244,7 +242,7 @@ function decorateHomePage(data) {
       <div class="results">     
         ${MISSIONS}
       </div>
-      ${BTN_NEW_MISSION}
+      <button id="btn-new-mission">NEW MISSION</button>
     </div>
   </main>
   `;

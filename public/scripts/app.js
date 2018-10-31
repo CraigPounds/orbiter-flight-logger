@@ -176,9 +176,9 @@ function handleSubmitLogin(event) {
 }
 
 function loginUser(data) {
+  DATA.loggedIn = true;
   DATA.authToken = data.authToken;
   DATA.user = data.user;
-  DATA.loggedIn = true;
   pageHome();
 }
 
@@ -203,6 +203,7 @@ function handleBtnDeleteProfile(event) {
 function handleBtnNewMission(event) {
   event.preventDefault();
   $('.result').hide();
+  $('#btn-new-mission').hide();
   $('.results').append(decorateMission({
     logs: [{
       title: '',
@@ -215,8 +216,9 @@ function handleBtnNewMission(event) {
 
 function handleBtnNewLog(event) {
   event.preventDefault();
+  $(event.currentTarget).hide();
   $(event.currentTarget).parent().siblings('.flight-logs')
-    .append(decorateLog({}, 1));
+    .append(decorateLog({}, 1));  
 }
 
 function handleSubmitPostApiMission(event) {
@@ -243,8 +245,10 @@ function handleBtnDeleteApiMission(event) {
   event.preventDefault();
   const deleteMission = prompt('Are you sure you want to delete this mission?', 'yes');
   if(deleteMission === 'yes') {
+    // console.log('event.currentTarget', event.currentTarget.closest('.result'));
+    // $(event.currentTarget).closest('.result').html('');
     deleteApiMission(DATA.missionIndex, pageHome);
-  }  
+  }
 }
 
 function handlePostLog(event) {
@@ -284,7 +288,12 @@ function renderPageSignUp() {
 function renderProfilePage(data) {
   $('#page').html(decorateProfilePage(data));
 }
+
 function renderHomePage(data) {
+  DATA.missions = data.missions.map((e) => {
+    return e._id;
+  });
+  console.log('DATA.missions', DATA.missions);
   $('#page').html(decorateHomePage(data)); 
 }
 
@@ -380,9 +389,11 @@ function getSearchItemIndex(item) {
 
 function logout() {
   DATA.loggedIn = false;
+  DATA.saved = true;
   DATA.authToken = '';
   DATA.user = {};
   DATA.missionIndex = 0;
+  DATA.missions = [];
   renderPageGallery();
 }
 
@@ -413,7 +424,7 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);
   });
-  $('#page').on('click', '.btn-new-log', function(event) {
+  $('#page').on('click', '#btn-new-log', function(event) {
     handleBtnNewLog(event);
   });
   $('#page').on('click', '.btn-delete-log', function(event) {
