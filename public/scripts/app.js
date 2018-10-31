@@ -129,9 +129,18 @@ function putApiMission(data, callback) {
   setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
 }
 
-function deleteApiMission(data, callback) {
-  // using `setTimeout` to simulate asynchronous like AJAX
-  setTimeout(function() { callback(data, DATA.mockMissions); }, 600);
+function deleteApiMission(data, callback) {  
+  console.log('deleteApiMission data', data);
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url:`/missions/${data}`,
+    type: 'DELETE',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings);
 }
 
 function getApiLogs(data, callback) {
@@ -196,7 +205,6 @@ function handleBtnDeleteProfile(event) {
 
 function handleBtnNewMission(event) {
   event.preventDefault();
-  DATA.missionIndex = $('.mission-title' ).length;
   $('.result').hide();
   $('.results').append(decorateMission({
     logs: [{
@@ -205,7 +213,7 @@ function handleBtnNewMission(event) {
       date: getDate(),
       log: ''
     }]
-  }, DATA.missionIndex));
+  }));
 }
 
 function handleBtnNewLog(event) {
@@ -230,6 +238,8 @@ function handleSubmitSearchMission(event) {
 function handleBtnDeleteApiMission(event) {
   console.log('handleBtnDeleteApiMission');
   event.preventDefault();
+  console.log('missionIndex', DATA.missionIndex);
+  deleteApiMission(DATA.missionIndex, pageHome);
 }
 
 function handlePostLog(event) {
@@ -247,14 +257,14 @@ function handleBtnDeleteLog(event) {
   event.preventDefault();
 }
 
-function handleOpenMission(event) {
+function handleToggleMission(event) {
   event.preventDefault();
   event.stopPropagation();
-  let index = getSearchItemIndex($(event.target).next()) - 1;
+  let index = getSearchItemIndex($(event.target).next());
   if(index !== DATA.missionIndex) {
     $('.result').hide();
   }
-  DATA.missionIndex = getSearchItemIndex($(event.target).next()) - 1;
+  DATA.missionIndex = getSearchItemIndex($(event.target).next());
   $(event.target).next().slideToggle();
 }
 
@@ -360,15 +370,14 @@ function getSearchItemIndex(item) {
   let itemIndex = $(item)
     .closest('.result')
     .attr('data-index');
-  return parseInt(itemIndex, 10);
+  return itemIndex;
 }
 
 function logout() {
-  DATA.user = {};
   DATA.loggedIn = false;
   DATA.authToken = '';
+  DATA.user = {};
   DATA.missionIndex = 0;
-  DATA.mission = {};
   renderPageGallery();
 }
 
@@ -402,7 +411,7 @@ function attachListeners() {
     handleBtnDeleteLog(event);
   });
   $('#page').on('click', '.mission-title', function(event) {
-    handleOpenMission(event);
+    handleToggleMission(event);
   });
 }
 

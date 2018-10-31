@@ -120,13 +120,14 @@ function decorateProfilePage(data) {
   `;
 }
 
-function decorateLog(log, index) {
+function decorateLog(log) {
   let title = log.title ? log.title : '';
-  let vessel = log.vessel ? log.vessl : '';
+  let vessel = log.vessel ? log.vessel : '';
   let date = log.date ? log.date : getDate();
   let logEntry = log.log ? log.log : '';
+  let index = log._id ? log._id : `new-log-${$('.log').length}`;
   return `
-    <div class="log" log-index="${index}">
+    <div class="log" data-index="${index}">
       <label for=".log-title">Title
         <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
       </label>
@@ -150,13 +151,12 @@ function decorateLogs(logs) {
   }).join('');
 }
 
-function decorateMission(mission, index) {
-  // console.log('index', index);
-  // console.log('DATA.missionIndex', DATA.missionIndex);
+function decorateMission(mission) {
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
   let title = mission.title ? mission.title : 'New Mission';
   let logs = decorateLogs(mission.logs);
+  let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
   
   return `
     <h3 class="mission-title">${title}</h3>
@@ -202,34 +202,35 @@ function decorateMission(mission, index) {
 }
 
 function decorateMissions(missions) {
-  return missions.map((mission, index) => { 
+  return missions.map((mission) => { 
     mission.logs = [
       {
+        _id: 'lorem-0834ujwlefjew0',
         title:'Launch',
         vessel: 'XR-1',
         date: 'April 21, 2012',
         log: 'Blast off!'
       },      
       {
+        _id: 'lorem-0834ujwlefjew1',
         title: 'Docking',
         vessel: 'XR-1',
         date: 'April 22, 2012',
         log:'Docked to ISS'
       },      
       {
+        _id: 'lorem-0834ujwlefjew2',
         title: 'Earth Escape',
         vessel: 'AR-18',
         date: 'April 23, 2012',
         log:'Onward to Mars'
       }
     ];       
-    return decorateMission(mission, index);
+    return decorateMission(mission);
   }).join('');
 }
 
 function decorateHomePage(data) {
-  // console.log(data);
-  // console.log(DATA.missionIndex);  
   const BTN_NEW_MISSION = '<button id="btn-new-mission">NEW MISSION</button>';
   const MISSIONS = data.missions.length > 0 ? decorateMissions(data.missions) : '';
   return `
@@ -247,9 +248,10 @@ function decorateHomePage(data) {
 }
 
 function decorateSearchLogs(logs) {
-  return logs.map((log, index) => {
+  return logs.map((log) => {
+    let index = log._id ? log._id : `new-log-${$('.log').length}`;
     return `    
-    <div class="search-log" log-index="${index + 1}">
+    <div class="search-log" data-index="${index}">
       <p>Title: ${log.title}</p>
       <p>Vessel: ${log.vessel}</p>
       <p>Data: ${log.date}</p>
@@ -260,24 +262,28 @@ function decorateSearchLogs(logs) {
 }
 
 function decorateSearchMissions(missions) {
-  return missions.map((mission, index) => {
+  return missions.map((mission) => {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
     let os = mission ? mission.os : '--Choose Version--';
     let title = mission ? mission.title : 'Untitled Mission';
-    let logs = [
+    let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
+    mission.logs = [
       {
+        _id: 'lorem-0834ujwlefjew0',
         title:'Launch',
         vessel: 'XR-1',
         date: 'April 21, 2012',
         log: 'Blast off!'
       },      
       {
+        _id: 'lorem-0834ujwlefjew1',
         title: 'Docking',
         vessel: 'XR-1',
         date: 'April 22, 2012',
         log:'Docked to ISS'
       },      
       {
+        _id: 'lorem-0834ujwlefjew2',
         title: 'Earth Escape',
         vessel: 'AR-18',
         date: 'April 23, 2012',
@@ -286,13 +292,13 @@ function decorateSearchMissions(missions) {
     ];
     return `
     <h3 class="mission-title">${title}</h3>
-    <div class="result hidden" data-index="${index + 1}">
+    <div class="result hidden" data-index="${index}">
       <div class="mission">        
         <p>${version}</p>
         <p>${os}</p>
         <p>${title}</p>
         <div class="flight-logs">
-          ${decorateSearchLogs(logs)}
+          ${decorateSearchLogs(mission.logs)}
         </div>            
       </div>
     </div>
