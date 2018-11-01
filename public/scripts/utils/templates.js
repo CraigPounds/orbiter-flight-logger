@@ -1,7 +1,6 @@
 'use strict';
 
 import { DATA } from '../data/data.js';
-import { getDate } from '../app.js';
 
 const GUEST_NAVIGATION = `  
   <nav role="navigation">      
@@ -32,7 +31,7 @@ function decorateNavigation() {
 function decorateLog(log) {
   let title = log.title ? log.title : '';
   let vessel = log.vessel ? log.vessel : '';
-  let date = log.date ? log.date : getDate();
+  let date = log.date ? log.date : '';
   let logEntry = log.log ? log.log : '';
   let index = log._id ? log._id : `new-log-${$('.log').length}`;
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-log">DELETE LOG</button>' : '';
@@ -86,7 +85,7 @@ function decorateMission(mission) {
         <div class="mission">
           <fieldset role="group">            
             <label for=".select-version">Orbiter Version</label>
-            <select class="select-version user-input">
+            <select class="select-version">
               <option value="${version}">${version}</option>
               <option value="Orbiter 2016">Orbiter 2016</option>
               <option value="Orbiter 2010">Orbiter 2010</option>
@@ -94,7 +93,7 @@ function decorateMission(mission) {
               <option value="Orbiter 2005">Orbiter 2005</option>
             </select>
             <label for=".select-os">Operating System</label>
-            <select class="select-os user-input">
+            <select class="select-os">
               <option value="${os}">${os}</option>
               <option value="Windows 10">Windows 10</option>
               <option value="Windows 8.1">Windows 8.1</option>
@@ -105,7 +104,7 @@ function decorateMission(mission) {
               <option value="Other">Other</option>
             </select>
             <label for=".title">Flight
-              <input type="text" class="title user-input" value="${title}" placeholder="Untitled Mission" required>
+              <input type="text" class="title" value="${title}" placeholder="Untitled Mission" required>
             </label>   
             <div class="flight-logs">
               ${logs}

@@ -84,7 +84,9 @@ form,
   margin: 3px 3px;
 }
 
-.mission,
+.mission {
+  padding: 3px 0;
+}
 .log,
 .search-log {
   padding-bottom: 1px;
@@ -99,15 +101,18 @@ label[for=".select-os"] {
   width: 170px;
   margin: 1px 3px;
 }
-
+.select-version,
+.select-os {
+  width: 173px;
+}
 .title {
-  width: 166px;
+  width: 169px;
 }
 
 .select-version,
 .select-os,
 .title {
-  margin-right: 6px;
+  margin: 1px 6px 1px 3px;
 }
 
 #search-text {

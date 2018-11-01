@@ -213,6 +213,7 @@ function handleBtnNewMission(event) {
       log: ''
     }]
   }));
+  console.log('event.currentTarget', event.currentTarget.closest('div'));
 }
 
 function handleBtnNewLog(event) {
@@ -295,7 +296,7 @@ function renderHomePage(data) {
   DATA.missions = data.missions.map((e) => {
     return e._id;
   });
-  console.log('DATA.missions', DATA.missions);
+  // console.log('DATA.missions', DATA.missions);
   $('#page').html(decorateHomePage(data)); 
 }
 
@@ -442,4 +443,4 @@ function setUp() {
   logout();
 }
 
-export { attachListeners, setUp, getDate };
+export { attachListeners, setUp };
