@@ -79,7 +79,7 @@ function decorateMission(mission) {
     saveButton = '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
   }
   return `
-    <h3 class="mission-title">${title}</h3>
+    <button class="mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
@@ -187,7 +187,7 @@ function decorateSearchMissions(missions) {
       }
     ];
     return `
-    <h3 class="mission-title">${title}</h3>
+    <button class="mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
       <div class="mission">        
         <p>${version}</p>

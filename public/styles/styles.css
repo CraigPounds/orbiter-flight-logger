@@ -1,20 +1,9 @@
 body {
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   min-width: 320px;
   margin: auto;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.8em;  
-}
-
-body,
-.log,
-.search-log {
-  background: #c0c0c0;
-}
-
-li,
-.result {
-  background: #e8e8e8;
 }
 
 form,
@@ -46,8 +35,6 @@ nav a {
 
 h1,
 h2,
-h3,
-h4,
 p {
   line-height: 1.2em;
 }
@@ -60,10 +47,6 @@ h2 {
   font-size: 1.6em;
 }
 
-h3 {
-  font-size: 1.4em;
-}
-
 label {
   display: inline-block;
 }
@@ -74,6 +57,12 @@ img {
   margin: auto;
 }
 
+.mission-title {
+  display: block;
+  width: 321px;
+  text-align: center;
+}
+
 form,
 .log {
   text-align: right;
@@ -82,14 +71,11 @@ form,
 .log,
 .search-log {
   margin: 3px 3px;
+  padding: 3px 0;
 }
 
 .mission {
   padding: 3px 0;
-}
-.log,
-.search-log {
-  padding-bottom: 1px;
 }
 
 label[for=".select-version"],
@@ -122,8 +108,13 @@ label[for=".select-os"] {
 .txt-log-entry {
   width: 309px;
   height: 90px;
+  margin: 3px 0;
   font-family: Arial, Helvetica, sans-serif;
-  border: none;
+  /* border: none; */
+}
+
+.buttons-log {
+ padding-bottom: 2px;
 }
 
 .buttons-mission,
@@ -143,4 +134,15 @@ label[for=".select-os"] {
 
 .hidden {
   display: none;
+}
+
+body,
+.log,
+.search-log {
+  background: #c0c0c0;
+}
+
+li,
+.result {
+  background: #e8e8e8;
 }
