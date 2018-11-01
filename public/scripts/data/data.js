@@ -6,7 +6,8 @@ const DATA = {
   authToken: '',
   user: {},
   missionIndex: 0,
-  missions: []
+  missions: [],
+  missionLogs: []
 };
 
 export { DATA };

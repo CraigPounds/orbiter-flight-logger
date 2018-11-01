@@ -55,22 +55,23 @@ function decorateLog(log) {
 }
 
 function decorateLogs(logs) {
-  return logs.map((log, index) => {
-    return decorateLog(log, index);
+  return logs.map((log) => {
+    return decorateLog(log);
   }).join('');
 }
 
 function decorateMission(mission) {
+  let formClass = '';
+  let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
+  let title = mission.title ? mission.title : 'New Mission';
+  let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
-  let title = mission.title ? mission.title : 'New Mission';
-  let logs = decorateLogs(mission.logs);
-  let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
-  let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
-  let formClass = '';
-  let newLog = DATA.dataSaved ? '<button id="btn-new-log">NEW LOG</button>' : '';
+  let logs = mission.logs ? decorateLogs(mission.logs) : '';
+  let newButton = DATA.dataSaved ? '<button id="btn-new-log">NEW LOG</button>' : '';
   let saveButton = '';
   let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission">DELETE MISSION</button>' : '';
+
   if (mission._id) {
     formClass = 'form-put-mission';
     saveButton = '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">';
@@ -110,7 +111,7 @@ function decorateMission(mission) {
               ${logs}
             </div>
             <div class="buttons-mission">
-              ${newLog}
+              ${newButton}
               ${saveButton}
               ${deleteButton}
             </div>
@@ -123,22 +124,22 @@ function decorateMission(mission) {
 
 function decorateMissions(missions) {
   return missions.map((mission) => { 
-    mission.logs = [
-      {
-        _id: 'lorem-0834ujwlefjew0',
-        title:'Launch',
-        vessel: 'XR-1',
-        date: 'April 21, 2012',
-        log: 'Blast off!'
-      },      
-      {
-        _id: 'lorem-0834ujwlefjew1',
-        title: 'Docking',
-        vessel: 'XR-1',
-        date: 'April 22, 2012',
-        log:'Docked to ISS'
-      }
-    ];       
+    // mission.logs = [
+    //   {
+    //     _id: 'lorem-id-0',
+    //     title:'Launch',
+    //     vessel: 'XR-1',
+    //     date: 'April 21, 2012',
+    //     log: 'Blast off!'
+    //   },      
+    //   {
+    //     _id: 'lorem-id-1',
+    //     title: 'Docking',
+    //     vessel: 'XR-1',
+    //     date: 'April 22, 2012',
+    //     log:'Docked to ISS'
+    //   }
+    // ];
     return decorateMission(mission);
   }).join('');
 }
@@ -163,29 +164,30 @@ function decorateSearchMissions(missions) {
     let os = mission ? mission.os : '--Choose Version--';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
-    mission.logs = [
-      {
-        _id: 'lorem-0834ujwlefjew0',
-        title:'Launch',
-        vessel: 'XR-1',
-        date: 'April 21, 2012',
-        log: 'Blast off!'
-      },      
-      {
-        _id: 'lorem-0834ujwlefjew1',
-        title: 'Docking',
-        vessel: 'XR-1',
-        date: 'April 22, 2012',
-        log:'Docked to ISS'
-      },      
-      {
-        _id: 'lorem-0834ujwlefjew2',
-        title: 'Earth Escape',
-        vessel: 'AR-18',
-        date: 'April 23, 2012',
-        log:'Onward to Mars'
-      }
-    ];
+    let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';
+    // mission.logs = [
+    //   {
+    //     _id: 'lorem-id-0',
+    //     title:'Launch',
+    //     vessel: 'XR-1',
+    //     date: 'April 21, 2012',
+    //     log: 'Blast off!'
+    //   },      
+    //   {
+    //     _id: 'lorem-id-1',
+    //     title: 'Docking',
+    //     vessel: 'XR-1',
+    //     date: 'April 22, 2012',
+    //     log:'Docked to ISS'
+    //   },      
+    //   {
+    //     _id: 'lorem-id-2',
+    //     title: 'Earth Escape',
+    //     vessel: 'AR-18',
+    //     date: 'April 23, 2012',
+    //     log:'Onward to Mars'
+    //   }
+    // ];
     return `
     <button class="mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
@@ -194,7 +196,7 @@ function decorateSearchMissions(missions) {
         <p>${os}</p>
         <p>${title}</p>
         <div class="flight-logs">
-          ${decorateSearchLogs(mission.logs)}
+          ${logs}
         </div>            
       </div>
     </div>

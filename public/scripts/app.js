@@ -32,11 +32,32 @@ function postApiUserLogin(data, callback) {
   });
 }
 
-function getApiUsers(data, callback) {
-}
+// function getApiUsers(data, callback) {
+//   const settings = {
+//     headers: buildHeaders(data),
+//     url: '/users',
+//     type: 'GET',
+//     dataType: 'json',
+//     success: callback
+//   };
+//   $.ajax(settings);
+// }
 
-function getApiUserById(data, callback) {
-}
+// function getApiUserById(data, callback) {
+//   const settings = {
+//     headers: {
+//       authorization: `Bearer ${DATA.authToken}`,
+//     },
+//     url: `/users/${data.id}`,
+//     type: 'GET',
+//     dataType: 'json',
+//     success: callback
+//   };
+//   $.ajax(settings).fail(function(data) {
+//     console.error('Location:', data.responseJSON.location);
+//     console.error('Message:', data.responseJSON.message);
+//   });
+// }
 
 function putApiUser(data, callback) {
   const settings = {    
@@ -104,7 +125,6 @@ function getApiMissions(data, callback) {
 }
 
 function getApiMissionById(data, callback) {
-  console.log('getApiMissionById');
   const settings = {
     headers: {
       authorization: `Bearer ${DATA.authToken}`,
@@ -149,15 +169,58 @@ function deleteApiMission(data, callback) {
 }
 
 function getApiLogs(data, callback) {
+  const settings = {
+    headers: data,
+    url: '/logs',
+    type: 'GET',
+    dataType: 'json',
+    success: callback    
+  };
+  $.ajax(settings);
 }
 
 function getApiLogById(data, callback) {
+  const settings = {
+    headers: {
+      authorizaton: `Bearer ${DATA.authToken}`,
+    },
+    url: `/logs/${data.id}`,
+    type: 'GET',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings).fail(function(data) {
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);
+  });
 }
 
 function putApiLog(data, callback) {
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url:`/logs/${data.id}`,
+    type: 'PUT',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback
+  };
+  $.ajax(settings);
 }
 
 function deleteApiLog(data, callback) {
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url:`/logs/${data}`,
+    type: 'DELETE',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings);
 }
 
 function handleSubmitPostUser(event) {
@@ -202,7 +265,6 @@ function handleBtnDeleteProfile(event) {
 
 function handleBtnNewMission(event) {
   event.preventDefault();
-  console.log('event.currentTarget', $(event.currentTarget).children().find('.result'));
   $('.result').hide();
   $('#btn-new-mission').hide();
   DATA.dataSaved = false;
@@ -248,8 +310,6 @@ function handleBtnDeleteApiMission(event) {
   event.preventDefault();
   const deleteMission = prompt('Are you sure you want to delete this mission?', 'yes');
   if(deleteMission === 'yes') {
-    // console.log('event.currentTarget', event.currentTarget.closest('.result'));
-    // $(event.currentTarget).closest('.result').html('');
     deleteApiMission(DATA.missionIndex, pageHome);
   }
 }
@@ -265,8 +325,9 @@ function handlePutLog(event) {
 }
 
 function handleBtnDeleteLog(event) {
-  console.log('handleBtnDeleteLog');
   event.preventDefault();
+  let index = $(event.currentTarget).closest('.log').attr('data-index');
+  console.log('index', index);
 }
 
 function handleToggleMission(event) {
@@ -278,6 +339,13 @@ function handleToggleMission(event) {
   }
   DATA.missionIndex = getSearchItemIndex($(event.target).next());
   $(event.target).next().slideToggle();
+}
+
+function getSearchItemIndex(item) {
+  let itemIndex = $(item)
+    .closest('.result')
+    .attr('data-index');
+  return itemIndex;
 }
 
 function renderPageLogin() {
@@ -293,11 +361,20 @@ function renderProfilePage(data) {
 }
 
 function renderHomePage(data) {
-  DATA.missions = data.missions.map((e) => {
-    return e._id;
+  DATA.missions = data.missions;
+  // $('#page').html(decorateHomePage(data)); 
+  DATA.missionLogs = [];
+  data.missions.forEach((mission) => {    
+    getApiLogs({ mission_id: mission._id }, decorateMissions);
   });
-  // console.log('DATA.missions', DATA.missions);
-  $('#page').html(decorateHomePage(data)); 
+}
+
+function decorateMissions(data) {
+  DATA.missionLogs.push(data.logs);
+  for(let i = 0; i < DATA.missions.length; i++) {
+    DATA.missions[i].logs = DATA.missionLogs[i];
+  }
+  $('#page').html(decorateHomePage(DATA));
 }
 
 function renderPageSearch() {
@@ -305,7 +382,20 @@ function renderPageSearch() {
 }
 
 function renderSearchResults(data) {
-  $('#page').html(decorateSearchPage(data));
+  DATA.missions = data.missions;
+  // $('#page').html(decorateSearchPage(data));
+  DATA.missionLogs = [];
+  data.missions.forEach((mission) => {    
+    getApiLogs({ mission_id: mission._id }, decorateSearchMissions);
+  });
+}
+
+function decorateSearchMissions(data) {
+  DATA.missionLogs.push(data.logs);
+  for(let i = 0; i < DATA.missions.length; i++) {
+    DATA.missions[i].logs = DATA.missionLogs[i];
+  }
+  $('#page').html(decorateSearchPage(DATA));
 }
 
 function renderPageGallery() {
@@ -382,13 +472,6 @@ function getDate() {
     month ='0'+ month;
   } 
   return `${month}/${day}/${year}`;
-}
-
-function getSearchItemIndex(item) {
-  let itemIndex = $(item)
-    .closest('.result')
-    .attr('data-index');
-  return itemIndex;
 }
 
 function logout() {

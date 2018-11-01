@@ -56,9 +56,9 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
-router.get('/', jwtAuth, (req, res) => {
+router.get('/', (req, res) => {
   Log
-    .find()
+    .find({ mission_id: req.headers.mission_id })
     .then(logs => {
       res.json({
         logs: logs.map(log => log.serialize())
