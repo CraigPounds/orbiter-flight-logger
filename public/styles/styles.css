@@ -8,7 +8,7 @@ body {
 
 form,
 .results {
-  max-width: 320px;
+  width: 320px;
   margin: 0 auto;
 }
 
@@ -55,12 +55,6 @@ img {
   display: block;
   width: 90%;
   margin: auto;
-}
-
-.mission-title {
-  display: block;
-  width: 321px;
-  text-align: center;
 }
 
 form,
@@ -120,6 +114,15 @@ label[for=".select-os"] {
 .buttons-mission,
 .buttons-log {
   text-align: center; 
+}
+
+.btn-mission-title {
+  display: block;
+  width: 320px;
+  text-align: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  /* text-transform: uppercase; */
 }
 
 #btn-login,

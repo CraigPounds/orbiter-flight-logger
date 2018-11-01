@@ -362,15 +362,18 @@ function renderProfilePage(data) {
 
 function renderHomePage(data) {
   DATA.missions = data.missions;
-  // $('#page').html(decorateHomePage(data)); 
+  $('#page').html(decorateHomePage(data));
+
   DATA.missionLogs = [];
   data.missions.forEach((mission) => {    
     getApiLogs({ mission_id: mission._id }, decorateMissions);
   });
+  // $('#page').html(decorateHomePage(data));
 }
 
 function decorateMissions(data) {
   DATA.missionLogs.push(data.logs);
+
   for(let i = 0; i < DATA.missions.length; i++) {
     DATA.missions[i].logs = DATA.missionLogs[i];
   }
@@ -517,7 +520,7 @@ function attachListeners() {
   $('#page').on('click', '.btn-delete-log', function(event) {
     handleBtnDeleteLog(event);
   });
-  $('#page').on('click', '.mission-title', function(event) {
+  $('#page').on('click', '.btn-mission-title', function(event) {
     handleToggleMission(event);
   });
 }

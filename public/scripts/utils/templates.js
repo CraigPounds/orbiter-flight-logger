@@ -64,7 +64,7 @@ function decorateMission(mission) {
   let formClass = '';
   let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
   let title = mission.title ? mission.title : 'New Mission';
-  let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
+  let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
@@ -80,7 +80,7 @@ function decorateMission(mission) {
     saveButton = '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
   }
   return `
-    <button class="mission-title">${title}</button>
+    <button class="btn-mission-title">${title}</button>
     <div class="${resultClass}" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
@@ -163,7 +163,7 @@ function decorateSearchMissions(missions) {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
     let os = mission ? mission.os : '--Choose Version--';
     let title = mission ? mission.title : 'Untitled Mission';
-    let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
+    let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';
     // mission.logs = [
     //   {
@@ -189,7 +189,7 @@ function decorateSearchMissions(missions) {
     //   }
     // ];
     return `
-    <button class="mission-title">${title}</button>
+    <button class="btn-btn-mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
       <div class="mission">        
         <p>${version}</p>
@@ -259,7 +259,7 @@ function decorateLoginPage() {
             <input type="text" id="user-name" class="user-input" value="${userName}" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="" required placeholder="password">
+            <input type="password" id="password" class="user-input" value="passwordnapes" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>
