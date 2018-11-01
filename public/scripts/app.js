@@ -327,7 +327,7 @@ function handlePutLog(event) {
 function handleBtnDeleteLog(event) {
   event.preventDefault();
   let index = $(event.currentTarget).closest('.log').attr('data-index');
-  console.log('index', index);
+  // console.log('index', index);
 }
 
 function handleToggleMission(event) {
