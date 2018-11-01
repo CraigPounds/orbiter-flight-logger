@@ -202,6 +202,7 @@ function handleBtnDeleteProfile(event) {
 
 function handleBtnNewMission(event) {
   event.preventDefault();
+  console.log('event.currentTarget', $(event.currentTarget).children().find('.result'));
   $('.result').hide();
   $('#btn-new-mission').hide();
   DATA.dataSaved = false;
@@ -213,7 +214,6 @@ function handleBtnNewMission(event) {
       log: ''
     }]
   }));
-  console.log('event.currentTarget', event.currentTarget.closest('div'));
 }
 
 function handleBtnNewLog(event) {

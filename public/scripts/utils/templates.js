@@ -66,9 +66,9 @@ function decorateMission(mission) {
   let title = mission.title ? mission.title : 'New Mission';
   let logs = decorateLogs(mission.logs);
   let index = mission._id ? mission._id : `new-mission-${$('.mission-title' ).length}`;
+  let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
   let formClass = '';
   let newLog = DATA.dataSaved ? '<button id="btn-new-log">NEW LOG</button>' : '';
-  // let newLog = mission.logs.length > 1 ? '<button id="btn-new-log">NEW LOG</button>' : '';
   let saveButton = '';
   let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission">DELETE MISSION</button>' : '';
   if (mission._id) {
@@ -80,7 +80,7 @@ function decorateMission(mission) {
   }
   return `
     <button class="mission-title">${title}</button>
-    <div class="result hidden" data-index="${index}">
+    <div class="${resultClass}" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
           <fieldset role="group">            
