@@ -46,7 +46,7 @@ function seedLogData() {
     .then(function(res) {
       res.body.missions.forEach(mission => {
         for (let i = 0; i < 9; i++) {
-          let newLogData = generateLogData(mission._id);
+          let newLogData = generateLogData(mission.user_id, mission._id);
           LOG_DATA.push(newLogData);
         }
       });
@@ -106,9 +106,10 @@ function generateDate() {
   return newDate.slice(3, 15);
 }
 
-function generateLogData(id) {
+function generateLogData(userId, missionId) {
   return {
-    mission_id: id,
+    user_id: userId,
+    mission_id: missionId,
     title: faker.lorem.sentence(),
     vessel: generateVessel(),
     date: generateDate(),

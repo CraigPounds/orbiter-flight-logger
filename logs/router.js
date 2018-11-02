@@ -25,6 +25,7 @@ router.post('/', jwtAuth, (req, res) => {
       if (mission) {
         Log
           .create({
+            user_id: req.body.user_id,
             mission_id: req.body.mission_id,
             title: req.body.title,
             vessel: req.body.vessel,
@@ -33,6 +34,7 @@ router.post('/', jwtAuth, (req, res) => {
           })
           .then(logPost => res.status(201).json({            
             _id: logPost.id,
+            user_id: logPost.user_id,
             mission_id: logPost.mission_id,
             title: logPost.title,
             vessel: logPost.vessel,
@@ -56,7 +58,7 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   Log
     .find({ mission_id: req.headers.mission_id })
     .then(logs => {

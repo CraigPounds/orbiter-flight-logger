@@ -37,7 +37,7 @@ describe('Logs endpoints', function() {
       return Mission
         .findOne()
         .then(function(mission) {          
-          newLog = generateLogData(mission._id);
+          newLog = generateLogData(mission.user_id, mission._id);
           return chai.request(app)
             .post('/logs')
             .send(newLog)
@@ -45,14 +45,13 @@ describe('Logs endpoints', function() {
               expect(res).to.have.status(201);
               expect(res).to.be.json;
               expect(res.body).to.be.a('object');
-              expect(res.body).to.include.keys('_id', 'mission_id', 'title', 'vessel', 'date', 'log');
+              expect(res.body).to.include.keys('_id', 'user_id', 'mission_id', 'title', 'vessel', 'date', 'log');
               expect(res.body._id).to.not.be.null;
               return Log.findById(res.body._id);
             })
             .then(function(log) {
-              let logUserId = log.mission_id.toString();
-              let newLogUserId = newLog.mission_id.toString();
-              expect(logUserId).to.equal(newLogUserId);
+              expect(log.user_id.toString()).to.equal(newLog.user_id.toString());
+              expect(log.misson_id).to.equal(newLog.mission_id.toString());
               expect(log.title).to.equal(newLog.title);
               expect(log.vessel).to.equal(newLog.vessel);
               expect(log.date).to.equal(newLog.date);
@@ -89,13 +88,14 @@ describe('Logs endpoints', function() {
 
           res.body.logs.forEach(function(log) {
             expect(log).to.be.a('object');
-            expect(log).to.include.keys('_id', 'mission_id', 'title', 'vessel', 'date', 'log');
+            expect(log).to.include.keys('_id', 'user_id', 'mission_id', 'title', 'vessel', 'date', 'log');
           });
           resLog = res.body.logs[0];
           return Log.findById(resLog._id);
         })
         .then(function(log) {
           expect(resLog._id).to.equal(log._id.toString());
+          expect(resLog.user_id).to.equal(log.user_id.toString());
           expect(resLog.mission_id).to.equal(log.mission_id.toString());
           expect(resLog.title).to.equal(log.title);
           expect(resLog.vessel).to.equal(log.vessel);
@@ -121,6 +121,8 @@ describe('Logs endpoints', function() {
         })
         .then(function(log) {
           expect(log._id.toString()).to.equal(testLog._id.toString());
+          expect(log.user_id.toString()).to.equal(testLog.user_id.toString());
+          expect(log.mission_id.toString()).to.equal(testLog.mission_id.toString());
           expect(log.title).to.equal(testLog.title);
           expect(log.vessel).to.equal(testLog.vessel);
           expect(log.date).to.equal(testLog.date);

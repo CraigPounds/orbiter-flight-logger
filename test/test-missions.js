@@ -123,6 +123,7 @@ describe('Missions endpoints', function() {
         })
         .then(function(mission) {
           expect(mission._id.toString()).to.equal(testMission._id.toString());
+          expect(mission.user_id.toString()).to.equal(testMission.user_id.toString());
           expect(mission.title).to.equal(testMission.title);
           expect(mission.orbiterVersion).to.equal(testMission.orbiterVersion);
           expect(mission.os).to.equal(testMission.os);
