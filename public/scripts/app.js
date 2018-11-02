@@ -108,6 +108,7 @@ function postApiMission(data, callback) {
 function buildHeaders(data) {
   let headers = { authorization: `Bearer ${DATA.authToken}` };
   if(data.user_id) headers.user_id = data.user_id;
+  if(data.mission_id) headers.mission_id = data.mission_id;
   if(data.orbiterVersion) headers.version = data.orbiterVersion;
   if(data.os) headers.os = data.os;
   return headers;
@@ -170,7 +171,7 @@ function deleteApiMission(data, callback) {
 
 function getApiLogs(data, callback) {
   const settings = {
-    headers: data,
+    headers: buildHeaders(data),
     url: '/logs',
     type: 'GET',
     dataType: 'json',
