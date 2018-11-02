@@ -123,23 +123,7 @@ function decorateMission(mission) {
 }
 
 function decorateMissions(missions) {
-  return missions.map((mission) => { 
-    // mission.logs = [
-    //   {
-    //     _id: 'lorem-id-0',
-    //     title:'Launch',
-    //     vessel: 'XR-1',
-    //     date: 'April 21, 2012',
-    //     log: 'Blast off!'
-    //   },      
-    //   {
-    //     _id: 'lorem-id-1',
-    //     title: 'Docking',
-    //     vessel: 'XR-1',
-    //     date: 'April 22, 2012',
-    //     log:'Docked to ISS'
-    //   }
-    // ];
+  return missions.map((mission) => {     
     return decorateMission(mission);
   }).join('');
 }
@@ -165,31 +149,9 @@ function decorateSearchMissions(missions) {
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';
-    // mission.logs = [
-    //   {
-    //     _id: 'lorem-id-0',
-    //     title:'Launch',
-    //     vessel: 'XR-1',
-    //     date: 'April 21, 2012',
-    //     log: 'Blast off!'
-    //   },      
-    //   {
-    //     _id: 'lorem-id-1',
-    //     title: 'Docking',
-    //     vessel: 'XR-1',
-    //     date: 'April 22, 2012',
-    //     log:'Docked to ISS'
-    //   },      
-    //   {
-    //     _id: 'lorem-id-2',
-    //     title: 'Earth Escape',
-    //     vessel: 'AR-18',
-    //     date: 'April 23, 2012',
-    //     log:'Onward to Mars'
-    //   }
-    // ];
+    
     return `
-    <button class="btn-btn-mission-title">${title}</button>
+    <button class="btn-mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
       <div class="mission">        
         <p>${version}</p>

@@ -259,6 +259,7 @@ function handleBtnDeleteProfile(event) {
   event.preventDefault();
   const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
   if(deleteProfile === 'yes') {
+    // $2a$10$3txBycihO17zjnVH9vl7ie1gcz08EvYtM4t0tnc22afp1MwTGODpK
     deleteApiUser(DATA.user._id, logout);
   }
 }

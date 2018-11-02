@@ -1,8 +1,6 @@
 'use strict';
 
-const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const Log = require('../logs/models');
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
@@ -24,14 +22,6 @@ MissionSchema.methods.serialize = function() {
     os: this.os
   };
 };
-
-// MissionSchema.pre('remove', function(next) {
-//   Log.remove({
-//     'id': {
-//       $in: this.logs
-//     }
-//   });  
-// });
 
 MissionSchema.pre('find', function(next) {
   this.populate('user');
