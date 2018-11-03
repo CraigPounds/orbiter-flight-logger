@@ -300,7 +300,7 @@ function decorateProfilePage(data) {
 }
 
 function decorateHomePage(data) {
-  const MISSIONS = data.missions.length > 0 ? decorateMissions(data.missions) : '';
+  const MISSIONS = DATA.missions.length > 0 ? decorateMissions(DATA.missions) : '';
   return `
   ${decorateNavigation()}
   <main>

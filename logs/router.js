@@ -58,9 +58,17 @@ router.post('/', jwtAuth, (req, res) => {
     });
 });
 
+function buildQuery(data) {
+  let query = {};
+  if(data.user_id) query.user_id = data.user_id;
+  if(data.mission_id) query.mission_id = data.mission_id;
+  return query;
+}
+
 router.get('/', jwtAuth, (req, res) => {
+  let data = buildQuery(req.headers);
   Log
-    .find({ mission_id: req.headers.mission_id })
+    .find(data)
     .then(logs => {
       res.json({
         logs: logs.map(log => log.serialize())

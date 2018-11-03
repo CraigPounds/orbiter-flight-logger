@@ -362,45 +362,79 @@ function renderProfilePage(data) {
   $('#page').html(decorateProfilePage(data));
 }
 
+// function renderHomePage(data) {
+//   DATA.missions = data.missions;
+//   //DATA.missions.forEach(mission => mission.logs = []);
+//   DATA.missionLogs = [];
+//   data.missions.forEach((mission) => {    
+//     getApiLogs({ mission_id: mission._id }, decorateData);
+//   });
+//   // $('#page').html(decorateHomePage(data));
+// }
+
+// function decorateData(data) {
+//   DATA.missionLogs.push(data.logs);
+
+//   for(let i = 0; i < DATA.missions.length; i++) {
+//     DATA.missions[i].logs = DATA.missionLogs[i];
+//   }
+//   $('#page').html(decorateHomePage(DATA));
+// }
+
 function renderHomePage(data) {
   DATA.missions = data.missions;
-  $('#page').html(decorateHomePage(data));
-
-  DATA.missionLogs = [];
-  data.missions.forEach((mission) => {    
-    getApiLogs({ mission_id: mission._id }, decorateMissions);
-  });
-  // $('#page').html(decorateHomePage(data));
+  DATA.missions.forEach(mission => mission.logs = []);  
+  getApiLogs({ user_id: DATA.user._id }, decorateData);
 }
 
-function decorateMissions(data) {
-  DATA.missionLogs.push(data.logs);
-
-  for(let i = 0; i < DATA.missions.length; i++) {
-    DATA.missions[i].logs = DATA.missionLogs[i];
-  }
-  $('#page').html(decorateHomePage(DATA));
+function decorateData(data) {
+  data.logs.forEach((log) => {
+    DATA.missions.forEach((mission) => {
+      if(mission._id === log.mission_id) {
+        mission.logs.push(log);
+      }
+    });
+  });
+  $('#page').html(decorateHomePage());
 }
 
 function renderPageSearch() {
   $('#page').html(decorateSearchPage);
 }
 
+// function renderSearchResults(data) {
+//   DATA.missions = data.missions;
+//   DATA.missionLogs = [];
+//   data.missions.forEach((mission) => {    
+//     getApiLogs({ mission_id: mission._id }, decorateSearchMissions);
+//   });
+// }
+
+// function decorateSearchMissions(data) {
+//   DATA.missionLogs.push(data.logs);
+//   for(let i = 0; i < DATA.missions.length; i++) {
+//     DATA.missions[i].logs = DATA.missionLogs[i];
+//   }
+//   $('#page').html(decorateSearchPage(DATA));
+// }
+
 function renderSearchResults(data) {
   DATA.missions = data.missions;
-  // $('#page').html(decorateSearchPage(data));
-  DATA.missionLogs = [];
+  DATA.missions.forEach(mission => mission.logs = []);
   data.missions.forEach((mission) => {    
-    getApiLogs({ mission_id: mission._id }, decorateSearchMissions);
+    getApiLogs({ mission_id: mission._id }, decorateSearchData);
   });
 }
 
-function decorateSearchMissions(data) {
-  DATA.missionLogs.push(data.logs);
-  for(let i = 0; i < DATA.missions.length; i++) {
-    DATA.missions[i].logs = DATA.missionLogs[i];
-  }
-  $('#page').html(decorateSearchPage(DATA));
+function decorateSearchData(data) {
+  data.logs.forEach((log) => {
+    DATA.missions.forEach((mission) => {
+      if(mission._id === log.mission_id) {
+        mission.logs.push(log);
+      }
+    });
+  });
+  $('#page').html(decorateHomePage());
 }
 
 function renderPageGallery() {
