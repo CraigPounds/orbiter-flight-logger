@@ -62,6 +62,11 @@ function buildQuery(data) {
   let query = {};
   if(data.user_id) query.user_id = data.user_id;
   if(data.mission_id) query.mission_id = data.mission_id;
+  //   query.mission_id: { $in: [
+  //     mongoose.Types.ObjectId('5af50ff5c082f1e92f834264'),
+  //     mongoose.Types.ObjectId('4ed3f117a844e0471100000d'), 
+  //     mongoose.Types.ObjectId('4ed3f18132f50c491100000e')
+  //   ]}
   return query;
 }
 

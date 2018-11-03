@@ -74,7 +74,8 @@ function decorateMission(mission) {
 
   if (mission._id) {
     formClass = 'form-put-mission';
-    saveButton = '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">';
+    saveButton = `<input type="submit" id="btn-put-mission" value="UPDATE MISSION">
+    <button id="btn-put-mission-post-log" class="hidden">UPDATE MISSION</button>`;
   } else {
     formClass = 'form-post-mission';
     saveButton = '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';

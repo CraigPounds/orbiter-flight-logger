@@ -196,6 +196,24 @@ function getApiLogById(data, callback) {
   });
 }
 
+function postApiLog(data, callback) {
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url: '/logs',
+    type: 'POST',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback,
+  };
+  $.ajax(settings).fail(function() {
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);
+  });
+}
+
 function putApiLog(data, callback) {
   const settings = {
     headers: {
@@ -282,17 +300,23 @@ function handleBtnNewMission(event) {
 
 function handleBtnNewLog(event) {
   event.preventDefault();
-  $(event.currentTarget).hide();
   DATA.dataSaved = false;
+  $(event.currentTarget).hide();
+  $(event.currentTarget).next('#btn-put-mission').attr('id','#btn-put-mission-post-log');
   $(event.currentTarget).parent().siblings('.flight-logs')
-    .append(decorateLog({}, 1));  
+    .append(decorateLog({
+      title: '',
+      vessel: '',
+      date: getDate(),
+      log: ''
+    }, 1));  
 }
 
 function handleSubmitPostApiMission(event) {
   event.preventDefault();
   let data = getMissionFormData(event);
   data.user_id = DATA.user._id;
-  postApiMission(data, pageHome);
+  postApiMission(data, pageHome);  
 }
 
 function handleSubmitPutApiMission(event) {
@@ -300,6 +324,11 @@ function handleSubmitPutApiMission(event) {
   let data = getMissionFormData(event);
   data.id = DATA.missionIndex;  
   putApiMission(data, pageHome);
+}
+
+function handlesubmitPostApiLog(event) {
+  event.preventDefault();
+  
 }
 
 function handleSubmitSearchMission(event) {
@@ -362,32 +391,13 @@ function renderProfilePage(data) {
   $('#page').html(decorateProfilePage(data));
 }
 
-// function renderHomePage(data) {
-//   DATA.missions = data.missions;
-//   //DATA.missions.forEach(mission => mission.logs = []);
-//   DATA.missionLogs = [];
-//   data.missions.forEach((mission) => {    
-//     getApiLogs({ mission_id: mission._id }, decorateData);
-//   });
-//   // $('#page').html(decorateHomePage(data));
-// }
-
-// function decorateData(data) {
-//   DATA.missionLogs.push(data.logs);
-
-//   for(let i = 0; i < DATA.missions.length; i++) {
-//     DATA.missions[i].logs = DATA.missionLogs[i];
-//   }
-//   $('#page').html(decorateHomePage(DATA));
-// }
-
 function renderHomePage(data) {
   DATA.missions = data.missions;
   DATA.missions.forEach(mission => mission.logs = []);  
-  getApiLogs({ user_id: DATA.user._id }, decorateData);
+  getApiLogs({ user_id: DATA.user._id }, dataMissionsDecorate);
 }
 
-function decorateData(data) {
+function dataMissionsDecorate(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
       if(mission._id === log.mission_id) {
@@ -402,31 +412,15 @@ function renderPageSearch() {
   $('#page').html(decorateSearchPage);
 }
 
-// function renderSearchResults(data) {
-//   DATA.missions = data.missions;
-//   DATA.missionLogs = [];
-//   data.missions.forEach((mission) => {    
-//     getApiLogs({ mission_id: mission._id }, decorateSearchMissions);
-//   });
-// }
-
-// function decorateSearchMissions(data) {
-//   DATA.missionLogs.push(data.logs);
-//   for(let i = 0; i < DATA.missions.length; i++) {
-//     DATA.missions[i].logs = DATA.missionLogs[i];
-//   }
-//   $('#page').html(decorateSearchPage(DATA));
-// }
-
 function renderSearchResults(data) {
   DATA.missions = data.missions;
   DATA.missions.forEach(mission => mission.logs = []);
-  data.missions.forEach((mission) => {    
-    getApiLogs({ mission_id: mission._id }, decorateSearchData);
-  });
+  DATA.missions.forEach((mission) => {    
+    getApiLogs({ mission_id: mission._id }, dataSearchDecorate);
+  });  
 }
 
-function decorateSearchData(data) {
+function dataSearchDecorate(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
       if(mission._id === log.mission_id) {
@@ -434,7 +428,7 @@ function decorateSearchData(data) {
       }
     });
   });
-  $('#page').html(decorateHomePage());
+  $('#page').html(decorateSearchPage(DATA));
 }
 
 function renderPageGallery() {
@@ -540,13 +534,21 @@ function attachListeners() {
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
   $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
   
-  $('#page').on('submit', '.form-put-mission', function(event) {
-    handleSubmitPutApiMission(event);
+  $('#page').on('click', '.btn-mission-title', function(event) {
+    handleToggleMission(event);
   });
-
   $('#page').on('submit', '.form-post-mission', function(event) {
+    console.log('POST mission POST log');
     handleSubmitPostApiMission(event);
   });
+  $('#page').on('submit', '.form-put-mission', function(event) {
+    console.log('[PUT mission] [PUT log(s)]');
+    handleSubmitPutApiMission(event);
+  });
+  $('#page').on('submit', '.form-put-mission', function(event) {
+    console.log('[PUT mission] POST log');
+    handlesubmitPostApiLog(event);
+  });  
   $('#page').on('click', '#btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);
   });
@@ -555,10 +557,7 @@ function attachListeners() {
   });
   $('#page').on('click', '.btn-delete-log', function(event) {
     handleBtnDeleteLog(event);
-  });
-  $('#page').on('click', '.btn-mission-title', function(event) {
-    handleToggleMission(event);
-  });
+  });  
 }
 
 function setUp() {
