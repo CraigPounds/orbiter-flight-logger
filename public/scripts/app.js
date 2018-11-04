@@ -323,15 +323,32 @@ function dataLogDecorate(data) {
   data.vessel = DATA.formData.logs[0].vessel;
   data.date = DATA.formData.logs[0].date;
   data.log = DATA.formData.logs[0].log;
-  console.log('dataLogDecorate data',data);
   postApiLog(data, pageHome);
 }
 
 function handleSubmitPutApiMission(event) {
   event.preventDefault();
   getMissionFormData(event);
-  data.id = DATA.missionIndex;  
-  putApiMission(data, pageHome);
+  DATA.formData.id = DATA.missionIndex;
+  putApiMission(DATA.formData, dataLog2Decorate);
+  
+}
+
+function dataLog2Decorate(data) {
+  let mission_id = data._id;
+  DATA.formData.logs.forEach((log, i) => {
+    let logVal = {
+      id: DATA.formData.logs[i].id,
+      user_id:  DATA.user._id,
+      mission_id: mission_id,
+      title: DATA.formData.logs[i].title,
+      vessel: DATA.formData.logs[i].vessel,
+      date: DATA.formData.logs[i].date,
+      log: DATA.formData.logs[i].log
+    };
+    putApiLog(logVal);
+  });
+  pageHome();
 }
 
 function handleSubmitSearchMission(event) {
@@ -348,20 +365,9 @@ function handleBtnDeleteApiMission(event) {
   }
 }
 
-function handlePostLog(event) {
-  console.log('handlePostLog');
-  event.preventDefault();
-}
-
-function handlePutLog(event) {
-  console.log('handlePutLog');
-  event.preventDefault();
-}
-
 function handleBtnDeleteLog(event) {
   event.preventDefault();
   let index = $(event.currentTarget).closest('.log').attr('data-index');
-  // console.log('index', index);
 }
 
 function handleToggleMission(event) {
@@ -464,11 +470,13 @@ function getMissionFormData(event) {
   let title = $(event.currentTarget).find('.title').val().trim();
   let logs = $(event.currentTarget).find('.log')
     .map(function() { 
+      let id = $(this).closest('.log').attr('data-index');
       let title = $(this).find('.log-title').val();
       let vessel = $(this).find('.vessel').val();
       let date = $(this).find('.date').val();
       let log = $(this).find('.txt-log-entry').val();
       return {
+        id,
         title,
         vessel,
         date,
@@ -476,12 +484,6 @@ function getMissionFormData(event) {
       };
     }).get();
 
-  // return {
-  //   orbiterVersion,
-  //   os,
-  //   title,
-  //   logs
-  // };
   DATA.formData = {
     orbiterVersion,
     os,
@@ -547,11 +549,9 @@ function attachListeners() {
     handleToggleMission(event);
   });
   $('#page').on('submit', '.form-post-mission', function(event) {
-    console.log('POST mission POST log');
     handleSubmitPostApiMission(event);
   });
   $('#page').on('submit', '.form-put-mission', function(event) {
-    console.log('[PUT mission] [PUT log(s)]');
     handleSubmitPutApiMission(event);
   });
   $('#page').on('click', '#btn-delete-mission', function(event) {
