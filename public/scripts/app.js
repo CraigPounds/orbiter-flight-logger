@@ -208,10 +208,7 @@ function postApiLog(data, callback) {
     contentType: 'application/json',
     success: callback,
   };
-  $.ajax(settings).fail(function() {
-    console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);
-  });
+  $.ajax(settings);
 }
 
 function putApiLog(data, callback) {
@@ -314,21 +311,27 @@ function handleBtnNewLog(event) {
 
 function handleSubmitPostApiMission(event) {
   event.preventDefault();
-  let data = getMissionFormData(event);
-  data.user_id = DATA.user._id;
-  postApiMission(data, pageHome);  
+  getMissionFormData(event);
+  DATA.formData.user_id = DATA.user._id;
+  postApiMission(DATA.formData, dataLogDecorate);
+}
+
+function dataLogDecorate(data) {
+  data.user_id =  DATA.user._id;
+  data.mission_id = data._id;
+  data.title = DATA.formData.logs[0].title;
+  data.vessel = DATA.formData.logs[0].vessel;
+  data.date = DATA.formData.logs[0].date;
+  data.log = DATA.formData.logs[0].log;
+  console.log('dataLogDecorate data',data);
+  postApiLog(data, pageHome);
 }
 
 function handleSubmitPutApiMission(event) {
   event.preventDefault();
-  let data = getMissionFormData(event);
+  getMissionFormData(event);
   data.id = DATA.missionIndex;  
   putApiMission(data, pageHome);
-}
-
-function handlesubmitPostApiLog(event) {
-  event.preventDefault();
-  
 }
 
 function handleSubmitSearchMission(event) {
@@ -473,7 +476,13 @@ function getMissionFormData(event) {
       };
     }).get();
 
-  return {
+  // return {
+  //   orbiterVersion,
+  //   os,
+  //   title,
+  //   logs
+  // };
+  DATA.formData = {
     orbiterVersion,
     os,
     title,
@@ -545,10 +554,6 @@ function attachListeners() {
     console.log('[PUT mission] [PUT log(s)]');
     handleSubmitPutApiMission(event);
   });
-  $('#page').on('submit', '.form-put-mission', function(event) {
-    console.log('[PUT mission] POST log');
-    handlesubmitPostApiLog(event);
-  });  
   $('#page').on('click', '#btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);
   });
