@@ -99,10 +99,7 @@ function postApiMission(data, callback) {
     contentType: 'application/json',
     success: callback,
   };
-  $.ajax(settings).fail(function() {
-    console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);
-  });
+  $.ajax(settings);
 }
 
 function buildHeaders(data) {
@@ -126,21 +123,18 @@ function getApiMissions(data, callback) {
   $.ajax(settings);
 }
 
-function getApiMissionById(data, callback) {
-  const settings = {
-    headers: {
-      authorization: `Bearer ${DATA.authToken}`,
-    },
-    url: `/missions/${data.id}`,
-    type: 'GET',
-    dataType: 'json',
-    success: callback
-  };
-  $.ajax(settings).fail(function(data) {
-    console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);
-  });
-}
+// function getApiMissionById(data, callback) {
+//   const settings = {
+//     headers: {
+//       authorization: `Bearer ${DATA.authToken}`,
+//     },
+//     url: `/missions/${data.id}`,
+//     type: 'GET',
+//     dataType: 'json',
+//     success: callback
+//   };
+//   $.ajax(settings);
+// }
 
 function putApiMission(data, callback) {
   const settings = {
@@ -181,21 +175,18 @@ function getApiLogs(data, callback) {
   $.ajax(settings);
 }
 
-function getApiLogById(data, callback) {
-  const settings = {
-    headers: {
-      authorizaton: `Bearer ${DATA.authToken}`,
-    },
-    url: `/logs/${data.id}`,
-    type: 'GET',
-    dataType: 'json',
-    success: callback
-  };
-  $.ajax(settings).fail(function(data) {
-    console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);
-  });
-}
+// function getApiLogById(data, callback) {
+//   const settings = {
+//     headers: {
+//       authorizaton: `Bearer ${DATA.authToken}`,
+//     },
+//     url: `/logs/${data.id}`,
+//     type: 'GET',
+//     dataType: 'json',
+//     success: callback
+//   };
+//   $.ajax(settings);
+// }
 
 function postApiLog(data, callback) {
   const settings = {
@@ -227,21 +218,7 @@ function putApiLog(data, callback) {
   $.ajax(settings);
 }
 
-// function deleteApiLog(data, callback) {
-//   const settings = {
-//     headers: {
-//       authorization: `Bearer ${DATA.authToken}`
-//     },
-//     url:`/logs/${data}`,
-//     type: 'DELETE',
-//     dataType: 'json',
-//     success: callback
-//   };
-//   $.ajax(settings);
-// }
-
 function deleteApiLog(data, callback) {
-  console.log('deleteApiLog data', data);
   const settings = {
     headers: buildHeaders(data),
     url:`/logs/${data.user_id}`,
@@ -272,7 +249,6 @@ function loginUser(data) {
   DATA.loggedIn = true;
   DATA.authToken = data.authToken;
   DATA.user = data.user;
-  console.log('DATA.user', DATA.user);
   pageHome();
 }
 
@@ -283,8 +259,6 @@ function handleSubmitPutApiUser(event) {
     data.id = DATA.user._id;
     DATA.user = data;
     DATA.password = data.password;
-    console.log('data',data);
-    // putApiUser(data, logout);
     DATA.loggedIn = false;
     putApiUser(data, renderPageLogin);
   }
@@ -294,7 +268,6 @@ function handleBtnDeleteProfile(event) {
   event.preventDefault();
   const DELETE_PROFILE = prompt('Are you sure you want to delete your profile?', 'yes');
   if(DELETE_PROFILE === 'yes') {
-    // deleteApiUser(DATA.user._id, logout);
     deleteApiUser(DATA.user._id);
     deleteApiLog({ user_id: DATA.user._id }, logout);
   }

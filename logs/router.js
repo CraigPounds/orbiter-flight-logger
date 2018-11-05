@@ -62,11 +62,6 @@ function buildQuery(data) {
   let query = {};
   if(data.user_id) query.user_id = data.user_id;
   if(data.mission_id) query.mission_id = data.mission_id;
-  //   query.mission_id: { $in: [
-  //     mongoose.Types.ObjectId('5af50ff5c082f1e92f834264'),
-  //     mongoose.Types.ObjectId('4ed3f117a844e0471100000d'), 
-  //     mongoose.Types.ObjectId('4ed3f18132f50c491100000e')
-  //   ]}
   if(data._id) query._id = data._id;
   return query;
 }
@@ -119,16 +114,6 @@ router.put('/:id', jwtAuth, (req, res) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
-// router.delete('/:id', jwtAuth, (req, res) => {
-//   Log.findByIdAndDelete(req.params.id)
-//     .then(() => {
-//       res.status(204).end();       
-//     })
-//     .catch(err => { 
-//       console.error(err);
-//       res.status(500).json({ message: 'Internal server error'});
-//     });
-// });
 
 router.delete('/:id', jwtAuth, (req, res) => {
   let data = buildQuery(req.headers);
