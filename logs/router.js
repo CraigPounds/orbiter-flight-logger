@@ -119,7 +119,9 @@ router.put('/:id', jwtAuth, (req, res) => {
 });
 
 router.delete('/:id', jwtAuth, (req, res) => {
-  Log.findByIdAndDelete(req.params.id)
+  console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr req.params.id', req.params.id);
+  // Log.findByIdAndDelete(req.params.id)
+  Log.deleteMany({ user_id: req.params.id })
     .then(() => {
       res.status(204).end();       
     })

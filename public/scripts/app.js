@@ -227,6 +227,7 @@ function putApiLog(data, callback) {
 }
 
 function deleteApiLog(data, callback) {
+  console.log('deleteApiLog data', data);
   const settings = {
     headers: {
       authorization: `Bearer ${DATA.authToken}`
@@ -275,8 +276,12 @@ function handleBtnDeleteProfile(event) {
   event.preventDefault();
   const DELETE_PROFILE = prompt('Are you sure you want to delete your profile?', 'yes');
   if(DELETE_PROFILE === 'yes') {
-    // $2a$10$3txBycihO17zjnVH9vl7ie1gcz08EvYtM4t0tnc22afp1MwTGODpK
-    deleteApiUser(DATA.user._id, logout);
+    // deleteApiUser(DATA.user._id, logout);
+
+    // deleteApiUser(DATA.user._id, deleteApiLog);
+    // logout();
+    deleteApiUser(DATA.user._id);
+    deleteApiLog(DATA.user._id, logout);
   }
 }
 
@@ -381,9 +386,8 @@ function handleBtnDeleteLog(event) {
   let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');
   const DELETE_LOG = prompt('Are you sure you want to delete this log?', 'yes');
   if(DELETE_LOG === 'yes') {
-    deleteApiMission(DATA.missionIndex, pageHome);
+    deleteApiLog(dataIndex, pageHome);
   }
-  deleteApiLog(dataIndex, pageHome);
 }
 
 function handleToggleMission(event) {
