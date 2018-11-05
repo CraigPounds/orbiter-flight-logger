@@ -107,6 +107,7 @@ function postApiMission(data, callback) {
 
 function buildHeaders(data) {
   let headers = { authorization: `Bearer ${DATA.authToken}` };
+  if(data._id) headers._id = data._id;
   if(data.user_id) headers.user_id = data.user_id;
   if(data.mission_id) headers.mission_id = data.mission_id;
   if(data.orbiterVersion) headers.version = data.orbiterVersion;
@@ -226,13 +227,24 @@ function putApiLog(data, callback) {
   $.ajax(settings);
 }
 
+// function deleteApiLog(data, callback) {
+//   const settings = {
+//     headers: {
+//       authorization: `Bearer ${DATA.authToken}`
+//     },
+//     url:`/logs/${data}`,
+//     type: 'DELETE',
+//     dataType: 'json',
+//     success: callback
+//   };
+//   $.ajax(settings);
+// }
+
 function deleteApiLog(data, callback) {
   console.log('deleteApiLog data', data);
   const settings = {
-    headers: {
-      authorization: `Bearer ${DATA.authToken}`
-    },
-    url:`/logs/${data}`,
+    headers: buildHeaders(data),
+    url:`/logs/${data.user_id}`,
     type: 'DELETE',
     dataType: 'json',
     success: callback
@@ -277,11 +289,8 @@ function handleBtnDeleteProfile(event) {
   const DELETE_PROFILE = prompt('Are you sure you want to delete your profile?', 'yes');
   if(DELETE_PROFILE === 'yes') {
     // deleteApiUser(DATA.user._id, logout);
-
-    // deleteApiUser(DATA.user._id, deleteApiLog);
-    // logout();
     deleteApiUser(DATA.user._id);
-    deleteApiLog(DATA.user._id, logout);
+    deleteApiLog({ user_id: DATA.user._id }, logout);
   }
 }
 
@@ -381,12 +390,12 @@ function handleBtnDeleteApiMission(event) {
   }
 }
 
-function handleBtnDeleteLog(event) {
+function handleBtnDeleteApiLog(event) {
   event.preventDefault();
   let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');
   const DELETE_LOG = prompt('Are you sure you want to delete this log?', 'yes');
   if(DELETE_LOG === 'yes') {
-    deleteApiLog(dataIndex, pageHome);
+    deleteApiLog({ _id: dataIndex }, pageHome);
   }
 }
 
@@ -584,7 +593,7 @@ function attachListeners() {
     handleBtnNewLog(event);
   });
   $('#page').on('click', '.btn-delete-log', function(event) {
-    handleBtnDeleteLog(event);
+    handleBtnDeleteApiLog(event);
   });  
 }
 

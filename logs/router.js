@@ -67,6 +67,7 @@ function buildQuery(data) {
   //     mongoose.Types.ObjectId('4ed3f117a844e0471100000d'), 
   //     mongoose.Types.ObjectId('4ed3f18132f50c491100000e')
   //   ]}
+  if(data._id) query._id = data._id;
   return query;
 }
 
@@ -118,10 +119,22 @@ router.put('/:id', jwtAuth, (req, res) => {
     .catch(err => res.status(500).json({ message: err }));
 });
 
+// router.delete('/:id', jwtAuth, (req, res) => {
+//   Log.findByIdAndDelete(req.params.id)
+//     .then(() => {
+//       res.status(204).end();       
+//     })
+//     .catch(err => { 
+//       console.error(err);
+//       res.status(500).json({ message: 'Internal server error'});
+//     });
+// });
+
 router.delete('/:id', jwtAuth, (req, res) => {
-  console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr req.params.id', req.params.id);
-  // Log.findByIdAndDelete(req.params.id)
-  Log.deleteMany({ user_id: req.params.id })
+  let data = buildQuery(req.headers);
+  console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrreq.headers', req.headers);
+  console.log('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddata', data);
+  Log.deleteMany(data)
     .then(() => {
       res.status(204).end();       
     })
