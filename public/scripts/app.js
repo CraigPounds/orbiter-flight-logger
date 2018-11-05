@@ -273,8 +273,8 @@ function handleSubmitPutApiUser(event) {
 
 function handleBtnDeleteProfile(event) {
   event.preventDefault();
-  const deleteProfile = prompt('Are you sure you want to delete your profile?', 'yes');
-  if(deleteProfile === 'yes') {
+  const DELETE_PROFILE = prompt('Are you sure you want to delete your profile?', 'yes');
+  if(DELETE_PROFILE === 'yes') {
     // $2a$10$3txBycihO17zjnVH9vl7ie1gcz08EvYtM4t0tnc22afp1MwTGODpK
     deleteApiUser(DATA.user._id, logout);
   }
@@ -370,21 +370,20 @@ function handleSubmitSearchMission(event) {
 
 function handleBtnDeleteApiMission(event) {
   event.preventDefault();
-  const deleteMission = prompt('Are you sure you want to delete this mission?', 'yes');
-  if(deleteMission === 'yes') {
+  const DELETE_MISSION = prompt('Are you sure you want to delete this mission?', 'yes');
+  if(DELETE_MISSION === 'yes') {
     deleteApiMission(DATA.missionIndex, pageHome);
   }
 }
 
 function handleBtnDeleteLog(event) {
   event.preventDefault();
-  // let tmp = DATA.missions.find((mission) => {
-  //   return mission._id === DATA.missionIndex;
-  // });
-  // console.log('tmp', tmp);
   let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');
+  const DELETE_LOG = prompt('Are you sure you want to delete this log?', 'yes');
+  if(DELETE_LOG === 'yes') {
+    deleteApiMission(DATA.missionIndex, pageHome);
+  }
   deleteApiLog(dataIndex, pageHome);
-  // if(tmp.logs.length > 1) deleteApiLog(dataIndex, pageHome);
 }
 
 function handleToggleMission(event) {

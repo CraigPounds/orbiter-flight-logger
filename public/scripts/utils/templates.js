@@ -28,22 +28,39 @@ function decorateNavigation() {
   return DATA.loggedIn ? USER_NAVIGATION : GUEST_NAVIGATION;
 }
 
-function decorateLog(log, i) {
+function decorateLog(log) {
   let title = log.title ? log.title : '';
   let vessel = log.vessel ? log.vessel : '';
   let date = log.date ? log.date : '';
   let logEntry = log.log ? log.log : '';
   let index = log._id ? log._id : `new-log-${$('.log').length}`;
-  
-  let tmp = DATA.missions[i];
-  if(tmp === undefined) {
-    tmp = DATA.missions.find((mission) => {
-      return mission._id === DATA.missionIndex;
-    });
-  }
-
-  let deleteButton = DATA.dataSaved && tmp.logs.length > 1 ? '<button class="btn-delete-log">DELETE LOG</button>' : '';
   return `
+    <div class="log" data-index="${index}">
+      <label for=".log-title">Title
+        <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
+      </label>
+      <label for=".vessel">Vessel
+        <input type="text" class="vessel user-input" placeholder="Vessel Name" required value="${vessel}">
+      </label> 
+      <label for=".date">Date
+        <input type="text" class="date user-input" required value="${date}">
+      </label>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      <div class="buttons-log">    
+      </div>
+    </div>
+    `;
+}
+
+function decorateLogs(logs) {
+  let deleteButton = DATA.dataSaved && logs.length > 1 ? '<button class="btn-delete-log">DELETE LOG</button>' : '';
+  return logs.map((log, i) => {
+    let title = log.title ? log.title : '';
+    let vessel = log.vessel ? log.vessel : '';
+    let date = log.date ? log.date : '';
+    let logEntry = log.log ? log.log : '';
+    let index = log._id ? log._id : `new-log-${$('.log').length}`;
+    return `
     <div class="log" data-index="${index}">
       <label for=".log-title">Title
         <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
@@ -60,11 +77,6 @@ function decorateLog(log, i) {
       </div>
     </div>
     `;
-}
-
-function decorateLogs(logs) {
-  return logs.map((log, i) => {
-    return decorateLog(log, i);
   }).join('');
 }
 
