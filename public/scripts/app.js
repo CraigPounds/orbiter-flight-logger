@@ -347,12 +347,11 @@ function handleBtnPutPostLog(event) {
   event.preventDefault();
   getMissionFormData(event);
   DATA.formData.id = DATA.missionIndex;
-  let data = DATA.formData;
-  let data2 = data.logs.pop();
-  data2.user_id = DATA.user._id;
-  data2.mission_id = DATA.missionIndex;
-  putApiMission(data, handlePutApiLog);
-  postApiLog(data2, pageHome);
+  let log =  DATA.formData.logs.pop();
+  log.user_id = DATA.user._id;
+  log.mission_id = DATA.missionIndex;
+  putApiMission(DATA.formData, handlePutApiLog);
+  postApiLog(log, pageHome);
 }
 
 function handleSubmitSearchMission(event) {
