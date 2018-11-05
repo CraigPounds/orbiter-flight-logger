@@ -67,9 +67,9 @@ function buildQuery(data) {
 }
 
 router.get('/', jwtAuth, (req, res) => {
-  let data = buildQuery(req.headers);
+  let query = buildQuery(req.headers);
   Log
-    .find(data)
+    .find(query)
     .then(logs => {
       res.json({
         logs: logs.map(log => log.serialize())
@@ -116,8 +116,8 @@ router.put('/:id', jwtAuth, (req, res) => {
 
 
 router.delete('/:id', jwtAuth, (req, res) => {
-  let data = buildQuery(req.headers);
-  Log.deleteMany(data)
+  let query = buildQuery(req.headers);
+  Log.deleteMany(query)
     .then(() => {
       res.status(204).end();       
     })

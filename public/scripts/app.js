@@ -306,41 +306,41 @@ function handleSubmitPostApiMission(event) {
   event.preventDefault();
   getMissionFormData(event);
   DATA.formData.user_id = DATA.user._id;
-  postApiMission(DATA.formData, dataLogPostDecorate);
-}
-
-function dataLogPostDecorate(data) {
-  data.user_id =  DATA.user._id;
-  data.mission_id = data._id;
-  data.title = DATA.formData.logs[0].title;
-  data.vessel = DATA.formData.logs[0].vessel;
-  data.date = DATA.formData.logs[0].date;
-  data.log = DATA.formData.logs[0].log;
-  postApiLog(data, pageHome);
+  postApiMission(DATA.formData, handlePostApiLog);
 }
 
 function handleSubmitPutApiMission(event) {
   event.preventDefault();
   getMissionFormData(event);
   DATA.formData.id = DATA.missionIndex;
-  putApiMission(DATA.formData, dataLogPutDecorate);
+  putApiMission(DATA.formData, handlePutApiLog);
   pageHome();
 }
 
-function dataLogPutDecorate(data) {
-  let mission_id = data._id;
-  DATA.formData.logs.forEach((log, i) => {
-    let logVal = {
-      id: DATA.formData.logs[i].id,
-      user_id:  DATA.user._id,
-      mission_id: mission_id,
-      title: DATA.formData.logs[i].title,
-      vessel: DATA.formData.logs[i].vessel,
-      date: DATA.formData.logs[i].date,
-      log: DATA.formData.logs[i].log
-    };
+function buildLogData(data, i) {
+  return {
+    id: DATA.formData.logs[i].id,
+    user_id: data.user_id,
+    mission_id: data._id,
+    title: DATA.formData.logs[i].title,
+    vessel: DATA.formData.logs[i].vessel,
+    date:  DATA.formData.logs[i].date,
+    log: DATA.formData.logs[i].log
+  };
+}
+
+function handlePostApiLog(data) {
+  postApiLog(buildLogData(data, 0), pageHome);
+}
+
+function handlePutApiLog(data) {
+  for (let i = 0; i < DATA.formData.logs.length; i++)  {
+    let logVal = buildLogData({      
+      user_id: DATA.user._id,
+      _id: data._id
+    }, i);
     putApiLog(logVal);
-  });
+  }
 }
 
 function handleBtnPutPostLog(event) {
@@ -351,7 +351,7 @@ function handleBtnPutPostLog(event) {
   let data2 = data.logs.pop();
   data2.user_id = DATA.user._id;
   data2.mission_id = DATA.missionIndex;
-  putApiMission(data, dataLogPutDecorate);
+  putApiMission(data, handlePutApiLog);
   postApiLog(data2, pageHome);
 }
 
@@ -411,10 +411,10 @@ function renderProfilePage(data) {
 function renderHomePage(data) {
   DATA.missions = data.missions;
   DATA.missions.forEach(mission => mission.logs = []);  
-  getApiLogs({ user_id: DATA.user._id }, dataMissionsDecorate);
+  getApiLogs({ user_id: DATA.user._id }, decorateUserMissionsResponse);
 }
 
-function dataMissionsDecorate(data) {
+function decorateUserMissionsResponse(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
       if(mission._id === log.mission_id) {
@@ -433,11 +433,11 @@ function renderSearchResults(data) {
   DATA.missions = data.missions;
   DATA.missions.forEach(mission => mission.logs = []);
   DATA.missions.forEach((mission) => {    
-    getApiLogs({ mission_id: mission._id }, dataSearchDecorate);
+    getApiLogs({ mission_id: mission._id }, decorateSearchResponse);
   });  
 }
 
-function dataSearchDecorate(data) {
+function decorateSearchResponse(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
       if(mission._id === log.mission_id) {
