@@ -299,7 +299,7 @@ function handleBtnNewLog(event) {
   event.preventDefault();
   DATA.dataSaved = false;
   $(event.currentTarget).hide();
-  $(event.currentTarget).next('#btn-put-mission').attr('id','#btn-put-mission-post-log');
+  $(event.currentTarget).closest('.form-put-mission').attr('class','form-put-post-log');
   $(event.currentTarget).parent().siblings('.flight-logs')
     .append(decorateLog({
       title: '',
@@ -313,10 +313,10 @@ function handleSubmitPostApiMission(event) {
   event.preventDefault();
   getMissionFormData(event);
   DATA.formData.user_id = DATA.user._id;
-  postApiMission(DATA.formData, dataLogDecorate);
+  postApiMission(DATA.formData, dataLogPostDecorate);
 }
 
-function dataLogDecorate(data) {
+function dataLogPostDecorate(data) {
   data.user_id =  DATA.user._id;
   data.mission_id = data._id;
   data.title = DATA.formData.logs[0].title;
@@ -330,11 +330,11 @@ function handleSubmitPutApiMission(event) {
   event.preventDefault();
   getMissionFormData(event);
   DATA.formData.id = DATA.missionIndex;
-  putApiMission(DATA.formData, dataLog2Decorate);
-  
+  putApiMission(DATA.formData, dataLogPutDecorate);
+  pageHome();
 }
 
-function dataLog2Decorate(data) {
+function dataLogPutDecorate(data) {
   let mission_id = data._id;
   DATA.formData.logs.forEach((log, i) => {
     let logVal = {
@@ -348,7 +348,18 @@ function dataLog2Decorate(data) {
     };
     putApiLog(logVal);
   });
-  pageHome();
+}
+
+function handleBtnPutPostLog(event) {
+  event.preventDefault();
+  getMissionFormData(event);
+  DATA.formData.id = DATA.missionIndex;
+  let data = DATA.formData;
+  let data2 = data.logs.pop();
+  data2.user_id = DATA.user._id;
+  data2.mission_id = DATA.missionIndex;
+  putApiMission(data, dataLogPutDecorate);
+  postApiLog(data2, pageHome);
 }
 
 function handleSubmitSearchMission(event) {
@@ -367,7 +378,8 @@ function handleBtnDeleteApiMission(event) {
 
 function handleBtnDeleteLog(event) {
   event.preventDefault();
-  let index = $(event.currentTarget).closest('.log').attr('data-index');
+  let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');  
+  deleteApiLog(dataIndex, pageHome);
 }
 
 function handleToggleMission(event) {
@@ -553,6 +565,9 @@ function attachListeners() {
   });
   $('#page').on('submit', '.form-put-mission', function(event) {
     handleSubmitPutApiMission(event);
+  });
+  $('#page').on('submit', '.form-put-post-log', function(event) {    
+    handleBtnPutPostLog(event);
   });
   $('#page').on('click', '#btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);

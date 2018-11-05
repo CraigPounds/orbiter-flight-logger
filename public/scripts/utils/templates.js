@@ -71,11 +71,10 @@ function decorateMission(mission) {
   let newButton = DATA.dataSaved ? '<button id="btn-new-log">NEW LOG</button>' : '';
   let saveButton = '';
   let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission">DELETE MISSION</button>' : '';
-
+  
   if (mission._id) {
     formClass = 'form-put-mission';
-    saveButton = `<input type="submit" id="btn-put-mission" value="UPDATE MISSION">
-    <button id="btn-put-mission-post-log" class="hidden">UPDATE MISSION</button>`;
+    saveButton = '<input type="submit" id="btn-put-mission" value="UPDATE MISSION">';
   } else {
     formClass = 'form-post-mission';
     saveButton = '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
