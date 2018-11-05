@@ -28,13 +28,21 @@ function decorateNavigation() {
   return DATA.loggedIn ? USER_NAVIGATION : GUEST_NAVIGATION;
 }
 
-function decorateLog(log) {
+function decorateLog(log, i) {
   let title = log.title ? log.title : '';
   let vessel = log.vessel ? log.vessel : '';
   let date = log.date ? log.date : '';
   let logEntry = log.log ? log.log : '';
   let index = log._id ? log._id : `new-log-${$('.log').length}`;
-  let deleteButton = DATA.dataSaved ? '<button class="btn-delete-log">DELETE LOG</button>' : '';
+  
+  let tmp = DATA.missions[i];
+  if(tmp === undefined) {
+    tmp = DATA.missions.find((mission) => {
+      return mission._id === DATA.missionIndex;
+    });
+  }
+
+  let deleteButton = DATA.dataSaved && tmp.logs.length > 1 ? '<button class="btn-delete-log">DELETE LOG</button>' : '';
   return `
     <div class="log" data-index="${index}">
       <label for=".log-title">Title
@@ -55,8 +63,8 @@ function decorateLog(log) {
 }
 
 function decorateLogs(logs) {
-  return logs.map((log) => {
-    return decorateLog(log);
+  return logs.map((log, i) => {
+    return decorateLog(log, i);
   }).join('');
 }
 

@@ -378,8 +378,13 @@ function handleBtnDeleteApiMission(event) {
 
 function handleBtnDeleteLog(event) {
   event.preventDefault();
-  let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');  
+  // let tmp = DATA.missions.find((mission) => {
+  //   return mission._id === DATA.missionIndex;
+  // });
+  // console.log('tmp', tmp);
+  let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');
   deleteApiLog(dataIndex, pageHome);
+  // if(tmp.logs.length > 1) deleteApiLog(dataIndex, pageHome);
 }
 
 function handleToggleMission(event) {
