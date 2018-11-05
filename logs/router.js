@@ -132,8 +132,6 @@ router.put('/:id', jwtAuth, (req, res) => {
 
 router.delete('/:id', jwtAuth, (req, res) => {
   let data = buildQuery(req.headers);
-  console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrreq.headers', req.headers);
-  console.log('dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddata', data);
   Log.deleteMany(data)
     .then(() => {
       res.status(204).end();       

@@ -229,7 +229,8 @@ function decorateSearchPage(data) {
 }
 
 function decorateLoginPage() {
-  const userName = DATA.user.userName ? DATA.user.userName : '';
+  const USER_NAME = DATA.user.userName ? DATA.user.userName : '';
+  const PASSWORD = DATA.password ? DATA.password : '';
   return `
   ${decorateNavigation()}
   <main>
@@ -238,10 +239,10 @@ function decorateLoginPage() {
       <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
-            <input type="text" id="user-name" class="user-input" value="${userName}" required placeholder="username">
+            <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="passwordkoik" required placeholder="password">
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>
@@ -306,7 +307,7 @@ function decorateProfilePage(data) {
             <input type="text" id="user-name" class="user-input" required value=${DATA.user.userName}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" required value=${DATA.user.password} placeholder="password">
+            <input type="password" id="password" class="user-input" required value=${DATA.password} placeholder="password">
           </label>
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" class="user-input" required placeholder="password">

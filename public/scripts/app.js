@@ -264,6 +264,7 @@ function handleSubmitLogin(event) {
     username: $('#user-name').val().trim(),
     password: $('#password').val().trim()
   };
+  DATA.password = data.password;
   postApiUserLogin(data, loginUser);  
 }
 
@@ -271,6 +272,7 @@ function loginUser(data) {
   DATA.loggedIn = true;
   DATA.authToken = data.authToken;
   DATA.user = data.user;
+  console.log('DATA.user', DATA.user);
   pageHome();
 }
 
@@ -280,7 +282,11 @@ function handleSubmitPutApiUser(event) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
-    putApiUser(data, logout);
+    DATA.password = data.password;
+    console.log('data',data);
+    // putApiUser(data, logout);
+    DATA.loggedIn = false;
+    putApiUser(data, renderPageLogin);
   }
 }
 
@@ -551,6 +557,7 @@ function logout() {
   DATA.loggedIn = false;
   DATA.saved = true;
   DATA.authToken = '';
+  DATA.password = '';
   DATA.user = {};
   DATA.missionIndex = 0;
   DATA.missions = [];
