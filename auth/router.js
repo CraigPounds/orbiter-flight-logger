@@ -17,6 +17,7 @@ const createAuthToken = function(user) {  ;
 };
 
 const localAuth = passport.authenticate('local', { session: false });// returns a middleware function
+
 router.use(bodyParser.json());
 // The user provides a user name and password to login
 router.post('/login', localAuth, (req, res) => {

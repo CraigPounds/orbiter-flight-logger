@@ -64,13 +64,23 @@ function generateUserPassword() {
 }
 
 function generateUserData() {
-  return {
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    email: faker.internet.email(),
-    userName: gernerateUserName(),
-    password: generateUserPassword()
-  };
+
+  let firstName = faker.name.firstName();
+  let lastName = faker.name.lastName();
+  let email = faker.internet.email();
+  let userName = gernerateUserName();
+  // let password = generateUserPassword();
+  let password = 'testPassword';
+
+  return User.hashPassword(password).then(password => {
+    return User.create({
+      firstName,
+      lastName,
+      email,
+      userName,
+      password
+    });
+  });
 }
 
 function generateOrbiterVersion() {
@@ -127,13 +137,13 @@ describe('API resource', function() {
     return runServer(TEST_DATABASE_URL);
   });
   beforeEach(function() {
-    return seedUserData();
+    // return seedUserData();
   });
   beforeEach(function() {
-    return seedMissionData();
+    // return seedMissionData();
   });
   beforeEach(function() {
-    return seedLogData();
+    // return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -143,16 +153,16 @@ describe('API resource', function() {
   }); 
 
   describe('Hit root URL', function() {
-    // it('should return status code 200 and HTML', function() {
-    //   let res;
-    //   return chai.request(app)
-    //     .get('/')
-    //     .then(function(_res) {
-    //       res = _res;
-    //       expect(res).to.have.status(200);
-    //       expect(res).to.be.html;
-    //     });
-    // });
+    it('should return status code 200 and HTML', function() {
+      let res;
+      return chai.request(app)
+        .get('/')
+        .then(function(_res) {
+          res = _res;
+          expect(res).to.have.status(200);
+          expect(res).to.be.html;
+        });
+    });
   });
 });
 

@@ -21,10 +21,10 @@ describe('Users endpoints', function() {
     return seedUserData();
   });
   beforeEach(function() {
-    return seedMissionData();
+    // return seedMissionData();
   });
   beforeEach(function() {
-    return seedLogData();
+    // return seedLogData();
   });
   afterEach(function() {
     return tearDownDb();
@@ -441,114 +441,114 @@ describe('Users endpoints', function() {
   });
 
   describe('GET users endpoint', function() {
-    it('should return all users', function() {
-      let res;
-      return chai.request(app)
-        .get('/users')
-        .then(function(_res) {
-          res = _res;
-          expect(res).to.have.status(200);
-          expect(res.body.users).to.have.lengthOf.at.least(1);
-          return User.countDocuments();
-        })
-        .then(function(count) {
-          expect(res.body.users).to.have.lengthOf(count);
-        });
-    });
-    it('should return users with correct fields', function() {
-      let resUser;
-      return chai.request(app)
-        .get('/users')
-        .then(function(res) {
-          expect(res).to.have.status(200);
-          expect(res).to.be.json;
-          expect(res.body.users).to.be.a('array');
-          expect(res.body.users).to.have.lengthOf.at.least(1);
+    // it('should return all users', function() {
+    //   let res;
+    //   return chai.request(app)
+    //     .get('/users')
+    //     .then(function(_res) {
+    //       res = _res;
+    //       expect(res).to.have.status(200);
+    //       expect(res.body.users).to.have.lengthOf.at.least(1);
+    //       return User.countDocuments();
+    //     })
+    //     .then(function(count) {
+    //       expect(res.body.users).to.have.lengthOf(count);
+    //     });
+    // });
+    // it('should return users with correct fields', function() {
+    //   let resUser;
+    //   return chai.request(app)
+    //     .get('/users')
+    //     .then(function(res) {
+    //       expect(res).to.have.status(200);
+    //       expect(res).to.be.json;
+    //       expect(res.body.users).to.be.a('array');
+    //       expect(res.body.users).to.have.lengthOf.at.least(1);
 
-          res.body.users.forEach(function(user) {
-            expect(user).to.be.a('object');
-            expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
-          });
-          resUser = res.body.users[0];
-          return User.findById(resUser._id);
-        })
-        .then(function(user) {
-          expect(resUser._id).to.be.equal(user._id.toString());
-          expect(resUser.firstName).to.be.equal(user.firstName);
-          expect(resUser.lastName).to.be.equal(user.lastName);
-          expect(resUser.userName).to.equal(user.userName);
-          expect(resUser.email).to.be.equal(user.email);
-        });
-    });
+    //       res.body.users.forEach(function(user) {
+    //         expect(user).to.be.a('object');
+    //         expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
+    //       });
+    //       resUser = res.body.users[0];
+    //       return User.findById(resUser._id);
+    //     })
+    //     .then(function(user) {
+    //       expect(resUser._id).to.be.equal(user._id.toString());
+    //       expect(resUser.firstName).to.be.equal(user.firstName);
+    //       expect(resUser.lastName).to.be.equal(user.lastName);
+    //       expect(resUser.userName).to.equal(user.userName);
+    //       expect(resUser.email).to.be.equal(user.email);
+    //     });
+    // });
   });
 
   describe('GET user by ID endpoint', function() {
-    it('should GET a user by user id', function() {
-      let testUser = {};
-      return User
-        .findOne()
-        .then(function(user) {
-          testUser = user;
-          return chai.request(app)
-            .get(`/users/${user._id}`);
-        })
-        .then(function(res) {
-          expect(res).to.have.status(200);
-          return User.findById(testUser._id);
-        })
-        .then(function(user) {
-          expect(user._id.toString()).to.equal(testUser._id.toString());
-          expect(user.firstName).to.equal(testUser.firstName);
-          expect(user.lastName).to.equal(testUser.lastName);
-          expect(user.email).to.equal(testUser.email);
-          expect(user.userName).to.equal(testUser.userName);
-          expect(user.password).to.equal(testUser.password);
-        });
-    });
+    // it('should GET a user by user id', function() {
+    //   let testUser = {};
+    //   return User
+    //     .findOne()
+    //     .then(function(user) {
+    //       testUser = user;
+    //       return chai.request(app)
+    //         .get(`/users/${user._id}`);
+    //     })
+    //     .then(function(res) {
+    //       expect(res).to.have.status(200);
+    //       return User.findById(testUser._id);
+    //     })
+    //     .then(function(user) {
+    //       expect(user._id.toString()).to.equal(testUser._id.toString());
+    //       expect(user.firstName).to.equal(testUser.firstName);
+    //       expect(user.lastName).to.equal(testUser.lastName);
+    //       expect(user.email).to.equal(testUser.email);
+    //       expect(user.userName).to.equal(testUser.userName);
+    //       expect(user.password).to.equal(testUser.password);
+    //     });
+    // });
   });
 
   describe('PUT users endpoint', function() {
-    it('should update valid fields for an user by user id', function() {
-      const updateData = generateUserData();
-      return User
-        .findOne()
-        .then(function(user) {
-          updateData.id = user._id;
-          return chai.request(app)
-            .put(`/users/${user._id}`)
-            .send(updateData);
-        })
-        .then(function(res) {          
-          expect(res).to.have.status(200);
-          return User.findById(updateData.id);
-        })
-        .then(function(user) {
-          expect(user.firstName).to.equal(updateData.firstName);
-          expect(user.lastName).to.equal(updateData.lastName);
-          expect(user.userName).to.equal(updateData.userName);
-          expect(user.email).to.equal(updateData.email);
-          expect(user.password).to.equal(updateData.password);
-        });
-    });  
+    // it('should update valid fields for an user by user id', function() {
+    //   const updateData = generateUserData();
+    //   return User
+    //     .findOne()
+    //     .then(function(user) {
+    //       updateData.id = user._id;
+    //       return chai.request(app)
+    //         .put(`/users/${user._id}`)
+    //         .send(updateData);
+    //     })
+    //     .then(function(res) {          
+    //       expect(res).to.have.status(200);
+    //       return User.findById(updateData.id);
+    //     })
+    //     .then(function(user) {
+    //       expect(user.firstName).to.equal(updateData.firstName);
+    //       expect(user.lastName).to.equal(updateData.lastName);
+    //       expect(user.userName).to.equal(updateData.userName);
+    //       expect(user.email).to.equal(updateData.email);
+    //       expect(user.password).to.equal(updateData.password);
+    //     });
+    // });  
   });
 
-  // describe('DELETE users endpoint', function() {
-  //   it('should delete user and all associated missions and logs by user id', function() {
-  //     let user;
-  //     return User
-  //       .findOne()
-  //       .then(function(_user) {
-  //         user = _user;
-  //         return chai.request(app).delete(`/users/${user._id}`);
-  //       })
-  //       .then(function(res) {
-  //         expect(res).to.have.status(204);
-  //         return User.findById(user._id);
-  //       })
-  //       .then(function(_user) {
-  //         expect(_user).to.be.null;
-  //       });
-  //   });
-  // });
+  describe('DELETE users endpoint', function() {
+    // it('should delete user and all associated missions and logs by user id', function() {
+    //   let user;
+    //   return User
+    //     .findOne()
+    //     .then(function(_user) {
+    //       user = _user;
+    //       return chai.request(app).delete(`/users/${user._id}`);
+    //     })
+    //     .then(function(res) {
+    //       expect(res).to.have.status(204);
+    //       return User.findById(user._id);
+    //     })
+    //     .then(function(_user) {
+    //       expect(_user).to.be.null;
+    //     });
+    // });
+  });
 
 });
