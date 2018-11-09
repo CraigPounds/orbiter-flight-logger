@@ -236,8 +236,8 @@ function decorateSearchPage(data) {
   `;
 }
 
-function decorateLoginPage() {
-  const USER_NAME = DATA.user.username ? DATA.user.username : '';
+function decorateLoginPage(data) {
+  const USER_NAME = data.username !== undefined ? data.username : '';
   const PASSWORD = DATA.user.password ? DATA.user.password : '';
   return `
   ${decorateNavigation()}

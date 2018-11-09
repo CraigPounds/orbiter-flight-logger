@@ -3,7 +3,7 @@
 import { decorateLog, decorateMission, decorateLoginPage, decorateHomePage, decorateSearchPage, decorateGalleryPage, decorateSignupPage, decorateProfilePage } from './utils/templates.js';
 import { DATA } from './data/data.js';
 
-function postApiNewUser(data, callback) {   
+function postApiUser(data, callback) {   
   const settings = {
     url: '/users',
     type: 'POST',
@@ -29,6 +29,23 @@ function postApiUserLogin(data, callback) {
   };
   $.ajax(settings).fail(function() {
     console.error('Incorrect username or password');
+  });
+}
+
+function postApiUserRefresh(data, callback) {
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`
+    },
+    url: '/auth/refresh',
+    type: 'POST',
+    data: JSON.stringify(data),
+    dataType: 'json',
+    contentType: 'application/json',
+    success: callback,	
+  };
+  $.ajax(settings).fail(function() {
+    console.error('Incorrect password length');
   });
 }
 
@@ -232,7 +249,7 @@ function deleteApiLog(data, callback) {
 function handleSubmitPostUser(event) {
   event.preventDefault();
   DATA.user = getUserFormData();
-  postApiNewUser(DATA.user, renderPageLogin);
+  postApiUser(DATA.user, renderPageLogin);
 }
 
 function handleSubmitLogin(event) {
@@ -242,14 +259,7 @@ function handleSubmitLogin(event) {
     password: $('#password').val().trim()
   };
   DATA.user = data;
-  postApiUserLogin(data, loginUser);  
-}
-
-function loginUser(data) {
-  DATA.loggedIn = true;
-  DATA.authToken = data.authToken;
-  Object.assign(DATA.user, data.user);
-  pageHome();
+  postApiUserLogin(data, loginUser);
 }
 
 function handleSubmitPutApiUser(event) {
@@ -259,9 +269,17 @@ function handleSubmitPutApiUser(event) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
-    DATA.loggedIn = false;
+    // DATA.loggedIn = false;
+    // putApiUser(data, renderPageLogin);
+
+    postApiUserRefresh(data, refreshCb);
     putApiUser(data, renderPageLogin);
   }
+}
+
+function refreshCb(data) {
+  DATA.authToken = data.authToken;
+  Object.assign(DATA.user, data.user);
 }
 
 function handleBtnDeleteProfile(event) {
@@ -398,8 +416,8 @@ function getSearchItemIndex(item) {
   return itemIndex;
 }
 
-function renderPageLogin() {
-  $('#page').html(decorateLoginPage());
+function renderPageLogin(data) {
+  $('#page').html(decorateLoginPage(data));
 }
 
 function renderPageSignUp() {
@@ -546,6 +564,13 @@ function logout() {
   DATA.missionIndex = '';
   DATA.missions = [];
   renderPageGallery();
+}
+
+function loginUser(data) {
+  DATA.loggedIn = true;
+  DATA.authToken = data.authToken;
+  Object.assign(DATA.user, data.user);
+  pageHome();
 }
 
 function attachListeners() {
