@@ -163,13 +163,21 @@ function decorateSearchLogs(logs) {
 }
 
 function decorateSearchMissions(missions) {
-  return missions.map((mission) => {
+  let searchedMissions = [];
+  missions.forEach((mission) => {
+    let returnMission = false;
+    mission.logs.forEach((log) => {
+
+      if (DATA.searchText === '' || DATA.searchText.toLowerCase() === log.vessel.toLowerCase()) returnMission = true;
+    });
+    if (returnMission) searchedMissions.push(mission);
+  });
+  return searchedMissions.map((mission) => {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
     let os = mission ? mission.os : '--Choose Version--';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
-    let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';
-    
+    let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
     return `
     <button class="btn-mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
@@ -242,7 +250,7 @@ function decorateLoginPage() {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required placeholder="password">
+            <input type="password" id="password" class="user-input" value="passwordkoik" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>

@@ -432,14 +432,13 @@ function renderPageSearch() {
 }
 
 function renderSearchResults(data) {
-
   if (data.missions.length < 1) {
     alert('Search yeilds no results');
     renderPageSearch();
   } else {
     DATA.missions = data.missions;
-    DATA.missions.forEach(mission => mission.logs = []);
-    DATA.missions.forEach((mission) => {    
+    DATA.missions.forEach((mission) => {
+      mission.logs = [];
       getApiLogs({ mission_id: mission._id }, decorateSearchResponse);
     });
   }
@@ -449,9 +448,7 @@ function decorateSearchResponse(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
 
-      if (mission._id === log.mission_id) {
-        mission.logs.push(log);
-      }
+      if (mission._id === log.mission_id) mission.logs.push(log);
     });
   });
   $('#page').html(decorateSearchPage(DATA));
@@ -512,11 +509,10 @@ function getMissionFormData(event) {
 function getSearchData() {
   let orbiterVersion = $('#select-version').val().trim();
   let os = $('#select-os').val().trim();
-  let searchText = $('#search-text').val().trim();
+  DATA.searchText = $('#search-text').val().trim();
   return {
     orbiterVersion,
-    os,
-    searchText
+    os
   };
 }
 
@@ -596,4 +592,4 @@ function setUp() {
   logout();
 }
 
-export { attachListeners, setUp };
+export { attachListeners, setUp, getSearchData };
