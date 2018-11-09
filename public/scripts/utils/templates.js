@@ -212,7 +212,7 @@ function decorateSearchPage(data) {
             <option value="Windows Vista">Windows Vista</option>
             <option value="Windows XP">Windows XP</option>
             <option value="Windows 2000">Windows 2000</option>
-            <option value="other">Other</option>
+            <option value="Other">Other</option>
           </select>
           <label for="#search-text">Vessel
             <input type="text" id="search-text" placeholder="Apollo 18">

@@ -11,7 +11,7 @@ const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL, JWT_SECRET } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -28,18 +28,7 @@ describe('Auth endpoints', function() {
   });
   
   beforeEach(function() {
-    // return seedUserData();
-
-    // return User.hashPassword(password).then(password => 
-    //   User.create({
-    //     firstName,
-    //     lastName,
-    //     email,
-    //     userName,
-    //     password
-    //   })
-    // );
-    
+    // return seedUserData();  
   });
   beforeEach(function() {
     // return seedMissionData();
@@ -70,22 +59,22 @@ describe('Auth endpoints', function() {
           expect(res).to.have.status(400);
         });
     });
-  //   it('Should reject requests with incorrect userNames', function () {
-  //     return chai
-  //       .request(app)
-  //       .post('/auth/login')
-  //       .send({ userName: 'wrongUsername', password })
-  //       .then(() =>
-  //         expect.fail(null, null, 'Request should not succeed')
-  //       )
-  //       .catch(err => {
-  //         if (err instanceof chai.AssertionError) {
-  //           throw err;
-  //         }
-  //         const res = err.response;
-  //         expect(res).to.have.status(401);
-  //       });
-  //   });
+    // it('Should reject requests with incorrect userNames', function () {
+    //   return chai
+    //     .request(app)
+    //     .post('/auth/login')
+    //     .send({ userName: 'wrongUsername', password })
+    //     .then(() =>
+    //       expect.fail(null, null, 'Request should not succeed')
+    //     )
+    //     .catch(err => {
+    //       if (err instanceof chai.AssertionError) {
+    //         throw err;
+    //       }
+    //       const res = err.response;
+    //       expect(res).to.have.status(401);
+    //     });
+    // });
   //   it('Should reject requests with incorrect passwords', function () {
   //     return chai
   //       .request(app)

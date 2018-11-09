@@ -58,28 +58,30 @@ function gernerateUserName() {
   return `${faker.name.firstName().toLowerCase()}${Math.floor(Math.random() * 1000)}`;
 }
 
-function generateUserPassword() {
-  let password = faker.lorem.word() + Math.floor(Math.random() * 1000) + faker.lorem.word() + faker.lorem.word();
-  return password;
-}
-
 function generateUserData() {
 
   let firstName = faker.name.firstName();
   let lastName = faker.name.lastName();
   let email = faker.internet.email();
   let userName = gernerateUserName();
-  // let password = generateUserPassword();
+  // let password: faker.internet.password()
   let password = 'testPassword';
 
   return User.hashPassword(password).then(password => {
-    return User.create({
+    // return User.create({
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   userName,
+    //   password
+    // });
+    return {
       firstName,
       lastName,
       email,
       userName,
       password
-    });
+    };
   });
 }
 
@@ -166,4 +168,4 @@ describe('API resource', function() {
   });
 });
 
-module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, generateMissionData, generateUserData, gernerateUserName, generateUserPassword };
+module.exports = { seedUserData, seedMissionData, seedLogData, tearDownDb, generateLogData, generateMissionData, generateUserData, gernerateUserName };

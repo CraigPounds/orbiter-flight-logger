@@ -429,17 +429,23 @@ function renderPageSearch() {
 }
 
 function renderSearchResults(data) {
-  DATA.missions = data.missions;
-  DATA.missions.forEach(mission => mission.logs = []);
-  DATA.missions.forEach((mission) => {    
-    getApiLogs({ mission_id: mission._id }, decorateSearchResponse);
-  });  
+  console.log('data', data);
+  if (data.missions.length < 1) {
+    alert('Search yeilds no results');
+    renderPageSearch();
+  } else {
+    DATA.missions = data.missions;
+    DATA.missions.forEach(mission => mission.logs = []);
+    DATA.missions.forEach((mission) => {    
+      getApiLogs({ mission_id: mission._id }, decorateSearchResponse);
+    });
+  }
 }
 
 function decorateSearchResponse(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
-      if(mission._id === log.mission_id) {
+      if (mission._id === log.mission_id) {
         mission.logs.push(log);
       }
     });

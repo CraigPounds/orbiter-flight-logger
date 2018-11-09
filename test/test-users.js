@@ -9,7 +9,7 @@ const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateUserData, gernerateUserName, generateUserPassword } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateUserData, gernerateUserName } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -18,7 +18,7 @@ describe('Users endpoints', function() {
     return runServer(TEST_DATABASE_URL);
   });
   beforeEach(function() {
-    return seedUserData();
+    // return seedUserData();
   });
   beforeEach(function() {
     // return seedMissionData();
@@ -38,7 +38,7 @@ describe('Users endpoints', function() {
     const lastName = faker.name.lastName();
     const email = faker.internet.email();
     const userName = gernerateUserName();
-    const password = generateUserPassword();
+    const password = faker.internet.password();
 
     it('Should reject users with missing userName', function () {
       return chai
