@@ -62,9 +62,8 @@ function buildQuery(data) {
   return query;
 }
 
-router.get('/',  (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   let data = buildQuery(req.headers);
-  // let data = { os: 'Other' };
   Mission
     .find(data)    
     .then(missions => {

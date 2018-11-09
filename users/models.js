@@ -8,7 +8,7 @@ mongoose.set('useFindAndModify', false);
 mongoose.Promise = global.Promise;
 
 const UserSchema = mongoose.Schema({
-  userName: {
+  username: {
     type: String,
     required: true,
     unique: true
@@ -33,7 +33,7 @@ UserSchema.virtual('fullName').get(function() {
 UserSchema.methods.serialize = function() {
   return {
     _id: this._id,
-    userName: this.userName || '',
+    username: this.username || '',
     firstName: this.firstName || '',
     lastName: this.lastName || '',
     email: this.email || ''

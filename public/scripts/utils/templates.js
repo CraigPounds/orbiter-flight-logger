@@ -229,8 +229,8 @@ function decorateSearchPage(data) {
 }
 
 function decorateLoginPage() {
-  const USER_NAME = DATA.user.userName ? DATA.user.userName : '';
-  const PASSWORD = DATA.password ? DATA.password : '';
+  const USER_NAME = DATA.user.username ? DATA.user.username : '';
+  const PASSWORD = DATA.user.password ? DATA.user.password : '';
   return `
   ${decorateNavigation()}
   <main>
@@ -242,7 +242,7 @@ function decorateLoginPage() {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required placeholder="username">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="passwordkoik" required placeholder="password">
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required placeholder="password">
           <input type="submit" id="btn-login" value="LOG IN">
         </fieldset>
       </form>
@@ -304,10 +304,10 @@ function decorateProfilePage(data) {
             <input type="text" id="email" class="user-input" required value=${DATA.user.email}>
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" class="user-input" required value=${DATA.user.userName}>
+            <input type="text" id="user-name" class="user-input" required value=${DATA.user.username}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" required value=${DATA.password} placeholder="password">
+            <input type="password" id="password" class="user-input" required value=${DATA.user.password} placeholder="password">
           </label>
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" class="user-input" required placeholder="password">
@@ -326,7 +326,7 @@ function decorateHomePage(data) {
   ${decorateNavigation()}
   <main>
     <div id="page-home">
-      <h2>${DATA.user.userName}</h2>
+      <h2>${DATA.user.username}</h2>
       <div class="results">     
         ${MISSIONS}
       </div>

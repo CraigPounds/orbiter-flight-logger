@@ -37,10 +37,10 @@ describe('Users endpoints', function() {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
     const email = faker.internet.email();
-    const userName = gernerateUserName();
+    const username = gernerateUserName();
     const password = faker.internet.password();
 
-    it('Should reject users with missing userName', function () {
+    it('Should reject users with missing username', function () {
       return chai
         .request(app)
         .post('/users')
@@ -61,7 +61,7 @@ describe('Users endpoints', function() {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
           expect(res.body.message).to.equal('Missing field');
-          expect(res.body.location).to.equal('userName');
+          expect(res.body.location).to.equal('username');
         });
     });
     it('Should reject users with missing password', function () {
@@ -69,7 +69,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           firstName,
           lastName
         })
@@ -87,12 +87,12 @@ describe('Users endpoints', function() {
           expect(res.body.location).to.equal('password');
         });
     });
-    it('Should reject users with non-string userName', function () {
+    it('Should reject users with non-string username', function () {
       return chai
         .request(app)
         .post('/users')
         .send({
-          userName: 1234,
+          username: 1234,
           password,
           firstName,
           lastName
@@ -111,7 +111,7 @@ describe('Users endpoints', function() {
           expect(res.body.message).to.equal(
             'Incorrect field type: expected string'
           );
-          expect(res.body.location).to.equal('userName');
+          expect(res.body.location).to.equal('username');
         });
     });
     it('Should reject users with non-string password', function () {
@@ -119,7 +119,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           password: 1234,
           firstName,
           lastName
@@ -146,7 +146,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           password,
           firstName: 1234,
           lastName
@@ -173,7 +173,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           password,
           firstName,
           lastName: 1234
@@ -195,12 +195,12 @@ describe('Users endpoints', function() {
           expect(res.body.location).to.equal('lastName');
         });
     });
-    it('Should reject users with non-trimmed userName', function () {
+    it('Should reject users with non-trimmed username', function () {
       return chai
         .request(app)
         .post('/users')
         .send({
-          userName: ` ${userName} `,
+          username: ` ${username} `,
           password,
           firstName,
           lastName
@@ -219,7 +219,7 @@ describe('Users endpoints', function() {
           expect(res.body.message).to.equal(
             'Cannot start or end with whitespace'
           );
-          expect(res.body.location).to.equal('userName');
+          expect(res.body.location).to.equal('username');
         });
     });
     it('Should reject users with non-trimmed password', function () {
@@ -227,7 +227,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           password: ` ${password} `,
           firstName,
           lastName
@@ -249,12 +249,12 @@ describe('Users endpoints', function() {
           expect(res.body.location).to.equal('password');
         });
     });
-    it('Should reject users with empty userName', function () {
+    it('Should reject users with empty username', function () {
       return chai
         .request(app)
         .post('/users')
         .send({
-          userName: '',
+          username: '',
           password,
           firstName,
           lastName
@@ -273,7 +273,7 @@ describe('Users endpoints', function() {
           expect(res.body.message).to.equal(
             'Must be at least 1 characters long'
           );
-          expect(res.body.location).to.equal('userName');
+          expect(res.body.location).to.equal('username');
         });
     });
     it('Should reject users with password less than ten characters', function () {
@@ -281,7 +281,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           password: '123456789',
           firstName,
           lastName
@@ -308,7 +308,7 @@ describe('Users endpoints', function() {
         .request(app)
         .post('/users')
         .send({
-          userName,
+          username,
           password: new Array(73).fill('a').join(''),
           firstName,
           lastName
@@ -330,19 +330,19 @@ describe('Users endpoints', function() {
           expect(res.body.location).to.equal('password');
         });
     });
-    it('Should reject users with duplicate userName', function () {
+    it('Should reject users with duplicate username', function () {
       // Create an initial user
       return User.create({
-        userName,
+        username,
         password,
         firstName,
         lastName,
         email
       })
         .then(() =>
-          // Try to create a second user with the same userName
+          // Try to create a second user with the same username
           chai.request(app).post('/users').send({
-            userName,
+            username,
             password,
             firstName,
             lastName,
@@ -363,7 +363,7 @@ describe('Users endpoints', function() {
           expect(res.body.message).to.equal(
             'Username already taken'
           );
-          expect(res.body.location).to.equal('userName');
+          expect(res.body.location).to.equal('username');
         });
     });
     it('Should create a new user', function () {
@@ -374,7 +374,7 @@ describe('Users endpoints', function() {
           firstName,
           lastName,
           email,
-          userName,
+          username,
           password
         })
         .then(res => {
@@ -385,13 +385,13 @@ describe('Users endpoints', function() {
             'firstName',
             'lastName',
             'email',
-            'userName'
+            'username'
           );
-          expect(res.body.userName).to.equal(userName);
+          expect(res.body.username).to.equal(username);
           expect(res.body.firstName).to.equal(firstName);
           expect(res.body.lastName).to.equal(lastName);
           return User.findOne({
-            userName
+            username
           });
         })
         .then(user => {
@@ -412,7 +412,7 @@ describe('Users endpoints', function() {
           firstName: ` ${firstName} `,
           lastName: ` ${lastName} `,
           email,
-          userName,
+          username,
           password,
         })
         .then(res => {
@@ -423,13 +423,13 @@ describe('Users endpoints', function() {
             'firstName',
             'lastName',
             'email',
-            'userName'
+            'username'
           );
-          expect(res.body.userName).to.equal(userName);
+          expect(res.body.username).to.equal(username);
           expect(res.body.firstName).to.equal(firstName);
           expect(res.body.lastName).to.equal(lastName);
           return User.findOne({
-            userName
+            username
           });
         })
         .then(user => {
@@ -467,7 +467,7 @@ describe('Users endpoints', function() {
 
     //       res.body.users.forEach(function(user) {
     //         expect(user).to.be.a('object');
-    //         expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'userName');
+    //         expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'username');
     //       });
     //       resUser = res.body.users[0];
     //       return User.findById(resUser._id);
@@ -476,7 +476,7 @@ describe('Users endpoints', function() {
     //       expect(resUser._id).to.be.equal(user._id.toString());
     //       expect(resUser.firstName).to.be.equal(user.firstName);
     //       expect(resUser.lastName).to.be.equal(user.lastName);
-    //       expect(resUser.userName).to.equal(user.userName);
+    //       expect(resUser.username).to.equal(user.username);
     //       expect(resUser.email).to.be.equal(user.email);
     //     });
     // });
@@ -501,7 +501,7 @@ describe('Users endpoints', function() {
     //       expect(user.firstName).to.equal(testUser.firstName);
     //       expect(user.lastName).to.equal(testUser.lastName);
     //       expect(user.email).to.equal(testUser.email);
-    //       expect(user.userName).to.equal(testUser.userName);
+    //       expect(user.username).to.equal(testUser.username);
     //       expect(user.password).to.equal(testUser.password);
     //     });
     // });
@@ -525,7 +525,7 @@ describe('Users endpoints', function() {
     //     .then(function(user) {
     //       expect(user.firstName).to.equal(updateData.firstName);
     //       expect(user.lastName).to.equal(updateData.lastName);
-    //       expect(user.userName).to.equal(updateData.userName);
+    //       expect(user.username).to.equal(updateData.username);
     //       expect(user.email).to.equal(updateData.email);
     //       expect(user.password).to.equal(updateData.password);
     //     });

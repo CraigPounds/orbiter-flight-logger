@@ -241,14 +241,14 @@ function handleSubmitLogin(event) {
     username: $('#user-name').val().trim(),
     password: $('#password').val().trim()
   };
-  DATA.password = data.password;
+  DATA.user = data;
   postApiUserLogin(data, loginUser);  
 }
 
 function loginUser(data) {
   DATA.loggedIn = true;
   DATA.authToken = data.authToken;
-  DATA.user = data.user;
+  Object.assign(DATA.user, data.user);
   pageHome();
 }
 
@@ -259,7 +259,6 @@ function handleSubmitPutApiUser(event) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
-    DATA.password = data.password;
     DATA.loggedIn = false;
     putApiUser(data, renderPageLogin);
   }
@@ -471,13 +470,13 @@ function getUserFormData() {
   let firstName = $('#first-name').val().trim();
   let lastName = $('#last-name').val().trim();
   let email = $('#email').val().trim();
-  let userName = $('#user-name').val().trim();
+  let username = $('#user-name').val().trim();
   let password = $('#password').val().trim();
   return {
     firstName,
     lastName,
     email,
-    userName,
+    username,
     password
   };
 }
@@ -547,9 +546,8 @@ function logout() {
   DATA.loggedIn = false;
   DATA.saved = true;
   DATA.authToken = '';
-  DATA.password = '';
   DATA.user = {};
-  DATA.missionIndex = 0;
+  DATA.missionIndex = '';
   DATA.missions = [];
   renderPageGallery();
 }

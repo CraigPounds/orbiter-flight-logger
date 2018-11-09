@@ -4,9 +4,8 @@ const DATA = {
   loggedIn: false,
   dataSaved: false,
   authToken: '',
-  password: '',
   user: {},
-  missionIndex: 0,
+  missionIndex: '',
   missions: []
 };
 

@@ -63,7 +63,7 @@ function generateUserData() {
   let firstName = faker.name.firstName();
   let lastName = faker.name.lastName();
   let email = faker.internet.email();
-  let userName = gernerateUserName();
+  let username = gernerateUserName();
   // let password: faker.internet.password()
   let password = 'testPassword';
 
@@ -72,14 +72,14 @@ function generateUserData() {
     //   firstName,
     //   lastName,
     //   email,
-    //   userName,
+    //   username,
     //   password
     // });
     return {
       firstName,
       lastName,
       email,
-      userName,
+      username,
       password
     };
   });

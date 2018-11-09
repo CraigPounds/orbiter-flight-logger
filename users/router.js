@@ -11,7 +11,7 @@ const { Mission } = require('../missions/models');
 const { User } = require('./models');
 
 router.post('/', (req, res) => {
-  const requiredFields = ['email', 'userName', 'password'];
+  const requiredFields = ['email', 'username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
       location: missingField
     });
   }
-  const stringFields = ['firstName', 'lastName', 'email', 'userName', 'password'];
+  const stringFields = ['firstName', 'lastName', 'email', 'username', 'password'];
   const nonStringField = stringFields.find(
     field => field in req.body && typeof req.body[field] !== 'string'
   );
@@ -34,7 +34,7 @@ router.post('/', (req, res) => {
       location: nonStringField
     });
   }
-  const explicityTrimmedFields = ['userName', 'password'];
+  const explicityTrimmedFields = ['username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
     });
   }
   const sizedFields = {
-    userName: {
+    username: {
       min: 1
     },
     password: {
@@ -77,13 +77,13 @@ router.post('/', (req, res) => {
       location: tooSmallField || tooLargeField
     });
   }
-  let { firstName = '', lastName = '', email = '', userName, password } = req.body;
-  // userName, password are pre-trimmed else we throw error before now
+  let { firstName = '', lastName = '', email = '', username, password } = req.body;
+  // username, password are pre-trimmed else we throw error before now
   firstName = firstName.trim();
   lastName = lastName.trim();
   email = email.trim();
 
-  return User.find({userName})
+  return User.find({username})
     .countDocuments()
     .then(count => {
       if (count > 0) {
@@ -91,10 +91,10 @@ router.post('/', (req, res) => {
           code: 422,
           reason: 'ValidationError',
           message: 'User name already taken',
-          location: 'userName'
+          location: 'username'
         });
       }
-      // If userName is not taken hash the password
+      // If username is not taken hash the password
       return User.hashPassword(password);
     })
     .then(hash => {
@@ -102,7 +102,7 @@ router.post('/', (req, res) => {
         firstName,
         lastName,
         email,
-        userName,
+        username,
         password: hash
       });
     })
@@ -150,15 +150,15 @@ router.put('/:id',  (req, res) => {
     });
   }
   const updated = {};
-  // const updateableFields = ['firstName', 'lastName', 'userName', 'email', 'password'];
-  const updateableFields = ['firstName', 'lastName', 'userName', 'email'];
+  // const updateableFields = ['firstName', 'lastName', 'username', 'email', 'password'];
+  const updateableFields = ['firstName', 'lastName', 'username', 'email'];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
     }
   });
   User
-    .findOne({ userName: updated.userName || '', _id: { $ne: req.params.id } })
+    .findOne({ username: updated.username || '', _id: { $ne: req.params.id } })
     .then(user => {
       if(user) {
         const message = 'Username already exists';
