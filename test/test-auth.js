@@ -44,21 +44,21 @@ describe('Auth endpoints', function() {
   }); 
 
   describe('/auth/login', function () {
-    it('Should reject requests with no credentials', function () {
-      return chai
-        .request(app)
-        .post('/auth/login')
-        .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
-        )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
-          expect(res).to.have.status(400);
-        });
-    });
+    // it('Should reject requests with no credentials', function () {
+    //   return chai
+    //     .request(app)
+    //     .post('/auth/login')
+    //     .then(() =>
+    //       expect.fail(null, null, 'Request should not succeed')
+    //     )
+    //     .catch(err => {
+    //       if (err instanceof chai.AssertionError) {
+    //         throw err;
+    //       }
+    //       const res = err.response;
+    //       expect(res).to.have.status(400);
+    //     });
+    // });
     // it('Should reject requests with incorrect userNames', function () {
     //   return chai
     //     .request(app)

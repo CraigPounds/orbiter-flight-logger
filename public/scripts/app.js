@@ -104,11 +104,11 @@ function postApiMission(data, callback) {
 
 function buildHeaders(data) {
   let headers = { authorization: `Bearer ${DATA.authToken}` };
-  if(data._id) headers._id = data._id;
-  if(data.user_id) headers.user_id = data.user_id;
-  if(data.mission_id) headers.mission_id = data.mission_id;
-  if(data.orbiterVersion) headers.version = data.orbiterVersion;
-  if(data.os) headers.os = data.os;
+  if (data._id) headers._id = data._id;
+  if (data.user_id) headers.user_id = data.user_id;
+  if (data.mission_id) headers.mission_id = data.mission_id;
+  if (data.orbiterVersion) headers.version = data.orbiterVersion;
+  if (data.os) headers.os = data.os;
   return headers;
 }
 
@@ -254,7 +254,8 @@ function loginUser(data) {
 
 function handleSubmitPutApiUser(event) {
   event.preventDefault();
-  if($('#password').val().trim() === $('#retype-password').val().trim()) {
+
+  if ($('#password').val().trim() === $('#retype-password').val().trim()) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
@@ -266,8 +267,9 @@ function handleSubmitPutApiUser(event) {
 
 function handleBtnDeleteProfile(event) {
   event.preventDefault();
+
   const DELETE_PROFILE = prompt('Are you sure you want to delete your profile?', 'yes');
-  if(DELETE_PROFILE === 'yes') {
+  if (DELETE_PROFILE === 'yes') {
     deleteApiUser(DATA.user._id);
     deleteApiLog({ user_id: DATA.user._id }, logout);
   }
@@ -372,7 +374,8 @@ function handleBtnDeleteApiLog(event) {
   event.preventDefault();
   let dataIndex = $(event.currentTarget).closest('.log').attr('data-index');
   const DELETE_LOG = prompt('Are you sure you want to delete this log?', 'yes');
-  if(DELETE_LOG === 'yes') {
+
+  if (DELETE_LOG === 'yes') {
     deleteApiLog({ _id: dataIndex }, pageHome);
   }
 }
@@ -381,7 +384,8 @@ function handleToggleMission(event) {
   event.preventDefault();
   event.stopPropagation();
   let index = getSearchItemIndex($(event.target).next());
-  if(index !== DATA.missionIndex) {
+  if (index !== DATA.missionIndex) {
+
     $('.result').hide();
   }
   DATA.missionIndex = getSearchItemIndex($(event.target).next());
@@ -429,7 +433,7 @@ function renderPageSearch() {
 }
 
 function renderSearchResults(data) {
-  console.log('data', data);
+
   if (data.missions.length < 1) {
     alert('Search yeilds no results');
     renderPageSearch();
@@ -445,6 +449,7 @@ function renderSearchResults(data) {
 function decorateSearchResponse(data) {
   data.logs.forEach((log) => {
     DATA.missions.forEach((mission) => {
+
       if (mission._id === log.mission_id) {
         mission.logs.push(log);
       }
@@ -522,13 +527,20 @@ function getDate() {
   let month = date.getMonth() + 1;  
   let year = date.getFullYear();
 
-  if(day < 10) {
+  if (day < 10) {
     day = '0' + day;
   } 
-  if(month < 10) {
+  if (month < 10) {
     month ='0'+ month;
   } 
   return `${month}/${day}/${year}`;
+}
+
+function logoutPrompt() {
+  const LOG_OUT = prompt('Are you sure you want to log out?', 'yes');
+  if (LOG_OUT === 'yes') {
+    logout();
+  }  
 }
 
 function logout() {
@@ -549,7 +561,7 @@ function attachListeners() {
   $('#page').on('click', '#nav-profile', renderProfilePage);
   $('#page').on('click', '#nav-gallery', renderPageGallery);
   $('#page').on('click', '#nav-home', pageHome);
-  $('#page').on('click', '#nav-logout',  logout);
+  $('#page').on('click', '#nav-logout',  logoutPrompt);
 
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
