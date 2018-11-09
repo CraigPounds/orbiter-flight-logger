@@ -18,6 +18,7 @@ describe('Users endpoints', function() {
     return runServer(TEST_DATABASE_URL);
   });
   beforeEach(function() {
+    // console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrreturn', seedUserData());
     // return seedUserData();
   });
   beforeEach(function() {
@@ -52,12 +53,18 @@ describe('Users endpoints', function() {
         })
         // .then(() =>
         //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
+        // )        
+        // .catch(err => {
+        //   if (err instanceof chai.AssertionError) {
+        //     throw err;
+        //   }
+        //   const res = err.response;
+        //   expect(res).to.have.status(422);
+        //   expect(res.body.reason).to.equal('ValidationError');
+        //   expect(res.body.message).to.equal('Missing field');
+        //   expect(res.body.location).to.equal('username');
+        // });
+        .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
           expect(res.body.message).to.equal('Missing field');
@@ -441,20 +448,20 @@ describe('Users endpoints', function() {
   });
 
   describe('GET users endpoint', function() {
-    // it('should return all users', function() {
-    //   let res;
-    //   return chai.request(app)
-    //     .get('/users')
-    //     .then(function(_res) {
-    //       res = _res;
-    //       expect(res).to.have.status(200);
-    //       expect(res.body.users).to.have.lengthOf.at.least(1);
-    //       return User.countDocuments();
-    //     })
-    //     .then(function(count) {
-    //       expect(res.body.users).to.have.lengthOf(count);
-    //     });
-    // });
+    it('should return all users', function() {
+      let res;
+      return chai.request(app)
+        .get('/users')
+        .then(function(_res) {
+          res = _res;
+          expect(res).to.have.status(200);
+          expect(res.body.users).to.have.lengthOf.at.least(1);
+          return User.countDocuments();
+        })
+        .then(function(count) {
+          expect(res.body.users).to.have.lengthOf(count);
+        });
+    });
     // it('should return users with correct fields', function() {
     //   let resUser;
     //   return chai.request(app)

@@ -51,11 +51,14 @@ describe('Auth endpoints', function() {
         // .then(() =>
         //   expect.fail(null, null, 'Request should not succeed')
         // )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
+        // .catch(err => {
+        //   if (err instanceof chai.AssertionError) {
+        //     throw err;
+        //   }
+        //   const res = err.response;
+        //   expect(res).to.have.status(400);
+        // });
+        .then(function(res) {
           expect(res).to.have.status(400);
         });
     });

@@ -119,7 +119,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/', jwtAuth, (req, res) => {
+router.get('/',  (req, res) => {
   User
     .find()
     .then(users => {
