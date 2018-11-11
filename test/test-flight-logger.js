@@ -58,6 +58,21 @@ function gernerateUserName() {
   return `${faker.name.firstName().toLowerCase()}${Math.floor(Math.random() * 1000)}`;
 }
 
+// function generateUserPassword() {
+//   let password = faker.lorem.word() + Math.floor(Math.random() * 1000) + faker.lorem.word() + faker.lorem.word();
+//   return password;
+// }
+
+// function generateUserData() {
+//   return {
+//     firstName: faker.name.firstName(),
+//     lastName: faker.name.lastName(),
+//     email: faker.internet.email(),
+//     userName: gernerateUserName(),
+//     password: generateUserPassword()
+//   };
+// }
+
 function generateUserData() {
 
   let firstName = faker.name.firstName();

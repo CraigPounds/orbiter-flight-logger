@@ -70,11 +70,14 @@ describe('Auth endpoints', function() {
         // .then(() =>
         //   expect.fail(null, null, 'Request should not succeed')
         // )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
+        // .catch(err => {
+        //   if (err instanceof chai.AssertionError) {
+        //     throw err;
+        //   }
+        //   const res = err.response;
+        //   expect(res).to.have.status(401);
+        // });
+        .then(function(res) {
           expect(res).to.have.status(401);
         });
     });
@@ -86,14 +89,18 @@ describe('Auth endpoints', function() {
         // .then(() =>
         //   expect.fail(null, null, 'Request should not succeed')
         // )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
+        // .catch(err => {
+        //   if (err instanceof chai.AssertionError) {
+        //     throw err;
+        //   }
+        //   const res = err.response;
+        //   expect(res).to.have.status(401);
+        // });
+        .then(function(res) {
           expect(res).to.have.status(401);
         });
     });
+    // PROBLEMS !!!
     // it('Should return a valid auth token', function () {
     //   return chai
     //     .request(app)
@@ -122,11 +129,14 @@ describe('Auth endpoints', function() {
         // .then(() =>
         //   expect.fail(null, null, 'Request should not succeed')
         // )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
+        // .catch(err => {
+        //   if (err instanceof chai.AssertionError) {
+        //     throw err;
+        //   }
+        //   const res = err.response;
+        //   expect(res).to.have.status(401);
+        // });
+        .then(function(res) {
           expect(res).to.have.status(401);
         });
     });
@@ -151,11 +161,14 @@ describe('Auth endpoints', function() {
         // .then(() =>
         //   expect.fail(null, null, 'Request should not succeed')
         // )
-        .catch(err => {
-          if (err instanceof chai.AssertionError) {
-            throw err;
-          }
-          const res = err.response;
+        // .catch(err => {
+        //   if (err instanceof chai.AssertionError) {
+        //     throw err;
+        //   }
+        //   const res = err.response;
+        //   expect(res).to.have.status(401);
+        // });
+        .then(function(res) {
           expect(res).to.have.status(401);
         });
     });
@@ -179,6 +192,7 @@ describe('Auth endpoints', function() {
         .request(app)
         .post('/auth/refresh')
         .set('authorization', `Bearer ${token}`)
+        // PROBLEMS !!!
         // .then(() => {
         //   expect.fail(null, null, 'Request should not succeed');
         // })

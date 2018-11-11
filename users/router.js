@@ -90,7 +90,7 @@ router.post('/', (req, res) => {
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
-          message: 'User name already taken',
+          message: 'Username already taken',
           location: 'username'
         });
       }
@@ -119,7 +119,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.get('/',  (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   User
     .find()
     .then(users => {
