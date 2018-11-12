@@ -16,9 +16,10 @@ chai.use(chaiHttp);
 function seedUserData() {
   console.info('Seeding user data');
   const USER_DATA = [];
-  for (let i = 0; i < 9; i++) {
-    USER_DATA.push(generateUserData());
-  }
+  // for (let i = 0; i < 9; i++) {
+  USER_DATA.push(generateUserData());
+  // console.log('USER_DATA', USER_DATA);
+  // }
   return User.insertMany(USER_DATA);
 }
 
@@ -58,45 +59,22 @@ function gernerateUserName() {
   return `${faker.name.firstName().toLowerCase()}${Math.floor(Math.random() * 1000)}`;
 }
 
-// function generateUserPassword() {
-//   let password = faker.lorem.word() + Math.floor(Math.random() * 1000) + faker.lorem.word() + faker.lorem.word();
-//   return password;
-// }
-
-// function generateUserData() {
-//   return {
-//     firstName: faker.name.firstName(),
-//     lastName: faker.name.lastName(),
-//     email: faker.internet.email(),
-//     userName: gernerateUserName(),
-//     password: generateUserPassword()
-//   };
-// }
-
 function generateUserData() {
-
-  let firstName = faker.name.firstName();
-  let lastName = faker.name.lastName();
-  let email = faker.internet.email();
-  let username = gernerateUserName();
-  // let password: faker.internet.password()
-  let password = 'testPassword';
+  
+  let firstName = 'James';
+  let lastName = 'Kirk';
+  let email = 'kirk@gmail.com';
+  let username = 'koik';
+  let password = 'passwordkoik';
 
   return User.hashPassword(password).then(password => {
-    // return User.create({
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   username,
-    //   password
-    // });
-    return {
+    return User.create({
       firstName,
       lastName,
       email,
       username,
       password
-    };
+    });
   });
 }
 
@@ -152,18 +130,6 @@ function tearDownDb() {
 describe('API resource', function() {
   before(function() {
     return runServer(TEST_DATABASE_URL);
-  });
-  beforeEach(function() {
-    // return seedUserData();
-  });
-  beforeEach(function() {
-    // return seedMissionData();
-  });
-  beforeEach(function() {
-    // return seedLogData();
-  });
-  afterEach(function() {
-    return tearDownDb();
   });
   after(function() {
     return closeServer();

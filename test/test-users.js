@@ -9,7 +9,7 @@ const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateUserData, gernerateUserName } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateUserData } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -18,7 +18,6 @@ describe('Users endpoints', function() {
     return runServer(TEST_DATABASE_URL);
   });
   beforeEach(function() {
-    // console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrreturn', seedUserData());
     // return seedUserData();
   });
   beforeEach(function() {
@@ -35,11 +34,11 @@ describe('Users endpoints', function() {
   }); 
 
   describe('POST users enpoint', function () {
-    const firstName = faker.name.firstName();
-    const lastName = faker.name.lastName();
-    const email = faker.internet.email();
-    const username = gernerateUserName();
-    const password = faker.internet.password();
+    let firstName = 'James';
+    let lastName = 'Kirk';
+    let email = 'kirk@gmail.com';
+    let username = 'koik';
+    let password = 'passwordkoik';
 
     it('Should reject users with missing username', function () {
       return chai
@@ -51,19 +50,6 @@ describe('Users endpoints', function() {
           email,
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )        
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal('Missing field');
-        //   expect(res.body.location).to.equal('username');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -81,19 +67,6 @@ describe('Users endpoints', function() {
           email,
           username
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal('Missing field');
-        //   expect(res.body.location).to.equal('password');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -112,21 +85,6 @@ describe('Users endpoints', function() {
           username: 1234,
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Incorrect field type: expected string'
-        //   );
-        //   expect(res.body.location).to.equal('username');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -145,21 +103,6 @@ describe('Users endpoints', function() {
           username,
           password: 1234
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Incorrect field type: expected string'
-        //   );
-        //   expect(res.body.location).to.equal('password');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -178,21 +121,6 @@ describe('Users endpoints', function() {
           username,
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Incorrect field type: expected string'
-        //   );
-        //   expect(res.body.location).to.equal('firstName');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -211,21 +139,6 @@ describe('Users endpoints', function() {
           username,
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Incorrect field type: expected string'
-        //   );
-        //   expect(res.body.location).to.equal('lastName');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -244,21 +157,6 @@ describe('Users endpoints', function() {
           username,
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Incorrect field type: expected string'
-        //   );
-        //   expect(res.body.location).to.equal('email');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -277,21 +175,6 @@ describe('Users endpoints', function() {
           username: ` ${username} `,
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Cannot start or end with whitespace'
-        //   );
-        //   expect(res.body.location).to.equal('username');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -310,21 +193,6 @@ describe('Users endpoints', function() {
           username,
           password: ` ${password} `
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Cannot start or end with whitespace'
-        //   );
-        //   expect(res.body.location).to.equal('password');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -343,21 +211,6 @@ describe('Users endpoints', function() {
           username: '',
           password
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Must be at least 1 characters long'
-        //   );
-        //   expect(res.body.location).to.equal('username');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -376,21 +229,6 @@ describe('Users endpoints', function() {
           username,
           password: '123456789'
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Must be at least 10 characters long'
-        //   );
-        //   expect(res.body.location).to.equal('password');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -409,21 +247,6 @@ describe('Users endpoints', function() {
           username,
           password: new Array(73).fill('a').join('')
         })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Must be at most 72 characters long'
-        //   );
-        //   expect(res.body.location).to.equal('password');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
@@ -450,22 +273,6 @@ describe('Users endpoints', function() {
             password
           })
         )
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-
-        //   const res = err.response;
-        //   expect(res).to.have.status(422);
-        //   expect(res.body.reason).to.equal('ValidationError');
-        //   expect(res.body.message).to.equal(
-        //     'Username already taken'
-        //   );
-        //   expect(res.body.location).to.equal('username');
-        // });
         .then(function(res) {
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');

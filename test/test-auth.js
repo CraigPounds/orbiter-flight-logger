@@ -11,7 +11,7 @@ const { Mission } = require('../missions');
 const { Log } = require('../logs');
 const { app, runServer, closeServer } = require('../server');
 const { TEST_DATABASE_URL, JWT_SECRET } = require('../config');
-const { seedUserData, seedMissionData, seedLogData, tearDownDb, gernerateUserName } = require('./test-flight-logger');
+const { seedUserData, seedMissionData, seedLogData, tearDownDb } = require('./test-flight-logger');
 
 chai.use(chaiHttp);
 
@@ -26,16 +26,6 @@ describe('Auth endpoints', function() {
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
-  
-  beforeEach(function() {
-    // return seedUserData();  
-  });
-  beforeEach(function() {
-    // return seedMissionData();
-  });
-  beforeEach(function() {
-    // return seedLogData();
-  });
   afterEach(function() {
     return tearDownDb();
   });
@@ -48,16 +38,6 @@ describe('Auth endpoints', function() {
       return chai
         .request(app)
         .post('/auth/login')
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(400);
-        // });
         .then(function(res) {
           expect(res).to.have.status(400);
         });
@@ -67,16 +47,6 @@ describe('Auth endpoints', function() {
         .request(app)
         .post('/auth/login')
         .send({ username: 'wrongUsername', password })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(401);
-        // });
         .then(function(res) {
           expect(res).to.have.status(401);
         });
@@ -86,16 +56,6 @@ describe('Auth endpoints', function() {
         .request(app)
         .post('/auth/login')
         .send({ username, password: 'wrongPassword' })
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(401);
-        // });
         .then(function(res) {
           expect(res).to.have.status(401);
         });
@@ -126,16 +86,6 @@ describe('Auth endpoints', function() {
       return chai
         .request(app)
         .post('/auth/refresh')
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(401);
-        // });
         .then(function(res) {
           expect(res).to.have.status(401);
         });
@@ -158,16 +108,6 @@ describe('Auth endpoints', function() {
         .request(app)
         .post('/auth/refresh')
         .set('Authorization', `Bearer ${token}`)
-        // .then(() =>
-        //   expect.fail(null, null, 'Request should not succeed')
-        // )
-        // .catch(err => {
-        //   if (err instanceof chai.AssertionError) {
-        //     throw err;
-        //   }
-        //   const res = err.response;
-        //   expect(res).to.have.status(401);
-        // });
         .then(function(res) {
           expect(res).to.have.status(401);
         });
