@@ -269,10 +269,9 @@ function handleSubmitPutApiUser(event) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
-    // DATA.loggedIn = false;
-    // putApiUser(data, renderPageLogin);
 
     postApiUserRefresh(data, refreshCb);
+    // refreshCb(data);
     putApiUser(data, renderPageLogin);
   }
 }

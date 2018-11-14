@@ -19,6 +19,7 @@ describe('Users endpoints', function() {
   });
   beforeEach(function() {
     // return seedUserData();
+    // seedUserData();
   });
   beforeEach(function() {
     // return seedMissionData();
@@ -51,6 +52,7 @@ describe('Users endpoints', function() {
           password
         })
         .then(function(res) {
+          // console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrres', res);
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
           expect(res.body.message).to.equal('Missing field');

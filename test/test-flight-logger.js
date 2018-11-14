@@ -16,10 +16,7 @@ chai.use(chaiHttp);
 function seedUserData() {
   console.info('Seeding user data');
   const USER_DATA = [];
-  // for (let i = 0; i < 9; i++) {
   USER_DATA.push(generateUserData());
-  // console.log('USER_DATA', USER_DATA);
-  // }
   return User.insertMany(USER_DATA);
 }
 
@@ -61,11 +58,11 @@ function gernerateUserName() {
 
 function generateUserData() {
   
-  let firstName = 'James';
-  let lastName = 'Kirk';
-  let email = 'kirk@gmail.com';
-  let username = 'koik';
-  let password = 'passwordkoik';
+  let firstName = 'Mr';
+  let lastName = 'Spock';
+  let email = 'spock@gmail.com';
+  let username = 'spock';
+  let password = 'passwordspock';
 
   return User.hashPassword(password).then(password => {
     return User.create({
@@ -75,6 +72,9 @@ function generateUserData() {
       username,
       password
     });
+      // .then(data => {
+      //   return data;
+      // });
   });
 }
 
@@ -130,6 +130,9 @@ function tearDownDb() {
 describe('API resource', function() {
   before(function() {
     return runServer(TEST_DATABASE_URL);
+  });
+  afterEach(function() {
+    return tearDownDb();
   });
   after(function() {
     return closeServer();

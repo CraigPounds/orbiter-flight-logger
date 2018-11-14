@@ -143,7 +143,7 @@ router.get('/:id', jwtAuth, (req, res) => {
     });
 });
 
-router.put('/:id',  (req, res) => {
+router.put('/:id', jwtAuth, (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       error: 'Request path id and request body id values must match'
@@ -158,7 +158,7 @@ router.put('/:id',  (req, res) => {
     }
   });
   User
-    .findOne({ username: updated.username || '', _id: { $ne: req.params.id } })
+    .findOne({ username: updated.username || '', _id: { $ne: req.params.id } })    
     .then(user => {
       if(user) {
         const message = 'Username already exists';
