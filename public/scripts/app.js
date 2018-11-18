@@ -88,7 +88,10 @@ function putApiUser(data, callback) {
     contentType: 'application/json',
     success: callback
   };
-  $.ajax(settings);
+  $.ajax(settings).fail(function(data) {
+    console.error('Location:', data.responseJSON.location);
+    console.error('Message:', data.responseJSON.message);    
+  });
 }
 
 function deleteApiUser(data, callback) {
@@ -140,18 +143,18 @@ function getApiMissions(data, callback) {
   $.ajax(settings);
 }
 
-// function getApiMissionById(data, callback) {
-//   const settings = {
-//     headers: {
-//       authorization: `Bearer ${DATA.authToken}`,
-//     },
-//     url: `/missions/${data.id}`,
-//     type: 'GET',
-//     dataType: 'json',
-//     success: callback
-//   };
-//   $.ajax(settings);
-// }
+function getApiMissionById(data, callback) {
+  const settings = {
+    headers: {
+      authorization: `Bearer ${DATA.authToken}`,
+    },
+    url: `/missions/${data.id}`,
+    type: 'GET',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings);
+}
 
 function putApiMission(data, callback) {
   const settings = {
@@ -192,18 +195,18 @@ function getApiLogs(data, callback) {
   $.ajax(settings);
 }
 
-// function getApiLogById(data, callback) {
-//   const settings = {
-//     headers: {
-//       authorizaton: `Bearer ${DATA.authToken}`,
-//     },
-//     url: `/logs/${data.id}`,
-//     type: 'GET',
-//     dataType: 'json',
-//     success: callback
-//   };
-//   $.ajax(settings);
-// }
+function getApiLogById(data, callback) {
+  const settings = {
+    headers: {
+      authorizaton: `Bearer ${DATA.authToken}`,
+    },
+    url: `/logs/${data.id}`,
+    type: 'GET',
+    dataType: 'json',
+    success: callback
+  };
+  $.ajax(settings);
+}
 
 function postApiLog(data, callback) {
   const settings = {
@@ -249,7 +252,7 @@ function deleteApiLog(data, callback) {
 function handleSubmitPostUser(event) {
   event.preventDefault();
   DATA.user = getUserFormData();
-  postApiUser(DATA.user, renderPageLogin);
+  postApiUser(DATA.user, renderPageLogin);  
 }
 
 function handleSubmitLogin(event) {
@@ -269,9 +272,7 @@ function handleSubmitPutApiUser(event) {
     let data = getUserFormData();
     data.id = DATA.user._id;
     DATA.user = data;
-
     postApiUserRefresh(data, refreshCb);
-    // refreshCb(data);
     putApiUser(data, renderPageLogin);
   }
 }

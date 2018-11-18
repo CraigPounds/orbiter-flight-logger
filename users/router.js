@@ -2,11 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const passport = require('passport');
 const jwtAuth = passport.authenticate('jwt', { session: false });
-const { Log } = require('../logs/models');
 const { Mission } = require('../missions/models');
 const { User } = require('./models');
 
@@ -149,23 +146,79 @@ router.put('/:id', jwtAuth, (req, res) => {
       error: 'Request path id and request body id values must match'
     });
   }
+
+  const stringFields = ['firstName', 'lastName', 'email', 'username', 'password'];
+  const nonStringField = stringFields.find(
+    field => field in req.body && typeof req.body[field] !== 'string'
+  );
+  if (nonStringField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Incorrect field type: expected string',
+      location: nonStringField
+    });
+  }
+  const explicityTrimmedFields = ['username', 'password'];
+  const nonTrimmedField = explicityTrimmedFields.find(
+    field => req.body[field].trim() !== req.body[field]
+  );
+  if (nonTrimmedField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Cannot start or end with whitespace',
+      location: nonTrimmedField
+    });
+  }
+  const sizedFields = {
+    username: {
+      min: 1
+    },
+    password: {
+      min: 10,
+      max: 72
+    }
+  };
+  const tooSmallField = Object.keys(sizedFields).find(
+    field =>
+      'min' in sizedFields[field] &&
+            req.body[field].trim().length < sizedFields[field].min
+  );
+  const tooLargeField = Object.keys(sizedFields).find(
+    field =>
+      'max' in sizedFields[field] &&
+            req.body[field].trim().length > sizedFields[field].max
+  );
+  if (tooSmallField || tooLargeField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: tooSmallField
+        ? `Must be at least ${sizedFields[tooSmallField]
+          .min} characters long`
+        : `Must be at most ${sizedFields[tooLargeField]
+          .max} characters long`,
+      location: tooSmallField || tooLargeField
+    });
+  }
+  let { firstName = '', lastName = '', email = '', username, password } = req.body;
+  // username, password are pre-trimmed else we throw error before now
+  firstName = firstName.trim();
+  lastName = lastName.trim();
+  email = email.trim();
+
   const updated = {};
-  // const updateableFields = ['firstName', 'lastName', 'username', 'email'];
   const updateableFields = ['firstName', 'lastName', 'username', 'email', 'password'];  
   updateableFields.forEach(field => {
-    // if (field in req.body) {
-    //   updated[field] = req.body[field];
-    // }
     if (field in req.body) {
       if (field === 'password') {
         User.hashPassword(req.body[field]).then(function(hashedPassword) {
-          console.log('hashedPassword', hashedPassword);
           updated[field] = hashedPassword;
         });
       } else {
         updated[field] = req.body[field];
       }
-      console.log('rrrrrrrrrrrrrrrrrrrrrrreq.body[field]', req.body[field]);
     }
   });
   User
@@ -174,7 +227,12 @@ router.put('/:id', jwtAuth, (req, res) => {
       if(user) {
         const message = 'Username already exists';
         console.error(message);
-        return res.status(400).send(message);
+        return res.status(400).send({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Username already taken',
+          location: 'username'
+        });
       }
       else {
         User
