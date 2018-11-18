@@ -15,9 +15,32 @@ chai.use(chaiHttp);
 
 function seedUserData() {
   console.info('Seeding user data');
-  const USER_DATA = [];
-  USER_DATA.push(generateUserData());
-  return User.insertMany(USER_DATA);
+  // const USER_DATA = [];
+  // USER_DATA.push(generateUserData());
+  // return User.insertMany(USER_DATA)
+  User.insertMany(generateUserData())
+    .catch(err => {
+      // console.log('err', err);
+    });
+}
+
+function generateUserData() {
+  
+  let firstName = 'Mr';
+  let lastName = 'Spock';
+  let email = 'spock@gmail.com';
+  let username = 'spock';
+  let password = 'passwordspock';
+
+  return User.hashPassword(password).then(password => {
+    return User.create({
+      firstName,
+      lastName,
+      email,
+      username,
+      password
+    });
+  });
 }
 
 function seedMissionData() {
@@ -54,28 +77,6 @@ function seedLogData() {
 
 function gernerateUserName() {
   return `${faker.name.firstName().toLowerCase()}${Math.floor(Math.random() * 1000)}`;
-}
-
-function generateUserData() {
-  
-  let firstName = 'Mr';
-  let lastName = 'Spock';
-  let email = 'spock@gmail.com';
-  let username = 'spock';
-  let password = 'passwordspock';
-
-  return User.hashPassword(password).then(password => {
-    return User.create({
-      firstName,
-      lastName,
-      email,
-      username,
-      password
-    });
-      // .then(data => {
-      //   return data;
-      // });
-  });
 }
 
 function generateOrbiterVersion() {

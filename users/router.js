@@ -150,10 +150,12 @@ router.put('/:id', jwtAuth, (req, res) => {
     });
   }
   const updated = {};
-  // const updateableFields = ['firstName', 'lastName', 'username', 'email', 'password'];
   const updateableFields = ['firstName', 'lastName', 'username', 'email'];
+  // const updateableFields = ['firstName', 'lastName', 'username', 'email', 'password'];  
   updateableFields.forEach(field => {
     if (field in req.body) {
+      // if (field === 'password') req.body[field] = User.hashPassword(req.body[field]);
+      // console.log('rrrrrrrrrrrrrrrrrrrrrrreq.body[field]', req.body[field]);
       updated[field] = req.body[field];
     }
   });

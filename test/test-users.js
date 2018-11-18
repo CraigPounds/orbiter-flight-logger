@@ -13,13 +13,13 @@ const { seedUserData, seedMissionData, seedLogData, tearDownDb, generateUserData
 
 chai.use(chaiHttp);
 
-describe('Users endpoints', function() {
+describe('Users endpoints', function() {  
+
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
   beforeEach(function() {
-    // return seedUserData();
-    // seedUserData();
+    seedUserData();
   });
   beforeEach(function() {
     // return seedMissionData();
@@ -35,11 +35,16 @@ describe('Users endpoints', function() {
   }); 
 
   describe('POST users enpoint', function () {
-    let firstName = 'James';
-    let lastName = 'Kirk';
-    let email = 'kirk@gmail.com';
-    let username = 'koik';
-    let password = 'passwordkoik';
+    let firstName = 'Mr';
+    let lastName = 'Spock';
+    let email = 'spock@gmail.com';
+    let username = 'spock';
+    let password = 'passwordspock';
+    // let firstNameB = 'James';
+    // let lastNameB = 'Kirk';
+    // let emailB = 'koik@gmail.com';
+    // let usernameB = 'koik';
+    // let passwordB = 'passwordkoik';
 
     it('Should reject users with missing username', function () {
       return chai
@@ -52,7 +57,6 @@ describe('Users endpoints', function() {
           password
         })
         .then(function(res) {
-          // console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrres', res);
           expect(res).to.have.status(422);
           expect(res.body.reason).to.equal('ValidationError');
           expect(res.body.message).to.equal('Missing field');
@@ -362,6 +366,7 @@ describe('Users endpoints', function() {
     //   return chai.request(app)
     //     .get('/users')
     //     .then(function(_res) {
+    //       // console.log('_________________________________________________res.body', _res.body);
     //       res = _res;
     //       expect(res).to.have.status(200);
     //       expect(res.body.users).to.have.lengthOf.at.least(1);
@@ -380,7 +385,6 @@ describe('Users endpoints', function() {
     //       expect(res).to.be.json;
     //       expect(res.body.users).to.be.a('array');
     //       expect(res.body.users).to.have.lengthOf.at.least(1);
-
     //       res.body.users.forEach(function(user) {
     //         expect(user).to.be.a('object');
     //         expect(user).to.include.keys('_id', 'firstName', 'lastName', 'email', 'username');
