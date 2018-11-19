@@ -15,9 +15,6 @@ chai.use(chaiHttp);
 
 function seedUserData() {
   console.info('Seeding user data');
-  // const USER_DATA = [];
-  // USER_DATA.push(generateUserData());
-  // return User.insertMany(USER_DATA)
   User.insertMany(generateUserData())
     .catch(err => {
       // console.log('err', err);
