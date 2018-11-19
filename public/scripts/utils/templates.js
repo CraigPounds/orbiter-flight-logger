@@ -344,6 +344,99 @@ function decorateHomePage(data) {
   `;
 }
 
+// function decorateGalleryPage() {
+//   return `
+//   ${decorateNavigation()}
+//   <main>
+//     <div id="page-gallery" class="results">
+//       <h2>Gallery</h2>
+//       <div class="results">
+//         <div class="lightboxgallery-gallery clearfix">
+//           <a class="lightboxgallery-gallery-item" target="_blank" href="./images/challenger.jpg" data-title="Challenger Lift-off" data-alt="Challenger Lift-off" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title"></span>
+//               </div>
+//             <img src="./images/challenger-thumb.jpg" title="Challenger Lift-off" alt="Challenger Lift-off">
+//             </div>
+//           </a>
+//           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/intrepid.jpg" data-title="Intrepid LEO" data-alt="Intrepid LEO" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title">Intrepid LEO</span>
+//               </div>
+//               <img src="./images/intrepid-thumb.jpg" title="Intrepid LEO" alt="Intrepid LEO">
+//             </div>
+//           </a>
+//           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/apollo.jpg" data-title="Apollo Instrument Panel" data-alt="Apollo Instrument Panel" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title">Apollo Instrument Panel</span>
+//               </div>
+//               <img src="./images/apollo-thumb.jpg" title="Apollo Instrument Panel" alt="Apollo Instrument Panel">
+//             </div>
+//           </a>
+//           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/arrow-18.jpg" data-title="Arrow-18 Lunar Orbit" data-alt="Arrow-18 Lunar Orbit" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title">Arrow-18 Lunar Orbit</span>
+//               </div>
+//               <img src="./images/arrow-18-thumb.jpg" title="Arrow-18 Lunar Orbit" alt="Arrow-18 Lunar Orbit">
+//             </div>
+//           </a>
+//           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/dumont.jpg" data-title="ISS Dumont" data-alt="ISS Dumont" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title">ISS Dumont</span>
+//               </div>
+//               <img src="./images/dumont-thumb.jpg" title="ISS Dumont" alt="ISS Dumont">
+//             </div>
+//           </a>
+//           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/arrow-venus.jpg" data-title="Arrow at Venus" data-alt="Arrow at Venus" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title">Arrow at Venus</span>
+//               </div>
+//               <img src="./images/arrow-venus-thumb.jpg" title="Arrow at Venus" alt="Arrow at Venus">
+//             </div>
+//           </a>
+//           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/enterprise.jpg" data-title="USS Enterprise" data-alt="USS Enterprise" data-desc="">
+//             <div>
+//               <div class="lightboxgallery-gallery-item-content">
+//                 <span class="lightboxgallery-gallery-item-title">USS Enterprise</span>
+//               </div>
+//               <img src="./images/enterprise-thumb.jpg" title="USS Enterprise" alt="USS Enterprise">
+//             </div>
+//           </a>          
+//         </div>
+//       </div>
+//       <h3>Useful Links</h3>
+//       <button class="btn-mission-title">Program / Add-ons</button>
+//       <div class="result link hidden" data-index="0">
+//         <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
+//         <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
+//         <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
+//         <p><a href="http://orbiter.dansteph.com/" title="Dan's Orbiter Page" target="_blank">Dan's Orbiter Page</a></p>
+//         <p><a href="http://francophone.dansteph.com/?page=home" title="Pappy's Hangar" target="_blank">Pappy's Hangar</a></p>
+//         <p><a href="https://www.acsoft.ch/AMSO/amso.html" title="Apollo Mission Sim for Orbiter" target="_blank">ASMO</a></p>
+//         <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
+//       </div>
+//       <button class="btn-mission-title">Reference</button>
+//       <div class="result link hidden" data-index="1">
+//         <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
+//         <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
+//         <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>
+//         <p><a href="https://skyvector.com/" title="SkyVector: Flight Planner" target="_blank">SkyVector: Flight Planner</a></p>
+//         <p><a href="https://in-the-sky.org/skymap.php" title="The In-The-Sky.org Planetarium" target="_blank">Planeterium</a></p>
+//         <p><a href="http://www.worldwidetelescope.org/webclient/" title="WorldWide Telescope Web Client" target="_blank">WorldWide Telescope Web Client</a></p>
+//         <p><a href="https://orbitalmechanics.info/" title="Orbital Mechanics" target="_blank">Orbital Mechanics</a></p>
+//         <p><a href="http://svtsim.com/moonjs/agc.html" title="Moonjs: An Online Apollo Guidance Computer (AGC) Simulator" target="_blank">Online AGC</a></p>
+//       </div>
+//     </div>
+//   </main>
+//   `;
+// }
+
 function decorateGalleryPage() {
   return `
   ${decorateNavigation()}
@@ -365,7 +458,6 @@ function decorateGalleryPage() {
               <div class="lightboxgallery-gallery-item-content">
                 <span class="lightboxgallery-gallery-item-title">Intrepid LEO</span>
               </div>
-              <img src="./images/intrepid-thumb.jpg" title="Intrepid LEO" alt="Intrepid LEO">
             </div>
           </a>
           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/apollo.jpg" data-title="Apollo Instrument Panel" data-alt="Apollo Instrument Panel" data-desc="">
@@ -373,7 +465,6 @@ function decorateGalleryPage() {
               <div class="lightboxgallery-gallery-item-content">
                 <span class="lightboxgallery-gallery-item-title">Apollo Instrument Panel</span>
               </div>
-              <img src="./images/apollo-thumb.jpg" title="Apollo Instrument Panel" alt="Apollo Instrument Panel">
             </div>
           </a>
           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/arrow-18.jpg" data-title="Arrow-18 Lunar Orbit" data-alt="Arrow-18 Lunar Orbit" data-desc="">
@@ -381,7 +472,6 @@ function decorateGalleryPage() {
               <div class="lightboxgallery-gallery-item-content">
                 <span class="lightboxgallery-gallery-item-title">Arrow-18 Lunar Orbit</span>
               </div>
-              <img src="./images/arrow-18-thumb.jpg" title="Arrow-18 Lunar Orbit" alt="Arrow-18 Lunar Orbit">
             </div>
           </a>
           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/dumont.jpg" data-title="ISS Dumont" data-alt="ISS Dumont" data-desc="">
@@ -389,7 +479,6 @@ function decorateGalleryPage() {
               <div class="lightboxgallery-gallery-item-content">
                 <span class="lightboxgallery-gallery-item-title">ISS Dumont</span>
               </div>
-              <img src="./images/dumont-thumb.jpg" title="ISS Dumont" alt="ISS Dumont">
             </div>
           </a>
           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/arrow-venus.jpg" data-title="Arrow at Venus" data-alt="Arrow at Venus" data-desc="">
@@ -397,7 +486,6 @@ function decorateGalleryPage() {
               <div class="lightboxgallery-gallery-item-content">
                 <span class="lightboxgallery-gallery-item-title">Arrow at Venus</span>
               </div>
-              <img src="./images/arrow-venus-thumb.jpg" title="Arrow at Venus" alt="Arrow at Venus">
             </div>
           </a>
           <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/enterprise.jpg" data-title="USS Enterprise" data-alt="USS Enterprise" data-desc="">
@@ -405,14 +493,13 @@ function decorateGalleryPage() {
               <div class="lightboxgallery-gallery-item-content">
                 <span class="lightboxgallery-gallery-item-title">USS Enterprise</span>
               </div>
-              <img src="./images/enterprise-thumb.jpg" title="USS Enterprise" alt="USS Enterprise">
             </div>
           </a>          
         </div>
       </div>
       <h3>Useful Links</h3>
       <button class="btn-mission-title">Program / Add-ons</button>
-      <div class="result hidden" data-index="0">
+      <div class="result link hidden" data-index="0">
         <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
         <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
         <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
@@ -422,7 +509,7 @@ function decorateGalleryPage() {
         <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
       </div>
       <button class="btn-mission-title">Reference</button>
-      <div class="result hidden" data-index="1">
+      <div class="result link hidden" data-index="1">
         <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
         <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
         <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>

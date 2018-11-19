@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
   box-sizing: border-box;
   min-width: 320px;
@@ -16,7 +18,7 @@ nav,
 header,
 h2,
 h3,
-p {
+.link {
   text-align: center;
   margin: 3px 0;
 }
@@ -110,8 +112,8 @@ label[for=".select-os"] {
   width: 309px;
   height: 90px;
   margin: 3px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  /* border: none; */
+  font-family: inherit;
+  font-size: 1em;
 }
 
 .buttons-log {
@@ -126,20 +128,29 @@ label[for=".select-os"] {
 .btn-mission-title {
   display: block;
   width: 320px;
-  text-align: center;
   padding-top: 6px;
   padding-bottom: 6px;
   /* text-transform: uppercase; */
 }
 
+#btn-delete-profile {
+  display: block;
+  margin: 3px auto;
+  font-family: inherit;
+}
+
+/* #btn-delete-profile, */
 #btn-login,
 #btn-signup,
 #btn-new-mission,
 #btn-search,
-#btn-profile,
-#btn-delete-profile {
+#btn-profile {
   display: block;
-  margin: 3px auto;
+  width: 320px;
+  margin: 3px auto;  
+  padding-top: 6px;
+  padding-bottom: 6px;
+  font-family: inherit;
 }
 
 .hidden {
