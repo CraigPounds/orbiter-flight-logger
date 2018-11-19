@@ -350,27 +350,66 @@ function decorateGalleryPage() {
   <main>
     <div id="page-gallery" class="results">
       <h2>Gallery</h2>
-      <a class="sb" href="./images/challenger.jpg" title="Challenger Shuttle">
-        <img src="./images/challenger-thumb.jpg" alt="Challenger Shuttle">
-      </a>
-      <a class="sb" href="./images/intrepid.jpg" title="Intrepid">
-        <img src="./images/intrepid-thumb.jpg" alt="Intrepid">
-      </a>
-      <a class="sb" href="./images/apollo.jpg" title="Command Module Control Panel">
-        <img src="./images/apollo-thumb.jpg" alt="Command Module Control Panel">
-      </a>
-      <a class="sb" href="./images/arrow-18.jpg" title="Arrow-18 at Moon">
-        <img src="./images/arrow-18-thumb.jpg" alt="Arrow-18 at Moon">
-      </a>
-      <a class="sb" href="./images/dumont.jpg" title="Dumont">
-        <img src="./images/dumont-thumb.jpg" alt="Dumont">
-      </a>
-      <a class="sb" href="./images/arrow-venus.jpg" title="Arrow-18 at Venus">
-        <img src="./images/arrow-venus-thumb.jpg" alt="Arrow-18 at Venus">
-      </a>
-      <a class="sb" href="./images/enterprise.jpg" title="Enterprise">
-        <img src="./images/enterprise-thumb.jpg" alt="Enterprise">
-      </a>
+      <div class="results">
+        <div class="lightboxgallery-gallery clearfix">
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/challenger.jpg" data-title="Challenger Lift-off" data-alt="Challenger Lift-off" data-desc="A lightweight jQuery lightbox gallery plugin.">
+            <div>
+              <img src="./images/challenger-thumb.jpg" title="Challenger Lift-off" alt="Challenger Lift-off">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">Challenger Lift-off</span>
+              </div>
+            </div>
+          </a>
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/intrepid.jpg" data-title="Intrepid LEO" data-alt="Intrepid LEO" data-desc="A lightweight jQuery lightbox gallery plugin.">
+            <div>
+              <img src="./images/intrepid-thumb.jpg" title="Intrepid LEO" alt="Intrepid LEO">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">Intrepid LEO</span>
+              </div>
+            </div>
+          </a>
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/apollo.jpg" data-title="Apollo Instrument Panel" data-alt="Apollo Instrument Panel" data-desc="A lightweight jQuery lightbox gallery plugin.">
+            <div>
+              <img src="./images/apollo-thumb.jpg" title="Apollo Instrument Panel" alt="Apollo Instrument Panel">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">Apollo Instrument Panel</span>
+              </div>
+            </div>
+          </a>
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/arrow-18.jpg" data-title="Arrow-18 Lunar Orbit" data-alt="Arrow-18 Lunar Orbit" data-desc="">
+            <div>
+              <img src="./images/arrow-18-thumb.jpg" title="Arrow-18 Lunar Orbit" alt="Arrow-18 Lunar Orbit">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">Arrow-18 Lunar Orbit</span>
+              </div>
+            </div>
+          </a>
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/dumont.jpg" data-title="ISS Dumont" data-alt="ISS Dumont" data-desc="">
+            <div>
+              <img src="./images/dumont-thumb.jpg" title="ISS Dumont" alt="ISS Dumont">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">ISS Dumont</span>
+              </div>
+            </div>
+          </a>
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/arrow-venus.jpg" data-title="Arrow at Venus" data-alt="Arrow at Venus" data-desc="">
+            <div>
+              <img src="./images/arrow-venus-thumb.jpg" title="Arrow at Venus" alt="Arrow at Venus">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">Arrow at Venus</span>
+              </div>
+            </div>
+          </a>
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/enterprise.jpg" data-title="USS Enterprise" data-alt="USS Enterprise" data-desc="">
+            <div>
+              <img src="./images/enterprise-thumb.jpg" title="USS Enterprise" alt="USS Enterprise">
+              <div class="lightboxgallery-gallery-item-content">
+                <span class="lightboxgallery-gallery-item-title">USS Enterprise</span>
+              </div>
+            </div>
+          </a>          
+        </div>
+      </div>
       <h3>Useful Links</h3>
       <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
       <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>

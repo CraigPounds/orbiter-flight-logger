@@ -15,7 +15,8 @@ form,
 nav,
 header,
 h2,
-h3 {
+h3,
+.lightboxgallery-gallery-item-content {
   text-align: center;
   margin: 3px 0;
 }

@@ -9,8 +9,8 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/smoothbox.css">    
     <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/lightboxgallery.css">
   </head>
   <body>
     <header role="banner">
@@ -19,13 +19,26 @@
     <div id="page" aria-live="polite">      
     </div>
     <footer>
-      
+
     </footer>
     <script
       src="https://code.jquery.com/jquery-3.3.1.js"
       integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-      crossorigin="anonymous"></script>
-    <script type="text/javascript" src="scripts/utils/smoothbox.min.js"></script>
+      crossorigin="anonymous">
+    </script>
+    <script src="scripts/utils/lightboxgallery.js"></script>
+    <script type="text/javascript">
+    jQuery(function($) {
+      $(document).on('click', '.lightboxgallery-gallery-item', function(event) {
+        event.preventDefault();
+        $(this).lightboxgallery({
+          showCounter: true,
+          showTitle: true,
+          showDescription: true
+        });
+      });
+    });
+    </script>
     <script type="module" src="scripts/data/data.js"></script>
     <script type="module" src="scripts/utils/templates.js"></script>
     <script type="module" src="scripts/app.js"></script>
