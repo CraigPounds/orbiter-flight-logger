@@ -352,7 +352,7 @@ function decorateGalleryPage() {
       <h2>Gallery</h2>
       <div class="results">
         <div class="lightboxgallery-gallery clearfix">
-          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/challenger.jpg" data-title="Challenger Lift-off" data-alt="Challenger Lift-off" data-desc="A lightweight jQuery lightbox gallery plugin.">
+          <a class="lightboxgallery-gallery-item" target="_blank" href="./images/challenger.jpg" data-title="Challenger Lift-off" data-alt="Challenger Lift-off" data-desc="">
             <div>
               <img src="./images/challenger-thumb.jpg" title="Challenger Lift-off" alt="Challenger Lift-off">
               <div class="lightboxgallery-gallery-item-content">
@@ -360,7 +360,7 @@ function decorateGalleryPage() {
               </div>
             </div>
           </a>
-          <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/intrepid.jpg" data-title="Intrepid LEO" data-alt="Intrepid LEO" data-desc="A lightweight jQuery lightbox gallery plugin.">
+          <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/intrepid.jpg" data-title="Intrepid LEO" data-alt="Intrepid LEO" data-desc="">
             <div>
               <img src="./images/intrepid-thumb.jpg" title="Intrepid LEO" alt="Intrepid LEO">
               <div class="lightboxgallery-gallery-item-content">
@@ -368,7 +368,7 @@ function decorateGalleryPage() {
               </div>
             </div>
           </a>
-          <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/apollo.jpg" data-title="Apollo Instrument Panel" data-alt="Apollo Instrument Panel" data-desc="A lightweight jQuery lightbox gallery plugin.">
+          <a class="lightboxgallery-gallery-item hidden" target="_blank" href="./images/apollo.jpg" data-title="Apollo Instrument Panel" data-alt="Apollo Instrument Panel" data-desc="">
             <div>
               <img src="./images/apollo-thumb.jpg" title="Apollo Instrument Panel" alt="Apollo Instrument Panel">
               <div class="lightboxgallery-gallery-item-content">
