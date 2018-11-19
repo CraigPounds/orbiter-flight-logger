@@ -350,7 +350,27 @@ function decorateGalleryPage() {
   <main>
     <div id="page-gallery">
       <h2>Gallery</h2>
-      <img src="./images/challenger.jpg" alt="Challenger Shuttle">
+      <a class="sb" href="./images/challenger.jpg" title="Challenger Shuttle">
+        <img src="./images/challenger-thumb.jpg" alt="Challenger Shuttle">
+      </a>
+      <a class="sb" href="./images/intrepid.jpg" title="Intrepid">
+        <img src="./images/intrepid-thumb.jpg" alt="Intrepid">
+      </a>
+      <a class="sb" href="./images/apollo.jpg" title="Command Module Control Panel">
+        <img src="./images/apollo-thumb.jpg" alt="Command Module Control Panel">
+      </a>
+      <a class="sb" href="./images/arrow-18.jpg" title="Arrow-18 at Moon">
+        <img src="./images/arrow-18-thumb.jpg" alt="Arrow-18 at Moon">
+      </a>
+      <a class="sb" href="./images/dumont.jpg" title="Dumont">
+        <img src="./images/dumont-thumb.jpg" alt="Dumont">
+      </a>
+      <a class="sb" href="./images/arrow-venus.jpg" title="Arrow-18 at Venus">
+        <img src="./images/arrow-venus-thumb.jpg" alt="Arrow-18 at Venus">
+      </a>
+      <a class="sb" href="./images/enterprise.jpg" title="Enterprise">
+        <img src="./images/enterprise-thumb.jpg" alt="Enterprise">
+      </a>
     </div>
   </main>
   `;
