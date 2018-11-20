@@ -10,31 +10,31 @@ const DATA = {
   images: [
     {
       title: 'Challenger Lift-off',
-      link: './images/challenger.jpg'
+      src: './images/challenger.jpg'
     },
     {
       title: 'Intrepid LEO',
-      link: './images/intrepid.jpg',
+      src: './images/intrepid.jpg',
     },
     {
       title: 'Apollo Instrument Panel',
-      link: './images/apollo.jpg'
+      src: './images/apollo.jpg'
     },
     {
       title: 'Arrow-18 Lunar Orbit',
-      link: './images/arrow-18.jpg',
+      src: './images/arrow-18.jpg',
     },
     {
       title: 'ISS Dumont',
-      link: './images/dumont.jpg',
+      src: './images/dumont.jpg',
     },
     {
       title: 'Arrow at Venus',
-      link: './images/arrow-venus.jpg',
+      src: './images/arrow-venus.jpg',
     },
     {
       title: 'USS Enterprise',
-      link: './images/enterprise.jpg',
+      src: './images/enterprise.jpg',
     }
   ]
 };

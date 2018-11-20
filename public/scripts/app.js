@@ -284,11 +284,12 @@ function refreshCb(data) {
 
 function handleBtnDeleteProfile(event) {
   event.preventDefault();
-
   const DELETE_PROFILE = prompt('Are you sure you want to delete your profile?', 'yes');
-  if (DELETE_PROFILE === 'yes') {
+  if (DELETE_PROFILE === 'yes' && $('#password').val().trim() === $('#retype-password').val().trim() && $('#password').val().trim() === DATA.user.password) {
     deleteApiUser(DATA.user._id);
     deleteApiLog({ user_id: DATA.user._id }, logout);
+  } else {
+    alert('Correct password required');
   }
 }
 
@@ -577,14 +578,9 @@ function preloadImages() {
   DATA.preloadImg = [];
   DATA.images.forEach(image => {
     var img = new Image();
-    img.src = image.link;
+    img.src = image.src;
     DATA.preloadImg.push(img);
   });
-  // DATA.finalResults.forEach(result => {
-  //   var img = new Image();
-  //   img.src = result.image.src;
-  //   DATA.preloadImg.push(img);
-  // });
 }
 
 function attachListeners() {

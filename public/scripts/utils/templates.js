@@ -29,11 +29,11 @@ function decorateNavigation() {
 }
 
 function decorateLog(log) {
+  let index = log._id ? log._id : `${$('.log').length}`;
+  let date = log.date ? log.date : '';
   let title = log.title ? log.title : '';
   let vessel = log.vessel ? log.vessel : '';
-  let date = log.date ? log.date : '';
   let logEntry = log.log ? log.log : '';
-  let index = log._id ? log._id : `new-log-${$('.log').length}`;
   return `
     <div class="log" data-index="${index}">
       <label for=".log-title">Title
@@ -83,8 +83,8 @@ function decorateLogs(logs) {
 function decorateMission(mission) {
   let formClass = '';
   let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
-  let title = mission.title ? mission.title : 'New Mission';
-  let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
+  let index = mission._id ? mission._id : `${$('.btn-mission-title' ).length}`;
+  let title = mission.title ? mission.title : `New Mission ${$('.btn-mission-title' ).length + 1}`;
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
@@ -348,7 +348,7 @@ function decorateGalleryPage() {
   let links = DATA.images.map((image, i) => {
     let thumbnail = i > 0 ? '' : '<img src="./images/challenger-thumb.jpg" title="${image.title}" alt="${image.title}">';
     return `
-    <a class="lightboxgallery-gallery-item" target="_blank" href="${image.link}" data-title="${image.title}" data-alt="${image.title}" data-desc="">
+    <a class="lightboxgallery-gallery-item" target="_blank" href="${image.src}" data-title="${image.title}" data-alt="${image.title}" data-desc="">
       <div>
         <div class="lightboxgallery-gallery-item-content">
           <span class="lightboxgallery-gallery-item-title"></span>
