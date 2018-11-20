@@ -573,6 +573,20 @@ function loginUser(data) {
   pageHome();
 }
 
+function preloadImages() {
+  DATA.preloadImg = [];
+  DATA.images.forEach(image => {
+    var img = new Image();
+    img.src = image.link;
+    DATA.preloadImg.push(img);
+  });
+  // DATA.finalResults.forEach(result => {
+  //   var img = new Image();
+  //   img.src = result.image.src;
+  //   DATA.preloadImg.push(img);
+  // });
+}
+
 function attachListeners() {
   $('#page').on('click', '#nav-signup', renderPageSignUp);
   $('#page').on('click', '#nav-login', renderPageLogin);
@@ -615,6 +629,7 @@ function attachListeners() {
 
 function setUp() {
   logout();
+  preloadImages();
 }
 
 export { attachListeners, setUp, getSearchData };
