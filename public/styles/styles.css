@@ -126,21 +126,8 @@ label[for=".select-os"] {
   text-align: center; 
 }
 
-.btn-mission-title {
-  display: block;
-  width: 320px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  /* text-transform: uppercase; */
-}
-
-#btn-delete-profile {
-  display: block;
-  margin: 3px auto;
-  font-family: inherit;
-}
-
-/* #btn-delete-profile, */
+.btn-mission-title,
+#btn-delete-profile,
 #btn-login,
 #btn-signup,
 #btn-new-mission,

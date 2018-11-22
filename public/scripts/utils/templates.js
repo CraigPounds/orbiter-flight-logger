@@ -298,8 +298,7 @@ function decorateProfilePage(data) {
   ${decorateNavigation()}
   <main>
     <div id="page-profile">
-      <h2>Edit Profile</h2>
-      <button id="btn-delete-profile">DELETE PROFILE</button>
+      <h2>Edit Profile</h2>      
       <form action="#" class="form-profile">
         <fieldset role="group">
           <label for="#first-name">First Name
@@ -321,6 +320,7 @@ function decorateProfilePage(data) {
             <input type="password" id="retype-password" class="user-input" required placeholder="password">
           </label>
           <input type="submit" id="btn-profile" value="SUBMIT">
+          <button id="btn-delete-profile">DELETE PROFILE</button>
         </fieldset>        
       </form>
     </div>

@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Missing field',
+      message: 'missing field',
       location: missingField
     });
   }
@@ -27,7 +27,7 @@ router.post('/', (req, res) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Incorrect field type: expected string',
+      message: 'incorrect field type: expected string',
       location: nonStringField
     });
   }
@@ -39,7 +39,7 @@ router.post('/', (req, res) => {
     return res.status(422).json({
       code: 422,
       reason: 'ValidationError',
-      message: 'Cannot start or end with whitespace',
+      message: 'cannot start or end with whitespace',
       location: nonTrimmedField
     });
   }
@@ -67,9 +67,9 @@ router.post('/', (req, res) => {
       code: 422,
       reason: 'ValidationError',
       message: tooSmallField
-        ? `Must be at least ${sizedFields[tooSmallField]
+        ? `must be at least ${sizedFields[tooSmallField]
           .min} characters long`
-        : `Must be at most ${sizedFields[tooLargeField]
+        : `must be at most ${sizedFields[tooLargeField]
           .max} characters long`,
       location: tooSmallField || tooLargeField
     });
@@ -87,7 +87,7 @@ router.post('/', (req, res) => {
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
-          message: 'Username already taken',
+          message: 'already taken',
           location: 'username'
         });
       }
@@ -112,7 +112,7 @@ router.post('/', (req, res) => {
       if (err.reason === 'ValidationError') {
         return res.status(err.code).json(err);
       }
-      res.status(500).json({code: 500, message: 'Internal server error'});
+      res.status(500).json({code: 500, message: 'internal server error'});
     });
 });
 
@@ -126,7 +126,7 @@ router.get('/', jwtAuth, (req, res) => {
     })
     .catch(err => {
       console.error(err);
-      res.status(500).json({ message: 'Internal server error'});
+      res.status(500).json({ message: 'internal server error'});
     });
 });
 
@@ -136,7 +136,7 @@ router.get('/:id', jwtAuth, (req, res) => {
     .then(user => res.json(user.serialize()))
     .catch(err => {
       console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'internal server error' });
     });
 });
 
@@ -147,66 +147,66 @@ router.put('/:id', jwtAuth, (req, res) => {
     });
   }
 
-  // const stringFields = ['firstName', 'lastName', 'email', 'username', 'password'];
-  // const nonStringField = stringFields.find(
-  //   field => field in req.body && typeof req.body[field] !== 'string'
-  // );
-  // if (nonStringField) {
-  //   return res.status(422).json({
-  //     code: 422,
-  //     reason: 'ValidationError',
-  //     message: 'Incorrect field type: expected string',
-  //     location: nonStringField
-  //   });
-  // }
-  // const explicityTrimmedFields = ['username', 'password'];
-  // const nonTrimmedField = explicityTrimmedFields.find(
-  //   field => req.body[field].trim() !== req.body[field]
-  // );
-  // if (nonTrimmedField) {
-  //   return res.status(422).json({
-  //     code: 422,
-  //     reason: 'ValidationError',
-  //     message: 'Cannot start or end with whitespace',
-  //     location: nonTrimmedField
-  //   });
-  // }
-  // const sizedFields = {
-  //   username: {
-  //     min: 1
-  //   },
-  //   password: {
-  //     min: 10,
-  //     max: 72
-  //   }
-  // };
-  // const tooSmallField = Object.keys(sizedFields).find(
-  //   field =>
-  //     'min' in sizedFields[field] &&
-  //           req.body[field].trim().length < sizedFields[field].min
-  // );
-  // const tooLargeField = Object.keys(sizedFields).find(
-  //   field =>
-  //     'max' in sizedFields[field] &&
-  //           req.body[field].trim().length > sizedFields[field].max
-  // );
-  // if (tooSmallField || tooLargeField) {
-  //   return res.status(422).json({
-  //     code: 422,
-  //     reason: 'ValidationError',
-  //     message: tooSmallField
-  //       ? `Must be at least ${sizedFields[tooSmallField]
-  //         .min} characters long`
-  //       : `Must be at most ${sizedFields[tooLargeField]
-  //         .max} characters long`,
-  //     location: tooSmallField || tooLargeField
-  //   });
-  // }
-  // let { firstName = '', lastName = '', email = '', username, password } = req.body;
-  // // username, password are pre-trimmed else we throw error before now
-  // firstName = firstName.trim();
-  // lastName = lastName.trim();
-  // email = email.trim();
+  const stringFields = ['firstName', 'lastName', 'email', 'username', 'password'];
+  const nonStringField = stringFields.find(
+    field => field in req.body && typeof req.body[field] !== 'string'
+  );
+  if (nonStringField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'incorrect field type: expected string',
+      location: nonStringField
+    });
+  }
+  const explicityTrimmedFields = ['username', 'password'];
+  const nonTrimmedField = explicityTrimmedFields.find(
+    field => req.body[field].trim() !== req.body[field]
+  );
+  if (nonTrimmedField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'cannot start or end with whitespace',
+      location: nonTrimmedField
+    });
+  }
+  const sizedFields = {
+    username: {
+      min: 1
+    },
+    password: {
+      min: 10,
+      max: 72
+    }
+  };
+  const tooSmallField = Object.keys(sizedFields).find(
+    field =>
+      'min' in sizedFields[field] &&
+            req.body[field].trim().length < sizedFields[field].min
+  );
+  const tooLargeField = Object.keys(sizedFields).find(
+    field =>
+      'max' in sizedFields[field] &&
+            req.body[field].trim().length > sizedFields[field].max
+  );
+  if (tooSmallField || tooLargeField) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: tooSmallField
+        ? `must be at least ${sizedFields[tooSmallField]
+          .min} characters long`
+        : `must be at most ${sizedFields[tooLargeField]
+          .max} characters long`,
+      location: tooSmallField || tooLargeField
+    });
+  }
+  let { firstName = '', lastName = '', email = '', username, password } = req.body;
+  // username, password are pre-trimmed else we throw error before now
+  firstName = firstName.trim();
+  lastName = lastName.trim();
+  email = email.trim();
 
   const updated = {};
   const updateableFields = ['firstName', 'lastName', 'username', 'email', 'password'];  
@@ -225,12 +225,12 @@ router.put('/:id', jwtAuth, (req, res) => {
     .findOne({ username: updated.username || '', _id: { $ne: req.params.id } })    
     .then(user => {
       if(user) {
-        const message = 'Username already exists';
+        const message = 'username already exists';
         console.error(message);
         return res.status(400).send({
           code: 422,
           reason: 'ValidationError',
-          message: 'Username already taken',
+          message: 'already taken',
           location: 'username'
         });
       }
@@ -258,12 +258,12 @@ router.delete('/:id', jwtAuth, (req, res) => {
     })
     .catch(err => { 
       console.error(err);
-      res.status(500).json({ message: 'Internal server error'});
+      res.status(500).json({ message: 'internal server error'});
     });
 });
 
 router.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
+  return res.status(404).json({ message: 'not found' });
 });
 
 module.exports = { router };

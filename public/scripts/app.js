@@ -14,7 +14,8 @@ function postApiUser(data, callback) {
   };
   $.ajax(settings).fail(function(data) {
     console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);    
+    console.error('Message:', data.responseJSON.message);
+    alert(`${data.responseJSON.location.charAt(0).toUpperCase() + data.responseJSON.location.substr(1)} ${ data.responseJSON.message}.`);
   });
 }
 
@@ -29,6 +30,7 @@ function postApiUserLogin(data, callback) {
   };
   $.ajax(settings).fail(function() {
     console.error('Incorrect username or password');
+    alert('Incorrect username or password.');
   });
 }
 
@@ -90,7 +92,8 @@ function putApiUser(data, callback) {
   };
   $.ajax(settings).fail(function(data) {
     console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);    
+    console.error('Message:', data.responseJSON.message);
+    alert(`${data.responseJSON.location.charAt(0).toUpperCase() + data.responseJSON.location.substr(1)} ${ data.responseJSON.message}.`);
   });
 }
 
@@ -251,8 +254,12 @@ function deleteApiLog(data, callback) {
 
 function handleSubmitPostUser(event) {
   event.preventDefault();
-  DATA.user = getUserFormData();
-  postApiUser(DATA.user, renderPageLogin);  
+  if ($('#password').val().trim() === $('#retype-password').val().trim()) {
+    DATA.user = getUserFormData();
+    postApiUser(DATA.user, renderPageLogin);
+  } else {
+    alert('Passwords must match.');
+  }
 }
 
 function handleSubmitLogin(event) {
@@ -274,6 +281,8 @@ function handleSubmitPutApiUser(event) {
     DATA.user = data;
     postApiUserRefresh(data, refreshCb);
     putApiUser(data, renderPageLogin);
+  } else {
+    alert('Passwords must match.');
   }
 }
 
@@ -289,7 +298,7 @@ function handleBtnDeleteProfile(event) {
     deleteApiUser(DATA.user._id);
     deleteApiLog({ user_id: DATA.user._id }, logout);
   } else {
-    alert('Correct password required');
+    alert('Correct password required.');
   }
 }
 
@@ -452,7 +461,7 @@ function renderPageSearch() {
 
 function renderSearchResults(data) {
   if (data.missions.length < 1) {
-    alert('Search yeilds no results');
+    alert('Search yeilds no results.');
     renderPageSearch();
   } else {
     DATA.missions = data.missions;
