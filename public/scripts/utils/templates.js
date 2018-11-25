@@ -53,8 +53,9 @@ function decorateLog(log) {
 }
 
 function decorateLogs(logs) {
-  let deleteButton = DATA.dataSaved && logs.length > 1 ? '<button class="btn-delete-log">DELETE LOG</button>' : '';
+  let deleteButton = DATA.dataSaved && logs.length > 1 ? '<button class="btn-delete-log btn-small">DELETE LOG</button>' : '';
   return logs.map((log, i) => {
+    let newLogButton = DATA.dataSaved && i === logs.length - 1 ? '<button id="btn-new-log" class="btn-small">NEW LOG</button>' : '';
     let title = log.title ? log.title : '';
     let vessel = log.vessel ? log.vessel : '';
     let date = log.date ? log.date : '';
@@ -72,7 +73,8 @@ function decorateLogs(logs) {
         <input type="text" class="date user-input" required value="${date}">
       </label>
       <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
-      <div class="buttons-log">        
+      <div class="buttons-log">
+        ${newLogButton}      
         ${deleteButton}
       </div>
     </div>
@@ -81,23 +83,22 @@ function decorateLogs(logs) {
 }
 
 function decorateMission(mission) {
-  let formClass = '';
   let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
   let index = mission._id ? mission._id : `${$('.btn-mission-title' ).length}`;
-  let title = mission.title ? mission.title : `New Mission ${$('.btn-mission-title' ).length + 1}`;
+  let title = mission.title ? mission.title : `Mission ${$('.btn-mission-title' ).length + 1}`;
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose Version--';
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
-  let newLogButton = DATA.dataSaved ? '<button id="btn-new-log">NEW LOG</button>' : '';
+  let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission" class="btn-small">DELETE MISSION</button>' : '';
+  let formClass = '';
   let saveButton = '';
-  let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission">DELETE MISSION</button>' : '';
   
   if (mission._id) {
     formClass = 'form-put-mission';
-    saveButton = '<input type="submit" id="btn-put-mission" value="UPDATE">';
+    saveButton = '<input type="submit" id="btn-put-mission" class="btn-small" value="UPDATE">';
   } else {
     formClass = 'form-post-mission';
-    saveButton = '<input type="submit" id="btn-save-mission" value="SAVE MISSION">';
+    saveButton = '<input type="submit" id="btn-save-mission" class="btn-small" value="SAVE MISSION">';
   }
   return `
     <button class="btn-mission-title">${title}</button>
@@ -132,8 +133,7 @@ function decorateMission(mission) {
             </div>
             <div class="buttons-mission">
             ${saveButton}
-            ${deleteButton}
-            ${newLogButton}
+            ${deleteButton}            
             </div>
           </fieldset>
         </div>
@@ -223,9 +223,9 @@ function decorateSearchPage(data) {
             <option value="Other">Other</option>
           </select>
           <label for="#search-text">Vessel
-            <input type="text" id="search-text" placeholder="Apollo 18">
+            <input type="text" id="search-text" class="search-text" placeholder="Apollo 18">
           </label>
-          <input type="submit" id="btn-search" value="SEARCH">
+          <input type="submit" id="btn-search" class="btn end" value="SEARCH">
         </fieldset>
       </form>
       <div class="results">
@@ -247,11 +247,11 @@ function decorateLoginPage(data) {
       <form action="#" class="form-login">
         <fieldset role="group">
           <label for="#user-name">User Name
-            <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required placeholder="username">
+            <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required placeholder="password">
-          <input type="submit" id="btn-login" value="LOG IN">
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+          <input type="submit" id="btn-login" class="btn" value="LOG IN">
         </fieldset>
       </form>
     </div>
@@ -280,12 +280,12 @@ function decorateSignupPage() {
             <input type="text" id="user-name" class="user-input" required placeholder="user name">
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" required placeholder="password">
+            <input type="password" id="password" class="user-input" required>
           </label>
           <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" class="user-input" required placeholder="password">
+            <input type="password" id="retype-password" class="user-input" required>
           </label>
-          <input type="submit" id="btn-signup" value="SIGN UP">
+          <input type="submit" id="btn-signup" class="btn" value="SIGN UP">
         </fieldset>
       </form>
     </div>
@@ -293,7 +293,7 @@ function decorateSignupPage() {
   `;
 }
 
-function decorateProfilePage(data) {
+function decorateProfilePage() {
   return `
   ${decorateNavigation()}
   <main>
@@ -314,13 +314,13 @@ function decorateProfilePage(data) {
             <input type="text" id="user-name" class="user-input" required value=${DATA.user.username}>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" required value=${DATA.user.password} placeholder="password">
+            <input type="password" id="password" class="user-input" required value=${DATA.user.password}>
           </label>
           <label for="#retype-password">Retype Password
-            <input type="password" id="retype-password" class="user-input" required placeholder="password">
+            <input type="password" id="retype-password" class="user-input" required>
           </label>
-          <input type="submit" id="btn-profile" value="SUBMIT">
-          <button id="btn-delete-profile">DELETE PROFILE</button>
+          <input type="submit" id="btn-profile" class="btn" value="SUBMIT">
+          <button id="btn-delete-profile" class="btn">DELETE PROFILE</button>
         </fieldset>        
       </form>
     </div>
@@ -328,7 +328,7 @@ function decorateProfilePage(data) {
   `;
 }
 
-function decorateHomePage(data) {
+function decorateHomePage() {
   const MISSIONS = DATA.missions.length > 0 ? decorateMissions(DATA.missions) : '';
   return `
   ${decorateNavigation()}
@@ -338,7 +338,7 @@ function decorateHomePage(data) {
       <div class="results">     
         ${MISSIONS}
       </div>
-      <button id="btn-new-mission">NEW MISSION</button>
+      <button id="btn-new-mission" class="btn">NEW MISSION</button>
     </div>
   </main>
   `;

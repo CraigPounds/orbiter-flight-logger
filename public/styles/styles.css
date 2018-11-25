@@ -31,7 +31,6 @@ nav ul {
 nav li {
   display: inline;
   padding: 6px 9px;
-  border: 1px solid black;
 }
 
 nav a {
@@ -123,22 +122,35 @@ label[for=".select-os"] {
 
 .buttons-mission,
 .buttons-log {
-  text-align: center; 
+  text-align: center;
 }
 
 .btn-mission-title,
-#btn-delete-profile,
-#btn-login,
-#btn-signup,
-#btn-new-mission,
-#btn-search,
-#btn-profile {
+.btn {
   display: block;
   width: 320px;
   margin: 3px auto;  
   padding-top: 6px;
   padding-bottom: 6px;
   font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: #BBDEFB;
+}
+
+.end {
+  margin-bottom: 0;
+}
+
+.btn-small {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: #BBDEFB;
+}
+
+li {
+  background: #BBDEFB;
 }
 
 .hidden {
@@ -148,10 +160,26 @@ label[for=".select-os"] {
 body,
 .log,
 .search-log {
-  background: #c0c0c0;
+  background: #1976D2;
 }
 
-li,
 .result {
-  background: #e8e8e8;
+  background: #448AFF;
+}
+
+/** Responsive CSS **/
+@media only screen and (min-width: 640px) {
+  
+}
+
+@media only screen and (min-width: 800px) {
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+}
+
+@media only screen and (min-width: 1366px) {
+  
 }

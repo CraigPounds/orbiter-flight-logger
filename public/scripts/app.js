@@ -322,7 +322,7 @@ function handleBtnNewLog(event) {
   DATA.dataSaved = false;
   $(event.currentTarget).hide();
   $(event.currentTarget).closest('.form-put-mission').attr('class','form-put-post-log');
-  $(event.currentTarget).parent().siblings('.flight-logs')
+  $(event.currentTarget).parent()
     .append(decorateLog({
       title: '',
       vessel: '',
