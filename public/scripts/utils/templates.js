@@ -87,7 +87,7 @@ function decorateMission(mission) {
   let index = mission._id ? mission._id : `${$('.btn-mission-title' ).length}`;
   let title = mission.title ? mission.title : `Mission ${$('.btn-mission-title' ).length + 1}`;
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
-  let os = mission.os ? mission.os : '--Choose Version--';
+  let os = mission.os ? mission.os : '--Choose System--';
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
   let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission" class="btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
@@ -175,7 +175,7 @@ function decorateSearchMissions(missions) {
   });
   return searchedMissions.map((mission) => {
     let version = mission ? mission.orbiterVersion : '--Choose Version--';
-    let os = mission ? mission.os : '--Choose Version--';
+    let os = mission ? mission.os : '--Choose System--';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
