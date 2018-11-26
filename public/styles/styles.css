@@ -10,7 +10,7 @@ body {
 
 form,
 .results {
-  width: 320px;
+  width: 316px;
   margin: 0 auto;
 }
 
@@ -97,15 +97,16 @@ label[for=".select-os"] {
 .select-os,
 .title,
 .search-text {
-  width: 173px;
+  width: 169px;
   margin: 1px 6px 1px 3px;
   border: none;
 }
 
 .txt-log-entry {
-  width: 309px;
+  display: block;
+  margin: 3px auto;
+  width: 298px;
   height: 90px;
-  margin: 3px 0;
   font-family: inherit;
   font-size: 1em;
 }
@@ -122,7 +123,7 @@ label[for=".select-os"] {
 .btn-mission-title,
 .btn {
   display: block;
-  width: 320px;
+  width: 316px;
   margin: 3px auto;  
   padding-top: 6px;
   padding-bottom: 6px;
