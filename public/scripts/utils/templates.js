@@ -35,7 +35,7 @@ function decorateLog(log) {
   let vessel = log.vessel ? log.vessel : '';
   let logEntry = log.log ? log.log : '';
   return `
-    <div class="log" data-index="${index}">
+    <article class="log" data-index="${index}">
       <label for=".log-title">Title
         <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
       </label>
@@ -48,7 +48,7 @@ function decorateLog(log) {
       <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
       <div class="buttons-log">    
       </div>
-    </div>
+    </article>
     `;
 }
 
@@ -62,7 +62,7 @@ function decorateLogs(logs) {
     let logEntry = log.log ? log.log : '';
     let index = log._id ? log._id : `new-log-${$('.log').length}`;
     return `
-    <div class="log" data-index="${index}">
+    <article class="log" data-index="${index}">
       <label for=".log-title">Title
         <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
       </label>
@@ -77,7 +77,7 @@ function decorateLogs(logs) {
         ${newLogButton}      
         ${deleteButton}
       </div>
-    </div>
+    </article>
     `;
   }).join('');
 }
@@ -103,7 +103,7 @@ function decorateMission(mission) {
   }
   return `
     <button class="${buttonTitleClass}">${title}</button>
-    <div class="${resultClass}" data-index="${index}">
+    <section class="${resultClass}" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
           <fieldset role="group">            
@@ -139,7 +139,7 @@ function decorateMission(mission) {
           </fieldset>
         </div>
       </form>
-    </div>
+    </section>
     `;
 }
 
@@ -153,12 +153,12 @@ function decorateSearchLogs(logs) {
   return logs.map((log) => {
     let index = log._id ? log._id : `new-log-${$('.log').length}`;
     return `    
-    <div class="search-log" data-index="${index}">
+    <article class="search-log" data-index="${index}">
       <p>Title: ${log.title}</p>
       <p>Vessel: ${log.vessel}</p>
       <p>Data: ${log.date}</p>
       <p>Log: ${log.log}</p>
-    </div>
+    </article>
     `;
   }).join('');
 }
@@ -181,7 +181,7 @@ function decorateSearchMissions(missions) {
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
     return `
     <button class="btn-mission-title">${title}</button>
-    <div class="result hidden" data-index="${index}">
+    <section class="result hidden" data-index="${index}">
       <div class="mission">        
         <p>${title}</p>
         <p>${version}</p>
@@ -190,7 +190,7 @@ function decorateSearchMissions(missions) {
           ${logs}
         </div>            
       </div>
-    </div>
+    </section>
     `;
   }).join('');
 }
@@ -371,26 +371,28 @@ function decorateGalleryPage() {
         </div>
       </div>
       <h3>Useful Links</h3>
-      <button class="btn-mission-title">Orbiter / Add-ons</button>
-      <div class="result link hidden" data-index="0">
-        <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
-        <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
-        <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
-        <p><a href="http://orbiter.dansteph.com/" title="Dan's Orbiter Page" target="_blank">Dan's Orbiter Page</a></p>
-        <p><a href="http://francophone.dansteph.com/?page=home" title="Pappy's Hangar" target="_blank">Pappy's Hangar</a></p>
-        <p><a href="https://www.acsoft.ch/AMSO/amso.html" title="Apollo Mission Sim for Orbiter" target="_blank">ASMO</a></p>
-        <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
-      </div>
-      <button class="btn-mission-title">Reference</button>
-      <div class="result link hidden" data-index="1">
-        <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
-        <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
-        <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>
-        <p><a href="https://skyvector.com/" title="SkyVector: Flight Planner" target="_blank">SkyVector: Flight Planner</a></p>
-        <p><a href="https://in-the-sky.org/skymap.php" title="The In-The-Sky.org Planetarium" target="_blank">Planeterium</a></p>
-        <p><a href="http://www.worldwidetelescope.org/webclient/" title="WorldWide Telescope Web Client" target="_blank">WorldWide Telescope Web Client</a></p>
-        <p><a href="https://orbitalmechanics.info/" title="Orbital Mechanics" target="_blank">Orbital Mechanics</a></p>
-        <p><a href="http://svtsim.com/moonjs/agc.html" title="Moonjs: An Online Apollo Guidance Computer (AGC) Simulator" target="_blank">Online AGC</a></p>
+      <div class="results">
+        <button class="btn-mission-title">Orbiter / Add-ons</button>
+        <div class="result link hidden" data-index="0">
+          <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
+          <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
+          <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
+          <p><a href="http://orbiter.dansteph.com/" title="Dan's Orbiter Page" target="_blank">Dan's Orbiter Page</a></p>
+          <p><a href="http://francophone.dansteph.com/?page=home" title="Pappy's Hangar" target="_blank">Pappy's Hangar</a></p>
+          <p><a href="https://www.acsoft.ch/AMSO/amso.html" title="Apollo Mission Sim for Orbiter" target="_blank">ASMO</a></p>
+          <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
+        </div>
+        <button class="btn-mission-title">Reference</button>
+        <div class="result link hidden" data-index="1">
+          <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
+          <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
+          <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>
+          <p><a href="https://skyvector.com/" title="SkyVector: Flight Planner" target="_blank">SkyVector: Flight Planner</a></p>
+          <p><a href="https://in-the-sky.org/skymap.php" title="The In-The-Sky.org Planetarium" target="_blank">Planeterium</a></p>
+          <p><a href="http://www.worldwidetelescope.org/webclient/" title="WorldWide Telescope Web Client" target="_blank">WorldWide Telescope Web Client</a></p>
+          <p><a href="https://orbitalmechanics.info/" title="Orbital Mechanics" target="_blank">Orbital Mechanics</a></p>
+          <p><a href="http://svtsim.com/moonjs/agc.html" title="Moonjs: An Online Apollo Guidance Computer (AGC) Simulator" target="_blank">Online AGC</a></p>
+        </div>
       </div>
     </div>
   </main>
