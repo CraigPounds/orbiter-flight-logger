@@ -47,7 +47,7 @@ function decorateLog(log) {
         <input type="text" class="date user-input" required value="${date}">
       </label>
       <label for=".txt-log-entry">Log</label>
-        <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>      
       <div class="buttons-log">    
       </div>
     </article>
@@ -75,7 +75,7 @@ function decorateLogs(logs) {
         <input type="text" class="date user-input" required value="${date}">
       </label>
       <label for=".txt-log-entry">Log</label>
-        <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>      
       <div class="buttons-log">
         ${newLogButton}      
         ${deleteButton}
