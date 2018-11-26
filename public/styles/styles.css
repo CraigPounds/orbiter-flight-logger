@@ -30,7 +30,8 @@ nav ul {
 
 nav li {
   display: inline;
-  padding: 6px 9px;
+  padding: 6px 11px;
+  background: #BBDEFB;
 }
 
 nav a {
@@ -89,23 +90,16 @@ label[for=".select-os"] {
 .user-input {
   width: 170px;
   margin: 1px 3px;
-}
-.select-version,
-.select-os {
-  width: 173px;
-}
-.title {
-  width: 169px;
+  border: none;
 }
 
 .select-version,
 .select-os,
-.title {
-  margin: 1px 6px 1px 3px;
-}
-
+.title,
 .search-text {
-  width: 132px;
+  width: 173px;
+  margin: 1px 6px 1px 3px;
+  border: none;
 }
 
 .txt-log-entry {
@@ -149,10 +143,6 @@ label[for=".select-os"] {
   background: #BBDEFB;
 }
 
-li {
-  background: #BBDEFB;
-}
-
 .hidden {
   display: none;
 }
@@ -163,8 +153,9 @@ body,
   background: #1976D2;
 }
 
-.result {
-  background: #448AFF;
+/* .result, */
+.mission {
+  background: #BBDEFB;
 }
 
 /** Responsive CSS **/

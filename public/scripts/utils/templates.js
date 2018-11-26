@@ -90,6 +90,7 @@ function decorateMission(mission) {
   let os = mission.os ? mission.os : '--Choose Version--';
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
   let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission" class="btn-small">DELETE MISSION</button>' : '';
+  let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
   let formClass = '';
   let saveButton = '';
   
@@ -98,14 +99,17 @@ function decorateMission(mission) {
     saveButton = '<input type="submit" id="btn-put-mission" class="btn-small" value="UPDATE">';
   } else {
     formClass = 'form-post-mission';
-    saveButton = '<input type="submit" id="btn-save-mission" class="btn-small" value="SAVE MISSION">';
+    saveButton = '<input type="submit" id="btn-save-mission" class="btn end" value="SAVE MISSION">';
   }
   return `
-    <button class="btn-mission-title">${title}</button>
+    <button class="${buttonTitleClass}">${title}</button>
     <div class="${resultClass}" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
           <fieldset role="group">            
+            <label for=".title">Flight
+              <input type="text" class="title" value="${title}" placeholder="Untitled Mission" required>
+            </label>   
             <label for=".select-version">Orbiter Version</label>
             <select class="select-version">
               <option value="${version}">${version}</option>
@@ -125,9 +129,6 @@ function decorateMission(mission) {
               <option value="Windows 2000">Windows 2000</option>
               <option value="Other">Other</option>
             </select>
-            <label for=".title">Flight
-              <input type="text" class="title" value="${title}" placeholder="Untitled Mission" required>
-            </label>   
             <div class="flight-logs">
               ${logs}
             </div>
@@ -182,9 +183,9 @@ function decorateSearchMissions(missions) {
     <button class="btn-mission-title">${title}</button>
     <div class="result hidden" data-index="${index}">
       <div class="mission">        
+        <p>${title}</p>
         <p>${version}</p>
         <p>${os}</p>
-        <p>${title}</p>
         <div class="flight-logs">
           ${logs}
         </div>            
@@ -204,7 +205,7 @@ function decorateSearchPage(data) {
       <form action="#" class="form-search">
         <fieldset role="group">
           <label for="#select-version">Orbiter Version</label>
-          <select id="select-version">
+          <select id="select-version" class="select-version">
             <option value="">--Choose Version--</option>
             <option value="Orbiter 2016">Orbiter 2016</option>
             <option value="Orbiter 2010">Orbiter 2010</option>
@@ -212,8 +213,8 @@ function decorateSearchPage(data) {
             <option value="Orbiter 2005">Orbiter 2005</option>
           </select>
           <label for="#select-os">Operating System</label>
-          <select id="select-os">
-            <option value="">--Choose Version--</option>
+          <select id="select-os" class="select-os">
+            <option value="">--Choose System--</option>
             <option value="Windows 10">Windows 10</option>
             <option value="Windows 8.1">Windows 8.1</option>
             <option value="Windows 7">Windows 7</option>
@@ -250,7 +251,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+            <input type="password" id="password" class="user-input" value="passwordnapes" required>
           <input type="submit" id="btn-login" class="btn" value="LOG IN">
         </fieldset>
       </form>

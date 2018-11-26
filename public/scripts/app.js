@@ -302,8 +302,22 @@ function handleBtnDeleteProfile(event) {
   }
 }
 
-function handleBtnNewMission(event) {
+function handleToggleMission(event) {
   event.preventDefault();
+  event.stopPropagation();
+  let index = getSearchItemIndex($(event.target).next());
+
+  if (index !== DATA.missionIndex) {
+    $('.result').hide();
+    $('.btn-mission-title').removeClass('end');
+  }
+  DATA.missionIndex = getSearchItemIndex($(event.target).next());
+  $(event.target).addClass('end');
+  $(event.target).next().slideToggle();
+}
+
+function handleBtnNewMission(event) {
+  event.preventDefault();  
   $('.result').hide();
   $('#btn-new-mission').hide();
   DATA.dataSaved = false;
@@ -405,18 +419,6 @@ function handleBtnDeleteApiLog(event) {
   if (DELETE_LOG === 'yes') {
     deleteApiLog({ _id: dataIndex }, pageHome);
   }
-}
-
-function handleToggleMission(event) {
-  event.preventDefault();
-  event.stopPropagation();
-  let index = getSearchItemIndex($(event.target).next());
-  if (index !== DATA.missionIndex) {
-
-    $('.result').hide();
-  }
-  DATA.missionIndex = getSearchItemIndex($(event.target).next());
-  $(event.target).next().slideToggle();
 }
 
 function getSearchItemIndex(item) {
@@ -600,15 +602,12 @@ function attachListeners() {
   $('#page').on('click', '#nav-gallery', renderPageGallery);
   $('#page').on('click', '#nav-home', pageHome);
   $('#page').on('click', '#nav-logout',  logoutPrompt);
-
   $('#page').on('submit', '.form-signup', handleSubmitPostUser);
   $('#page').on('submit', '.form-login', handleSubmitLogin);
   $('#page').on('submit', '.form-search', handleSubmitSearchMission);
-  $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);
-  
+  $('#page').on('submit', '.form-profile', handleSubmitPutApiUser);  
   $('#page').on('click', '#btn-delete-profile', handleBtnDeleteProfile);
-  $('#page').on('click', '#btn-new-mission', handleBtnNewMission);
-  
+  $('#page').on('click', '#btn-new-mission', handleBtnNewMission);  
   $('#page').on('click', '.btn-mission-title', function(event) {
     handleToggleMission(event);
   });
