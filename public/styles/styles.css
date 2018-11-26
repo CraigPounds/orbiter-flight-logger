@@ -70,10 +70,6 @@ h3 {
   font-size: 1.6em;
 }
 
-label {
-  display: inline-block;
-}
-
 img {
   display: block;
   width: 200px;
@@ -95,9 +91,14 @@ form,
   padding: 3px 0;
 }
 
-label[for=".select-version"],
-label[for=".select-os"] {
-  margin-left: 30px;
+label {
+  display: block;
+}
+
+label[for='.txt-log-entry'] {
+  /* text-align: left;
+  margin-left: 3px; */
+  margin: 3px 180px 3px 0;
 }
 
 .user-input {
@@ -117,15 +118,11 @@ label[for=".select-os"] {
 
 .txt-log-entry {
   display: block;
-  margin: 3px auto;
+  margin: 3px;
   width: 298px;
   height: 90px;
   font-family: inherit;
   font-size: 1em;
-}
-
-.buttons-log {
- padding-bottom: 2px;
 }
 
 .buttons-mission,
@@ -144,6 +141,7 @@ label[for=".select-os"] {
   cursor: pointer;
   border: none;
   background: #BBDEFB;
+  font-size: 1.2em;
 }
 
 .end {
@@ -155,10 +153,7 @@ label[for=".select-os"] {
   cursor: pointer;
   border: none;
   background: #BBDEFB;
-}
-
-.hidden {
-  display: none;
+  font-size: 1.2em;
 }
 
 .log,
@@ -177,6 +172,10 @@ body {
 .mission {
   background: #BBDEFB;
   /* background: #2196F3; */
+}
+
+.hidden {
+  display: none;
 }
 
 /** Responsive CSS **/

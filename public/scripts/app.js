@@ -620,10 +620,10 @@ function attachListeners() {
   $('#page').on('submit', '.form-put-post-log', function(event) {    
     handleBtnPutPostLog(event);
   });
-  $('#page').on('click', '#btn-delete-mission', function(event) {
+  $('#page').on('click', '.btn-delete-mission', function(event) {
     handleBtnDeleteApiMission(event);
   });
-  $('#page').on('click', '#btn-new-log', function(event) {
+  $('#page').on('click', '.btn-new-log', function(event) {
     handleBtnNewLog(event);
   });
   $('#page').on('click', '.btn-delete-log', function(event) {

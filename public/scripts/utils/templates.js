@@ -29,6 +29,7 @@ function decorateNavigation() {
 }
 
 function decorateLog(log) {
+  console.log('log', log);
   let index = log._id ? log._id : `${$('.log').length}`;
   let date = log.date ? log.date : '';
   let title = log.title ? log.title : '';
@@ -45,7 +46,8 @@ function decorateLog(log) {
       <label for=".date">Date
         <input type="text" class="date user-input" required value="${date}">
       </label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      <label for=".txt-log-entry">Log</label>
+        <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
       <div class="buttons-log">    
       </div>
     </article>
@@ -55,7 +57,7 @@ function decorateLog(log) {
 function decorateLogs(logs) {
   let deleteButton = DATA.dataSaved && logs.length > 1 ? '<button class="btn-delete-log btn-small">DELETE LOG</button>' : '';
   return logs.map((log, i) => {
-    let newLogButton = DATA.dataSaved && i === logs.length - 1 ? '<button id="btn-new-log" class="btn-small">NEW LOG</button>' : '';
+    let newLogButton = DATA.dataSaved && i === logs.length - 1 ? '<button class="btn-new-log btn-small">NEW LOG</button>' : '';
     let title = log.title ? log.title : '';
     let vessel = log.vessel ? log.vessel : '';
     let date = log.date ? log.date : '';
@@ -72,7 +74,8 @@ function decorateLogs(logs) {
       <label for=".date">Date
         <input type="text" class="date user-input" required value="${date}">
       </label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      <label for=".txt-log-entry">Log</label>
+        <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
       <div class="buttons-log">
         ${newLogButton}      
         ${deleteButton}
@@ -89,14 +92,14 @@ function decorateMission(mission) {
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
   let os = mission.os ? mission.os : '--Choose System--';
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
-  let deleteButton = DATA.dataSaved ? '<button id="btn-delete-mission" class="btn-small">DELETE MISSION</button>' : '';
+  let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
   let formClass = '';
   let saveButton = '';
   
   if (mission._id) {
     formClass = 'form-put-mission';
-    saveButton = '<input type="submit" id="btn-put-mission" class="btn-small" value="UPDATE">';
+    saveButton = '<input type="submit" class="btn-put-mission btn-small" value="UPDATE MISSION">';
   } else {
     formClass = 'form-post-mission';
     saveButton = '<input type="submit" id="btn-save-mission" class="btn end" value="SAVE MISSION">';
@@ -110,25 +113,27 @@ function decorateMission(mission) {
             <label for=".title">Flight
               <input type="text" class="title" value="${title}" placeholder="Untitled Mission" required>
             </label>   
-            <label for=".select-version">Orbiter Version</label>
-            <select class="select-version">
-              <option value="${version}">${version}</option>
-              <option value="Orbiter 2016">Orbiter 2016</option>
-              <option value="Orbiter 2010">Orbiter 2010</option>
-              <option value="Orbiter 2006">Orbiter 2006</option>
-              <option value="Orbiter 2005">Orbiter 2005</option>
-            </select>
-            <label for=".select-os">Operating System</label>
-            <select class="select-os">
-              <option value="${os}">${os}</option>
-              <option value="Windows 10">Windows 10</option>
-              <option value="Windows 8.1">Windows 8.1</option>
-              <option value="Windows 7">Windows 7</option>
-              <option value="Windows Vista">Windows Vista</option>
-              <option value="Windows XP">Windows XP</option>
-              <option value="Windows 2000">Windows 2000</option>
-              <option value="Other">Other</option>
-            </select>
+            <label for=".select-version">Orbiter Version
+              <select class="select-version">
+                <option value="${version}">${version}</option>
+                <option value="Orbiter 2016">Orbiter 2016</option>
+                <option value="Orbiter 2010">Orbiter 2010</option>
+                <option value="Orbiter 2006">Orbiter 2006</option>
+                <option value="Orbiter 2005">Orbiter 2005</option>
+              </select>
+            </label>
+            <label for=".select-os">Operating System
+              <select class="select-os">
+                <option value="${os}">${os}</option>
+                <option value="Windows 10">Windows 10</option>
+                <option value="Windows 8.1">Windows 8.1</option>
+                <option value="Windows 7">Windows 7</option>
+                <option value="Windows Vista">Windows Vista</option>
+                <option value="Windows XP">Windows XP</option>
+                <option value="Windows 2000">Windows 2000</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
             <div class="flight-logs">
               ${logs}
             </div>
@@ -204,27 +209,29 @@ function decorateSearchPage(data) {
       <h2>Search Flight Logs</h2>
       <form action="#" class="form-search">
         <fieldset role="group">
-          <label for="#select-version">Orbiter Version</label>
-          <select id="select-version" class="select-version">
-            <option value="">--Choose Version--</option>
-            <option value="Orbiter 2016">Orbiter 2016</option>
-            <option value="Orbiter 2010">Orbiter 2010</option>
-            <option value="Orbiter 2006">Orbiter 2006</option>
-            <option value="Orbiter 2005">Orbiter 2005</option>
-          </select>
-          <label for="#select-os">Operating System</label>
-          <select id="select-os" class="select-os">
-            <option value="">--Choose System--</option>
-            <option value="Windows 10">Windows 10</option>
-            <option value="Windows 8.1">Windows 8.1</option>
-            <option value="Windows 7">Windows 7</option>
-            <option value="Windows Vista">Windows Vista</option>
-            <option value="Windows XP">Windows XP</option>
-            <option value="Windows 2000">Windows 2000</option>
-            <option value="Other">Other</option>
-          </select>
+          <label for="#select-version">Orbiter Version
+            <select id="select-version" class="select-version">
+              <option value="">--Choose Version--</option>
+              <option value="Orbiter 2016">Orbiter 2016</option>
+              <option value="Orbiter 2010">Orbiter 2010</option>
+              <option value="Orbiter 2006">Orbiter 2006</option>
+              <option value="Orbiter 2005">Orbiter 2005</option>
+            </select>
+          </label>
+          <label for="#select-os">Operating System
+            <select id="select-os" class="select-os">
+              <option value="">--Choose System--</option>
+              <option value="Windows 10">Windows 10</option>
+              <option value="Windows 8.1">Windows 8.1</option>
+              <option value="Windows 7">Windows 7</option>
+              <option value="Windows Vista">Windows Vista</option>
+              <option value="Windows XP">Windows XP</option>
+              <option value="Windows 2000">Windows 2000</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
           <label for="#search-text">Vessel
-            <input type="text" id="search-text" class="search-text" placeholder="Apollo 18">
+            <input type="text" id="search-text" class="search-text">
           </label>
           <input type="submit" id="btn-search" class="btn end" value="SEARCH">
         </fieldset>
@@ -278,7 +285,7 @@ function decorateSignupPage() {
             <input type="email" id="email" class="user-input" required placeholder="you@email.com">
           </label>
           <label for="#user-name">User Name
-            <input type="text" id="user-name" class="user-input" required placeholder="user name">
+            <input type="text" id="user-name" class="user-input" required placeholder="username">
           </label>
           <label for="#password">Password
             <input type="password" id="password" class="user-input" required>
@@ -347,9 +354,9 @@ function decorateHomePage() {
 
 function decorateGalleryPage() {
   let links = DATA.images.map((image, i) => {
-    let thumbnail = i > 0 ? '' : '<img src="./images/challenger-thumb.jpg" title="${image.title}" alt="${image.title}">';
+    let thumbnail = i > 0 ? '' : `<img src="./images/challenger-thumb.jpg" title="${image.title}" alt="${image.title}">`;
     return `
-    <a class="lightboxgallery-gallery-item" target="_blank" href="${image.src}" data-title="${image.title}" data-alt="${image.title}" data-desc="">
+    <a class="lightboxgallery-gallery-item" target="_blank" href="${image.src}" title="${image.title}" data-title="${image.title}" data-alt="${image.title}" data-desc="">
       <div>
         <div class="lightboxgallery-gallery-item-content">
           <span class="lightboxgallery-gallery-item-title"></span>
