@@ -6,6 +6,7 @@ body {
   margin: auto;
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 0.8em;
+  background: #1976D2;
   color: #212121;
 }
 
@@ -31,6 +32,14 @@ h1,
 h2,
 h3 {
   color: #FFFFFF;
+}
+
+h1 {
+  margin: 5px 0;
+}
+
+h2 {
+  margin: 10px 0;
 }
 
 .link {
@@ -70,6 +79,18 @@ h3 {
   font-size: 1.6em;
 }
 
+a {
+  color: #212121;
+}
+
+a:hover {
+  color: #03A9F4;
+}
+
+a:visited {
+  color: #1976D2;
+}
+
 img {
   display: block;
   width: 200px;
@@ -96,9 +117,7 @@ label {
 }
 
 label[for='.txt-log-entry'] {
-  /* text-align: left; */
-  /* margin-left: 3px; */
-  margin: 3px 180px 3px 0;
+  text-align: center;
 }
 
 .user-input {
@@ -123,6 +142,7 @@ label[for='.txt-log-entry'] {
   height: 90px;
   font-family: inherit;
   font-size: 1em;
+  border: none;
 }
 
 .buttons-mission,
@@ -141,7 +161,7 @@ label[for='.txt-log-entry'] {
   cursor: pointer;
   border: none;
   background: #BBDEFB;
-  font-size: 1.2em;
+  font-size: 1.2em;  
 }
 
 .end {
@@ -153,18 +173,20 @@ label[for='.txt-log-entry'] {
   cursor: pointer;
   border: none;
   background: #BBDEFB;
-  font-size: 1.2em;
+  font-size: 1.2em;  
+  /* background: #03A9F4; */
+}
+
+.log label {
+  margin-right: 18%;
 }
 
 .log,
 .search-log {
   background: #2196F3;
   /* background: #BBDEFB; */
-  color: #FFFFFF;
-}
-
-body {
-  background: #1976D2;
+  /* color: #FFFFFF; */
+  color: #212121
 }
 
 .link,
@@ -172,6 +194,15 @@ body {
 .mission {
   background: #BBDEFB;
   /* background: #2196F3; */
+}
+
+.version-mission {
+  /* background: #2196F3; */
+  color: #212121;
+}
+
+.version-search {
+  text-align: center;
 }
 
 .hidden {

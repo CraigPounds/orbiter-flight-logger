@@ -29,7 +29,6 @@ function decorateNavigation() {
 }
 
 function decorateLog(log) {
-  console.log('log', log);
   let index = log._id ? log._id : `${$('.log').length}`;
   let date = log.date ? log.date : '';
   let title = log.title ? log.title : '';
@@ -46,8 +45,9 @@ function decorateLog(log) {
       <label for=".date">Date
         <input type="text" class="date user-input" required value="${date}">
       </label>
-      <label for=".txt-log-entry">Log</label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>      
+      <label for=".txt-log-entry">
+        <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      </label>
       <div class="buttons-log">    
       </div>
     </article>
@@ -74,8 +74,9 @@ function decorateLogs(logs) {
       <label for=".date">Date
         <input type="text" class="date user-input" required value="${date}">
       </label>
-      <label for=".txt-log-entry">Log</label>
-      <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>      
+      <label for=".txt-log-entry">
+        <textarea class="txt-log-entry" placeholder="Log entry...">${logEntry}</textarea>
+      </label>
       <div class="buttons-log">
         ${newLogButton}      
         ${deleteButton}
@@ -90,7 +91,9 @@ function decorateMission(mission) {
   let index = mission._id ? mission._id : `${$('.btn-mission-title' ).length}`;
   let title = mission.title ? mission.title : `Mission ${$('.btn-mission-title' ).length + 1}`;
   let version = mission.orbiterVersion ? mission.orbiterVersion : '--Choose Version--';
+  let versionValue = version === '--Choose Version--' ? '' : version;
   let os = mission.os ? mission.os : '--Choose System--';
+  let osValue = os === '--Choose System--' ? '' : os;
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
@@ -106,34 +109,36 @@ function decorateMission(mission) {
   }
   return `
     <button class="${buttonTitleClass}">${title}</button>
-    <section class="${resultClass}" data-index="${index}">
+    <section role="region" class="${resultClass}" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
-          <fieldset role="group">            
-            <label for=".title">Flight
-              <input type="text" class="title" value="${title}" placeholder="Untitled Mission" required>
-            </label>   
-            <label for=".select-version">Orbiter Version
-              <select class="select-version">
-                <option value="${version}">${version}</option>
-                <option value="Orbiter 2016">Orbiter 2016</option>
-                <option value="Orbiter 2010">Orbiter 2010</option>
-                <option value="Orbiter 2006">Orbiter 2006</option>
-                <option value="Orbiter 2005">Orbiter 2005</option>
-              </select>
-            </label>
-            <label for=".select-os">Operating System
-              <select class="select-os">
-                <option value="${os}">${os}</option>
-                <option value="Windows 10">Windows 10</option>
-                <option value="Windows 8.1">Windows 8.1</option>
-                <option value="Windows 7">Windows 7</option>
-                <option value="Windows Vista">Windows Vista</option>
-                <option value="Windows XP">Windows XP</option>
-                <option value="Windows 2000">Windows 2000</option>
-                <option value="Other">Other</option>
-              </select>
-            </label>
+          <fieldset role="group">
+            <div class="version-mission">                
+              <label for=".select-version">Orbiter Version
+                <select class="select-version">
+                  <option value="${versionValue}">${version}</option>
+                  <option value="Orbiter 2016">Orbiter 2016</option>
+                  <option value="Orbiter 2010">Orbiter 2010</option>
+                  <option value="Orbiter 2006">Orbiter 2006</option>
+                  <option value="Orbiter 2005">Orbiter 2005</option>
+                </select>
+              </label>
+              <label for=".select-os">Operating System
+                <select class="select-os">
+                  <option value="${osValue}">${os}</option>
+                  <option value="Windows 10">Windows 10</option>
+                  <option value="Windows 8.1">Windows 8.1</option>
+                  <option value="Windows 7">Windows 7</option>
+                  <option value="Windows Vista">Windows Vista</option>
+                  <option value="Windows XP">Windows XP</option>
+                  <option value="Windows 2000">Windows 2000</option>
+                  <option value="Other">Other</option>
+                </select>
+              </label>
+              <label for=".title">Flight
+                <input type="text" class="title" value="${title}" placeholder="Untitled Mission" required>
+              </label> 
+            </div>
             <div class="flight-logs">
               ${logs}
             </div>
@@ -161,7 +166,7 @@ function decorateSearchLogs(logs) {
     <article class="search-log" data-index="${index}">
       <p>Title: ${log.title}</p>
       <p>Vessel: ${log.vessel}</p>
-      <p>Data: ${log.date}</p>
+      <p>Date: ${log.date}</p>
       <p>Log: ${log.log}</p>
     </article>
     `;
@@ -173,24 +178,25 @@ function decorateSearchMissions(missions) {
   missions.forEach((mission) => {
     let returnMission = false;
     mission.logs.forEach((log) => {
-
+      // This is my cheat to do searches by vessel name
       if (DATA.searchText === '' || DATA.searchText.toLowerCase() === log.vessel.toLowerCase()) returnMission = true;
     });
     if (returnMission) searchedMissions.push(mission);
   });
   return searchedMissions.map((mission) => {
-    let version = mission ? mission.orbiterVersion : '--Choose Version--';
-    let os = mission ? mission.os : '--Choose System--';
+    let version = mission ? mission.orbiterVersion : '';
+    let os = mission ? mission.os : '';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
     return `
     <button class="btn-mission-title">${title}</button>
-    <section class="result hidden" data-index="${index}">
-      <div class="mission">        
-        <p>${title}</p>
-        <p>${version}</p>
-        <p>${os}</p>
+    <section role="region" class="result hidden" data-index="${index}">
+      <div class="mission"> 
+        <div class="version-search">
+          <p>${os}</p>
+          <p>${version}</p>
+        </div>
         <div class="flight-logs">
           ${logs}
         </div>            
