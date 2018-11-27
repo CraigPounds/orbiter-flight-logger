@@ -63,8 +63,9 @@ function decorateLogs(logs) {
     let date = log.date ? log.date : '';
     let logEntry = log.log ? log.log : '';
     let index = log._id ? log._id : `new-log-${$('.log').length}`;
+    let beginning = i > 0 ? '' : 'beginning';
     return `
-    <article class="log" data-index="${index}">
+    <article class="log ${beginning}" data-index="${index}">
       <label for=".log-title">Title
         <input type="text" class="log-title user-input" placeholder="Log Title" required value="${title}">
       </label>
@@ -242,7 +243,7 @@ function decorateSearchPage(data) {
           <label for="#search-text">Vessel
             <input type="text" id="search-text" class="search-text">
           </label>
-          <input type="submit" id="btn-search" class="btn end" value="SEARCH">
+          <input type="submit" id="btn-search" class="btn spacer end" value="SEARCH">
         </fieldset>
       </form>
       <div class="results">
@@ -268,7 +269,7 @@ function decorateLoginPage(data) {
           </label>
           <label for="#password">Password
             <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
-          <input type="submit" id="btn-login" class="btn" value="LOG IN">
+          <input type="submit" id="btn-login" class="btn spacer" value="LOG IN">
         </fieldset>
       </form>
     </div>
@@ -302,7 +303,7 @@ function decorateSignupPage() {
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" class="user-input" required>
           </label>
-          <input type="submit" id="btn-signup" class="btn" value="SIGN UP">
+          <input type="submit" id="btn-signup" class="btn spacer" value="SIGN UP">
         </fieldset>
       </form>
     </div>
@@ -336,7 +337,7 @@ function decorateProfilePage() {
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" class="user-input" required>
           </label>
-          <input type="submit" id="btn-profile" class="btn" value="SUBMIT">
+          <input type="submit" id="btn-profile" class="btn spacer" value="SUBMIT">
           <button id="btn-delete-profile" class="btn">DELETE PROFILE</button>
         </fieldset>        
       </form>
@@ -388,7 +389,7 @@ function decorateGalleryPage() {
       </div>
       <h3>Useful Links</h3>
       <div class="results">
-        <button class="btn-mission-title">Orbiter / Add-ons</button>
+        <button class="btn-mission-title spacer">Orbiter / Add-ons</button>
         <div class="result links hidden" data-index="0">
           <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
           <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>

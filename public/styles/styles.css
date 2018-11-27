@@ -14,8 +14,8 @@ nav,
 h1,
 h2,
 h3 {
+  /* margin: 20px 0; */
   text-align: center;
-  margin: 3px 0;
 }
 
 h1,
@@ -32,16 +32,17 @@ h3 {
 }
 
 h1 {
-  margin: 5px 0;
+  margin: 20px 0;
   font-size: 2.6em;
 }
 
 h2 {
-  margin: 10px 0;
+  margin: 15px 0;
   font-size: 1.8em;
 }
 
 h3 {
+  margin: 15px 0;
   font-size: 1.6em;
 }
 
@@ -89,11 +90,6 @@ form,
 .results {
   width: 316px;
   margin: 0 auto;
-}
-
-form,
-.log {
-  text-align: right;
 }
 
 .log,
@@ -170,24 +166,38 @@ form,
   background: #BBDEFB;
 }
 
-.log label {
-  margin-right: 18%;
-}
-
 .log {
   margin-top: 3px;
   background: #2196F3;
 }
 
+.version-mission label {
+  /* margin-right: 5%; */
+}
+
+.log label {
+  /* margin-right: 28%; */
+  /* margin-right: 16%; */
+}
+
 .search-log {
-  margin-top: 3px;
+  margin-bottom: 3px;
   background: #2196F3;
 }
 
+.mission,
 .link,
-.result,
-.mission {
+.result {
   background: #BBDEFB;
+}
+
+.version-mission,
+.version-search {
+  width: 310px;
+  padding: 3px 0;
+  margin: auto;
+  /* background: #03A9F4; */
+  background: #2196F3;
 }
 
 .version-search {
@@ -196,8 +206,27 @@ form,
 
 .form-login,
 .form-signup,
-.form-profile {
+.form-profile,
+.form-post-mission,
+.form-put-mission,
+.form-put-post-log,
+.form-search {
+  text-align: right;
+}
+
+.form-login,
+.form-signup,
+.form-profile,
+.form-search {
   color: #FFFFFF;
+}
+
+.spacer {
+  margin-top: 15px;
+}
+
+.beginning {
+  margin-top: 0;
 }
 
 .end {
