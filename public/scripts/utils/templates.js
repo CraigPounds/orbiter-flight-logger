@@ -98,13 +98,16 @@ function decorateMission(mission) {
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
   let formClass = '';
+  let buttonsClass = '';
   let saveButton = '';
   
   if (mission._id) {
     formClass = 'form-put-mission';
+    buttonsClass = 'buttons-mission';
     saveButton = '<input type="submit" class="btn-put-mission btn-small" value="UPDATE MISSION">';
   } else {
     formClass = 'form-post-mission';
+    buttonsClass = 'buttons-save';
     saveButton = '<input type="submit" id="btn-save-mission" class="btn-save-mission btn end" value="SAVE MISSION">';
   }
   return `
@@ -142,7 +145,7 @@ function decorateMission(mission) {
             <div class="flight-logs">
               ${logs}
             </div>
-            <div class="buttons-mission">
+            <div class="${buttonsClass}">
               ${saveButton}
               ${deleteButton}            
             </div>

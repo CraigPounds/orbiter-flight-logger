@@ -134,7 +134,7 @@ form,
 .buttons-mission {
   width: 310px;
   margin: 0 auto;
-  /* padding-bottom: 3px; */
+  padding-bottom: 3px;
 }
 
 .buttons-log,
@@ -175,6 +175,7 @@ form,
 }
 
 .log {
+  margin-top: 3px;
   background: #2196F3;
 }
 
