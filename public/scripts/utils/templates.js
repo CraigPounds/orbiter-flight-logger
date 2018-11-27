@@ -105,7 +105,7 @@ function decorateMission(mission) {
     saveButton = '<input type="submit" class="btn-put-mission btn-small" value="UPDATE MISSION">';
   } else {
     formClass = 'form-post-mission';
-    saveButton = '<input type="submit" id="btn-save-mission" class="btn end" value="SAVE MISSION">';
+    saveButton = '<input type="submit" id="btn-save-mission" class="btn-save-mission btn end" value="SAVE MISSION">';
   }
   return `
     <button class="${buttonTitleClass}">${title}</button>
@@ -143,8 +143,8 @@ function decorateMission(mission) {
               ${logs}
             </div>
             <div class="buttons-mission">
-            ${saveButton}
-            ${deleteButton}            
+              ${saveButton}
+              ${deleteButton}            
             </div>
           </fieldset>
         </div>
@@ -386,7 +386,7 @@ function decorateGalleryPage() {
       <h3>Useful Links</h3>
       <div class="results">
         <button class="btn-mission-title">Orbiter / Add-ons</button>
-        <div class="result link hidden" data-index="0">
+        <div class="result links hidden" data-index="0">
           <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
           <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
           <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
@@ -396,7 +396,7 @@ function decorateGalleryPage() {
           <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
         </div>
         <button class="btn-mission-title">Reference</button>
-        <div class="result link hidden" data-index="1">
+        <div class="result links hidden" data-index="1">
           <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
           <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
           <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>
