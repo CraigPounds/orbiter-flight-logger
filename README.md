@@ -34,15 +34,15 @@ An online tool for users of [Orbiter Space Flight Simulator](http://orbit.medphy
 
 ## Built With
 
+* NPM
+
 * HTML, CSS, JavaScript
 
-* NPM, Express
+* Express, Mongoose, Passport
 
-* MongoDB, Mongoose, Passport, Chai, Faker
+* Continuous Integration using Travis CI
 
-* Continuous Integration - Travis
-
-* Deployed on Heroku
+* Deployed on Heroku using mLab for the database
 
 ## Example User for Testing
 ```
