@@ -287,7 +287,7 @@ function handleSubmitPutApiUser(event) {
 }
 
 function refreshCb(data) {
-  DATA.authToken = data.authToken;
+  // DATA.authToken = data.authToken;
   Object.assign(DATA.user, data.user);
 }
 
