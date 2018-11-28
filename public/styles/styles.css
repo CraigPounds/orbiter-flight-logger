@@ -185,8 +185,6 @@ form,
   background: #2196F3;
 }
 
-.mission,
-.link,
 .result {
   background: #BBDEFB;
 }
@@ -196,8 +194,9 @@ form,
   width: 310px;
   padding: 3px 0;
   margin: auto;
-  /* background: #03A9F4; */
-  background: #2196F3;
+  /* background: #2196F3; */
+  background: #03A9F4;
+  /* background: #00BCD4; */
 }
 
 .version-search {
@@ -231,6 +230,18 @@ form,
 
 .end {
   margin-bottom: 0;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-rigt {
+  float: right;
+}
+
+.clear {
+  clear: both;
 }
 
 .hidden {

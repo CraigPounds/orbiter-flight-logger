@@ -181,19 +181,24 @@ function decorateSearchMissions(missions) {
   let searchedMissions = [];
   missions.forEach((mission) => {
     let returnMission = false;
-    mission.logs.forEach((log) => {
+    mission.logs.forEach((log, i) => {
       // This is my cheat to do searches by vessel name
       if (DATA.searchText === '' || DATA.searchText.toLowerCase() === log.vessel.toLowerCase()) returnMission = true;
     });
     if (returnMission) searchedMissions.push(mission);
   });
-  return searchedMissions.map((mission) => {
+  return searchedMissions.map((mission, i) => {
+    
+    let rowStart = i === 0 ? '<div class="float-left">' : '<div class="float-right">';
+    let rowEnd = i % 4 === 3 || i === DATA.missions.length - 1 ? '</div>' : '';
+
     let version = mission ? mission.orbiterVersion : '';
     let os = mission ? mission.os : '';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
     return `
+    ${rowStart}
     <button class="btn-mission-title">${title}</button>
     <section role="region" class="result hidden" data-index="${index}">
       <div class="mission"> 
@@ -206,6 +211,7 @@ function decorateSearchMissions(missions) {
         </div>            
       </div>
     </section>
+    ${rowEnd}
     `;
   }).join('');
 }
@@ -268,7 +274,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+            <input type="password" id="password" class="user-input" value="passwordnapes" required>
           <input type="submit" id="btn-login" class="btn spacer" value="LOG IN">
         </fieldset>
       </form>
@@ -364,7 +370,7 @@ function decorateHomePage() {
 
 function decorateGalleryPage() {
   let links = DATA.images.map((image, i) => {
-    let thumbnail = i > 0 ? '' : `<img src="./images/challenger-thumb.jpg" title="${image.title}" alt="${image.title}">`;
+    let thumbnail = i > 0 ? '' : `<img src="./images/challenger.jpg" title="${image.title}" alt="${image.title}">`;
     return `
     <a class="lightboxgallery-gallery-item" target="_blank" href="${image.src}" title="${image.title}" data-title="${image.title}" data-alt="${image.title}" data-desc="">
       <div>
