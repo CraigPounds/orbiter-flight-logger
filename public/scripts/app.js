@@ -280,6 +280,7 @@ function handleSubmitPutApiUser(event) {
     data.id = DATA.user._id;
     DATA.user = data;
     postApiUserRefresh(data, refreshCb);
+    DATA.loggedIn = false;
     putApiUser(data, renderPageLogin);
   } else {
     alert('Passwords must match.');
