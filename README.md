@@ -8,29 +8,17 @@ An online tool for users of [Orbiter Space Flight Simulator](http://orbit.medphy
 
 ## Screenshots
 
-### Signup Page
+### Signup / Login Pages
 
-![Signup Page](public/images/screenshots/signup.jpg)
+![Signup Page](public/images/screenshots/signup.jpg) ![Login Page](public/images/screenshots/login.jpg)
 
-### Login Page
+### Home Page / Search Page
 
-![Login Page](public/images/screenshots/login.jpg)
+![Home Page](public/images/screenshots/home.jpg) ![Search Page](public/images/screenshots/search.jpg)
 
-### Home Page
+### Gallery Page / Profile Page
 
-![Home Page](public/images/screenshots/home.jpg)
-
-### Search Page
-
-![Search Page](public/images/screenshots/search.jpg)
-
-### Gallery Page
-
-![Gallery Page](public/images/screenshots/gallery.jpg)
-
-### Profile Page
-
-![Profile Page](public/images/screenshots/profile.jpg)
+![Gallery Page](public/images/screenshots/gallery.jpg) ![Profile Page](public/images/screenshots/profile.jpg)
 
 ## Built With
 
@@ -55,4 +43,3 @@ Password: passwordguest
 
 ## Acknowledgements
 Laura Morinigo
-
