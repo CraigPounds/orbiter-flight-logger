@@ -78,7 +78,7 @@ a:visited {
 
 img {
   display: block;
-  width: 200px;
+  width: 80%;
   margin: auto;
 }
 
@@ -250,6 +250,46 @@ form,
 
 /** Responsive CSS **/
 @media only screen and (min-width: 640px) {
+
+  /* form, */
+  .results {
+    /* width: 316px; */
+    width: 636px;
+  }
+
+  /* .user-input {
+    width: 170px;
+  } */
+  
+  /* .select-version,
+  .select-os,
+  .title,
+  .search-text {
+    width: 169px;
+  } */
+  
+  /* .txt-log-entry {
+    width: 304px;
+    height: 90px;
+  } */
+  
+  /* .buttons-mission {
+    width: 310px;
+  } */
+
+  /* .btn-mission-title,
+.btn {
+  width: 316px;
+} */
+
+/* .btn-save-mission {
+  width: 310px;
+} */
+
+/* .version-mission,
+.version-search {
+  width: 310px;
+} */
   
 }
 
