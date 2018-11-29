@@ -143,6 +143,7 @@ form,
 .btn {
   display: block;
   width: 316px;
+  /* width: 200px; */
   margin: 3px auto;  
   padding-top: 6px;
   padding-bottom: 6px;
@@ -251,12 +252,6 @@ form,
 /** Responsive CSS **/
 @media only screen and (min-width: 640px) {
 
-  /* form, */
-  .results {
-    /* width: 316px; */
-    width: 636px;
-  }
-
   /* .user-input {
     width: 170px;
   } */
@@ -268,28 +263,39 @@ form,
     width: 169px;
   } */
   
-  /* .txt-log-entry {
-    width: 304px;
-    height: 90px;
-  } */
+  .txt-log-entry {
+    /* width: 304px; */
+    /* width: 204px;
+    height: 90px; */
+  }
+
+  /* .results, */
+  form {
+    /* width: 316px; */
+    /* width: 636px; */
+  }
   
-  /* .buttons-mission {
-    width: 310px;
-  } */
+  .buttons-mission {
+    /* width: 310px; */
+    /* width: 210px; */
+  }
 
-  /* .btn-mission-title,
+  .btn-mission-title,
 .btn {
-  width: 316px;
-} */
+  /* width: 316px; */
+  /* width: 216px; */
+}
 
-/* .btn-save-mission {
-  width: 310px;
-} */
+.btn-save-mission {
+  /* width: 310px; */
+  /* width: 210px; */
+}
 
-/* .version-mission,
+.version-mission,
 .version-search {
-  width: 310px;
-} */
+  /* width: 310px; */
+  /* width: 210px; */
+}
   
 }
 
