@@ -7,7 +7,7 @@ body {
   font-family: Roboto, Helvetica, sans-serif;
   font-size: 0.8em;
   background: #1976D2;
-  color: #212121;
+  color: #FFFFFF;
 }
 
 nav,
@@ -233,24 +233,39 @@ form,
   margin-bottom: 0;
 }
 
-.float-left {
-  float: left;
+.hidden {
+  display: none;
 }
 
-.float-rigt {
+.right {
   float: right;
+}
+
+.left {
+  float: left;
 }
 
 .clear {
   clear: both;
 }
 
-.hidden {
-  display: none;
-}
+/* .row,
+.col-6 {
+  padding: 0;
+} */
 
 /** Responsive CSS **/
 @media only screen and (min-width: 640px) {
+
+  /* .row {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .col-6 {
+    padding-left: 1.04166666%;
+    padding-right: 1.04166666%;
+  } */
 
   /* .user-input {
     width: 170px;
@@ -269,10 +284,10 @@ form,
     height: 90px; */
   }
 
-  /* .results, */
-  form {
+  /* .form, */
+  .results {
     /* width: 316px; */
-    /* width: 636px; */
+    width: 636px;
   }
   
   .buttons-mission {
@@ -280,10 +295,12 @@ form,
     /* width: 210px; */
   }
 
-  .btn-mission-title,
-.btn {
+  /* .btn, */
+.result,
+/* .mission, */
+.btn-mission-title {
   /* width: 316px; */
-  /* width: 216px; */
+  width: 296px;
 }
 
 .btn-save-mission {
@@ -294,7 +311,7 @@ form,
 .version-mission,
 .version-search {
   /* width: 310px; */
-  /* width: 210px; */
+  width: 290px;
 }
   
 }

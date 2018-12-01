@@ -189,28 +189,36 @@ function decorateSearchMissions(missions) {
   });
   return searchedMissions.map((mission, i) => {
     
-    let rowStart = i % 2 === 0 ? '<div class="row">' : '';
-    let rowEnd = i % 2 === 1 || i === DATA.missions.length - 1 ? '</div>' : '';
-
+    // let rowStart = i % 2 === 0 ? '<div class="row">' : '';
+    // let rowEnd = i % 2 === 1 || i === DATA.missions.length - 1 ? '</div>' : '';    
+    let endClass = i === (DATA.missions.length / 2) - 1 ? 'end' : '';
+    let rowEnd = i === (DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
     let version = mission ? mission.orbiterVersion : '';
     let os = mission ? mission.os : '';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
+    let rowStart = '';
+
+    if (i === 0 ) rowStart = '<div class="left">';
+    if (i === DATA.missions.length / 2) rowStart = '<div class="right">';
+    
     return `
     ${rowStart}
-    <button class="btn-mission-title col-6">${title}</button>
-    <section role="region" class="result hidden" data-index="${index}">
-      <div class="mission"> 
-        <div class="version-search">
-          <p>${os}</p>
-          <p>${version}</p>
+    <div class="col-6">
+      <button class="btn-mission-title ${endClass}">${title}</button>
+      <section role="region" class="result hidden" data-index="${index}">
+        <div class="mission"> 
+          <div class="version-search">
+            <p>${os}</p>
+            <p>${version}</p>
+          </div>
+          <div class="flight-logs">
+            ${logs}
+          </div>            
         </div>
-        <div class="flight-logs">
-          ${logs}
-        </div>            
-      </div>
-    </section>
+      </section>
+    </div>
     ${rowEnd}
     `;
   }).join('');
@@ -274,7 +282,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+            <input type="password" id="password" class="user-input" value="passwordnapes" required>
           <input type="submit" id="btn-login" class="btn spacer" value="LOG IN">
         </fieldset>
       </form>
