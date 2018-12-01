@@ -249,23 +249,8 @@ form,
   clear: both;
 }
 
-/* .row,
-.col-6 {
-  padding: 0;
-} */
-
 /** Responsive CSS **/
 @media only screen and (min-width: 640px) {
-
-  /* .row {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .col-6 {
-    padding-left: 1.04166666%;
-    padding-right: 1.04166666%;
-  } */
 
   /* .user-input {
     width: 170px;

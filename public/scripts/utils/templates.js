@@ -188,9 +188,7 @@ function decorateSearchMissions(missions) {
     if (returnMission) searchedMissions.push(mission);
   });
   return searchedMissions.map((mission, i) => {
-    
-    // let rowStart = i % 2 === 0 ? '<div class="row">' : '';
-    // let rowEnd = i % 2 === 1 || i === DATA.missions.length - 1 ? '</div>' : '';    
+      
     let endClass = i === (DATA.missions.length / 2) - 1 ? 'end' : '';
     let rowEnd = i === (DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
     let version = mission ? mission.orbiterVersion : '';
@@ -202,10 +200,10 @@ function decorateSearchMissions(missions) {
 
     if (i === 0 ) rowStart = '<div class="left">';
     if (i === DATA.missions.length / 2) rowStart = '<div class="right">';
-    
+
     return `
     ${rowStart}
-    <div class="col-6">
+    <div>
       <button class="btn-mission-title ${endClass}">${title}</button>
       <section role="region" class="result hidden" data-index="${index}">
         <div class="mission"> 
@@ -282,7 +280,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="passwordnapes" required>
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
           <input type="submit" id="btn-login" class="btn spacer" value="LOG IN">
         </fieldset>
       </form>
