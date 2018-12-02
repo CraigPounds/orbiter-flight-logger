@@ -307,10 +307,9 @@ function handleToggleMission(event) {
   event.preventDefault();
   event.stopPropagation();
   let index = getSearchItemIndex($(event.target).next());
-
-  if (index !== DATA.missionIndex) {
+  if (index && index !== DATA.missionIndex) {
     $('.result').hide();
-    $('.btn-mission-title').removeClass('end');
+    $(event.currentTarget).removeClass('end');
   }
   DATA.missionIndex = getSearchItemIndex($(event.target).next());
   $(event.target).addClass('end');

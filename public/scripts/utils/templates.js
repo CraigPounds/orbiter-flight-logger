@@ -409,26 +409,30 @@ function decorateGalleryPage() {
       </div>
       <h3>Useful Links</h3>
       <div class="results">
-        <button class="btn-mission-title spacer">Orbiter / Add-ons</button>
-        <div class="result links hidden" data-index="0">
-          <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
-          <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
-          <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
-          <p><a href="http://orbiter.dansteph.com/" title="Dan's Orbiter Page" target="_blank">Dan's Orbiter Page</a></p>
-          <p><a href="http://francophone.dansteph.com/?page=home" title="Pappy's Hangar" target="_blank">Pappy's Hangar</a></p>
-          <p><a href="https://www.acsoft.ch/AMSO/amso.html" title="Apollo Mission Sim for Orbiter" target="_blank">ASMO</a></p>
-          <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
+        <div class="left">
+          <button class="btn-mission-title end">Orbiter / Add-ons</button>
+          <div class="result links hidden" data-index="0">
+            <p><a href="http://orbit.medphys.ucl.ac.uk/" title="Orbiter" target="_blank">Orbiter</a></p>
+            <p><a href="https://www.orbithangar.com/" title="Orbit Hangar Mods" target="_blank">Orbit Hangar Mods</a></p>
+            <p><a href="https://www.alteaaerospace.com/" title="Altea Aerospace" target="_blank">Altea Aerospace</a></p>
+            <p><a href="http://orbiter.dansteph.com/" title="Dan's Orbiter Page" target="_blank">Dan's Orbiter Page</a></p>
+            <p><a href="http://francophone.dansteph.com/?page=home" title="Pappy's Hangar" target="_blank">Pappy's Hangar</a></p>
+            <p><a href="https://www.acsoft.ch/AMSO/amso.html" title="Apollo Mission Sim for Orbiter" target="_blank">ASMO</a></p>
+            <p><a href="http://nassp.sourceforge.net/wiki/Main_Page" title="Project Apollo - NASSP" target="_blank">Project Apollo - NASSP</a></p>
+          </div>
         </div>
-        <button class="btn-mission-title">Reference</button>
-        <div class="result links hidden" data-index="1">
-          <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
-          <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
-          <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>
-          <p><a href="https://skyvector.com/" title="SkyVector: Flight Planner" target="_blank">SkyVector: Flight Planner</a></p>
-          <p><a href="https://in-the-sky.org/skymap.php" title="The In-The-Sky.org Planetarium" target="_blank">Planeterium</a></p>
-          <p><a href="http://www.worldwidetelescope.org/webclient/" title="WorldWide Telescope Web Client" target="_blank">WorldWide Telescope Web Client</a></p>
-          <p><a href="https://orbitalmechanics.info/" title="Orbital Mechanics" target="_blank">Orbital Mechanics</a></p>
-          <p><a href="http://svtsim.com/moonjs/agc.html" title="Moonjs: An Online Apollo Guidance Computer (AGC) Simulator" target="_blank">Online AGC</a></p>
+        <div class="right">
+          <button class="btn-mission-title">Reference</button>
+          <div class="result links hidden" data-index="1">
+            <p><a href="https://www.orbiter-forum.com/tutorials.php" title="Orbiter Forum Tutorials" target="_blank">Orbiter Forum Tutorials</a></p>
+            <p><a href="https://trajbrowser.arc.nasa.gov/index.php" title="NASA Ames Research Center Trajectory Browser" target="_blank">NASA Trajectory Browser</a></p>
+            <p><a href="http://www.esa.int/Our_Activities/Human_Spaceflight/International_Space_Station/Where_is_the_International_Space_Station" title="Where is the ISS" target="_blank">Where is the ISS</a></p>
+            <p><a href="https://skyvector.com/" title="SkyVector: Flight Planner" target="_blank">SkyVector: Flight Planner</a></p>
+            <p><a href="https://in-the-sky.org/skymap.php" title="The In-The-Sky.org Planetarium" target="_blank">Planeterium</a></p>
+            <p><a href="http://www.worldwidetelescope.org/webclient/" title="WorldWide Telescope Web Client" target="_blank">WorldWide Telescope Web Client</a></p>
+            <p><a href="https://orbitalmechanics.info/" title="Orbital Mechanics" target="_blank">Orbital Mechanics</a></p>
+            <p><a href="http://svtsim.com/moonjs/agc.html" title="Moonjs: An Online Apollo Guidance Computer (AGC) Simulator" target="_blank">Online AGC</a></p>
+          </div>
         </div>
       </div>
     </div>
