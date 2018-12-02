@@ -87,7 +87,7 @@ function decorateLogs(logs) {
   }).join('');
 }
 
-function decorateMission(mission) {
+function decorateMission(mission, i) {
   let resultClass = DATA.dataSaved ? 'result hidden' : 'result';
   let index = mission._id ? mission._id : `${$('.btn-mission-title' ).length}`;
   let title = mission.title ? mission.title : `Mission ${$('.btn-mission-title' ).length + 1}`;
@@ -98,10 +98,17 @@ function decorateMission(mission) {
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
+  let endClass = i === Math.floor(DATA.missions.length / 2) ? 'end' : '';
+  let rowEnd = i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1 ? '</div>' : '';
+  let newMissionButton =  DATA.dataSaved && i === DATA.missions.length - 1 ? '<button id="btn-new-mission" class="btn">NEW MISSION</button>' : '';
   let formClass = '';
   let buttonsClass = '';
-  let saveButton = '';
-  
+  let saveButton = '';  
+  let rowStart = '';
+
+  if (i === 0 ) rowStart = '<div class="left">';
+  if (i === Math.floor(DATA.missions.length / 2) + 1) rowStart = '<div class="right">';
+
   if (mission._id) {
     formClass = 'form-put-mission';
     buttonsClass = 'buttons-mission';
@@ -112,7 +119,8 @@ function decorateMission(mission) {
     saveButton = '<input type="submit" id="btn-save-mission" class="btn-save-mission btn end" value="SAVE MISSION">';
   }
   return `
-    <button class="${buttonTitleClass}">${title}</button>
+  ${rowStart}
+    <button class="${buttonTitleClass} ${endClass}">${title}</button>
     <section role="region" class="${resultClass}" data-index="${index}">
       <form action="#" class="${formClass}">
         <div class="mission">
@@ -154,12 +162,14 @@ function decorateMission(mission) {
         </div>
       </form>
     </section>
-    `;
+    ${newMissionButton}
+  ${rowEnd}
+  `;
 }
 
 function decorateMissions(missions) {
-  return missions.map((mission) => {     
-    return decorateMission(mission);
+  return missions.map((mission, i) => {     
+    return decorateMission(mission, i);
   }).join('');
 }
 
@@ -187,19 +197,18 @@ function decorateSearchMissions(missions) {
     });
     if (returnMission) searchedMissions.push(mission);
   });
-  return searchedMissions.map((mission, i) => {
-      
-    let endClass = i === (DATA.missions.length / 2) - 1 ? 'end' : '';
-    let rowEnd = i === (DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
+  return searchedMissions.map((mission, i) => {      
     let version = mission ? mission.orbiterVersion : '';
     let os = mission ? mission.os : '';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
     let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
+    let endClass = i === Math.ceil(DATA.missions.length / 2) - 1 ? 'end' : '';
+    let rowEnd = i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
     let rowStart = '';
 
     if (i === 0 ) rowStart = '<div class="left">';
-    if (i === DATA.missions.length / 2) rowStart = '<div class="right">';
+    if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
 
     return `
     ${rowStart}
@@ -366,9 +375,8 @@ function decorateHomePage() {
     <div id="page-home">
       <h2>${DATA.user.username}</h2>
       <div class="results">     
-        ${MISSIONS}
+        ${MISSIONS}        
       </div>
-      <button id="btn-new-mission" class="btn">NEW MISSION</button>
     </div>
   </main>
   `;
