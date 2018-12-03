@@ -400,13 +400,11 @@ function decorateGalleryPage() {
   return `
   ${decorateNavigation()}
   <main>
-    <div id="page-gallery" class="results">
-      <h2>Gallery</h2>
-      <div class="results">
-        <div class="lightboxgallery-gallery clearfix">
-          ${links}
-        </div>
-      </div>
+    <div id="page-gallery">
+      <h2>Gallery</h2>      
+      <div class="lightboxgallery-gallery clearfix">
+        ${links}
+      </div>      
       <h3>Useful Links</h3>
       <div class="results">
         <div class="left">
