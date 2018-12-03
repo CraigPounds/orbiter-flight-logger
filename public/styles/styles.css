@@ -10,13 +10,6 @@ body {
   color: #FFFFFF;
 }
 
-h1,
-h2,
-h3,
-p {
-  line-height: 1.2em;
-}
-
 nav,
 h1,
 h2,
@@ -28,23 +21,30 @@ h3,
   text-align: center;
 }
 
+h1,
+h2,
+h3,
+p {
+  line-height: 1.2em;
+}
+
 h1 {
   margin: 20px 0;
   font-size: 2.6em;
 }
 
 h2 {
+  margin: 15px 0;
   font-size: 1.8em;
 }
 
 h3 {
+  margin: 15px;
   font-size: 1.6em;
 }
 
-h2,
-h3,
 nav ul {
-  margin: 15px 0;
+  margin: 25px 0;
 }
 
 nav li {
@@ -69,9 +69,10 @@ a:visited {
   color: #1976D2;
 }
 
-img {
+.thumbnail {
   display: block;
   width: 80%;
+  max-width: 640px;
   margin: auto;
 }
 
@@ -212,7 +213,7 @@ form,
 }
 
 .spacer {
-  margin-top: 15px;
+  margin-top: 25px;
 }
 
 .beginning {
@@ -241,38 +242,67 @@ form,
 
 @media only screen and (min-width: 640px) {
 
-  /* .user-input {
-    width: 170px;
-  } */
+  h1,
+  h2,
+  h3,
+  p {
+    line-height: 1.4em;
+  }
+
+  h1 {
+    margin: 20px 0;
+    font-size: 3em;
+  }
+
+  h2 {
+    font-size: 2.2em;
+  }
+
+  h3 {
+    font-size: 2em;
+  }
+
+  h2,
+  h3,
+  nav ul {
+    margin: 25px 0;
+  }
+
+  .user-input {
+    width: 180px;
+  }
   
-  /* .select-version,
+  .select-version,
   .select-os,
   .title,
   .search-text {
-    width: 169px;
-  } */
+    width: 179px;
+  }
 
-  /* .txt-log-entry {
-    width: 280px;
-  } */
+  .txt-log-entry {
+    width: 290px;
+  }
   
-  /* .buttons-mission,
+  .buttons-mission,
   .btn-save-mission,
   .version-mission,
   .version-search {
-    width: 290px;
-  } */
+    width: 300px;
+  }
 
-  /* form,
-  .results,
+  form,
   .result,
   .btn-mission-title,
   .btn {
-    width: 296px;
-  } */
+    width: 306px;
+  }
 
   .results {
     width: 640px;
+  }
+
+  .spacer {
+    margin-top: 35px;
   }
 }
 

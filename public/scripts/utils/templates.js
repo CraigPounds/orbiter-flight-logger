@@ -384,7 +384,7 @@ function decorateHomePage() {
 
 function decorateGalleryPage() {
   let links = DATA.images.map((image, i) => {
-    let thumbnail = i > 0 ? '' : `<img src="./images/challenger.jpg" title="${image.title}" alt="${image.title}">`;
+    let thumbnail = i > 0 ? '' : `<img class="thumbnail" src="./images/challenger.jpg" title="${image.title}" alt="${image.title}">`;
     return `
     <a class="lightboxgallery-gallery-item" target="_blank" href="${image.src}" title="${image.title}" data-title="${image.title}" data-alt="${image.title}" data-desc="">
       <div>
