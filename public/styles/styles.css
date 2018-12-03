@@ -29,17 +29,17 @@ p {
 }
 
 h1 {
-  margin: 20px 0;
+  margin: 10px 0;
   font-size: 2.6em;
 }
 
 h2 {
-  margin: 15px 0;
+  margin: 10px 0;
   font-size: 1.8em;
 }
 
 h3 {
-  margin: 15px;
+  margin: 5px;
   font-size: 1.6em;
 }
 
@@ -59,6 +59,7 @@ nav a {
 
 a {
   color: #212121;
+  text-decoration: none;
 }
 
 a:hover {
@@ -72,7 +73,7 @@ a:visited {
 .thumbnail {
   display: block;
   width: 80%;
-  max-width: 640px;
+  max-width: 580px;
   margin: auto;
 }
 
@@ -123,6 +124,7 @@ form,
 .title,
 .search-text {
   margin: 1px 3px;
+  font-family: inherit;
   border: none;
 }
 
@@ -263,10 +265,70 @@ form,
   }
 
   h2,
-  h3,
   nav ul {
-    margin: 25px 0;
+    /* margin: 25px 0; */
+  }  
+
+  .results {
+    width: 640px;
   }
+
+  .spacer {
+    /* margin-top: 35px; */
+  }
+
+  .right {
+    margin-right: 15px;
+  }
+  
+  .left {
+    margin-left: 15px;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+
+  .version-mission label {
+    /* margin-right: 5%; */
+  }
+  
+  .log label {
+    /* margin-right: 28%; */
+    /* margin-right: 16%; */
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    line-height: 1.6em;
+  }
+
+  h1 {
+    margin: 15px 0;
+    font-size: 3.2em;
+  }
+
+  h2 {
+    font-size: 2.4em;
+  }
+
+  h3 {
+    font-size: 2.2em;
+  }
+
+  h2,
+  nav ul {
+    /* margin: 20px 0; */
+  } 
+
+  .spacer {
+    /* margin-top: 35px; */
+  }
+  
+}
+
+@media only screen and (min-width: 1024px) {
 
   .user-input {
     width: 180px;
@@ -301,25 +363,13 @@ form,
     width: 640px;
   }
 
-  .spacer {
-    margin-top: 35px;
-  }
-}
-
-@media only screen and (min-width: 800px) {
-
-  .version-mission label {
-    /* margin-right: 5%; */
+  .right {
+    margin-right: 0;
   }
   
-  .log label {
-    /* margin-right: 28%; */
-    /* margin-right: 16%; */
+  .left {
+    margin-left: 0;
   }
-}
-
-@media only screen and (min-width: 1024px) {
-
 }
 
 @media only screen and (min-width: 1366px) {

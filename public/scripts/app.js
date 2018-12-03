@@ -51,33 +51,6 @@ function postApiUserRefresh(data, callback) {
   });
 }
 
-function getApiUsers(data, callback) {
-  const settings = {
-    headers: buildHeaders(data),
-    url: '/users',
-    type: 'GET',
-    dataType: 'json',
-    success: callback
-  };
-  $.ajax(settings);
-}
-
-function getApiUserById(data, callback) {
-  const settings = {
-    headers: {
-      authorization: `Bearer ${DATA.authToken}`,
-    },
-    url: `/users/${data.id}`,
-    type: 'GET',
-    dataType: 'json',
-    success: callback
-  };
-  $.ajax(settings).fail(function(data) {
-    console.error('Location:', data.responseJSON.location);
-    console.error('Message:', data.responseJSON.message);
-  });
-}
-
 function putApiUser(data, callback) {
   const settings = {    
     headers: {
@@ -146,19 +119,6 @@ function getApiMissions(data, callback) {
   $.ajax(settings);
 }
 
-function getApiMissionById(data, callback) {
-  const settings = {
-    headers: {
-      authorization: `Bearer ${DATA.authToken}`,
-    },
-    url: `/missions/${data.id}`,
-    type: 'GET',
-    dataType: 'json',
-    success: callback
-  };
-  $.ajax(settings);
-}
-
 function putApiMission(data, callback) {
   const settings = {
     headers: {
@@ -194,19 +154,6 @@ function getApiLogs(data, callback) {
     type: 'GET',
     dataType: 'json',
     success: callback    
-  };
-  $.ajax(settings);
-}
-
-function getApiLogById(data, callback) {
-  const settings = {
-    headers: {
-      authorizaton: `Bearer ${DATA.authToken}`,
-    },
-    url: `/logs/${data.id}`,
-    type: 'GET',
-    dataType: 'json',
-    success: callback
   };
   $.ajax(settings);
 }
