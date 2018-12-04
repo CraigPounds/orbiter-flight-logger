@@ -263,36 +263,13 @@ function decorateSearchPage(data) {
           </label>
           <label for="#search-text">Vessel
             <input type="text" id="search-text" class="search-text">
-          </label>
-          <input type="submit" id="btn-search" class="btn spacer end" value="SEARCH">
+          </label>          
         </fieldset>
+        <input type="submit" id="btn-search" class="btn end" value="SEARCH">
       </form>
       <div class="results">
         ${SEARCH_RESULTS}
       </div>
-    </div>
-  </main>
-  `;
-}
-
-function decorateLoginPage(data) {
-  const USER_NAME = data.username !== undefined ? data.username : '';
-  const PASSWORD = DATA.user.password ? DATA.user.password : '';
-  return `
-  ${decorateNavigation()}
-  <main>
-    <div id="page-login">
-      <h2>User Log In</h2>
-      <form action="#" class="form-login">
-        <fieldset role="group">
-          <label for="#user-name">User Name
-            <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
-          </label>
-          <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
-          <input type="submit" id="btn-login" class="btn spacer" value="LOG IN">
-        </fieldset>
-      </form>
     </div>
   </main>
   `;
@@ -323,9 +300,33 @@ function decorateSignupPage() {
           </label>
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" class="user-input" required>
-          </label>
-          <input type="submit" id="btn-signup" class="btn spacer" value="SIGN UP">
+          </label>          
         </fieldset>
+        <input type="submit" id="btn-signup" class="btn" value="SIGN UP">
+      </form>
+    </div>
+  </main>
+  `;
+}
+
+function decorateLoginPage(data) {
+  const USER_NAME = data.username !== undefined ? data.username : '';
+  const PASSWORD = DATA.user.password ? DATA.user.password : '';
+  return `
+  ${decorateNavigation()}
+  <main>
+    <div id="page-login">
+      <h2>User Log In</h2>
+      <form action="#" class="form-login">
+        <fieldset role="group">
+          <label for="#user-name">User Name
+            <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
+          </label>
+          <label for="#password">Password
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+          </label>
+        </fieldset>
+        <input type="submit" id="btn-login" class="btn" value="LOG IN">
       </form>
     </div>
   </main>
@@ -357,10 +358,10 @@ function decorateProfilePage() {
           </label>
           <label for="#retype-password">Retype Password
             <input type="password" id="retype-password" class="user-input" required>
-          </label>
-          <input type="submit" id="btn-profile" class="btn spacer" value="SUBMIT">
-          <button id="btn-delete-profile" class="btn">DELETE PROFILE</button>
-        </fieldset>        
+          </label>          
+        </fieldset>     
+        <input type="submit" id="btn-profile" class="btn" value="SUBMIT">
+        <button id="btn-delete-profile" class="btn">DELETE PROFILE</button>   
       </form>
     </div>
   </main>
