@@ -239,9 +239,9 @@ function decorateSearchPage(data) {
     <div id="page-search">
       <h2>Search Flight Logs</h2>
       <form action="#" class="form-search">
-        <fieldset role="group">
+        <fieldset role="group" class="primary-inputs">
           <label for="#select-version">Orbiter Version
-            <select id="select-version" class="select-version">
+            <select id="select-version" class="select-version user-input">
               <option value="">--Choose Version--</option>
               <option value="Orbiter 2016">Orbiter 2016</option>
               <option value="Orbiter 2010">Orbiter 2010</option>
@@ -250,7 +250,7 @@ function decorateSearchPage(data) {
             </select>
           </label>
           <label for="#select-os">Operating System
-            <select id="select-os" class="select-os">
+            <select id="select-os" class="select-os user-input">
               <option value="">--Choose System--</option>
               <option value="Windows 10">Windows 10</option>
               <option value="Windows 8.1">Windows 8.1</option>
@@ -282,7 +282,7 @@ function decorateSignupPage() {
     <div id="page-signup">
       <h2>Create Account</h2>
       <form action="#" class="form-signup">
-        <fieldset role="group">
+        <fieldset role="group" class="primary-inputs">
           <label for="#first-name">First Name
             <input type="text" id="first-name" class="user-input" required placeholder="First Name">
           </label>
@@ -318,7 +318,7 @@ function decorateLoginPage(data) {
     <div id="page-login">
       <h2>User Log In</h2>
       <form action="#" class="form-login">
-        <fieldset role="group">
+        <fieldset role="group" class="primary-inputs">
           <label for="#user-name">User Name
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
@@ -340,7 +340,7 @@ function decorateProfilePage() {
     <div id="page-profile">
       <h2>Edit Profile</h2>      
       <form action="#" class="form-profile">
-        <fieldset role="group">
+        <fieldset role="group" class="primary-inputs">
           <label for="#first-name">First Name
             <input type="text" id="first-name" class="user-input" required value=${DATA.user.firstName}>
           </label>
@@ -406,8 +406,8 @@ function decorateGalleryPage() {
       <div class="lightboxgallery-gallery clearfix">
         ${links}
       </div>      
-      <h3>Useful Links</h3>
       <div class="results">
+      <h3>Useful Links</h3>
         <div class="left">
           <button class="btn-mission-title end">Orbiter / Add-ons</button>
           <div class="result links hidden" data-index="0">
