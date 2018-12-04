@@ -309,17 +309,6 @@ form {
     font-size: 2.2em;
   }
 
-  /* .user-input {
-    width: 190px;
-  } */
-  
-  /* .select-version,
-  .select-os,
-  .title,
-  .search-text {
-    width: 199px;
-  } */
-
   .txt-log-entry {
     width: 305px;
     padding: 5px;
@@ -359,13 +348,6 @@ form {
     font-size: 3.6em;
   }
   
-  /* .select-version,
-  .select-os,
-  .title,
-  .search-text {
-    width: 249px;
-  } */
-
   .txt-log-entry {
     width: 355px;
   }
@@ -396,33 +378,13 @@ form {
     width: 920px;
   }
 
-  /* nav a {
-    font-size: 1.2em;
-  } */
-  
-  /* nav ul {
-    margin: 20px;
-  } */
-
   h1 {
     font-size: 3.6em;
   }
   
-  /* .select-version,
-  .select-os,
-  .title,
-  .search-text {
-    width: 309px;
-  } */
-
   .txt-log-entry {
     width: 415px;
   }
-
-  /* .primary-inputs,
-  .results {
-    margin: 15px auto;
-  } */
   
   .version-mission label,
   .log label {
