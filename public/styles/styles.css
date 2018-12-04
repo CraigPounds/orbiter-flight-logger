@@ -37,12 +37,12 @@ h2 {
 }
 
 h3 {
+  margin: 10px;
   font-size: 1.6em;
 }
 
 h1,
 h2,
-h3,
 nav ul {
   margin: 15px 0;
 }
@@ -244,6 +244,18 @@ form {
 
 @media only screen and (min-width: 640px) {
 
+  .results {
+    width: 640px;
+  }
+
+  .right {
+    margin-right: 15px;
+  }
+  
+  .left {
+    margin-left: 15px;
+  }
+
   nav a {
     font-size: 1.2em;
   }
@@ -265,35 +277,19 @@ form {
 
   h3 {
     font-size: 2em;
-  }
-
-  .results {
-    width: 640px;
-  }
-
-  .right {
-    margin-right: 15px;
-  }
-  
-  .left {
-    margin-left: 15px;
-  }
+  }  
 }
 
 @media only screen and (min-width: 800px) {
 
-  /* nav a {
-    font-size: 1.2em;
-  } */
-  
-  /* nav ul {
-    margin: 20px;
-  } */
+  .results {
+    width: 700px;
+  }
 
-  /* nav li {
+  nav li {
     margin: 0 3px;
     padding: 9px 18px;
-  } */
+  }
 
   h1,
   h2,
@@ -314,74 +310,127 @@ form {
     font-size: 2.2em;
   }
 
-  /* .primary-inputs,
-  .results {
-    margin: 15px auto;
+  /* .user-input {
+    width: 190px;
   } */
-}
-
-@media only screen and (min-width: 1024px) {
-
-  .user-input {
-    width: 180px;
-  }
   
-  .select-version,
+  /* .select-version,
   .select-os,
   .title,
   .search-text {
-    width: 179px;
-  }
+    width: 199px;
+  } */
 
   .txt-log-entry {
-    width: 290px;
+    width: 310px;
   }
   
   .buttons-mission,
   .btn-save-mission,
   .version-mission,
   .version-search {
-    width: 300px;
+    width: 320px;
   }
 
   form,
   .result,
   .btn-mission-title,
   .btn {
-    width: 306px;
+    width: 326px;
   }
+}
+
+@media only screen and (min-width: 1024px) {
 
   .results {
-    width: 640px;
+    width: 800px;
   }
 
-  .right {
-    margin-right: 0;
+  h1 {
+    font-size: 3.6em;
   }
   
-  .left {
-    margin-left: 0;
-  }
-
-  /* .primary-inputs,
-  .results {
-    margin: 15px auto;
+  /* .select-version,
+  .select-os,
+  .title,
+  .search-text {
+    width: 249px;
   } */
 
-  .version-mission label {
-    /* margin-right: 5%; */
+  .txt-log-entry {
+    width: 360px;
   }
-  
+
+  .version-mission label,
   .log label {
-    /* margin-right: 28%; */
-    /* margin-right: 16%; */
+    margin-right: 16%;
   }
+    
+  .buttons-mission,
+  .btn-save-mission,
+  .version-mission,
+  .version-search {
+    width: 370px;
+  }
+
+  form,
+  .result,
+  .btn-mission-title,
+  .btn {
+    width: 376px;
+  } 
 }
 
 @media only screen and (min-width: 1366px) {
 
+  .results {
+    width: 920px;
+  }
+
+  /* nav a {
+    font-size: 1.2em;
+  } */
+  
+  /* nav ul {
+    margin: 20px;
+  } */
+
+  h1 {
+    font-size: 3.6em;
+  }
+  
+  /* .select-version,
+  .select-os,
+  .title,
+  .search-text {
+    width: 309px;
+  } */
+
+  .txt-log-entry {
+    width: 420px;
+  }
+
   /* .primary-inputs,
   .results {
     margin: 15px auto;
   } */
+  
+  .version-mission label,
+  .log label {
+    margin-right: 21%;
+  }
+  
+  .buttons-mission,
+  .btn-save-mission,
+  .version-mission,
+  .version-search {
+    width: 430px;
+  }
+
+  form,
+  .result,
+  .btn-mission-title,
+  .btn {
+    width: 436px;
+  }   
 }
