@@ -98,14 +98,12 @@ form {
   margin: 0 auto;
 }
 
-.log,
-.search-log {
+.log {
   margin: 0 3px;
 }
 
 .mission,
 .log,
-.search-log,
 .version-mission,
 .version-search {
   padding: 3px 0;
@@ -187,7 +185,8 @@ form {
 }
 
 .search-log {
-  margin-bottom: 3px;
+  margin: 0 3px 3px 3px;
+  padding: 0 3px;
   background: #2196F3;
 }
 
@@ -322,7 +321,17 @@ form {
   } */
 
   .txt-log-entry {
-    width: 310px;
+    width: 305px;
+    padding: 5px;
+  }
+
+  .search-log {
+    padding: 5px;
+  }
+
+  .version-mission label,
+  .log label {
+    margin-right: 7%;
   }
   
   .buttons-mission,
@@ -358,7 +367,7 @@ form {
   } */
 
   .txt-log-entry {
-    width: 360px;
+    width: 355px;
   }
 
   .version-mission label,
@@ -407,7 +416,7 @@ form {
   } */
 
   .txt-log-entry {
-    width: 420px;
+    width: 415px;
   }
 
   /* .primary-inputs,
