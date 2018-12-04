@@ -99,6 +99,8 @@ function decorateMission(mission, i) {
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
   let endClass = i === Math.floor(DATA.missions.length / 2) ? 'end' : '';
+  console.log('i',i);
+  console.log('Math.floor(DATA.missions.length / 2)', Math.floor(DATA.missions.length / 2));
   let rowEnd = i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1 ? '</div>' : '';
   let newMissionButton =  DATA.dataSaved && i === DATA.missions.length - 1 ? '<button id="btn-new-mission" class="btn">NEW MISSION</button>' : '';
   let formClass = '';
@@ -323,7 +325,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+            <input type="password" id="password" class="user-input" value="passwordguest" required>
           </label>
         </fieldset>
         <input type="submit" id="btn-login" class="btn" value="LOG IN">
@@ -369,7 +371,7 @@ function decorateProfilePage() {
 }
 
 function decorateHomePage() {
-  const MISSIONS = DATA.missions.length > 0 ? decorateMissions(DATA.missions) : '';
+  const MISSIONS = DATA.missions.length > 0 ? decorateMissions(DATA.missions) : '<div class="left"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
   return `
   ${decorateNavigation()}
   <main>
