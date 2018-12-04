@@ -109,10 +109,7 @@ form {
   padding: 3px 0;
 }
 
-.user-input {
-  width: 170px;
-}
-
+.user-input,
 .select-version,
 .select-os,
 .title,
@@ -307,7 +304,7 @@ form {
 
   h3 {
     font-size: 2.2em;
-  }
+  } 
 
   .txt-log-entry {
     width: 305px;
@@ -316,11 +313,6 @@ form {
 
   .search-log {
     padding: 5px;
-  }
-
-  .version-mission label,
-  .log label {
-    margin-right: 7%;
   }
   
   .buttons-mission,
@@ -336,6 +328,12 @@ form {
   .btn {
     width: 326px;
   }
+
+  .btn-mission-title,
+  .btn {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
 }
 
 @media only screen and (min-width: 1024px) {
@@ -347,14 +345,22 @@ form {
   h1 {
     font-size: 3.6em;
   }
+
+  label {
+    font-size: 1.2em;
+  }
+
+  .user-input,
+  .select-version,
+  .select-os,
+  .title,
+  .search-text {
+    width: 219px;
+    font-size: 1em;
+  } 
   
   .txt-log-entry {
     width: 355px;
-  }
-
-  .version-mission label,
-  .log label {
-    margin-right: 16%;
   }
     
   .buttons-mission,
@@ -369,7 +375,13 @@ form {
   .btn-mission-title,
   .btn {
     width: 376px;
-  } 
+  }
+
+  .btn-mission-title,
+  .btn {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
 }
 
 @media only screen and (min-width: 1366px) {
@@ -378,17 +390,37 @@ form {
     width: 920px;
   }
 
+  nav ul {
+    margin: 20px;
+  }
+
+  nav li {
+    margin: 0 7px;
+    padding: 15px 18px;
+  }
+
+  nav a {
+    font-size: 1.4em;
+  }
+
   h1 {
-    font-size: 3.6em;
+    font-size: 3.9em;
   }
   
+  label {
+    font-size: 1.3em;
+  }
+  
+  .user-input,
+  .select-version,
+  .select-os,
+  .title,
+  .search-text {
+    width: 259px;
+  }
+
   .txt-log-entry {
     width: 415px;
-  }
-  
-  .version-mission label,
-  .log label {
-    margin-right: 21%;
   }
   
   .buttons-mission,
@@ -403,5 +435,12 @@ form {
   .btn-mission-title,
   .btn {
     width: 436px;
-  }   
+  }
+
+  .btn-mission-title,
+  .btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 1.4em;
+  }
 }
