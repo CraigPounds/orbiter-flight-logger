@@ -101,7 +101,9 @@ function decorateMission(mission, i) {
   let endClass = i === Math.floor(DATA.missions.length / 2) ? 'end' : '';
   console.log('i',i);
   console.log('Math.floor(DATA.missions.length / 2)', Math.floor(DATA.missions.length / 2));
-  let rowEnd = i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1 ? '</div>' : '';
+  // let rowEnd = i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1 ? '</div>' : '';
+  let rowEnd = i !== 0 && (i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1) ? '</div>' : '';
+  console.log('rowEnd', rowEnd);
   let newMissionButton =  DATA.dataSaved && i === DATA.missions.length - 1 ? '<button id="btn-new-mission" class="btn">NEW MISSION</button>' : '';
   let formClass = '';
   let buttonsClass = '';
@@ -325,7 +327,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="passwordguest" required>
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
           </label>
         </fieldset>
         <input type="submit" id="btn-login" class="btn" value="LOG IN">
