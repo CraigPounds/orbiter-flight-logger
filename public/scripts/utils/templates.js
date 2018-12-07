@@ -99,19 +99,29 @@ function decorateMission(mission, i) {
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
   let endClass = i === Math.floor(DATA.missions.length / 2) ? 'end' : '';
-  console.log('i',i);
-  console.log('Math.floor(DATA.missions.length / 2)', Math.floor(DATA.missions.length / 2));
-  // let rowEnd = i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1 ? '</div>' : '';
-  let rowEnd = i !== 0 && (i === Math.floor(DATA.missions.length / 2) || i === DATA.missions.length - 1) ? '</div>' : '';
-  console.log('rowEnd', rowEnd);
-  let newMissionButton =  DATA.dataSaved && i === DATA.missions.length - 1 ? '<button id="btn-new-mission" class="btn">NEW MISSION</button>' : '';
+  // let newMissionButton =  DATA.dataSaved && i === DATA.missions.length - 1 ? '<button id="btn-new-mission" class="btn">NEW MISSION</button>' : '';
+  let newMissionButton = '';
+
+  if (DATA.dataSaved && DATA.missions.length !== 1) {
+    if(DATA.missions.length % 2 === 0 && i === Math.ceil(DATA.missions.length / 2) - 1) {
+      console.log('even');
+      newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
+    };
+    if(DATA.missions.length % 2 === 1 && i === DATA.missions.length - 1) {
+      console.log('odd');
+      newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
+    };
+  }
   let formClass = '';
   let buttonsClass = '';
-  let saveButton = '';  
+  let saveButton = '';
+
+  let rowEnd = i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
+  if(DATA.dataSaved && DATA.missions.length === 1) rowEnd = '</div><div class="right"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
   let rowStart = '';
 
   if (i === 0 ) rowStart = '<div class="left">';
-  if (i === Math.floor(DATA.missions.length / 2) + 1) rowStart = '<div class="right">';
+  if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
 
   if (mission._id) {
     formClass = 'form-put-mission';
@@ -327,7 +337,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+            <input type="password" id="password" class="user-input" value="passwordnapes" required>
           </label>
         </fieldset>
         <input type="submit" id="btn-login" class="btn" value="LOG IN">
