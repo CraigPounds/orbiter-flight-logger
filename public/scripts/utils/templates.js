@@ -337,7 +337,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="passwordnapes" required>
+            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
           </label>
         </fieldset>
         <input type="submit" id="btn-login" class="btn" value="LOG IN">
