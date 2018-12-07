@@ -102,36 +102,39 @@ function decorateMission(mission, i) {
   let buttonsClass = '';
   let saveButton = '';
 
-  let endClass = i === Math.ceil(DATA.missions.length / 2) - 1 ? 'end' : '';
-  let rowEnd = i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
-  // let endClass = '';
-  // let rowEnd = '';
+  let endClass = '';
+  let rowEnd = '';
   let rowStart = '';
   let newMissionButton = '';
 
   if (i === 0) rowStart = '<div class="left">';
-  if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
 
-  // if (DATA.missions.length % 2 === 0) {
-  //   if (Math.ceil(DATA.missions.length / 2) - 1) {
-  //     endClass = 'end';
-  //   }
-  //   if (Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1) {
-  //     rowEnd = '</div>';
-  //   }
-  // }
-  // if (DATA.missions.length % 2 === 1) {
-  //   if (Math.ceil(DATA.missions.length / 2) - 1) {
-  //     endClass = 'end';
-  //   }
-  //   if (Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1) {
-  //     rowEnd = '</div>';
-  //   }
-  // }
+  if (DATA.missions.length % 2 === 0) {
+
+    if (i === Math.ceil(DATA.missions.length / 2) + 1) rowStart = '<div class="right">';
+
+    if (Math.ceil(DATA.missions.length / 2)) {
+      endClass = 'end';
+    }
+    if (i === Math.ceil(DATA.missions.length / 2) || i === DATA.missions.length - 1) {
+      rowEnd = '</div>';
+    }
+  }
+  if (DATA.missions.length % 2 === 1) {
+
+    if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
+
+    if (Math.ceil(DATA.missions.length / 2) - 1) {
+      endClass = 'end';
+    }
+    if (i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1) {
+      rowEnd = '</div>';
+    }
+  }
   
-  if(DATA.dataSaved && DATA.missions.length !== 1 && i === DATA.missions.length - 1) newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
+  if(DATA.dataSaved && DATA.missions.length !== 1 && DATA.missions.length !== 2 && i === DATA.missions.length - 1) newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
    
-  if(DATA.dataSaved && DATA.missions.length === 1) rowEnd = '</div><div class="right"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
+  if(DATA.dataSaved && DATA.missions.length === 1 || (DATA.missions.length === 2 && i === 1)) rowEnd = '</div><div class="right"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
   
   if (mission._id) {
     formClass = 'form-put-mission';
