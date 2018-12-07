@@ -98,31 +98,41 @@ function decorateMission(mission, i) {
   let logs = mission.logs ? decorateLogs(mission.logs) : '';
   let deleteButton = DATA.dataSaved ? '<button class="btn-delete-mission btn-small">DELETE MISSION</button>' : '';
   let buttonTitleClass = DATA.dataSaved ? 'btn-mission-title' : 'btn-mission-title end';
-  let endClass = i === Math.floor(DATA.missions.length / 2) ? 'end' : '';
-  // let newMissionButton =  DATA.dataSaved && i === DATA.missions.length - 1 ? '<button id="btn-new-mission" class="btn">NEW MISSION</button>' : '';
-  let newMissionButton = '';
-
-  if (DATA.dataSaved && DATA.missions.length !== 1) {
-    if(DATA.missions.length % 2 === 0 && i === Math.ceil(DATA.missions.length / 2) - 1) {
-      console.log('even');
-      newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
-    };
-    if(DATA.missions.length % 2 === 1 && i === DATA.missions.length - 1) {
-      console.log('odd');
-      newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
-    };
-  }
   let formClass = '';
   let buttonsClass = '';
   let saveButton = '';
 
+  let endClass = i === Math.ceil(DATA.missions.length / 2) - 1 ? 'end' : '';
   let rowEnd = i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
-  if(DATA.dataSaved && DATA.missions.length === 1) rowEnd = '</div><div class="right"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
+  // let endClass = '';
+  // let rowEnd = '';
   let rowStart = '';
+  let newMissionButton = '';
 
-  if (i === 0 ) rowStart = '<div class="left">';
+  if (i === 0) rowStart = '<div class="left">';
   if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
 
+  // if (DATA.missions.length % 2 === 0) {
+  //   if (Math.ceil(DATA.missions.length / 2) - 1) {
+  //     endClass = 'end';
+  //   }
+  //   if (Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1) {
+  //     rowEnd = '</div>';
+  //   }
+  // }
+  // if (DATA.missions.length % 2 === 1) {
+  //   if (Math.ceil(DATA.missions.length / 2) - 1) {
+  //     endClass = 'end';
+  //   }
+  //   if (Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1) {
+  //     rowEnd = '</div>';
+  //   }
+  // }
+  
+  if(DATA.dataSaved && DATA.missions.length !== 1 && i === DATA.missions.length - 1) newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
+   
+  if(DATA.dataSaved && DATA.missions.length === 1) rowEnd = '</div><div class="right"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
+  
   if (mission._id) {
     formClass = 'form-put-mission';
     buttonsClass = 'buttons-mission';
@@ -221,7 +231,7 @@ function decorateSearchMissions(missions) {
     let rowEnd = i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
     let rowStart = '';
 
-    if (i === 0 ) rowStart = '<div class="left">';
+    if (i === 0) rowStart = '<div class="left">';
     if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
 
     return `
