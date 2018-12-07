@@ -229,13 +229,13 @@ function decorateSearchMissions(missions) {
     let os = mission ? mission.os : '';
     let title = mission ? mission.title : 'Untitled Mission';
     let index = mission._id ? mission._id : `new-mission-${$('.btn-mission-title' ).length}`;
-    let logs = mission.logs ? decorateSearchLogs(mission.logs) : '';    
-    let endClass = i === Math.ceil(DATA.missions.length / 2) - 1 ? 'end' : '';
-    let rowEnd = i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1 ? '</div>' : '';
+    let logs = mission.logs ? decorateSearchLogs(mission.logs) : ''; 
+    let endClass = i === Math.ceil(searchedMissions.length / 2) - 1 ? 'end' : '';
+    let rowEnd = i === Math.ceil(searchedMissions.length / 2) - 1 || i === searchedMissions.length - 1 ? '</div>' : '';
     let rowStart = '';
 
     if (i === 0) rowStart = '<div class="left">';
-    if (i === Math.ceil(DATA.missions.length / 2)) rowStart = '<div class="right">';
+    if (i === Math.ceil(searchedMissions.length / 2)) rowStart = '<div class="right">';
 
     return `
     ${rowStart}
