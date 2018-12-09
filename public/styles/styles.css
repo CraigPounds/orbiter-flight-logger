@@ -188,6 +188,7 @@ form {
 }
 
 .result {  
+  margin: 0 auto;
   background: #BBDEFB;
 }
 
@@ -228,6 +229,7 @@ form {
 
 .right {
   float: right;
+  margin-bottom: 50px;  
 }
 
 .left {

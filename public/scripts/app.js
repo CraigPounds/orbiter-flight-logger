@@ -265,7 +265,7 @@ function handleToggleMission(event) {
 
 function handleBtnNewMission(event) {
   event.preventDefault();  
-  $('.result').hide();
+  $(event.currentTarget).hide();
   DATA.dataSaved = false;
   $(event.currentTarget).replaceWith(decorateMission({
     logs: [{

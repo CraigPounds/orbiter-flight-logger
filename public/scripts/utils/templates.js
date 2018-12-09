@@ -350,7 +350,7 @@ function decorateLoginPage(data) {
             <input type="text" id="user-name" class="user-input" value="${USER_NAME}" required>
           </label>
           <label for="#password">Password
-            <input type="password" id="password" class="user-input" value="${PASSWORD}" required>
+            <input type="password" id="password" class="user-input" value="passwordnapes" required>
           </label>
         </fieldset>
         <input type="submit" id="btn-login" class="btn" value="LOG IN">
@@ -396,7 +396,7 @@ function decorateProfilePage() {
 }
 
 function decorateHomePage() {
-  const MISSIONS = DATA.missions.length > 0 ? decorateMissions(DATA.missions) : '<div class="left"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
+  const MISSIONS = DATA.missions.length > 0 ? decorateMissions(DATA.missions) : '<div><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
   return `
   ${decorateNavigation()}
   <main>
