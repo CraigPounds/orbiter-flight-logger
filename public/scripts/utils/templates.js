@@ -130,8 +130,7 @@ function decorateMission(mission, i) {
     if (i === Math.ceil(DATA.missions.length / 2) - 1 || i === DATA.missions.length - 1) {
       rowEnd = '</div>';
     }
-  }
-  
+  }  
   if(DATA.dataSaved && DATA.missions.length !== 1 && DATA.missions.length !== 2 && i === DATA.missions.length - 1) newMissionButton = '<button id="btn-new-mission" class="btn">NEW MISSION</button>';
    
   if(DATA.dataSaved && DATA.missions.length === 1 || (DATA.missions.length === 2 && i === 1)) rowEnd = '</div><div class="right"><button id="btn-new-mission" class="btn">NEW MISSION</button></div>';
