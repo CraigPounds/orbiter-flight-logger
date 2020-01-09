@@ -1,12 +1,15 @@
 'use strict';
 
+//const dotenv = require('dotenv');
+//dotenv.config();
 require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const app = express();
-
+// Block Header from containing info about server
+app.disable('x-powered-by');
 const passport = require('passport');
 
 const { router: usersRouter } = require('./users');
@@ -21,8 +24,10 @@ mongoose.Promise = global.Promise;
 // Logging
 app.use(morgan('common'));
 
+// Set static folder
 app.use(express.static('public'));
 
+// Body Parser Middleware
 app.use(express.json());
 
 // CORS
@@ -39,6 +44,7 @@ app.use(function (req, res, next) {
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
+// Routing
 app.use('/users/', usersRouter);
 app.use('/missions/', missionsRouter);
 app.use('/logs/', logsRouter);
