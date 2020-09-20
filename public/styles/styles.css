@@ -361,10 +361,11 @@ form {
     width: 219px;
     font-size: 1em;
   }
-
+  
   .title,
   .search-text {
     width: 215px;
+    font-size: 1em;
   }
   
   .txt-log-entry {
