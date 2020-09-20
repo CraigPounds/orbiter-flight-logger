@@ -421,10 +421,13 @@ form {
   
   .user-input,
   .select-version,
-  .select-os,
+  .select-os {
+    width: 259px;
+  }
+
   .title,
   .search-text {
-    width: 259px;
+    width: 255px;
   }
 
   .txt-log-entry {
