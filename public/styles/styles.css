@@ -111,10 +111,13 @@ form {
 
 .user-input,
 .select-version,
-.select-os,
+.select-os {
+  width: 169px;
+}
+
 .title,
 .search-text {
-  width: 169px;
+  width: 165px;
 }
 
 .user-input,
@@ -354,12 +357,15 @@ form {
 
   .user-input,
   .select-version,
-  .select-os,
-  .title,
-  .search-text {
+  .select-os {
     width: 219px;
     font-size: 1em;
-  } 
+  }
+
+  .title,
+  .search-text {
+    width: 215px;
+  }
   
   .txt-log-entry {
     width: 355px;
