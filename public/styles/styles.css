@@ -393,6 +393,58 @@ form {
   }
 }
 
+@media only screen and (min-width: 1080px) {
+
+  .results {
+    /* width: 800px; */
+  }
+
+  h1 {
+    /* font-size: 3.6em; */
+  }
+
+  label {
+    /* font-size: 1.2em; */
+  }
+
+  .user-input,
+  .select-version,
+  .select-os {
+    /* width: 219px; */
+    /* font-size: 1em; */
+  }
+  
+  .title,
+  .search-text {
+    /* width: 215px; */
+    /* font-size: 1em; */
+  }
+  
+  .txt-log-entry {
+    /* width: 355px; */
+  }
+    
+  .buttons-mission,
+  .btn-save-mission,
+  .version-mission,
+  .version-search {
+    /* width: 370px; */
+  }
+
+  form,
+  .result,
+  .btn-mission-title,
+  .btn {
+    /* width: 376px; */
+  }
+
+  .btn-mission-title,
+  .btn {
+    /* padding-top: 9px;
+    padding-bottom: 9px; */
+  }
+}
+
 @media only screen and (min-width: 1366px) {
 
   .results {
